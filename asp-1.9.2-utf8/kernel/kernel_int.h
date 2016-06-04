@@ -61,6 +61,7 @@
 #include "dataqueue.h"
 #include "pridataq.h"
 #include "mailbox.h"
+#include "mutex.h"
 #include "mempfix.h"
 #include "cyclic.h"
 #include "alarm.h"

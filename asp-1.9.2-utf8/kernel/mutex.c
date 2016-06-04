@@ -51,6 +51,22 @@
 /*
  *  トレースログマクロのデフォルト定義
  */
+#ifndef LOG_ACRE_MTX_ENTER
+#define LOG_ACRE_MTX_ENTER(pk_csem)
+#endif /* LOG_ACRE_MTX_ENTER */
+
+#ifndef LOG_ACRE_MTX_LEAVE
+#define LOG_ACRE_MTX_LEAVE(ercd)
+#endif /* LOG_ACRE_MTX_LEAVE */
+
+#ifndef LOG_DEL_MTX_ENTER
+#define LOG_DEL_MTX_ENTER(semid)
+#endif /* LOG_DEL_MTX_ENTER */
+
+#ifndef LOG_DEL_MTX_LEAVE
+#define LOG_DEL_MTX_LEAVE(ercd)
+#endif /* LOG_DEL_MTX_LEAVE */
+
 #ifndef LOG_LOC_MTX_ENTER
 #define LOG_LOC_MTX_ENTER(mtxid)
 #endif /* LOG_LOC_MTX_ENTER */
@@ -103,6 +119,7 @@
  *  ミューテックスの数
  */
 #define tnum_mtx	((uint_t)(tmax_mtxid - TMIN_MTXID + 1))
+#define tnum_smtx	((uint_t)(tmax_smtxid - TMIN_MTXID + 1))
 
 /*
  *  ミューテックスIDからミューテックス管理ブロックを取り出すためのマクロ
@@ -140,22 +157,36 @@ bool_t	(*mtxhook_release_all)(TCB *p_tcb) = NULL;
  */
 #ifdef TOPPERS_mtxini
 
+/*
+ *  使用していないミューテックス管理ブロックのリスト
+ */
+QUEUE	free_mtxcb;
+
 void
 initialize_mutex(void)
 {
-	uint_t	i;
+	uint_t	i, j;
 	MTXCB	*p_mtxcb;
-
+	MTXINIB	*p_mtxinib;
+	
 	mtxhook_check_ceilpri = mutex_check_ceilpri;
 	mtxhook_scan_ceilmtx = mutex_scan_ceilmtx;
 	mtxhook_release_all = mutex_release_all;
 
-	for (i = 0; i < tnum_mtx; i++) {
+	for (i = 0; i < tnum_smtx; i++) {
 		p_mtxcb = &(mtxcb_table[i]);
 		queue_initialize(&(p_mtxcb->wait_queue));
 		p_mtxcb->p_mtxinib = &(mtxinib_table[i]);
 		p_mtxcb->p_loctsk = NULL;
 	}
+	queue_initialize(&free_mtxcb);
+	for (j = 0; i < tnum_mtx; i++, j++) {
+		p_mtxcb = &(mtxcb_table[i]);
+		p_mtxinib = &(amtxinib_table[j]);
+		p_mtxinib->mtxatr = TA_NOEXS;
+		p_mtxcb->p_mtxinib = ((const MTXINIB *) p_mtxinib);
+		queue_insert_prev(&free_mtxcb, &(p_mtxcb->wait_queue));
+	}	
 }
 
 #endif /* TOPPERS_mtxini */
@@ -354,6 +385,89 @@ mutex_release_all(TCB *p_tcb)
 }
 
 #endif /* TOPPERS_mtxrela */
+
+/*
+ *  ミューテックスの生成
+ */
+#ifdef TOPPERS_acre_mtx
+
+ER_UINT
+acre_mtx(const T_CMTX *pk_cmtx)
+{
+	MTXCB	*p_mtxcb;
+	MTXINIB	*p_mtxinib;
+	ER		ercd;
+
+	LOG_ACRE_MTX_ENTER(pk_cmtx);
+	CHECK_TSKCTX_UNL();
+	CHECK_TPRI(pk_cmtx->ceilpri);
+
+	t_lock_cpu();
+	if (tnum_mtx == 0 || queue_empty(&free_mtxcb)) {
+		ercd = E_NOID;
+	}
+	else {
+		p_mtxcb = ((MTXCB *) queue_delete_next(&free_mtxcb));
+		p_mtxinib = (MTXINIB *)(p_mtxcb->p_mtxinib);
+		p_mtxinib->mtxatr = pk_cmtx->mtxatr;
+		p_mtxinib->ceilpri = pk_cmtx->ceilpri;
+
+		queue_initialize(&(p_mtxcb->wait_queue));
+		p_mtxcb->p_loctsk = NULL;
+		ercd = MTXID(p_mtxcb);
+	}
+	t_unlock_cpu();
+
+  error_exit:
+	LOG_ACRE_MTX_LEAVE(ercd);
+	return(ercd);
+}
+
+#endif /* TOPPERS_acre_mtx */
+
+/*
+ *  ミューテックスの削除
+ */
+#ifdef TOPPERS_del_mtx
+
+ER
+del_mtx(ID mtxid)
+{
+	MTXCB	*p_mtxcb;
+	MTXINIB	*p_mtxinib;
+	bool_t	dspreq;
+	ER		ercd;
+
+	LOG_DEL_MTX_ENTER(mtxid);
+	CHECK_TSKCTX_UNL();
+	CHECK_MTXID(mtxid);
+	p_mtxcb = get_mtxcb(mtxid);
+
+	t_lock_cpu();
+	if (p_mtxcb->p_mtxinib->mtxatr == TA_NOEXS) {
+		ercd = E_NOEXS;
+	}
+	else if (MTXID(p_mtxcb) > tmax_smtxid) {
+		dspreq = init_wait_queue(&(p_mtxcb->wait_queue));
+		p_mtxinib = (MTXINIB *)(p_mtxcb->p_mtxinib);
+		p_mtxinib->mtxatr = TA_NOEXS;
+		queue_insert_prev(&free_mtxcb, &(p_mtxcb->wait_queue));
+		if (dspreq) {
+			dispatch();
+		}
+		ercd = E_OK;
+	}
+	else {
+		ercd = E_OBJ;
+	}
+	t_unlock_cpu();
+
+  error_exit:
+	LOG_DEL_MTX_LEAVE(ercd);
+	return(ercd);
+}
+
+#endif /* TOPPERS_del_mtx */
 
 /*
  *  ミューテックスのロック

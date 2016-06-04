@@ -5,7 +5,7 @@
  * 
  *  Copyright (C) 2000-2003 by Embedded and Real-Time Systems Laboratory
  *                              Toyohashi Univ. of Technology, JAPAN
- *  Copyright (C) 2005-2011 by Embedded and Real-Time Systems Laboratory
+ *  Copyright (C) 2005-2012 by Embedded and Real-Time Systems Laboratory
  *              Graduate School of Information Science, Nagoya Univ., JAPAN
  * 
  *  上記著作権者は，以下の(1)～(4)の条件を満たす場合に限り，本ソフトウェ
@@ -93,14 +93,21 @@ typedef struct eventflag_waiting_information {
 } WINFO_FLG;
 
 /*
+ *  使用していないイベントフラグ管理ブロックのリスト
+ */
+extern QUEUE	free_flgcb;
+
+/*
  *  イベントフラグIDの最大値（kernel_cfg.c）
  */
 extern const ID	tmax_flgid;
+extern const ID	tmax_sflgid;
 
 /*
  *  イベントフラグ初期化ブロックのエリア（kernel_cfg.c）
  */
 extern const FLGINIB	flginib_table[];
+extern FLGINIB			aflginib_table[];
 
 /*
  *  イベントフラグ管理ブロックのエリア（kernel_cfg.c）

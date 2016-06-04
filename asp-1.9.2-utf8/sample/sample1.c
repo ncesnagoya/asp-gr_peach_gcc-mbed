@@ -100,6 +100,9 @@
  *  'z' : 対象タスクにCPU例外を発生させる（タスクを終了させる）．
  *  'Z' : 対象タスクにCPUロック状態でCPU例外を発生させる（プログラムを
  *        終了する）．
+ *  '@' : タスク3をacre_tskにより生成し，def_texによりタスク例外処理
+ *        ルーチンを設定する．
+ *  '!' : 対象タスクをdel_tskにより削除する．
  *  'V' : get_utmで性能評価用システム時刻を2回読む．
  *  'v' : 発行したシステムコールを表示する（デフォルト）．
  *  'q' : 発行したシステムコールを表示しない．
@@ -295,6 +298,9 @@ void main_task(intptr_t exinf)
 #ifdef TOPPERS_SUPPORT_GET_UTM
 	SYSUTM	utime1, utime2;
 #endif /* TOPPERS_SUPPORT_GET_UTM */
+	T_CTSK	ctsk;
+	T_DTEX	dtex;
+	ID		TASK3 = -1;
 
 	SVC_PERROR(syslog_msk_log(LOG_UPTO(LOG_INFO), LOG_UPTO(LOG_EMERG)));
 	syslog(LOG_NOTICE, "Sample program starts (exinf = %d).", (int_t) exinf);
@@ -370,7 +376,6 @@ void main_task(intptr_t exinf)
 	 */
 	SVC_PERROR(act_tsk(TASK1));
 	SVC_PERROR(act_tsk(TASK2));
-	SVC_PERROR(act_tsk(TASK3));
 
 	/*
  	 *  メインループ
@@ -486,6 +491,26 @@ void main_task(intptr_t exinf)
 		case 'B':
 			syslog(LOG_INFO, "#stp_alm(1)");
 			SVC_PERROR(stp_alm(ALMHDR1));
+			break;
+		case '@':
+			ctsk.tskatr = TA_NULL;
+			ctsk.exinf = 3;
+			ctsk.task = task;
+			ctsk.itskpri = MID_PRIORITY;
+			ctsk.stksz = STACK_SIZE;
+			ctsk.stk = NULL;
+			SVC_PERROR(TASK3 = acre_tsk(&ctsk));
+
+			dtex.texatr = TA_NULL;
+			dtex.texrtn = tex_routine;
+			SVC_PERROR(def_tex(TASK3, &dtex));
+
+			syslog(LOG_NOTICE, "task3 is created with tskid = %d.",
+														(int_t) TASK3);
+			break;
+		case '!':
+			syslog(LOG_INFO, "#del_tsk(%d)", tskno);
+			SVC_PERROR(del_tsk(tskid));
 			break;
 
 		case 'V':

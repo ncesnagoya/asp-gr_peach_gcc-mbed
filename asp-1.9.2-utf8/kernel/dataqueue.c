@@ -5,7 +5,7 @@
  * 
  *  Copyright (C) 2000-2003 by Embedded and Real-Time Systems Laboratory
  *                              Toyohashi Univ. of Technology, JAPAN
- *  Copyright (C) 2005-2013 by Embedded and Real-Time Systems Laboratory
+ *  Copyright (C) 2005-2014 by Embedded and Real-Time Systems Laboratory
  *              Graduate School of Information Science, Nagoya Univ., JAPAN
  * 
  *  上記著作権者は，以下の(1)～(4)の条件を満たす場合に限り，本ソフトウェ
@@ -37,7 +37,7 @@
  *  アの利用により直接的または間接的に生じたいかなる損害に関しても，そ
  *  の責任を負わない．
  * 
- *  @(#) $Id: dataqueue.c 2728 2015-12-30 01:46:11Z ertl-honda $
+ *  $Id: dataqueue.c 2728 2015-12-30 01:46:11Z ertl-honda $
  */
 
 /*
@@ -53,6 +53,22 @@
 /*
  *  トレースログマクロのデフォルト定義
  */
+#ifndef LOG_ACRE_DTQ_ENTER
+#define LOG_ACRE_DTQ_ENTER(pk_cdtq)
+#endif /* LOG_ACRE_DTQ_ENTER */
+
+#ifndef LOG_ACRE_DTQ_LEAVE
+#define LOG_ACRE_DTQ_LEAVE(ercd)
+#endif /* LOG_ACRE_DTQ_LEAVE */
+
+#ifndef LOG_DEL_DTQ_ENTER
+#define LOG_DEL_DTQ_ENTER(dtqid)
+#endif /* LOG_DEL_DTQ_ENTER */
+
+#ifndef LOG_DEL_DTQ_LEAVE
+#define LOG_DEL_DTQ_LEAVE(ercd)
+#endif /* LOG_DEL_DTQ_LEAVE */
+
 #ifndef LOG_SND_DTQ_ENTER
 #define LOG_SND_DTQ_ENTER(dtqid, data)
 #endif /* LOG_SND_DTQ_ENTER */
@@ -145,6 +161,7 @@
  *  データキューの数
  */
 #define tnum_dtq	((uint_t)(tmax_dtqid - TMIN_DTQID + 1))
+#define tnum_sdtq	((uint_t)(tmax_sdtqid - TMIN_DTQID + 1))
 
 /*
  *  データキューIDからデータキュー管理ブロックを取り出すためのマクロ
@@ -152,18 +169,24 @@
 #define INDEX_DTQ(dtqid)	((uint_t)((dtqid) - TMIN_DTQID))
 #define get_dtqcb(dtqid)	(&(dtqcb_table[INDEX_DTQ(dtqid)]))
 
+#ifdef TOPPERS_dtqini
+
+/*
+ *  使用していないデータキュー管理ブロックのリスト
+ */
+QUEUE	free_dtqcb;
+
 /*
  *  データキュー機能の初期化
  */
-#ifdef TOPPERS_dtqini
-
 void
 initialize_dataqueue(void)
 {
-	uint_t	i;
+	uint_t	i, j;
 	DTQCB	*p_dtqcb;
+	DTQINIB	*p_dtqinib;
 
-	for (i = 0; i < tnum_dtq; i++) {
+	for (i = 0; i < tnum_sdtq; i++) {
 		p_dtqcb = &(dtqcb_table[i]);
 		queue_initialize(&(p_dtqcb->swait_queue));
 		p_dtqcb->p_dtqinib = &(dtqinib_table[i]);
@@ -171,6 +194,14 @@ initialize_dataqueue(void)
 		p_dtqcb->count = 0U;
 		p_dtqcb->head = 0U;
 		p_dtqcb->tail = 0U;
+	}
+	queue_initialize(&free_dtqcb);
+	for (j = 0; i < tnum_dtq; i++, j++) {
+		p_dtqcb = &(dtqcb_table[i]);
+		p_dtqinib = &(adtqinib_table[j]);
+		p_dtqinib->dtqatr = TA_NOEXS;
+		p_dtqcb->p_dtqinib = ((const DTQINIB *) p_dtqinib);
+		queue_insert_prev(&free_dtqcb, &(p_dtqcb->swait_queue));
 	}
 }
 
@@ -324,6 +355,115 @@ receive_data(DTQCB *p_dtqcb, intptr_t *p_data, bool_t *p_dspreq)
 #endif /* TOPPERS_dtqrcv */
 
 /*
+ *  データキューの生成
+ */
+#ifdef TOPPERS_acre_dtq
+
+ER_UINT
+acre_dtq(const T_CDTQ *pk_cdtq)
+{
+	DTQCB	*p_dtqcb;
+	DTQINIB	*p_dtqinib;
+	ATR		dtqatr;
+	DTQMB	*p_dtqmb;
+	ER		ercd;
+
+	LOG_ACRE_DTQ_ENTER(pk_cdtq);
+	CHECK_TSKCTX_UNL();
+	CHECK_RSATR(pk_cdtq->dtqatr, TA_TPRI);
+	if (pk_cdtq->dtqmb != NULL) {
+		CHECK_ALIGN_MB(pk_cdtq->dtqmb);
+	}
+	dtqatr = pk_cdtq->dtqatr;
+	p_dtqmb = pk_cdtq->dtqmb;
+
+	t_lock_cpu();
+	if (tnum_dtq == 0 || queue_empty(&free_dtqcb)) {
+		ercd = E_NOID;
+	}
+	else {
+		if (pk_cdtq->dtqcnt != 0 && p_dtqmb == NULL) {
+			p_dtqmb = kernel_malloc(sizeof(DTQMB) * pk_cdtq->dtqcnt);
+			dtqatr |= TA_MBALLOC;
+		}
+		if (pk_cdtq->dtqcnt != 0 && p_dtqmb == NULL) {
+			ercd = E_NOMEM;
+		}
+		else {
+			p_dtqcb = ((DTQCB *) queue_delete_next(&free_dtqcb));
+			p_dtqinib = (DTQINIB *)(p_dtqcb->p_dtqinib);
+			p_dtqinib->dtqatr = dtqatr;
+			p_dtqinib->dtqcnt = pk_cdtq->dtqcnt;
+			p_dtqinib->p_dtqmb = p_dtqmb;
+
+			queue_initialize(&(p_dtqcb->swait_queue));
+			queue_initialize(&(p_dtqcb->rwait_queue));
+			p_dtqcb->count = 0U;
+			p_dtqcb->head = 0U;
+			p_dtqcb->tail = 0U;
+			ercd = DTQID(p_dtqcb);
+		}
+	}
+	t_unlock_cpu();
+
+  error_exit:
+	LOG_ACRE_DTQ_LEAVE(ercd);
+	return(ercd);
+}
+
+#endif /* TOPPERS_acre_dtq */
+
+/*
+ *  データキューの削除
+ */
+#ifdef TOPPERS_del_dtq
+
+ER
+del_dtq(ID dtqid)
+{
+	DTQCB	*p_dtqcb;
+	DTQINIB	*p_dtqinib;
+	bool_t	dspreq;
+	ER		ercd;
+
+	LOG_DEL_DTQ_ENTER(dtqid);
+	CHECK_TSKCTX_UNL();
+	CHECK_DTQID(dtqid);
+	p_dtqcb = get_dtqcb(dtqid);
+
+	t_lock_cpu();
+	if (p_dtqcb->p_dtqinib->dtqatr == TA_NOEXS) {
+		ercd = E_NOEXS;
+	}
+	else if (DTQID(p_dtqcb) > tmax_sdtqid) {
+		dspreq = init_wait_queue(&(p_dtqcb->swait_queue));
+		if (init_wait_queue(&(p_dtqcb->rwait_queue))) {
+			dspreq = true;
+		}
+		p_dtqinib = (DTQINIB *)(p_dtqcb->p_dtqinib);
+		if ((p_dtqinib->dtqatr & TA_MBALLOC) != 0U) {
+			kernel_free(p_dtqinib->p_dtqmb);
+		}
+		p_dtqinib->dtqatr = TA_NOEXS;
+		queue_insert_prev(&free_dtqcb, &(p_dtqcb->swait_queue));
+		if (dspreq) {
+			dispatch();
+		}
+		ercd = E_OK;
+	}
+	else {
+		ercd = E_OBJ;
+	}
+	t_unlock_cpu();
+
+  error_exit:
+	LOG_DEL_DTQ_LEAVE(ercd);
+	return(ercd);
+}
+
+#endif /* TOPPERS_del_dtq */
+
+/*
  *  データキューへの送信
  */
 #ifdef TOPPERS_snd_dtq
@@ -342,7 +482,10 @@ snd_dtq(ID dtqid, intptr_t data)
 	p_dtqcb = get_dtqcb(dtqid);
 
 	t_lock_cpu();
-	if (send_data(p_dtqcb, data, &dspreq)) {
+	if (p_dtqcb->p_dtqinib->dtqatr == TA_NOEXS) {
+		ercd = E_NOEXS;
+	}
+	else if (send_data(p_dtqcb, data, &dspreq)) {
 		if (dspreq) {
 			dispatch();
 		}
@@ -382,7 +525,10 @@ psnd_dtq(ID dtqid, intptr_t data)
 	p_dtqcb = get_dtqcb(dtqid);
 
 	t_lock_cpu();
-	if (send_data(p_dtqcb, data, &dspreq)) {
+	if (p_dtqcb->p_dtqinib->dtqatr == TA_NOEXS) {
+		ercd = E_NOEXS;
+	}
+	else if (send_data(p_dtqcb, data, &dspreq)) {
 		if (dspreq) {
 			dispatch();
 		}
@@ -418,7 +564,10 @@ ipsnd_dtq(ID dtqid, intptr_t data)
 	p_dtqcb = get_dtqcb(dtqid);
 
 	i_lock_cpu();
-	if (send_data(p_dtqcb, data, &dspreq)) {
+	if (p_dtqcb->p_dtqinib->dtqatr == TA_NOEXS) {
+		ercd = E_NOEXS;
+	}
+	else if (send_data(p_dtqcb, data, &dspreq)) {
 		if (dspreq) {
 			reqflg = true;
 		}
@@ -457,7 +606,10 @@ tsnd_dtq(ID dtqid, intptr_t data, TMO tmout)
 	p_dtqcb = get_dtqcb(dtqid);
 
 	t_lock_cpu();
-	if (send_data(p_dtqcb, data, &dspreq)) {
+	if (p_dtqcb->p_dtqinib->dtqatr == TA_NOEXS) {
+		ercd = E_NOEXS;
+	}
+	else if (send_data(p_dtqcb, data, &dspreq)) {
 		if (dspreq) {
 			dispatch();
 		}
@@ -498,10 +650,15 @@ fsnd_dtq(ID dtqid, intptr_t data)
 	CHECK_TSKCTX_UNL();
 	CHECK_DTQID(dtqid);
 	p_dtqcb = get_dtqcb(dtqid);
-	CHECK_ILUSE(p_dtqcb->p_dtqinib->dtqcnt > 0U);
 
 	t_lock_cpu();
-	if (force_send_data(p_dtqcb, data)) {
+	if (p_dtqcb->p_dtqinib->dtqatr == TA_NOEXS) {
+		ercd = E_NOEXS;
+	}
+	else if (!(p_dtqcb->p_dtqinib->dtqcnt > 0U)) {
+		ercd = E_ILUSE;
+	}
+	else if (force_send_data(p_dtqcb, data)) {
 		dispatch();
 	}
 	ercd = E_OK;
@@ -529,10 +686,15 @@ ifsnd_dtq(ID dtqid, intptr_t data)
 	CHECK_INTCTX_UNL();
 	CHECK_DTQID(dtqid);
 	p_dtqcb = get_dtqcb(dtqid);
-	CHECK_ILUSE(p_dtqcb->p_dtqinib->dtqcnt > 0U);
 
 	i_lock_cpu();
-	if (force_send_data(p_dtqcb, data)) {
+	if (p_dtqcb->p_dtqinib->dtqatr == TA_NOEXS) {
+		ercd = E_NOEXS;
+	}
+	else if (!(p_dtqcb->p_dtqinib->dtqcnt > 0U)) {
+		ercd = E_ILUSE;
+	}
+	else if (force_send_data(p_dtqcb, data)) {
 		reqflg = true;
 	}
 	ercd = E_OK;
@@ -564,7 +726,10 @@ rcv_dtq(ID dtqid, intptr_t *p_data)
 	p_dtqcb = get_dtqcb(dtqid);
 
 	t_lock_cpu();
-	if (receive_data(p_dtqcb, p_data, &dspreq)) {
+	if (p_dtqcb->p_dtqinib->dtqatr == TA_NOEXS) {
+		ercd = E_NOEXS;
+	}
+	else if (receive_data(p_dtqcb, p_data, &dspreq)) {
 		if (dspreq) {
 			dispatch();
 		}
@@ -609,7 +774,10 @@ prcv_dtq(ID dtqid, intptr_t *p_data)
 	p_dtqcb = get_dtqcb(dtqid);
 
 	t_lock_cpu();
-	if (receive_data(p_dtqcb, p_data, &dspreq)) {
+	if (p_dtqcb->p_dtqinib->dtqatr == TA_NOEXS) {
+		ercd = E_NOEXS;
+	}
+	else if (receive_data(p_dtqcb, p_data, &dspreq)) {
 		if (dspreq) {
 			dispatch();
 		}
@@ -648,7 +816,10 @@ trcv_dtq(ID dtqid, intptr_t *p_data, TMO tmout)
 	p_dtqcb = get_dtqcb(dtqid);
 
 	t_lock_cpu();
-	if (receive_data(p_dtqcb, p_data, &dspreq)) {
+	if (p_dtqcb->p_dtqinib->dtqatr == TA_NOEXS) {
+		ercd = E_NOEXS;
+	}
+	else if (receive_data(p_dtqcb, p_data, &dspreq)) {
 		if (dspreq) {
 			dispatch();
 		}
@@ -696,17 +867,22 @@ ini_dtq(ID dtqid)
 	p_dtqcb = get_dtqcb(dtqid);
 
 	t_lock_cpu();
-	dspreq = init_wait_queue(&(p_dtqcb->swait_queue));
-	if (init_wait_queue(&(p_dtqcb->rwait_queue))) {
-		dspreq = true;
+	if (p_dtqcb->p_dtqinib->dtqatr == TA_NOEXS) {
+		ercd = E_NOEXS;
 	}
-	p_dtqcb->count = 0U;
-	p_dtqcb->head = 0U;
-	p_dtqcb->tail = 0U;
-	if (dspreq) {
-		dispatch();
+	else {
+		dspreq = init_wait_queue(&(p_dtqcb->swait_queue));
+		if (init_wait_queue(&(p_dtqcb->rwait_queue))) {
+			dspreq = true;
+		}
+		p_dtqcb->count = 0U;
+		p_dtqcb->head = 0U;
+		p_dtqcb->tail = 0U;
+		if (dspreq) {
+			dispatch();
+		}
+		ercd = E_OK;
 	}
-	ercd = E_OK;
 	t_unlock_cpu();
 
   error_exit:
@@ -733,10 +909,15 @@ ref_dtq(ID dtqid, T_RDTQ *pk_rdtq)
 	p_dtqcb = get_dtqcb(dtqid);
 
 	t_lock_cpu();
-	pk_rdtq->stskid = wait_tskid(&(p_dtqcb->swait_queue));
-	pk_rdtq->rtskid = wait_tskid(&(p_dtqcb->rwait_queue));
-	pk_rdtq->sdtqcnt = p_dtqcb->count;
-	ercd = E_OK;
+	if (p_dtqcb->p_dtqinib->dtqatr == TA_NOEXS) {
+		ercd = E_NOEXS;
+	}
+	else {
+		pk_rdtq->stskid = wait_tskid(&(p_dtqcb->swait_queue));
+		pk_rdtq->rtskid = wait_tskid(&(p_dtqcb->rwait_queue));
+		pk_rdtq->sdtqcnt = p_dtqcb->count;
+		ercd = E_OK;
+	}
 	t_unlock_cpu();
 
   error_exit:

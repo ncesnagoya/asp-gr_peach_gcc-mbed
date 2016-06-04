@@ -5,7 +5,7 @@
  * 
  *  Copyright (C) 2000-2003 by Embedded and Real-Time Systems Laboratory
  *                              Toyohashi Univ. of Technology, JAPAN
- *  Copyright (C) 2005-2011 by Embedded and Real-Time Systems Laboratory
+ *  Copyright (C) 2005-2014 by Embedded and Real-Time Systems Laboratory
  *              Graduate School of Information Science, Nagoya Univ., JAPAN
  * 
  *  上記著作権者は，以下の(1)～(4)の条件を満たす場合に限り，本ソフトウェ
@@ -37,7 +37,7 @@
  *  アの利用により直接的または間接的に生じたいかなる損害に関しても，そ
  *  の責任を負わない．
  * 
- *  @(#) $Id: mailbox.c 2728 2015-12-30 01:46:11Z ertl-honda $
+ *  $Id: mailbox.c 2728 2015-12-30 01:46:11Z ertl-honda $
  */
 
 /*
@@ -53,6 +53,22 @@
 /*
  *  トレースログマクロのデフォルト定義
  */
+#ifndef LOG_ACRE_MBX_ENTER
+#define LOG_ACRE_MBX_ENTER(pk_cmbx)
+#endif /* LOG_ACRE_MBX_ENTER */
+
+#ifndef LOG_ACRE_MBX_LEAVE
+#define LOG_ACRE_MBX_LEAVE(ercd)
+#endif /* LOG_ACRE_MBX_LEAVE */
+
+#ifndef LOG_DEL_MBX_ENTER
+#define LOG_DEL_MBX_ENTER(mbxid)
+#endif /* LOG_DEL_MBX_ENTER */
+
+#ifndef LOG_DEL_MBX_LEAVE
+#define LOG_DEL_MBX_LEAVE(ercd)
+#endif /* LOG_DEL_MBX_LEAVE */
+
 #ifndef LOG_SND_MBX_ENTER
 #define LOG_SND_MBX_ENTER(mbxid, pk_msg)
 #endif /* LOG_SND_MBX_ENTER */
@@ -105,6 +121,7 @@
  *  メールボックスの数
  */
 #define tnum_mbx	((uint_t)(tmax_mbxid - TMIN_MBXID + 1))
+#define tnum_smbx	((uint_t)(tmax_smbxid - TMIN_MBXID + 1))
 
 /*
  *  メールボックスIDからメールボックス管理ブロックを取り出すためのマクロ
@@ -112,22 +129,36 @@
 #define INDEX_MBX(mbxid)	((uint_t)((mbxid) - TMIN_MBXID))
 #define get_mbxcb(mbxid)	(&(mbxcb_table[INDEX_MBX(mbxid)]))
 
+#ifdef TOPPERS_mbxini
+
+/*
+ *  使用していないメールボックス管理ブロックのリスト
+ */
+QUEUE	free_mbxcb;
+
 /* 
  *  メールボックス機能の初期化
  */
-#ifdef TOPPERS_mbxini
-
 void
 initialize_mailbox(void)
 {
-	uint_t	i;
+	uint_t	i, j;
 	MBXCB	*p_mbxcb;
+	MBXINIB	*p_mbxinib;
 
-	for (i = 0; i < tnum_mbx; i++) {
+	for (i = 0; i < tnum_smbx; i++) {
 		p_mbxcb = &(mbxcb_table[i]);
 		queue_initialize(&(p_mbxcb->wait_queue));
 		p_mbxcb->p_mbxinib = &(mbxinib_table[i]);
 		p_mbxcb->pk_head = NULL;
+	}
+	queue_initialize(&free_mbxcb);
+	for (j = 0; i < tnum_mbx; i++, j++) {
+		p_mbxcb = &(mbxcb_table[i]);
+		p_mbxinib = &(ambxinib_table[j]);
+		p_mbxinib->mbxatr = TA_NOEXS;
+		p_mbxcb->p_mbxinib = ((const MBXINIB *) p_mbxinib);
+		queue_insert_prev(&free_mbxcb, &(p_mbxcb->wait_queue));
 	}
 }
 
@@ -157,6 +188,91 @@ enqueue_msg_pri(T_MSG **ppk_prevmsg_next, T_MSG *pk_msg)
 }
 
 /*
+ *  メールボックスの生成
+ */
+#ifdef TOPPERS_acre_mbx
+
+ER_UINT
+acre_mbx(const T_CMBX *pk_cmbx)
+{
+	MBXCB	*p_mbxcb;
+	MBXINIB	*p_mbxinib;
+	ER		ercd;
+
+	LOG_ACRE_MBX_ENTER(pk_cmbx);
+	CHECK_TSKCTX_UNL();
+	CHECK_RSATR(pk_cmbx->mbxatr, TA_TPRI|TA_MPRI);
+	CHECK_MPRI(pk_cmbx->maxmpri);
+	CHECK_NOSPT(pk_cmbx->mprihd == NULL);
+
+	t_lock_cpu();
+	if (tnum_mbx == 0 || queue_empty(&free_mbxcb)) {
+		ercd = E_NOID;
+	}
+	else {
+		p_mbxcb = ((MBXCB *) queue_delete_next(&free_mbxcb));
+		p_mbxinib = (MBXINIB *)(p_mbxcb->p_mbxinib);
+		p_mbxinib->mbxatr = pk_cmbx->mbxatr;
+		p_mbxinib->maxmpri = pk_cmbx->maxmpri;
+
+		queue_initialize(&(p_mbxcb->wait_queue));
+		p_mbxcb->pk_head = NULL;
+		ercd = MBXID(p_mbxcb);
+	}
+	t_unlock_cpu();
+
+  error_exit:
+	LOG_ACRE_MBX_LEAVE(ercd);
+	return(ercd);
+}
+
+#endif /* TOPPERS_acre_mbx */
+
+/*
+ *  メールボックスの削除
+ */
+#ifdef TOPPERS_del_mbx
+
+ER
+del_mbx(ID mbxid)
+{
+	MBXCB	*p_mbxcb;
+	MBXINIB	*p_mbxinib;
+	bool_t	dspreq;
+	ER		ercd;
+
+	LOG_DEL_MBX_ENTER(mbxid);
+	CHECK_TSKCTX_UNL();
+	CHECK_MBXID(mbxid);
+	p_mbxcb = get_mbxcb(mbxid);
+
+	t_lock_cpu();
+	if (p_mbxcb->p_mbxinib->mbxatr == TA_NOEXS) {
+		ercd = E_NOEXS;
+	}
+	else if (MBXID(p_mbxcb) > tmax_smbxid) {
+		dspreq = init_wait_queue(&(p_mbxcb->wait_queue));
+		p_mbxinib = (MBXINIB *)(p_mbxcb->p_mbxinib);
+		p_mbxinib->mbxatr = TA_NOEXS;
+		queue_insert_prev(&free_mbxcb, &(p_mbxcb->wait_queue));
+		if (dspreq) {
+			dispatch();
+		}
+		ercd = E_OK;
+	}
+	else {
+		ercd = E_OBJ;
+	}
+	t_unlock_cpu();
+
+  error_exit:
+	LOG_DEL_MBX_LEAVE(ercd);
+	return(ercd);
+}
+
+#endif /* TOPPERS_del_mbx */
+
+/*
  *  メールボックスへの送信
  */
 #ifdef TOPPERS_snd_mbx
@@ -172,12 +288,17 @@ snd_mbx(ID mbxid, T_MSG *pk_msg)
 	CHECK_TSKCTX_UNL();
 	CHECK_MBXID(mbxid);
 	p_mbxcb = get_mbxcb(mbxid);
-	CHECK_PAR((p_mbxcb->p_mbxinib->mbxatr & TA_MPRI) == 0U
-				|| (TMIN_MPRI <= MSGPRI(pk_msg)
-					&& MSGPRI(pk_msg) <= p_mbxcb->p_mbxinib->maxmpri));
 
 	t_lock_cpu();
-	if (!queue_empty(&(p_mbxcb->wait_queue))) {
+	if (p_mbxcb->p_mbxinib->mbxatr == TA_NOEXS) {
+		ercd = E_NOEXS;
+	}
+	else if (!((p_mbxcb->p_mbxinib->mbxatr & TA_MPRI) == 0U
+				|| (TMIN_MPRI <= MSGPRI(pk_msg)
+					&& MSGPRI(pk_msg) <= p_mbxcb->p_mbxinib->maxmpri))) {
+		ercd = E_PAR;
+	}
+	else if (!queue_empty(&(p_mbxcb->wait_queue))) {
 		p_tcb = (TCB *) queue_delete_next(&(p_mbxcb->wait_queue));
 		((WINFO_MBX *)(p_tcb->p_winfo))->pk_msg = pk_msg;
 		if (wait_complete(p_tcb)) {
@@ -227,7 +348,10 @@ rcv_mbx(ID mbxid, T_MSG **ppk_msg)
 	p_mbxcb = get_mbxcb(mbxid);
     
 	t_lock_cpu();
-	if (p_mbxcb->pk_head != NULL) {
+	if (p_mbxcb->p_mbxinib->mbxatr == TA_NOEXS) {
+		ercd = E_NOEXS;
+	}
+	else if (p_mbxcb->pk_head != NULL) {
 		*ppk_msg = p_mbxcb->pk_head;
 		p_mbxcb->pk_head = (*ppk_msg)->pk_next;
 		ercd = E_OK;
@@ -267,7 +391,10 @@ prcv_mbx(ID mbxid, T_MSG **ppk_msg)
 	p_mbxcb = get_mbxcb(mbxid);
     
 	t_lock_cpu();
-	if (p_mbxcb->pk_head != NULL) {
+	if (p_mbxcb->p_mbxinib->mbxatr == TA_NOEXS) {
+		ercd = E_NOEXS;
+	}
+	else if (p_mbxcb->pk_head != NULL) {
 		*ppk_msg = p_mbxcb->pk_head;
 		p_mbxcb->pk_head = (*ppk_msg)->pk_next;
 		ercd = E_OK;
@@ -304,7 +431,10 @@ trcv_mbx(ID mbxid, T_MSG **ppk_msg, TMO tmout)
 	p_mbxcb = get_mbxcb(mbxid);
     
 	t_lock_cpu();
-	if (p_mbxcb->pk_head != NULL) {
+	if (p_mbxcb->p_mbxinib->mbxatr == TA_NOEXS) {
+		ercd = E_NOEXS;
+	}
+	else if (p_mbxcb->pk_head != NULL) {
 		*ppk_msg = p_mbxcb->pk_head;
 		p_mbxcb->pk_head = (*ppk_msg)->pk_next;
 		ercd = E_OK;
@@ -349,12 +479,17 @@ ini_mbx(ID mbxid)
 	p_mbxcb = get_mbxcb(mbxid);
 
 	t_lock_cpu();
-	dspreq = init_wait_queue(&(p_mbxcb->wait_queue));
-	p_mbxcb->pk_head = NULL;
-	if (dspreq) {
-		dispatch();
+	if (p_mbxcb->p_mbxinib->mbxatr == TA_NOEXS) {
+		ercd = E_NOEXS;
 	}
-	ercd = E_OK;
+	else {
+		dspreq = init_wait_queue(&(p_mbxcb->wait_queue));
+		p_mbxcb->pk_head = NULL;
+		if (dspreq) {
+			dispatch();
+		}
+		ercd = E_OK;
+	}
 	t_unlock_cpu();
 
   error_exit:
@@ -381,9 +516,14 @@ ref_mbx(ID mbxid, T_RMBX *pk_rmbx)
 	p_mbxcb = get_mbxcb(mbxid);
 
 	t_lock_cpu();
-	pk_rmbx->wtskid = wait_tskid(&(p_mbxcb->wait_queue));
-	pk_rmbx->pk_msg = p_mbxcb->pk_head;
-	ercd = E_OK;
+	if (p_mbxcb->p_mbxinib->mbxatr == TA_NOEXS) {
+		ercd = E_NOEXS;
+	}
+	else {
+		pk_rmbx->wtskid = wait_tskid(&(p_mbxcb->wait_queue));
+		pk_rmbx->pk_msg = p_mbxcb->pk_head;
+		ercd = E_OK;
+	}
 	t_unlock_cpu();
 
   error_exit:

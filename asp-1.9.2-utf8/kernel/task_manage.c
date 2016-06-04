@@ -5,7 +5,7 @@
  * 
  *  Copyright (C) 2000-2003 by Embedded and Real-Time Systems Laboratory
  *                              Toyohashi Univ. of Technology, JAPAN
- *  Copyright (C) 2005-2010 by Embedded and Real-Time Systems Laboratory
+ *  Copyright (C) 2005-2014 by Embedded and Real-Time Systems Laboratory
  *              Graduate School of Information Science, Nagoya Univ., JAPAN
  * 
  *  上記著作権者は，以下の(1)～(4)の条件を満たす場合に限り，本ソフトウェ
@@ -37,7 +37,7 @@
  *  アの利用により直接的または間接的に生じたいかなる損害に関しても，そ
  *  の責任を負わない．
  * 
- *  @(#) $Id: task_manage.c 2728 2015-12-30 01:46:11Z ertl-honda $
+ *  $Id: task_manage.c 2728 2015-12-30 01:46:11Z ertl-honda $
  */
 
 /*
@@ -48,10 +48,27 @@
 #include "check.h"
 #include "task.h"
 #include "wait.h"
+#include "mutex.h"
 
 /*
  *  トレースログマクロのデフォルト定義
  */
+#ifndef LOG_ACRE_TSK_ENTER
+#define LOG_ACRE_TSK_ENTER(pk_ctsk)
+#endif /* LOG_ACRE_TSK_ENTER */
+
+#ifndef LOG_ACRE_TSK_LEAVE
+#define LOG_ACRE_TSK_LEAVE(ercd)
+#endif /* LOG_ACRE_TSK_LEAVE */
+
+#ifndef LOG_DEL_TSK_ENTER
+#define LOG_DEL_TSK_ENTER(tskid)
+#endif /* LOG_DEL_TSK_ENTER */
+
+#ifndef LOG_DEL_TSK_LEAVE
+#define LOG_DEL_TSK_LEAVE(ercd)
+#endif /* LOG_DEL_TSK_LEAVE */
+
 #ifndef LOG_ACT_TSK_ENTER
 #define LOG_ACT_TSK_ENTER(tskid)
 #endif /* LOG_ACT_TSK_ENTER */
@@ -117,6 +134,132 @@
 #endif /* LOG_GET_INF_LEAVE */
 
 /*
+ *  タスクの生成
+ */
+#ifdef TOPPERS_acre_tsk
+
+#ifndef TARGET_MIN_STKSZ
+#define TARGET_MIN_STKSZ	1U		/* 未定義の場合は0でないことをチェック */
+#endif /* TARGET_MIN_STKSZ */
+
+ER_UINT
+acre_tsk(const T_CTSK *pk_ctsk)
+{
+	TCB		*p_tcb;
+	TINIB	*p_tinib;
+	ATR		tskatr;
+	void	*stk;
+	ER		ercd;
+
+	LOG_ACRE_TSK_ENTER(pk_ctsk);
+	CHECK_TSKCTX_UNL();
+	CHECK_RSATR(pk_ctsk->tskatr, TA_ACT|TARGET_TSKATR);
+	CHECK_ALIGN_FUNC(pk_ctsk->task);
+	CHECK_NONNULL_FUNC(pk_ctsk->task);
+	CHECK_TPRI(pk_ctsk->itskpri);
+	CHECK_PAR(pk_ctsk->stksz >= TARGET_MIN_STKSZ);
+
+	if (pk_ctsk->stk != NULL) {
+		CHECK_ALIGN_STKSZ(pk_ctsk->stksz);
+		CHECK_ALIGN_STACK(pk_ctsk->stk);
+	}
+	tskatr = pk_ctsk->tskatr;
+	stk = pk_ctsk->stk;
+
+	t_lock_cpu();
+	
+	if (queue_empty(&free_tcb)) {
+		ercd = E_NOID;
+	}
+	else {
+		if (stk == NULL) {
+			stk = kernel_malloc(ROUND_STK_T(pk_ctsk->stksz));
+			tskatr |= TA_MEMALLOC;
+		}
+		if (stk == NULL) {
+			ercd = E_NOMEM;
+		}
+		else {
+			p_tcb = ((TCB *) queue_delete_next(&free_tcb));
+			p_tinib = (TINIB *)(p_tcb->p_tinib);
+			p_tinib->tskatr = tskatr;
+			p_tinib->exinf = pk_ctsk->exinf;
+			p_tinib->task = pk_ctsk->task;
+			p_tinib->ipriority = INT_PRIORITY(pk_ctsk->itskpri);
+#ifdef USE_TSKINICTXB
+			init_tskinictxb(&(p_tinib->tskinictxb), stk, pk_ctsk);
+#else /* USE_TSKINICTXB */
+			p_tinib->stksz = pk_ctsk->stksz;
+			p_tinib->stk = stk;
+#endif /* USE_TSKINICTXB */
+			p_tinib->texatr = TA_NULL;
+			p_tinib->texrtn = NULL;
+
+			p_tcb->actque = false;
+			make_dormant(p_tcb);
+			queue_initialize(&(p_tcb->mutex_queue));
+			if ((p_tcb->p_tinib->tskatr & TA_ACT) != 0U) {
+				make_active(p_tcb);
+			}
+			ercd = TSKID(p_tcb);
+		}
+	}
+	t_unlock_cpu();	
+
+ error_exit:
+	LOG_ACRE_TSK_LEAVE(ercd);
+	return(ercd);
+}
+
+#endif /* TOPPERS_acre_tsk */
+
+/*
+ *  タスクの削除
+ */
+#ifdef TOPPERS_del_tsk
+
+ER
+del_tsk(ID tskid)
+{
+	TCB		*p_tcb;
+	TINIB	*p_tinib;
+	ER		ercd;
+
+	LOG_DEL_TSK_ENTER(tskid);
+	CHECK_TSKCTX_UNL();
+	CHECK_TSKID(tskid);
+	p_tcb = get_tcb(tskid);
+
+	t_lock_cpu();
+	if (p_tcb->p_tinib->tskatr == TA_NOEXS) {
+		ercd = E_NOEXS;
+	}
+	else if (TSKID(p_tcb) > tmax_stskid && TSTAT_DORMANT(p_tcb->tstat)) {
+		p_tinib = (TINIB *)(p_tcb->p_tinib);
+#ifdef USE_TSKINICTXB
+		term_tskinictxb(&(p_tinib->tskinictxb));
+#else /* USE_TSKINICTXB */
+		if ((p_tinib->tskatr & TA_MEMALLOC) != 0U) {
+			kernel_free(p_tinib->stk);
+		}
+#endif /* USE_TSKINICTXB */
+		p_tinib->tskatr = TA_NOEXS;
+		queue_insert_prev(&free_tcb, &(p_tcb->task_queue));
+		ercd = E_OK;
+	}
+	else {
+		ercd = E_OBJ;
+	}
+	t_unlock_cpu();
+
+  error_exit:
+	LOG_DEL_TSK_LEAVE(ercd);
+	return(ercd);
+}
+
+#endif /* TOPPERS_del_tsk */
+
+/*
  *  タスクの起動
  */
 #ifdef TOPPERS_act_tsk
@@ -133,7 +276,10 @@ act_tsk(ID tskid)
 	p_tcb = get_tcb_self(tskid);
 
 	t_lock_cpu();
-	if (TSTAT_DORMANT(p_tcb->tstat)) {
+	if (p_tcb->p_tinib->tskatr == TA_NOEXS) {
+		ercd = E_NOEXS;
+	}
+	else if (TSTAT_DORMANT(p_tcb->tstat)) {
 		if (make_active(p_tcb)) {
 			dispatch();
 		}
@@ -172,7 +318,10 @@ iact_tsk(ID tskid)
 	p_tcb = get_tcb(tskid);
 
 	i_lock_cpu();
-	if (TSTAT_DORMANT(p_tcb->tstat)) {
+	if (p_tcb->p_tinib->tskatr == TA_NOEXS) {
+		ercd = E_NOEXS;
+	}
+	else if (TSTAT_DORMANT(p_tcb->tstat)) {
 		if (make_active(p_tcb)) {
 			reqflg = true;
 		}
@@ -211,8 +360,13 @@ can_act(ID tskid)
 	p_tcb = get_tcb_self(tskid);
 
 	t_lock_cpu();
-	ercd = p_tcb->actque ? 1 : 0;
-	p_tcb->actque = false;
+	if (p_tcb->p_tinib->tskatr == TA_NOEXS) {
+		ercd = E_NOEXS;
+	}
+	else {
+		ercd = p_tcb->actque ? 1 : 0;
+		p_tcb->actque = false;
+	}
 	t_unlock_cpu();
 
   error_exit:
@@ -264,6 +418,9 @@ ext_tsk(void)
 	dspflg = true;
 
 	(void) make_non_runnable(p_runtsk);
+	if (!queue_empty(&(p_runtsk->mutex_queue))) {
+		(void) (*mtxhook_release_all)(p_runtsk);
+	}
 	make_dormant(p_runtsk);
 	if (p_runtsk->actque) {
 		p_runtsk->actque = false;
@@ -288,6 +445,7 @@ ER
 ter_tsk(ID tskid)
 {
 	TCB		*p_tcb;
+	bool_t	dspreq = false;	
 	ER		ercd;
 
 	LOG_TER_TSK_ENTER(tskid);
@@ -297,7 +455,10 @@ ter_tsk(ID tskid)
 	CHECK_NONSELF(p_tcb);
 
 	t_lock_cpu();
-	if (TSTAT_DORMANT(p_tcb->tstat)) {
+	if (p_tcb->p_tinib->tskatr == TA_NOEXS) {
+		ercd = E_NOEXS;
+	}
+	else if (TSTAT_DORMANT(p_tcb->tstat)) {
 		ercd = E_OBJ;
 	}
 	else {
@@ -313,12 +474,20 @@ ter_tsk(ID tskid)
 			wait_dequeue_wobj(p_tcb);
 			wait_dequeue_tmevtb(p_tcb);
 		}
+		if (!queue_empty(&(p_tcb->mutex_queue))) {
+			if ((*mtxhook_release_all)(p_tcb)) {
+				dspreq = true;
+			}
+		}
 		make_dormant(p_tcb);
 		if (p_tcb->actque) {
 			p_tcb->actque = false;
 			if (make_active(p_tcb)) {
-				dispatch();
+				dspreq = true;
 			}
+		}
+		if (dspreq) {
+			dispatch();
 		}
 		ercd = E_OK;
 	}
@@ -340,7 +509,7 @@ ER
 chg_pri(ID tskid, PRI tskpri)
 {
 	TCB		*p_tcb;
-	uint_t	newpri;
+	uint_t	newbpri;
 	ER		ercd;
 
 	LOG_CHG_PRI_ENTER(tskid, tskpri);
@@ -348,16 +517,29 @@ chg_pri(ID tskid, PRI tskpri)
 	CHECK_TSKID_SELF(tskid);
 	CHECK_TPRI_INI(tskpri);
 	p_tcb = get_tcb_self(tskid);
-	newpri = (tskpri == TPRI_INI) ? p_tcb->p_tinib->ipriority
+
+	newbpri = (tskpri == TPRI_INI) ? p_tcb->p_tinib->ipriority
 										: INT_PRIORITY(tskpri);
 
 	t_lock_cpu();
-	if (TSTAT_DORMANT(p_tcb->tstat)) {
+	if (p_tcb->p_tinib->tskatr == TA_NOEXS) {
+		ercd = E_NOEXS;
+	}
+	else if (TSTAT_DORMANT(p_tcb->tstat)) {
 		ercd = E_OBJ;
 	}
+	else if ((!queue_empty(&(p_tcb->mutex_queue))
+										|| TSTAT_WAIT_MTX(p_tcb->tstat))
+						&& !((*mtxhook_check_ceilpri)(p_tcb, newbpri))) {
+		ercd = E_ILUSE;
+	}
 	else {
-		if (change_priority(p_tcb, newpri)) {
-			dispatch();
+		p_tcb->bpriority = newbpri;
+		if (queue_empty(&(p_tcb->mutex_queue))
+								|| !((*mtxhook_scan_ceilmtx)(p_tcb))) {
+			if (change_priority(p_tcb, newbpri, false)) {
+				dispatch();
+			}
 		}
 		ercd = E_OK;
 	}
@@ -387,7 +569,10 @@ get_pri(ID tskid, PRI *p_tskpri)
 	p_tcb = get_tcb_self(tskid);
 
 	t_lock_cpu();
-	if (TSTAT_DORMANT(p_tcb->tstat)) {
+	if (p_tcb->p_tinib->tskatr == TA_NOEXS) {
+		ercd = E_NOEXS;
+	}
+	else if (TSTAT_DORMANT(p_tcb->tstat)) {
 		ercd = E_OBJ;
 	}
 	else {

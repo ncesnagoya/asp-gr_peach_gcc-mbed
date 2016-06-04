@@ -40,6 +40,7 @@ CHECK_STACK_ALIGN,#defined(CHECK_STACK_ALIGN),,CHECK_STACK_ALIGN
 CHECK_STACK_NONNULL,#defined(CHECK_STACK_NONNULL)
 CHECK_MPF_ALIGN,#defined(CHECK_MPF_ALIGN),,CHECK_MPF_ALIGN
 CHECK_MPF_NONNULL,#defined(CHECK_MPF_NONNULL)
+CHECK_MB_ALIGN,#defined(CHECK_MB_ALIGN),,CHECK_MB_ALIGN
 sizeof_ID,sizeof(ID)
 sizeof_uint_t,sizeof(uint_t)
 sizeof_SIZE,sizeof(SIZE)
@@ -81,6 +82,9 @@ offsetof_PDQINIB_p_pdqmb,"offsetof(PDQINIB,p_pdqmb)"
 sizeof_MBXINIB,sizeof(MBXINIB)
 offsetof_MBXINIB_mbxatr,"offsetof(MBXINIB,mbxatr)"
 offsetof_MBXINIB_maxmpri,"offsetof(MBXINIB,maxmpri)"
+sizeof_MTXINIB,sizeof(MTXINIB)
+offsetof_MTXINIB_mtxatr,"offsetof(MTXINIB,mtxatr)"
+offsetof_MTXINIB_ceilpri,"offsetof(MTXINIB,ceilpri)"
 sizeof_MPFINIB,sizeof(MPFINIB)
 offsetof_MPFINIB_mpfatr,"offsetof(MPFINIB,mpfatr)"
 offsetof_MPFINIB_blkcnt,"offsetof(MPFINIB,blkcnt)"
@@ -97,6 +101,13 @@ sizeof_ALMINIB,sizeof(ALMINIB)
 offsetof_ALMINIB_almatr,"offsetof(ALMINIB,almatr)"
 offsetof_ALMINIB_exinf,"offsetof(ALMINIB,exinf)"
 offsetof_ALMINIB_almhdr,"offsetof(ALMINIB,almhdr)"
+sizeof_ISRINIB,sizeof(ISRINIB)
+offsetof_ISRINIB_isratr,"offsetof(ISRINIB,isratr)"
+offsetof_ISRINIB_exinf,"offsetof(ISRINIB,exinf)"
+offsetof_ISRINIB_intno,"offsetof(ISRINIB,intno)"
+offsetof_ISRINIB_p_isr_queue,"offsetof(ISRINIB,p_isr_queue)"
+offsetof_ISRINIB_isr,"offsetof(ISRINIB,isr)"
+offsetof_ISRINIB_isrpri,"offsetof(ISRINIB,isrpri)"
 sizeof_INHINIB,#!defined(OMIT_INITIALIZE_INTERRUPT),,sizeof(INHINIB)
 offset_INHINIB_inhno,#!defined(OMIT_INITIALIZE_INTERRUPT),,"offsetof(INHINIB,inhno)"
 offset_INHINIB_inhatr,#!defined(OMIT_INITIALIZE_INTERRUPT),,"offsetof(INHINIB,inhatr)"

@@ -5,7 +5,7 @@
  * 
  *  Copyright (C) 2000-2003 by Embedded and Real-Time Systems Laboratory
  *                              Toyohashi Univ. of Technology, JAPAN
- *  Copyright (C) 2005,2006 by Embedded and Real-Time Systems Laboratory
+ *  Copyright (C) 2005-2010 by Embedded and Real-Time Systems Laboratory
  *              Graduate School of Information Science, Nagoya Univ., JAPAN
  * 
  *  上記著作権者は，以下の(1)～(4)の条件を満たす場合に限り，本ソフトウェ
@@ -47,6 +47,7 @@
 #ifndef TOPPERS_ALARM_H
 #define TOPPERS_ALARM_H
 
+#include <queue.h>
 #include "time_event.h"
 
 /*
@@ -68,19 +69,32 @@ typedef struct alarm_handler_control_block {
 } ALMCB;
 
 /*
+ *  使用していないアラームハンドラ管理ブロックのリスト
+ */
+extern QUEUE	free_almcb;
+
+/*
  *  アラームハンドラIDの最大値（kernel_cfg.c）
  */
 extern const ID	tmax_almid;
+extern const ID	tmax_salmid;
 
 /*
  *  アラームハンドラ初期化ブロックのエリア（kernel_cfg.c）
  */
 extern const ALMINIB	alminib_table[];
+extern ALMINIB			aalminib_table[];
 
 /*
  *  アラームハンドラ管理ブロックのエリア（kernel_cfg.c）
  */
 extern ALMCB	almcb_table[];
+
+/*
+ *  アラームハンドラ管理ブロックからアラームハンドラIDを取り出すための
+ *  マクロ
+ */
+#define	ALMID(p_almcb)	((ID)(((p_almcb) - almcb_table) + TMIN_ALMID))
 
 /*
  *  アラームハンドラ機能の初期化

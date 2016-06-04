@@ -5,7 +5,7 @@
  * 
  *  Copyright (C) 2000 by Embedded and Real-Time Systems Laboratory
  *                              Toyohashi Univ. of Technology, JAPAN
- *  Copyright (C) 2005-2011 by Embedded and Real-Time Systems Laboratory
+ *  Copyright (C) 2005-2012 by Embedded and Real-Time Systems Laboratory
  *              Graduate School of Information Science, Nagoya Univ., JAPAN
  * 
  *  上記著作権者は，以下の(1)～(4)の条件を満たす場合に限り，本ソフトウェ
@@ -93,14 +93,21 @@ typedef struct mailbox_waiting_information {
 } WINFO_MBX;
 
 /*
+ *  使用していないメールボックス管理ブロックのリスト
+ */
+extern QUEUE	free_mbxcb;
+
+/*
  *  メールボックスIDの最大値（kernel_cfg.c）
  */
 extern const ID	tmax_mbxid;
+extern const ID	tmax_smbxid;
 
 /*
  *  メールボックス初期化ブロックのエリア（kernel_cfg.c）
  */
 extern const MBXINIB	mbxinib_table[];
+extern MBXINIB			ambxinib_table[];
 
 /*
  *  メールボックス管理ブロックのエリア（kernel_cfg.c）

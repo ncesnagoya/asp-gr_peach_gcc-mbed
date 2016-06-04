@@ -72,6 +72,10 @@
 #define	STACK_SIZE		4096		/* タスクのスタックサイズ */
 #endif /* STACK_SIZE */
 
+#ifndef KMM_SIZE
+#define	KMM_SIZE		(STACK_SIZE * 16)	/* カーネルが割り付ける   */
+#endif /* KMM_SIZE */						/*     メモリ領域のサイズ */
+
 #ifndef LOOP_REF
 #define LOOP_REF		ULONG_C(1000000)	/* 速度計測用のループ回数 */
 #endif /* LOOP_REF */

@@ -4,7 +4,7 @@ $   TOPPERS/ASP Kernel
 $       Toyohashi Open Platform for Embedded Real-Time Systems/
 $       Advanced Standard Profile Kernel
 $ 
-$   Copyright (C) 2008-2013 by Embedded and Real-Time Systems Laboratory
+$   Copyright (C) 2008-2010 by Embedded and Real-Time Systems Laboratory
 $               Graduate School of Information Science, Nagoya Univ., JAPAN
 $  
 $   上記著作権者は，以下の(1)～(4)の条件を満たす場合に限り，本ソフトウェ
@@ -118,6 +118,23 @@ $	// アラームハンドラの先頭番地のチェック
 		$END$
 		$alminib = alminib + sizeof_ALMINIB$
 	$END$
+
+$	// 割込みサービスルーチンの先頭番地のチェック
+	$isrinib = SYMBOL("_kernel_sisrinib_table")$
+	$FOREACH order ISR.ORDER_LIST$
+		$isr = PEEK(isrinib + offsetof_ISRINIB_isr, sizeof_FP)$
+		$IF CHECK_FUNC_ALIGN && (isr & (CHECK_FUNC_ALIGN - 1)) != 0$
+			$ERROR ISR.TEXT_LINE[order]$E_PAR: 
+				$FORMAT(_("%1% `%2%\' in %4% is not aligned"),
+				"isr", ISR.ISR[order], "ATT_ISR")$$END$
+		$END$
+		$IF CHECK_FUNC_NONNULL && isr == 0$
+			$ERROR ISR.TEXT_LINE[order]$E_PAR: 
+				$FORMAT(_("%1% `%2%\' in %4% is null"),
+				"isr", ISR.ISR[order], "ATT_ISR")$$END$
+		$END$
+		$isrinib = isrinib + sizeof_ISRINIB$
+	$END$
 $END$
 
 $ 
@@ -178,5 +195,18 @@ $	// 固定長メモリプール領域の先頭番地のチェック
 				"mpf", MPF.MPF[mpfid], mpfid, "CRE_MPF")$$END$
 		$END$
 		$mpfinib = mpfinib + sizeof_MPFINIB$
+	$END$
+$END$
+
+$ 
+$  カーネルが割り付けるメモリ領域の先頭番地のチェック
+$ 
+$IF CHECK_MB_ALIGN$
+$	// カーネルが割り付けるメモリ領域の先頭番地のチェック
+	$kmm = PEEK(SYMBOL("_kernel_kmm"), sizeof_void_ptr)$
+	$IF CHECK_MB_ALIGN && (kmm & (CHECK_MB_ALIGN - 1)) != 0$
+		$ERROR KMM.TEXT_LINE[1]$E_PAR: 
+			$FORMAT(_("%1% `%2%\' in %3% is not aligned"),
+			"kmm", KMM.KMM[1], "DEF_KMM")$$END$
 	$END$
 $END$

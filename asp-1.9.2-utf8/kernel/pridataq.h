@@ -108,14 +108,21 @@ typedef struct pridataq_waiting_information {
 } WINFO_PDQ;
 
 /*
+ *  使用していない優先度データキュー管理ブロックのリスト
+ */
+extern QUEUE	free_pdqcb;
+
+/*
  *  優先度データキューIDの最大値（kernel_cfg.c）
  */
 extern const ID	tmax_pdqid;
+extern const ID	tmax_spdqid;
 
 /*
  *  優先度データキュー初期化ブロックのエリア（kernel_cfg.c）
  */
 extern const PDQINIB	pdqinib_table[];
+extern PDQINIB			apdqinib_table[];
 
 /*
  *  優先度データキュー管理ブロックのエリア（kernel_cfg.c）

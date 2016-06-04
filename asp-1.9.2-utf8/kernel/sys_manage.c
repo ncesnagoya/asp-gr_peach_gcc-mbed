@@ -187,7 +187,7 @@ rot_rdq(PRI tskpri)
 	CHECK_TPRI_SELF(tskpri);
 
 	t_lock_cpu();
-	pri = (tskpri == TPRI_SELF) ? p_runtsk->priority : INT_PRIORITY(tskpri);
+	pri = (tskpri == TPRI_SELF) ? p_runtsk->bpriority : INT_PRIORITY(tskpri);
 	if (rotate_ready_queue(pri)) {
 		dispatch();
 	}

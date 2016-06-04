@@ -5,7 +5,7 @@
  * 
  *  Copyright (C) 2000 by Embedded and Real-Time Systems Laboratory
  *                              Toyohashi Univ. of Technology, JAPAN
- *  Copyright (C) 2005-2007 by Embedded and Real-Time Systems Laboratory
+ *  Copyright (C) 2005-2010 by Embedded and Real-Time Systems Laboratory
  *              Graduate School of Information Science, Nagoya Univ., JAPAN
  * 
  *  上記著作権者は，以下の(1)～(4)の条件を満たす場合に限り，本ソフトウェ
@@ -46,6 +46,93 @@
 
 #ifndef TOPPERS_INTERRUPT_H
 #define TOPPERS_INTERRUPT_H
+
+/*
+ *  割込みサービスルーチン初期化ブロック
+ */
+typedef struct isr_initialization_block {
+	ATR			isratr;			/* 割込みサービスルーチン属性 */
+	intptr_t	exinf;			/* 割込みサービスルーチンの拡張情報 */
+	INTNO		intno;			/* 割込みサービスルーチンを登録する割込み番号 */
+	QUEUE		*p_isr_queue;	/* 登録先割込みサービスルーチンキューの番地 */
+	ISR			isr;			/* 割込みサービスルーチンの先頭番地 */
+	PRI			isrpri;			/* 割込みサービスルーチン優先度 */
+} ISRINIB;
+
+/*
+ *  割込みサービスルーチン管理ブロック
+ */
+typedef struct isr_control_block {
+	QUEUE		isr_queue;		/* 割込みサービスルーチン呼出しキュー */
+	const ISRINIB *p_isrinib;	/* 初期化ブロックへのポインタ */
+} ISRCB;
+
+/*
+ *  割込みサービスルーチン呼出しキューを検索するためのデータ構造
+ */
+typedef struct {
+	INTNO		intno;			/* 割込み番号 */
+	QUEUE		*p_isr_queue;	/* 割込みサービスルーチン呼出しキュー */
+} ISR_ENTRY;
+
+/*
+ *  割込みサービスルーチンキューのエントリ数（kernel_cfg.c）
+ */
+extern const uint_t tnum_isr_queue;
+
+/*
+ *  割込みサービスルーチンキューリスト（kernel_cfg.c）
+ */
+extern const ISR_ENTRY isr_queue_list[];
+
+/*
+ *  割込みサービスルーチンキューのエリア（kernel_cfg.c）
+ */
+extern QUEUE isr_queue_table[];
+
+/*
+ *  使用していない割込みサービスルーチン管理ブロックのリスト
+ */
+extern QUEUE	free_isrcb;
+
+/*
+ *  割込みサービスルーチンIDの最大値（kernel_cfg.c）
+ *
+ *  静的に生成される割込みサービスルーチンはID番号を持たないため，
+ *  tmax_isridは動的に生成される割込みサービスルーチンのID番号の最大値
+ *  である．静的に生成される割込みサービスルーチンの数は，tnum_sisrに保
+ *  持する．
+ */
+extern const ID		tmax_isrid;
+extern const uint_t	tnum_sisr;
+
+/*
+ *  割込みサービスルーチン初期化ブロックのエリア（kernel_cfg.c）
+ */
+extern const ISRINIB	sisrinib_table[];
+extern ISRINIB			aisrinib_table[];
+
+/*
+ *  割込みサービスルーチン管理ブロックのエリア（kernel_cfg.c）
+ */
+extern ISRCB	isrcb_table[];
+
+/*
+ *  割込みサービスルーチン管理ブロックから割込みサービスルーチンIDを取
+ *  り出すためのマクロ
+ */
+#define	ISRID(p_isrcb)	((ID)(((p_isrcb) - isrcb_table) \
+										- tnum_sisr + TMIN_ISRID))
+
+/*
+ *  割込みサービスルーチン機能の初期化
+ */
+extern void initialize_isr(void);
+
+/*
+ *  割込みサービスルーチンの呼出し
+ */
+extern void call_isr(QUEUE *p_isr_queue);
 
 #ifndef OMIT_INITIALIZE_INTERRUPT
 

@@ -5,7 +5,7 @@
  * 
  *  Copyright (C) 2000 by Embedded and Real-Time Systems Laboratory
  *                              Toyohashi Univ. of Technology, JAPAN
- *  Copyright (C) 2005-2011 by Embedded and Real-Time Systems Laboratory
+ *  Copyright (C) 2005-2012 by Embedded and Real-Time Systems Laboratory
  *              Graduate School of Information Science, Nagoya Univ., JAPAN
  * 
  *  上記著作権者は，以下の(1)～(4)の条件を満たす場合に限り，本ソフトウェ
@@ -88,14 +88,21 @@ typedef struct semaphore_waiting_information {
 } WINFO_SEM;
 
 /*
+ *  使用していないセマフォ管理ブロックのリスト
+ */
+extern QUEUE	free_semcb;
+
+/*
  *  セマフォIDの最大値（kernel_cfg.c）
  */
 extern const ID	tmax_semid;
+extern const ID	tmax_ssemid;
 
 /*
  *  セマフォ初期化ブロックのエリア（kernel_cfg.c）
  */
 extern const SEMINIB	seminib_table[];
+extern SEMINIB			aseminib_table[];
 
 /*
  *  セマフォ管理ブロックのエリア（kernel_cfg.c）

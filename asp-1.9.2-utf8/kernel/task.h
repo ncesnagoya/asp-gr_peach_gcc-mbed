@@ -86,6 +86,7 @@
 #define TS_WAIT_SPDQ	(0x07U << 3)	/* 優先度データキューへの送信待ち */
 #define TS_WAIT_MBX		(0x08U << 3)	/* メールボックスからの受信待ち */
 #define TS_WAIT_MPF		(0x09U << 3)	/* 固定長メモリブロックの獲得待ち */
+#define TS_WAIT_MTX		(0x0aU << 3)	/* ミューテックスのロック待ち */
 
 /*
  *  タスク状態判別マクロ
@@ -99,6 +100,7 @@
 #define TSTAT_RUNNABLE(tstat)	(((tstat) & TS_RUNNABLE) != 0U)
 #define TSTAT_WAITING(tstat)	(((tstat) & TS_WAITING) != 0U)
 #define TSTAT_SUSPENDED(tstat)	(((tstat) & TS_SUSPENDED) != 0U)
+#define TSTAT_WAIT_MTX(tstat)	(((tstat) & TS_WAIT_MASK) == TS_WAIT_MTX)
 
 /*
  *  タスク待ち要因判別マクロ
@@ -123,6 +125,7 @@
 #define TSTAT_WAIT_SLP(tstat)		(((tstat) & TS_WAIT_MASK) == TS_WAIT_SLP)
 #define TSTAT_WAIT_WOBJ(tstat)		(((tstat) & TS_WAIT_MASK) >= TS_WAIT_RDTQ)
 #define TSTAT_WAIT_WOBJCB(tstat)	(((tstat) & TS_WAIT_MASK) >= TS_WAIT_SEM)
+#define TSTAT_WAIT_MTX(tstat)		(((tstat) & TS_WAIT_MASK) == TS_WAIT_MTX)
 
 /*
  *  待ち情報ブロック（WINFO）の定義
@@ -224,7 +227,7 @@ typedef struct task_initialization_block {
  *  ・初期化後は常に有効：
  *  		p_tinib，tstat，actque
  *  ・休止状態以外で有効（休止状態では初期値になっている）：
- *  		priority，wupque，enatex，texptn
+ *  		bpriority，priority，wupque，enatex，texptn，mutex_queue
  *  ・待ち状態（二重待ち状態を含む）で有効：
  *  		p_winfo
  *  ・実行できる状態と同期・通信オブジェクトに対する待ち状態で有効：
@@ -242,8 +245,11 @@ typedef struct task_control_block {
 	BIT_FIELD_UINT	tstat : 8;		/* タスク状態（内部表現）*/
 #endif /* UINT8_MAX */
 #if defined(UINT8_MAX) && (TBIT_TCB_PRIORITY == 8)
+	uint8_t			bpriority;		/* ベース優先度（内部表現）*/	
 	uint8_t			priority;		/* 現在の優先度（内部表現）*/
 #else /* defined(UINT8_MAX) && (TBIT_TCB_PRIORITY == 8) */
+	BIT_FIELD_UINT	bpriority : TBIT_TCB_PRIORITY;
+									/* ベース優先度（内部表現）*/
 	BIT_FIELD_UINT	priority : TBIT_TCB_PRIORITY;
 									/* 現在の優先度（内部表現）*/
 #endif /* defined(UINT8_MAX) && (TBIT_TCB_PRIORITY == 8) */
@@ -253,6 +259,7 @@ typedef struct task_control_block {
 
 	TEXPTN			texptn;			/* 保留例外要因 */
 	WINFO			*p_winfo;		/* 待ち情報ブロックへのポインタ */
+	QUEUE			mutex_queue;	/* ロックしているミューテックスのキュー */	
 	TSKCTXB			tskctxb;		/* タスクコンテキストブロック */
 } TCB;
 
@@ -337,14 +344,21 @@ extern QUEUE	ready_queue[TNUM_TPRI];
 extern uint16_t	ready_primap;
 
 /*
+ *  使用していないTCBのリスト
+ */
+extern QUEUE	free_tcb;
+
+/*
  *  タスクIDの最大値（kernel_cfg.c）
  */
 extern const ID	tmax_tskid;
+extern const ID	tmax_stskid;
 
 /*
  *  タスク初期化ブロックのエリア（kernel_cfg.c）
  */
 extern const TINIB	tinib_table[];
+extern TINIB		atinib_table[];
 
 /*
  *  タスク生成順序テーブル（kernel_cfg.c）
@@ -360,6 +374,7 @@ extern TCB	tcb_table[];
  *  タスクの数
  */
 #define tnum_tsk	((uint_t)(tmax_tskid - TMIN_TSKID + 1))
+#define tnum_stsk	((uint_t)(tmax_stskid - TMIN_TSKID + 1))
 
 /*
  *  タスクIDからTCBを取り出すためのマクロ
@@ -430,8 +445,12 @@ extern bool_t	make_active(TCB *p_tcb);
  *  p_tcbで指定されるタスクの優先度をnewpri（内部表現）に変更する．また，
  *  必要な場合には最高優先順位のタスクを更新し，ディスパッチ許可状態で
  *  あればtrueを返す．そうでない場合はfalseを返す．
+ *
+ *  p_tcbで指定されるタスクの優先順位は，mtxmodeがfalseの時は同じ優先度
+ *  のタスクの中で最低，mtxmodeがtrueの時は同じ優先度のタスクの中で最高
+ *  とする．
  */
-extern bool_t	change_priority(TCB *p_tcb, uint_t newpri);
+extern bool_t	change_priority(TCB *p_tcb, uint_t newpri, bool_t mtxmode);
 
 /*
  *  レディキューの回転

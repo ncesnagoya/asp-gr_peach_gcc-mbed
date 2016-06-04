@@ -5,7 +5,7 @@
  * 
  *  Copyright (C) 2000-2003 by Embedded and Real-Time Systems Laboratory
  *                              Toyohashi Univ. of Technology, JAPAN
- *  Copyright (C) 2005-2011 by Embedded and Real-Time Systems Laboratory
+ *  Copyright (C) 2005-2014 by Embedded and Real-Time Systems Laboratory
  *              Graduate School of Information Science, Nagoya Univ., JAPAN
  * 
  *  上記著作権者は，以下の(1)～(4)の条件を満たす場合に限り，本ソフトウェ
@@ -37,7 +37,7 @@
  *  アの利用により直接的または間接的に生じたいかなる損害に関しても，そ
  *  の責任を負わない．
  * 
- *  @(#) $Id: mempfix.c 2728 2015-12-30 01:46:11Z ertl-honda $
+ *  $Id: mempfix.c 2728 2015-12-30 01:46:11Z ertl-honda $
  */
 
 /*
@@ -53,6 +53,22 @@
 /*
  *  トレースログマクロのデフォルト定義
  */
+#ifndef LOG_ACRE_MPF_ENTER
+#define LOG_ACRE_MPF_ENTER(pk_cmpf)
+#endif /* LOG_ACRE_MPF_ENTER */
+
+#ifndef LOG_ACRE_MPF_LEAVE
+#define LOG_ACRE_MPF_LEAVE(ercd)
+#endif /* LOG_ACRE_MPF_LEAVE */
+
+#ifndef LOG_DEL_MPF_ENTER
+#define LOG_DEL_MPF_ENTER(mpfid)
+#endif /* LOG_DEL_MPF_ENTER */
+
+#ifndef LOG_DEL_MPF_LEAVE
+#define LOG_DEL_MPF_LEAVE(ercd)
+#endif /* LOG_DEL_MPF_LEAVE */
+
 #ifndef LOG_GET_MPF_ENTER
 #define LOG_GET_MPF_ENTER(mpfid, p_blk)
 #endif /* LOG_GET_MPF_ENTER */
@@ -105,6 +121,7 @@
  *  固定長メモリプールの数
  */
 #define tnum_mpf	((uint_t)(tmax_mpfid - TMIN_MPFID + 1))
+#define tnum_smpf	((uint_t)(tmax_smpfid - TMIN_MPFID + 1))
 
 /*
  *  固定長メモリプールIDから固定長メモリプール管理ブロックを取り出すた
@@ -119,24 +136,38 @@
 #define INDEX_NULL		(~0U)		/* 空きブロックリストの最後 */
 #define INDEX_ALLOC		(~1U)		/* 割当て済みのブロック */
 
+#ifdef TOPPERS_mpfini
+
+/*
+ *  使用していない固定長メモリプール管理ブロックのリスト
+ */
+QUEUE	free_mpfcb;
+
 /*
  *  固定長メモリプール機能の初期化
  */
-#ifdef TOPPERS_mpfini
-
 void
 initialize_mempfix(void)
 {
-	uint_t	i;
+	uint_t	i, j;
 	MPFCB	*p_mpfcb;
+	MPFINIB	*p_mpfinib;
 
-	for (i = 0; i < tnum_mpf; i++) {
+	for (i = 0; i < tnum_smpf; i++) {
 		p_mpfcb = &(mpfcb_table[i]);
 		queue_initialize(&(p_mpfcb->wait_queue));
 		p_mpfcb->p_mpfinib = &(mpfinib_table[i]);
 		p_mpfcb->fblkcnt = p_mpfcb->p_mpfinib->blkcnt;
 		p_mpfcb->unused = 0U;
 		p_mpfcb->freelist = INDEX_NULL;
+	}
+	queue_initialize(&free_mpfcb);
+	for (j = 0; i < tnum_mpf; i++, j++) {
+		p_mpfcb = &(mpfcb_table[i]);
+		p_mpfinib = &(ampfinib_table[j]);
+		p_mpfinib->mpfatr = TA_NOEXS;
+		p_mpfcb->p_mpfinib = ((const MPFINIB *) p_mpfinib);
+		queue_insert_prev(&free_mpfcb, &(p_mpfcb->wait_queue));
 	}
 }
 
@@ -169,6 +200,135 @@ get_mpf_block(MPFCB *p_mpfcb, void **p_blk)
 #endif /* TOPPERS_mpfget */
 
 /*
+ *  固定長メモリプールの生成
+ */
+#ifdef TOPPERS_acre_mpf
+
+ER_UINT
+acre_mpf(const T_CMPF *pk_cmpf)
+{
+	MPFCB	*p_mpfcb;
+	MPFINIB	*p_mpfinib;
+	ATR		mpfatr;
+	void	*mpf;
+	MPFMB	*p_mpfmb;
+	ER		ercd;
+
+	LOG_ACRE_MPF_ENTER(pk_cmpf);
+	CHECK_TSKCTX_UNL();
+	CHECK_RSATR(pk_cmpf->mpfatr, TA_TPRI);
+	CHECK_PAR(pk_cmpf->blkcnt != 0);
+	CHECK_PAR(pk_cmpf->blksz != 0);
+	if (pk_cmpf->mpf != NULL) {
+		CHECK_ALIGN_MPF(pk_cmpf->mpf);
+	}
+	if (pk_cmpf->mpfmb != NULL) {
+		CHECK_ALIGN_MB(pk_cmpf->mpfmb);
+	}
+	mpfatr = pk_cmpf->mpfatr;
+	mpf = pk_cmpf->mpf;
+	p_mpfmb = pk_cmpf->mpfmb;
+
+	t_lock_cpu();
+	if (tnum_mpf == 0 || queue_empty(&free_mpfcb)) {
+		ercd = E_NOID;
+	}
+	else {
+		if (mpf == NULL) {
+			mpf = kernel_malloc(ROUND_MPF_T(pk_cmpf->blksz) * pk_cmpf->blkcnt);
+			mpfatr |= TA_MEMALLOC;
+		}
+		if (mpf == NULL) {
+			ercd = E_NOMEM;
+		}
+		else {
+			if (p_mpfmb == NULL) {
+				p_mpfmb = kernel_malloc(sizeof(MPFMB) * pk_cmpf->blkcnt);
+				mpfatr |= TA_MBALLOC;
+			}
+			if (p_mpfmb == NULL) {
+				if (pk_cmpf->mpf == NULL) {
+					kernel_free(mpf);
+				}
+				ercd = E_NOMEM;
+			}
+			else {
+				p_mpfcb = ((MPFCB *) queue_delete_next(&free_mpfcb));
+				p_mpfinib = (MPFINIB *)(p_mpfcb->p_mpfinib);
+				p_mpfinib->mpfatr = mpfatr;
+				p_mpfinib->blkcnt = pk_cmpf->blkcnt;
+				p_mpfinib->blksz = ROUND_MPF_T(pk_cmpf->blksz);
+				p_mpfinib->mpf = mpf;
+				p_mpfinib->p_mpfmb = p_mpfmb;
+
+				queue_initialize(&(p_mpfcb->wait_queue));
+				p_mpfcb->fblkcnt = p_mpfcb->p_mpfinib->blkcnt;
+				p_mpfcb->unused = 0U;
+				p_mpfcb->freelist = INDEX_NULL;
+				ercd = MPFID(p_mpfcb);
+			}
+		}
+	}
+	t_unlock_cpu();
+
+  error_exit:
+	LOG_ACRE_MPF_LEAVE(ercd);
+	return(ercd);
+}
+
+#endif /* TOPPERS_acre_mpf */
+
+/*
+ *  固定長メモリプールの削除
+ */
+#ifdef TOPPERS_del_mpf
+
+ER
+del_mpf(ID mpfid)
+{
+	MPFCB	*p_mpfcb;
+	MPFINIB	*p_mpfinib;
+	bool_t	dspreq;
+	ER		ercd;
+
+	LOG_DEL_MPF_ENTER(mpfid);
+	CHECK_TSKCTX_UNL();
+	CHECK_MPFID(mpfid);
+	p_mpfcb = get_mpfcb(mpfid);
+
+	t_lock_cpu();
+	if (p_mpfcb->p_mpfinib->mpfatr == TA_NOEXS) {
+		ercd = E_NOEXS;
+	}
+	else if (MPFID(p_mpfcb) > tmax_smpfid) {
+		dspreq = init_wait_queue(&(p_mpfcb->wait_queue));
+		p_mpfinib = (MPFINIB *)(p_mpfcb->p_mpfinib);
+		if ((p_mpfinib->mpfatr & TA_MEMALLOC) != 0U) {
+			kernel_free(p_mpfinib->mpf);
+		}
+		if ((p_mpfinib->mpfatr & TA_MBALLOC) != 0U) {
+			kernel_free(p_mpfinib->p_mpfmb);
+		}
+		p_mpfinib->mpfatr = TA_NOEXS;
+		queue_insert_prev(&free_mpfcb, &(p_mpfcb->wait_queue));
+		if (dspreq) {
+			dispatch();
+		}
+		ercd = E_OK;
+	}
+	else {
+		ercd = E_OBJ;
+	}
+	t_unlock_cpu();
+
+  error_exit:
+	LOG_DEL_MPF_LEAVE(ercd);
+	return(ercd);
+}
+
+#endif /* TOPPERS_del_mpf */
+
+/*
  *  固定長メモリブロックの獲得
  */
 #ifdef TOPPERS_get_mpf
@@ -186,7 +346,10 @@ get_mpf(ID mpfid, void **p_blk)
 	p_mpfcb = get_mpfcb(mpfid);
 
 	t_lock_cpu();
-	if (p_mpfcb->fblkcnt > 0) {
+	if (p_mpfcb->p_mpfinib->mpfatr == TA_NOEXS) {
+		ercd = E_NOEXS;
+	}
+	else if (p_mpfcb->fblkcnt > 0) {
 		get_mpf_block(p_mpfcb, p_blk);
 		ercd = E_OK;
 	}
@@ -225,7 +388,10 @@ pget_mpf(ID mpfid, void **p_blk)
 	p_mpfcb = get_mpfcb(mpfid);
 
 	t_lock_cpu();
-	if (p_mpfcb->fblkcnt > 0) {
+	if (p_mpfcb->p_mpfinib->mpfatr == TA_NOEXS) {
+		ercd = E_NOEXS;
+	}
+	else if (p_mpfcb->fblkcnt > 0) {
 		get_mpf_block(p_mpfcb, p_blk);
 		ercd = E_OK;
 	}
@@ -261,7 +427,10 @@ tget_mpf(ID mpfid, void **p_blk, TMO tmout)
 	p_mpfcb = get_mpfcb(mpfid);
 
 	t_lock_cpu();
-	if (p_mpfcb->fblkcnt > 0) {
+	if (p_mpfcb->p_mpfinib->mpfatr == TA_NOEXS) {
+		ercd = E_NOEXS;
+	}
+	else if (p_mpfcb->fblkcnt > 0) {
 		get_mpf_block(p_mpfcb, p_blk);
 		ercd = E_OK;
 	}
@@ -305,27 +474,35 @@ rel_mpf(ID mpfid, void *blk)
 	CHECK_TSKCTX_UNL();
 	CHECK_MPFID(mpfid);
 	p_mpfcb = get_mpfcb(mpfid);
-	CHECK_PAR(p_mpfcb->p_mpfinib->mpf <= blk);
-	blkoffset = ((char *) blk) - (char *)(p_mpfcb->p_mpfinib->mpf);
-	CHECK_PAR(blkoffset % p_mpfcb->p_mpfinib->blksz == 0U);
-	CHECK_PAR(blkoffset / p_mpfcb->p_mpfinib->blksz < p_mpfcb->unused);
-	blkidx = (uint_t)(blkoffset / p_mpfcb->p_mpfinib->blksz);
-	CHECK_PAR((p_mpfcb->p_mpfinib->p_mpfmb + blkidx)->next == INDEX_ALLOC);
 
 	t_lock_cpu();
-	if (!queue_empty(&(p_mpfcb->wait_queue))) {
-		p_tcb = (TCB *) queue_delete_next(&(p_mpfcb->wait_queue));
-		((WINFO_MPF *)(p_tcb->p_winfo))->blk = blk;
-		if (wait_complete(p_tcb)) {
-			dispatch();
-		}
-		ercd = E_OK;
+	if (p_mpfcb->p_mpfinib->mpfatr == TA_NOEXS) {
+		ercd = E_NOEXS;
 	}
 	else {
-		p_mpfcb->fblkcnt++;
-		(p_mpfcb->p_mpfinib->p_mpfmb + blkidx)->next = p_mpfcb->freelist;
-		p_mpfcb->freelist = blkidx;
-		ercd = E_OK;
+		blkoffset = ((char *) blk) - (char *)(p_mpfcb->p_mpfinib->mpf);
+		blkidx = (uint_t)(blkoffset / p_mpfcb->p_mpfinib->blksz);
+		if (!(p_mpfcb->p_mpfinib->mpf <= blk)
+				|| !(blkoffset % p_mpfcb->p_mpfinib->blksz == 0U)
+				|| !(blkoffset / p_mpfcb->p_mpfinib->blksz < p_mpfcb->unused)
+				|| !((p_mpfcb->p_mpfinib->p_mpfmb + blkidx)->next
+															== INDEX_ALLOC)) {
+			ercd = E_PAR;
+		}
+		else if (!queue_empty(&(p_mpfcb->wait_queue))) {
+			p_tcb = (TCB *) queue_delete_next(&(p_mpfcb->wait_queue));
+			((WINFO_MPF *)(p_tcb->p_winfo))->blk = blk;
+			if (wait_complete(p_tcb)) {
+				dispatch();
+			}
+			ercd = E_OK;
+		}
+		else {
+			p_mpfcb->fblkcnt++;
+			(p_mpfcb->p_mpfinib->p_mpfmb + blkidx)->next = p_mpfcb->freelist;
+			p_mpfcb->freelist = blkidx;
+			ercd = E_OK;
+		}
 	}
 	t_unlock_cpu();
 
@@ -354,14 +531,19 @@ ini_mpf(ID mpfid)
 	p_mpfcb = get_mpfcb(mpfid);
 
 	t_lock_cpu();
-	dspreq = init_wait_queue(&(p_mpfcb->wait_queue));
-	p_mpfcb->fblkcnt = p_mpfcb->p_mpfinib->blkcnt;
-	p_mpfcb->unused = 0U;
-	p_mpfcb->freelist = INDEX_NULL;
-	if (dspreq) {
-		dispatch();
+	if (p_mpfcb->p_mpfinib->mpfatr == TA_NOEXS) {
+		ercd = E_NOEXS;
 	}
-	ercd = E_OK;
+	else {
+		dspreq = init_wait_queue(&(p_mpfcb->wait_queue));
+		p_mpfcb->fblkcnt = p_mpfcb->p_mpfinib->blkcnt;
+		p_mpfcb->unused = 0U;
+		p_mpfcb->freelist = INDEX_NULL;
+		if (dspreq) {
+			dispatch();
+		}
+		ercd = E_OK;
+	}
 	t_unlock_cpu();
 
   error_exit:
@@ -388,9 +570,14 @@ ref_mpf(ID mpfid, T_RMPF *pk_rmpf)
 	p_mpfcb = get_mpfcb(mpfid);
 
 	t_lock_cpu();
-	pk_rmpf->wtskid = wait_tskid(&(p_mpfcb->wait_queue));
-	pk_rmpf->fblkcnt = p_mpfcb->fblkcnt;
-	ercd = E_OK;
+	if (p_mpfcb->p_mpfinib->mpfatr == TA_NOEXS) {
+		ercd = E_NOEXS;
+	}
+	else {
+		pk_rmpf->wtskid = wait_tskid(&(p_mpfcb->wait_queue));
+		pk_rmpf->fblkcnt = p_mpfcb->fblkcnt;
+		ercd = E_OK;
+	}
 	t_unlock_cpu();
 
   error_exit:

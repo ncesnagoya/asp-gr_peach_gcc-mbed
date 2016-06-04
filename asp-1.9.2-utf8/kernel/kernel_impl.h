@@ -121,9 +121,11 @@
 #define TMIN_DTQID		1		/* データキューIDの最小値 */
 #define TMIN_PDQID		1		/* 優先度データキューIDの最小値 */
 #define TMIN_MBXID		1		/* メールボックスIDの最小値 */
+#define TMIN_MTXID		1		/* ミューテックスIDの最小値 */
 #define TMIN_MPFID		1		/* 固定長メモリプールIDの最小値 */
 #define TMIN_CYCID		1		/* 周期ハンドラIDの最小値 */
 #define TMIN_ALMID		1		/* アラームハンドラIDの最小値 */
+#define TMIN_ISRID		1		/* 割込みサービスルーチンIDの最小値 */
 
 /*
  *  優先度の段階数の定義
@@ -131,6 +133,29 @@
 #define TNUM_TPRI		(TMAX_TPRI - TMIN_TPRI + 1)
 #define TNUM_MPRI		(TMAX_MPRI - TMIN_MPRI + 1)
 #define TNUM_INTPRI		(TMAX_INTPRI - TMIN_INTPRI + 1)
+
+/*
+ *  カーネル内部で使用する属性の定義
+ */
+#define TA_NOEXS		((ATR)(-1))			/* 未登録状態 */
+
+#ifndef TA_MEMALLOC
+#define TA_MEMALLOC		UINT_C(0x8000)		/* メモリ領域をカーネルで確保 */
+#endif /* TA_MEMALLOC */
+#ifndef TA_MBALLOC
+#define TA_MBALLOC		UINT_C(0x4000)		/* 管理領域をカーネルで確保 */
+#endif /* TA_MBALLOC */
+
+/*
+ *  ターゲット定義のエラーチェックマクロのデフォルト値の定義
+ */
+#ifndef TARGET_TSKATR
+#define TARGET_TSKATR		0U		/* ターゲット定義のタスク属性 */
+#endif /* TARGET_TSKATR */
+
+#ifndef TARGET_ISRATR
+#define TARGET_ISRATR		0U		/* ターゲット定義のISR属性 */
+#endif /* TARGET_ISRATR */
 
 /*
  *  ヘッダファイルを持たないモジュールの関数・変数の宣言
@@ -162,6 +187,12 @@ extern STK_T *const	istkpt;		/* スタックポインタの初期値 */
 #endif /* TOPPERS_ISTKPT */
 
 /*
+ *  カーネルが割り付けるメモリ領域（kernel_cfg.c）
+ */
+extern const SIZE	kmmsz;		/* カーネルが割り付けるメモリ領域のサイズ */
+extern MB_T *const	kmm;		/* カーネルが割り付けるメモリ領域の先頭番地 */
+
+/*
  *  カーネル動作状態フラグ（startup.c）
  */
 extern bool_t	kerflg;
@@ -175,6 +206,13 @@ extern void	sta_ker(void);
  *  カーネルの終了処理（startup.c）
  */
 extern void	exit_kernel(void);
+
+/*
+ *  カーネルの割り付けるメモリ領域の管理（startup.c）
+ */
+extern void initialize_kmm(void);
+extern void *kernel_malloc(SIZE size);
+extern void kernel_free(void *ptr);
 
 #endif /* TOPPERS_MACRO_ONLY */
 #endif /* TOPPERS_KERNEL_IMPL_H */

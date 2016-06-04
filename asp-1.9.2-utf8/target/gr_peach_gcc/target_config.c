@@ -303,8 +303,6 @@ target_initialize(void)
 	CP15_SET_VBAR((uint32_t) &vector_table);
 	pl310_init(0, ~0x0U);
 	*/
-
-
 }
 
 void

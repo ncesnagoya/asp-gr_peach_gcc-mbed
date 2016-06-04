@@ -127,6 +127,15 @@ typedef	struct t_msg_pri {		/* 優先度付きメッセージヘッダ */
 /*
  *  パケット形式の定義
  */
+typedef struct t_ctsk {
+	ATR			tskatr;		/* タスク属性 */
+	intptr_t	exinf;		/* タスクの拡張情報 */
+	TASK		task;		/* タスクのメインルーチンの先頭番地 */
+	PRI			itskpri;	/* タスクの起動時優先度 */
+	SIZE		stksz;		/* タスクのスタック領域のサイズ */
+	STK_T 		*stk;		/* タスクのスタック領域の先頭番地 */
+} T_CTSK;
+
 typedef struct t_rtsk {
 	STAT	tskstat;	/* タスク状態 */
 	PRI		tskpri;		/* タスクの現在優先度 */
@@ -138,26 +147,56 @@ typedef struct t_rtsk {
 	uint_t	wupcnt;		/* 起床要求キューイング数 */
 } T_RTSK;
 
+typedef struct t_dtex {
+	ATR		texatr;		/* タスク例外処理ルーチン属性 */
+	TEXRTN	texrtn;		/* タスク例外処理ルーチンの先頭番地 */
+} T_DTEX;
+
 typedef struct t_rtex {
 	STAT	texstat;	/* タスク例外処理の状態 */
 	TEXPTN	pndptn;		/* 保留例外要因 */
 } T_RTEX;
+
+typedef struct t_csem {
+	ATR		sematr;		/* セマフォ属性 */
+	uint_t	isemcnt;	/* セマフォの初期資源数 */
+	uint_t	maxsem;		/* セマフォの最大資源数 */
+} T_CSEM;
 
 typedef struct t_rsem {
 	ID		wtskid;		/* セマフォの待ち行列の先頭のタスクのID番号 */
 	uint_t	semcnt;		/* セマフォの現在の資源数 */
 } T_RSEM;
 
+typedef struct t_cflg {
+	ATR		flgatr;		/* イベントフラグ属性 */
+	FLGPTN	iflgptn;	/* イベントフラグの初期ビットパターン */
+} T_CFLG;
+
 typedef struct t_rflg {
 	ID		wtskid;		/* イベントフラグの待ち行列の先頭のタスクのID番号 */
 	FLGPTN	flgptn;		/* イベントフラグの現在のビットパターン */
 } T_RFLG;
+
+typedef struct t_cdtq {
+	ATR		dtqatr;		/* データキュー属性 */
+	uint_t	dtqcnt;		/* データキュー管理領域に格納できるデータ数 */
+	void 	*dtqmb;		/* データキュー管理領域の先頭番地 */
+} T_CDTQ;
 
 typedef struct t_rdtq {
 	ID		stskid;		/* データキューの送信待ち行列の先頭のタスクのID番号 */
 	ID		rtskid;		/* データキューの受信待ち行列の先頭のタスクのID番号 */
 	uint_t	sdtqcnt;	/* データキュー管理領域に格納されているデータの数 */
 } T_RDTQ;
+
+typedef struct t_cpdq {
+	ATR		pdqatr;		/* 優先度データキュー属性 */
+	uint_t	pdqcnt;		/* 優先度データキュー管理領域に格納できるデータ数 */
+	PRI		maxdpri;	/* 優先度データキューに送信できるデータ優先度の最
+						   大値 */
+	void 	*pdqmb;		/* 優先度データキュー管理領域の先頭番地 */
+} T_CPDQ;
 
 typedef struct t_rpdq {
 	ID		stskid;		/* 優先度データキューの送信待ち行列の先頭のタスク
@@ -168,11 +207,37 @@ typedef struct t_rpdq {
 						   タの数 */
 } T_RPDQ;
 
+typedef struct t_cmbx {
+	ATR		mbxatr;		/* メールボックス属性 */
+	PRI		maxmpri;	/* 優先度メールボックスに送信できるメッセージ優先
+						   度の最大値 */
+	void 	*mprihd;	/* 優先度別のメッセージキューヘッダ領域の先頭番地 */
+} T_CMBX;
+
 typedef struct t_rmbx {
 	ID		wtskid;		/* メールボックスの待ち行列の先頭のタスクのID番号 */
 	T_MSG	*pk_msg;	/* メッセージキューの先頭につながれたメッセージ
 						   の先頭番地 */
 } T_RMBX;
+
+
+typedef struct t_cmtx {
+	ATR		mtxatr;		/* ミューテックス属性 */
+	PRI 	ceilpri;	/* ミューテックスの上限優先度 */
+} T_CMTX;
+	
+typedef struct t_rmtx {
+	ID		htskid;		/* ミューテックスをロックしているタスクのID番号 */
+	ID		wtskid;		/* ミューテックスの待ち行列の先頭のタスクのID番号 */
+} T_RMTX;
+	
+typedef struct t_cmpf {
+	ATR		mpfatr;		/* 固定長メモリプール属性 */
+	uint_t	blkcnt;		/* 獲得できる固定長メモリブロックの数 */
+	uint_t	blksz;		/* 固定長メモリブロックのサイズ */
+	MPF_T 	*mpf;		/* 固定長メモリプール領域の先頭番地 */
+	void 	*mpfmb;		/* 固定長メモリプール管理領域の先頭番地 */
+} T_CMPF;
 
 typedef struct t_rmpf {
 	ID		wtskid;		/* 固定長メモリプールの待ち行列の先頭のタスクの
@@ -181,15 +246,37 @@ typedef struct t_rmpf {
 						   付けることができる固定長メモリブロックの数 */
 } T_RMPF;
 
+typedef struct t_ccyc {
+	ATR			cycatr;		/* 周期ハンドラ属性 */
+	intptr_t	exinf;		/* 周期ハンドラの拡張情報 */
+	CYCHDR		cychdr;		/* 周期ハンドラの先頭番地 */
+	RELTIM		cyctim;		/* 周期ハンドラの起動周期 */
+	RELTIM		cycphs;		/* 周期ハンドラの起動位相 */
+} T_CCYC;
+
 typedef struct t_rcyc {
 	STAT	cycstat;	/* 周期ハンドラの動作状態 */
 	RELTIM	lefttim;	/* 次に周期ハンドラを起動する時刻までの相対時間 */
 } T_RCYC;
 
+typedef struct t_calm {
+	ATR			almatr;		/* アラームハンドラ属性 */
+	intptr_t	exinf;		/* アラームハンドラの拡張情報 */
+	ALMHDR		almhdr;		/* アラームハンドラの先頭番地 */
+} T_CALM;
+
 typedef struct t_ralm {
 	STAT	almstat;	/* アラームハンドラの動作状態 */
 	RELTIM	lefttim;	/* アラームハンドラを起動する時刻までの相対時間 */
 } T_RALM;
+
+typedef struct t_cisr {
+	ATR			isratr;		/* 割込みサービスルーチン属性 */
+	intptr_t	exinf;		/* 割込みサービスルーチンの拡張情報 */
+	INTNO		intno;		/* 割込みサービスルーチンを登録する割込み番号 */
+	ISR			isr;		/* 割込みサービスルーチンの先頭番地 */
+	PRI			isrpri;		/* 割込みサービスルーチン優先度 */
+} T_CISR;
 
 /*
  *  サービスコールの宣言
@@ -198,6 +285,8 @@ typedef struct t_ralm {
 /*
  *  タスク管理機能
  */
+extern ER_UINT	acre_tsk(const T_CTSK *pk_ctsk) throw();
+extern ER		del_tsk(ID tskid) throw();
 extern ER		act_tsk(ID tskid) throw();
 extern ER		iact_tsk(ID tskid) throw();
 extern ER_UINT	can_act(ID tskid) throw();
@@ -225,6 +314,7 @@ extern ER		dly_tsk(RELTIM dlytim) throw();
 /*
  *  タスク例外処理機能
  */
+extern ER		def_tex(ID tskid, const T_DTEX *pk_dtex) throw();
 extern ER		ras_tex(ID tskid, TEXPTN rasptn) throw();
 extern ER		iras_tex(ID tskid, TEXPTN rasptn) throw();
 extern ER		dis_tex(void) throw();
@@ -235,6 +325,8 @@ extern ER		ref_tex(ID tskid, T_RTEX *pk_rtex) throw();
 /*
  *  同期・通信機能
  */
+extern ER_ID	acre_sem(const T_CSEM *pk_csem) throw();
+extern ER		del_sem(ID semid) throw();
 extern ER		sig_sem(ID semid) throw();
 extern ER		isig_sem(ID semid) throw();
 extern ER		wai_sem(ID semid) throw();
@@ -243,6 +335,8 @@ extern ER		twai_sem(ID semid, TMO tmout) throw();
 extern ER		ini_sem(ID semid) throw();
 extern ER		ref_sem(ID semid, T_RSEM *pk_rsem) throw();
 
+extern ER_ID	acre_flg(const T_CFLG *pk_cflg) throw();
+extern ER		del_flg(ID flgid) throw();
 extern ER		set_flg(ID flgid, FLGPTN setptn) throw();
 extern ER		iset_flg(ID flgid, FLGPTN setptn) throw();
 extern ER		clr_flg(ID flgid, FLGPTN clrptn) throw();
@@ -255,6 +349,8 @@ extern ER		twai_flg(ID flgid, FLGPTN waiptn,
 extern ER		ini_flg(ID flgid) throw();
 extern ER		ref_flg(ID flgid, T_RFLG *pk_rflg) throw();
 
+extern ER_ID	acre_dtq(const T_CDTQ *pk_cdtq) throw();
+extern ER		del_dtq(ID dtqid) throw();
 extern ER		snd_dtq(ID dtqid, intptr_t data) throw();
 extern ER		psnd_dtq(ID dtqid, intptr_t data) throw();
 extern ER		ipsnd_dtq(ID dtqid, intptr_t data) throw();
@@ -267,6 +363,8 @@ extern ER		trcv_dtq(ID dtqid, intptr_t *p_data, TMO tmout) throw();
 extern ER		ini_dtq(ID dtqid) throw();
 extern ER		ref_dtq(ID dtqid, T_RDTQ *pk_rdtq) throw();
 
+extern ER_ID	acre_pdq(const T_CPDQ *pk_cpdq) throw();
+extern ER		del_pdq(ID pdqid) throw();
 extern ER		snd_pdq(ID pdqid, intptr_t data, PRI datapri) throw();
 extern ER		psnd_pdq(ID pdqid, intptr_t data, PRI datapri) throw();
 extern ER		ipsnd_pdq(ID pdqid, intptr_t data, PRI datapri) throw();
@@ -279,6 +377,8 @@ extern ER		trcv_pdq(ID pdqid, intptr_t *p_data,
 extern ER		ini_pdq(ID pdqid) throw();
 extern ER		ref_pdq(ID pdqid, T_RPDQ *pk_rpdq) throw();
 
+extern ER_ID	acre_mbx(const T_CMBX *pk_cmbx) throw();
+extern ER		del_mbx(ID mbxid) throw();
 extern ER		snd_mbx(ID mbxid, T_MSG *pk_msg) throw();
 extern ER		rcv_mbx(ID mbxid, T_MSG **ppk_msg) throw();
 extern ER		prcv_mbx(ID mbxid, T_MSG **ppk_msg) throw();
@@ -286,9 +386,20 @@ extern ER		trcv_mbx(ID mbxid, T_MSG **ppk_msg, TMO tmout) throw();
 extern ER		ini_mbx(ID mbxid) throw();
 extern ER		ref_mbx(ID mbxid, T_RMBX *pk_rmbx) throw();
 
+extern ER_ID	acre_mtx(const T_CMTX *pk_cmtx) throw();
+extern ER		del_mtx(ID mtxid) throw();	
+extern ER		loc_mtx(ID mtxid) throw();
+extern ER		ploc_mtx(ID mtxid) throw();
+extern ER		tloc_mtx(ID mtxid, TMO tmout) throw();
+extern ER		unl_mtx(ID mtxid) throw();
+extern ER		ini_mtx(ID mtxid) throw();
+extern ER		ref_mtx(ID mtxid, T_RMTX *pk_rmtx) throw();
+	
 /*
  *  メモリプール管理機能
  */
+extern ER_ID	acre_mpf(const T_CMPF *pk_cmpf) throw();
+extern ER		del_mpf(ID mpfid) throw();
 extern ER		get_mpf(ID mpfid, void **p_blk) throw();
 extern ER		pget_mpf(ID mpfid, void **p_blk) throw();
 extern ER		tget_mpf(ID mpfid, void **p_blk, TMO tmout) throw();
@@ -302,10 +413,14 @@ extern ER		ref_mpf(ID mpfid, T_RMPF *pk_rmpf) throw();
 extern ER		get_tim(SYSTIM *p_systim) throw();
 extern ER		get_utm(SYSUTM *p_sysutm) throw();
 
+extern ER_ID	acre_cyc(const T_CCYC *pk_ccyc) throw();
+extern ER		del_cyc(ID cycid) throw();
 extern ER		sta_cyc(ID cycid) throw();
 extern ER		stp_cyc(ID cycid) throw();
 extern ER		ref_cyc(ID cycid, T_RCYC *pk_rcyc) throw();
 
+extern ER_ID	acre_alm(const T_CALM *pk_calm) throw();
+extern ER		del_alm(ID almid) throw();
 extern ER		sta_alm(ID almid, RELTIM almtim) throw();
 extern ER		ista_alm(ID almid, RELTIM almtim) throw();
 extern ER		stp_alm(ID almid) throw();
@@ -335,6 +450,8 @@ extern ER		ext_ker(void) throw();
 /*
  *  割込み管理機能
  */
+extern ER_ID	acre_isr(const T_CISR *pk_cisr) throw();
+extern ER		del_isr(ID isrid) throw();
 extern ER		dis_int(INTNO intno) throw();
 extern ER		ena_int(INTNO intno) throw();
 extern ER		chg_ipm(PRI intpri) throw();
@@ -359,6 +476,8 @@ extern bool_t	xsns_xpn(void *p_excinf) throw();
 #define TA_WMUL			UINT_C(0x02)	/* 複数の待ちタスク */
 #define TA_CLR			UINT_C(0x04)	/* イベントフラグのクリア指定 */
 
+#define TA_CEILING		UINT_C(0x03)	/* 優先度上限プロトコル */
+	
 #define TA_STA			UINT_C(0x02)	/* 周期ハンドラを動作状態で生成 */
 
 #define TA_NONKERNEL	UINT_C(0x02)	/* カーネル管理外の割込み */
@@ -391,6 +510,7 @@ extern bool_t	xsns_xpn(void *p_excinf) throw();
 #define TTW_SPDQ		UINT_C(0x0100)	/* 優先度データキューへの送信待ち */
 #define TTW_RPDQ		UINT_C(0x0200)	/* 優先度データキューからの受信待ち */
 #define TTW_MBX			UINT_C(0x0040)	/* メールボックスからの受信待ち */
+#define TTW_MTX			UINT_C(0x0080)	/* ミューテックスのロック待ち状態 */	
 #define TTW_MPF			UINT_C(0x2000)	/* 固定長メモリブロックの獲得待ち */
 
 #define TTEX_ENA		UINT_C(0x01)	/* タスク例外処理許可状態 */
@@ -432,6 +552,10 @@ extern bool_t	xsns_xpn(void *p_excinf) throw();
 #define TOPPERS_SUPPORT_GET_UTM			/* get_utmがサポートされている */
 #endif /* TOPPERS_TARGET_SUPPORT_GET_UTM */
 
+#define TOPPERS_SUPPORT_DYNAMIC_CRE		/* 動的生成機能拡張 */
+
+#define TOPPERS_SUPPORT_MUTEX			/* ミューテックス機能拡張 */
+	
 /*
  *  優先度の範囲
  */
@@ -487,6 +611,17 @@ extern bool_t	xsns_xpn(void *p_excinf) throw();
 
 #define COUNT_MPF_T(blksz)	TOPPERS_COUNT_SZ(blksz, sizeof(MPF_T))
 #define ROUND_MPF_T(blksz)	TOPPERS_ROUND_SZ(blksz, sizeof(MPF_T))
+
+#define TSZ_DTQMB(dtqcnt)	(sizeof(intptr_t) * (dtqcnt))
+#define TCNT_DTQMB(dtqcnt)	TOPPERS_COUNT_SZ(TSZ_DTQMB(dtqcnt), sizeof(MB_T))
+
+#ifndef TSZ_PDQMB
+#define TSZ_PDQMB(pdqcnt)	(sizeof(intptr_t) * 3 * (pdqcnt))
+#endif /* TSZ_PDQMB */
+#define TCNT_PDQMB(pdqcnt)	TOPPERS_COUNT_SZ(TSZ_PDQMB(pdqcnt), sizeof(MB_T))
+
+#define TSZ_MPFMB(blkcnt)	(sizeof(uint_t) * (blkcnt))
+#define TCNT_MPFMB(blkcnt)	TOPPERS_COUNT_SZ(TSZ_MPFMB(blkcnt), sizeof(MB_T))
 
 /*
  *  その他の構成定数

@@ -101,14 +101,21 @@ typedef struct dataqueue_waiting_information {
 } WINFO_DTQ;
 
 /*
+ *  使用していないデータキュー管理ブロックのリスト
+ */
+extern QUEUE	free_dtqcb;
+
+/*
  *  データキューIDの最大値（kernel_cfg.c）
  */
 extern const ID	tmax_dtqid;
+extern const ID	tmax_sdtqid;
 
 /*
  *  データキュー初期化ブロックのエリア（kernel_cfg.c）
  */
 extern const DTQINIB	dtqinib_table[];
+extern DTQINIB			adtqinib_table[];
 
 /*
  *  データキュー管理ブロックのエリア（kernel_cfg.c）

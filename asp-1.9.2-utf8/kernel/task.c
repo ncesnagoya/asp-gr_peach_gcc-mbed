@@ -102,6 +102,11 @@ QUEUE	ready_queue[TNUM_TPRI];
 uint16_t	ready_primap;
 
 /*
+ *  使用していないTCBのリスト
+ */
+QUEUE	free_tcb;
+
+/*
  *  タスク管理モジュールの初期化
  */
 void
@@ -109,6 +114,7 @@ initialize_task(void)
 {
 	uint_t	i, j;
 	TCB		*p_tcb;
+	TINIB	*p_tinib;
 
 	p_runtsk = NULL;
 	p_schedtsk = NULL;
@@ -122,15 +128,24 @@ initialize_task(void)
 	}
 	ready_primap = 0U;
 
-	for (i = 0; i < tnum_tsk; i++) {
+	for (i = 0; i < tnum_stsk; i++) {
 		j = INDEX_TSK(torder_table[i]);
 		p_tcb = &(tcb_table[j]);
 		p_tcb->p_tinib = &(tinib_table[j]);
 		p_tcb->actque = false;
 		make_dormant(p_tcb);
+		queue_initialize(&(p_tcb->mutex_queue));
 		if ((p_tcb->p_tinib->tskatr & TA_ACT) != 0U) {
 			(void) make_active(p_tcb);
 		}
+	}
+	queue_initialize(&free_tcb);
+	for (j = 0; i < tnum_tsk; i++, j++) {
+		p_tcb = &(tcb_table[i]);
+		p_tinib = &(atinib_table[j]);
+		p_tinib->tskatr = TA_NOEXS;
+		p_tcb->p_tinib = ((const TINIB *) p_tinib);
+		queue_insert_prev(&free_tcb, &(p_tcb->task_queue));
 	}
 }
 
@@ -305,6 +320,7 @@ void
 make_dormant(TCB *p_tcb)
 {
 	p_tcb->tstat = TS_DORMANT;
+	p_tcb->bpriority = p_tcb->p_tinib->ipriority;	
 	p_tcb->priority = p_tcb->p_tinib->ipriority;
 	p_tcb->wupque = false;
 	p_tcb->enatex = false;
@@ -345,7 +361,7 @@ make_active(TCB *p_tcb)
 #ifdef TOPPERS_tskpri
 
 bool_t
-change_priority(TCB *p_tcb, uint_t newpri)
+change_priority(TCB *p_tcb, uint_t newpri, bool_t mtxmode)
 {
 	uint_t	oldpri;
 
@@ -360,7 +376,12 @@ change_priority(TCB *p_tcb, uint_t newpri)
 		if (queue_empty(&(ready_queue[oldpri]))) {
 			primap_clear(oldpri);
 		}
-		queue_insert_prev(&(ready_queue[newpri]), &(p_tcb->task_queue));
+		if (mtxmode) {
+			queue_insert_next(&(ready_queue[newpri]), &(p_tcb->task_queue));
+		}
+		else {
+			queue_insert_prev(&(ready_queue[newpri]), &(p_tcb->task_queue));
+		}
 		primap_set(newpri);
 
 		if (p_schedtsk == p_tcb) {
@@ -370,7 +391,8 @@ change_priority(TCB *p_tcb, uint_t newpri)
 			}
 		}
 		else {
-			if (newpri < p_schedtsk->priority) {
+			if (mtxmode ? newpri <= p_schedtsk->priority
+						: newpri < p_schedtsk->priority) {
 				p_schedtsk = p_tcb;
 				return(dspflg);
 			}
