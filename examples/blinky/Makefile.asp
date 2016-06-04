@@ -509,13 +509,13 @@ $(APPL_COBJS:.o=.s): %.s: %.c
 	$(CC) -S $(CFLAGS) $(APPL_CFLAGS) $<
 
 $(APPL_CXXOBJS): %.o: %.cpp
-	$(CXX) -c $(CFLAGS) $(APPL_CFLAGS) $<
+	$(CXX) -c $(CFLAGS) $(APPL_CXXFLAGS) $<
 
 $(APPL_CXXOBJS:.o=.s): %.s: %.cpp
-	$(CXX) -S $(CFLAGS) $(APPL_CFLAGS) $<
+	$(CXX) -S $(CFLAGS) $(APPL_CXXFLAGS) $<
 
 $(APPL_ASMOBJS): %.o: %.S
-	$(CC) -c $(CFLAGS) $(APPL_CFLAGS) $<
+	$(CC) -c $(CFLAGS) $(APPL_CXXFLAGS) $<
 
 #
 #  依存関係作成ルールの定義
