@@ -3,7 +3,7 @@ TOPPERS/ASP Kernel on mbed Library
 
 # References
 
-- [Installation Guide](Installation)
+- [Installation Guide](https://github.com/ncesnagoya/asp-gr_peach_gcc-mbed/wiki/Installation)
 
 # Links
 
