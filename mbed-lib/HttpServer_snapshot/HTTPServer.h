@@ -279,7 +279,7 @@ void HTTPServerStart(int port = 80)
 #endif
             }
         } else {
-            if(server.accept(xclient)==0) {
+            if(server.accept(xclient) == 0) {
 	            syslog(LOG_NOTICE, "server.accept(xclient) passed.");	
                 // closer process
 				//                if (xthread) {
@@ -313,7 +313,8 @@ void HTTPServerStart(int port = 80)
 			//            if ((threads[i] == NULL)
 			//             || ((threads[i]->get_state() == Thread::WaitingAnd) && (*clients[i].get_address() == 0))) {
 			if ((threads_id[i] == 0) ||
-			((pk_rtsk.tskstat == TTW_SLP) && (*clients[i].get_address() == 0))) {
+			((pk_rtsk.tskstat == TTS_WAI && pk_rtsk.tskwait == TTW_SLP) &&
+			(*clients[i].get_address() == 0))) {
                 if (t < 0) t = i; // next empty thread
             }
         }

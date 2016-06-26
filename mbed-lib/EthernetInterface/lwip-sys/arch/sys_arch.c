@@ -113,11 +113,16 @@ err_t sys_mbox_new(sys_mbox_t *mbox, int queue_sz) {
  *      sys_mbox_t *mbox         -- Handle of mailbox
  *---------------------------------------------------------------------------*/
 void sys_mbox_free(sys_mbox_t *mbox) {
+	ER ercd;
+
+	ercd = del_dtq(mbox->id);
+
 	//    osEvent event = osMessageGet(mbox->id, 0);
 	//    if (event.status == osEventMessage)
-	if (ini_dtq(mbox->id) != E_OK) {
-        error("sys_mbox_free error\n");
+	if (ercd != E_OK) {
+		error("Error with ercd=%d in sys_mbox_free.\n", ercd);
 	}
+	syslog(LOG_NOTICE, "The data queue (ID=%d) was deleted.", mbox->id);
 }
 
 /*---------------------------------------------------------------------------*
@@ -245,7 +250,9 @@ u32_t sys_arch_mbox_tryfetch(sys_mbox_t *mbox, void **msg) {
  *      err_t                 -- ERR_OK if semaphore created
  *---------------------------------------------------------------------------*/
 err_t sys_sem_new(sys_sem_t *sem, u8_t count) {
+	ER ercd;
 	T_CSEM csem;
+
 #ifdef CMSIS_OS_RTX
     memset(sem->data, 0, sizeof(uint32_t)*2);
     sem->def.semaphore = sem->data;
@@ -254,14 +261,18 @@ err_t sys_sem_new(sys_sem_t *sem, u8_t count) {
 	csem.sematr = NULL;
 	csem.isemcnt = count;
 	csem.maxsem = 1;
-	sem->id = acre_sem(&csem);
+
+	ercd = acre_sem(&csem);
 
 	//    if (sem->id == NULL)
-	if (sem->id < 0) {
-        error("sys_sem_new create error\n");
+	if (ercd < 0) {
+		//        error("sys_sem_new create error\n");
+		syslog(LOG_EMERG, "sys_sem_new create error with code=%d\n", ercd);
+		return ERR_MEM;
 	}
 
-	syslog(LOG_NOTICE, "A new semaphore (ID=%d) was created now.", sem->id);
+	sem->id = ercd;
+	syslog(LOG_NOTICE, "A new semaphore (ID=%d) was created.", sem->id);
 	
     return ERR_OK;
 }
@@ -338,13 +349,24 @@ void sys_sem_signal(sys_sem_t *data) {
  * Inputs:
  *      sys_sem_t sem           -- Semaphore to free
  *---------------------------------------------------------------------------*/
-void sys_sem_free(sys_sem_t *sem) {}
+//void sys_sem_free(sys_sem_t *sem) {}
+void sys_sem_free(sys_sem_t *sem) {
+	ER ercd;
+
+	ercd = del_sem(sem->id);
+	if (ercd != E_OK) {
+		error("Error with ercd=%d in sys_sem_free.\n", ercd);
+	}
+	syslog(LOG_NOTICE, "The semaphore (ID=%d) was deleted.", sem->id);
+}
 
 /** Create a new mutex
  * @param mutex pointer to the mutex to create
  * @return a new mutex */
 err_t sys_mutex_new(sys_mutex_t *mutex) {
+	ER ercd;
 	T_CMTX cmtx;
+
 #ifdef CMSIS_OS_RTX
 #ifdef __MBED_CMSIS_RTOS_CA9
     memset(mutex->data, 0, sizeof(int32_t)*4);
@@ -356,14 +378,16 @@ err_t sys_mutex_new(sys_mutex_t *mutex) {
 	//    mutex->id = osMutexCreate(&mutex->def);
 	cmtx.mtxatr = NULL; /* FIFO */
 	cmtx.ceilpri = osPriorityHigh; /* TODO: to be changed to appropriate priority.*/
-	mutex->id = acre_mtx(&cmtx);
+	ercd = acre_mtx(&cmtx);
 
 	syslog(LOG_NOTICE, "A new mutex (ID=%d) was created now.", mutex->id);
 	
-    if (mutex->id < 0)
+    if (ercd < 0) {
         return ERR_MEM;
+	}
 
-    return ERR_OK;
+	mutex->id = ercd;
+	return ERR_OK;
 }
 
 /** Lock a mutex
@@ -388,7 +412,16 @@ void sys_mutex_unlock(sys_mutex_t *mutex) {
 
 /** Delete a mutex
  * @param mutex the mutex to delete */
-void sys_mutex_free(sys_mutex_t *mutex) {}
+//void sys_mutex_free(sys_mutex_t *mutex) {}
+void sys_mutex_free(sys_mutex_t *mutex) {
+	ER ercd;
+
+	ercd = del_mtx(mutex->id);
+	if (ercd != E_OK) {
+		error("Error with ercd=%d in sys_mutex_free.\n", ercd);
+	}
+	syslog(LOG_NOTICE, "The mutex (ID=%d) was deleted.", mutex->id);
+}
 
 /*---------------------------------------------------------------------------*
  * Routine:  sys_init
@@ -504,6 +537,7 @@ static sys_thread_data_t thread_pool[SYS_THREAD_POOL_N];
 sys_thread_t sys_thread_new(const char *pcName,
                             void (*thread)(void *arg),
                             void *arg, int stacksize, int priority) {
+	ER ercd;
 	T_CTSK ctsk;
     LWIP_DEBUGF(SYS_DEBUG, ("New Thread: %s\n", pcName));
 	
@@ -530,13 +564,16 @@ sys_thread_t sys_thread_new(const char *pcName,
 	ctsk.itskpri = (PRI)priority;
 	ctsk.stksz = stacksize;
 	ctsk.stk = NULL;
-	t->id = acre_tsk(&ctsk);
-    if (t->id > 0) {
-		syslog(LOG_NOTICE, "A new task %s(ID=%d) with Pri=%d was created now.", pcName, t->id, priority);
-	} else {		
+
+	ercd = acre_tsk(&ctsk);
+		
+	if (ercd < 0) {
         error("sys_thread_new create error\n");
 	}
 
+	t->id = ercd;
+	syslog(LOG_NOTICE, "A new task %s(ID=%d) with Pri=%d was created now.", pcName, t->id, priority);
+	
     return t;
 }
 
