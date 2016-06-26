@@ -15,10 +15,9 @@
 #include "mbed_rpc.h"
 #include "RomRamFileSystem.h"
 #include "file_table.h"        //Binary data of web pages
-//#include "i2c_setting.h"
+#include "i2c_setting.h"
 
 #include "syssvc/logtask.h"
-
 
 #define VIDEO_CVBS             (0)                 /* Analog  Video Signal */
 #define VIDEO_CMOS_CAMERA      (1)                 /* Digital Video Signal */
@@ -126,7 +125,7 @@ static int jcu_buf_index_write = 0;
 static int jcu_buf_index_write_done = 0;
 static int jcu_buf_index_read = 0;
 static int jcu_encoding = 0;
-//static char i2c_setting_str_buf[I2C_SETTING_STR_BUF_SIZE];
+static char i2c_setting_str_buf[I2C_SETTING_STR_BUF_SIZE];
 
 /*
 static void JcuEncodeCallBackFunc(JPEG_Converter::jpeg_conv_error_t err_code) {
@@ -394,7 +393,6 @@ static void mount_romramfs(void) {
     fclose(fp);
 }
 
-#if 0 /*  SetI2CfromWeb(Arguments* arg, Reply* r) */
 static void SetI2CfromWeb(Arguments* arg, Reply* r) {
     int result = 0;
 
@@ -420,7 +418,6 @@ static void SetI2CfromWeb(Arguments* arg, Reply* r) {
         }
     }
 }
-#endif /*  SetI2CfromWeb(Arguments* arg, Reply* r) */
 
 void
 http_main_task(intptr_t exinf) {
