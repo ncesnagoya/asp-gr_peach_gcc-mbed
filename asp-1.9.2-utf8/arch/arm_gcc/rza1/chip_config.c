@@ -183,7 +183,7 @@ x_config_int(INTNO intno, ATR intatr, PRI intpri)
  */
 void
 default_int_handler(void){
-	set_led(RED_LED, 1);	
+	set_led(USER_LED, 1);	
 	syslog_0(LOG_EMERG, "Unregistered Interrupt occurs.");
 	exit_kernel();
 }

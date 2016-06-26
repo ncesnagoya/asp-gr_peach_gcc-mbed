@@ -103,6 +103,7 @@ x_install_exc(EXCNO excno, FP exchdr)
  */
 void
 default_exc_handler(void){
+	set_led(USER_LED, 1);
 	syslog_0(LOG_EMERG, "Unregistered Exception occurs.");
 	ext_ker();
 }
