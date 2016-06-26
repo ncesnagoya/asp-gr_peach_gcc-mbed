@@ -71,6 +71,7 @@ netconn_new_with_proto_and_callback(enum netconn_type t, u8_t proto, netconn_cal
   struct api_msg msg;
 
   conn = netconn_alloc(t, callback);
+  syslog(LOG_NOTICE, "conn == %d at netconn_alloc", conn);  
   if (conn != NULL) {
     msg.function = do_newconn;
     msg.msg.msg.n.proto = proto;
@@ -85,6 +86,7 @@ netconn_new_with_proto_and_callback(enum netconn_type t, u8_t proto, netconn_cal
       sys_sem_free(&conn->op_completed);
       sys_mbox_free(&conn->recvmbox);
       memp_free(MEMP_NETCONN, conn);
+	  syslog(LOG_EMERG, "ERROR: returned NULL.");  
       return NULL;
     }
   }
@@ -344,6 +346,9 @@ netconn_recv_data(struct netconn *conn, void **new_buf)
   void *buf = NULL;
   u16_t len;
   err_t err;
+
+  u32_t time_needed;
+  
 #if LWIP_TCP
   struct api_msg msg;
 #endif /* LWIP_TCP */
@@ -363,39 +368,42 @@ netconn_recv_data(struct netconn *conn, void **new_buf)
   }
 
 #if LWIP_SO_RCVTIMEO
-  if (sys_arch_mbox_fetch(&conn->recvmbox, &buf, conn->recv_timeout) == SYS_ARCH_TIMEOUT) {
+  time_needed = sys_arch_mbox_fetch(&conn->recvmbox, &buf, conn->recv_timeout);
+  if (time_needed == SYS_ARCH_TIMEOUT) {
     NETCONN_SET_SAFE_ERR(conn, ERR_TIMEOUT);
     return ERR_TIMEOUT;
   }
 #else
-  sys_arch_mbox_fetch(&conn->recvmbox, &buf, 0);
+  time_needed = sys_arch_mbox_fetch(&conn->recvmbox, &buf, 0);
 #endif /* LWIP_SO_RCVTIMEO*/
-
+  
 #if LWIP_TCP
   if (conn->type == NETCONN_TCP) {
-    if (!netconn_get_noautorecved(conn) || (buf == NULL)) {
+	  if (!netconn_get_noautorecved(conn) || (buf == NULL)) {
+		  //	  if (!netconn_get_noautorecved(conn) || (time_needed == SYS_ARCH_TIMEOUT)) {
       /* Let the stack know that we have taken the data. */
       /* TODO: Speedup: Don't block and wait for the answer here
          (to prevent multiple thread-switches). */
       msg.function = do_recv;
       msg.msg.conn = conn;
       if (buf != NULL) {
-        msg.msg.msg.r.len = ((struct pbuf *)buf)->tot_len;
+		  msg.msg.msg.r.len = ((struct pbuf *)buf)->tot_len;
       } else {
-        msg.msg.msg.r.len = 1;
+		  msg.msg.msg.r.len = 1;
       }
       /* don't care for the return value of do_recv */
       TCPIP_APIMSG(&msg);
-    }
+	  }
 
     /* If we are closed, we indicate that we no longer wish to use the socket */
-    if (buf == NULL) {
-      API_EVENT(conn, NETCONN_EVT_RCVMINUS, 0);
-      /* Avoid to lose any previous error code */
-      NETCONN_SET_SAFE_ERR(conn, ERR_CLSD);
-      return ERR_CLSD;
-    }
-    len = ((struct pbuf *)buf)->tot_len;
+	  //	  if (time_needed == SYS_ARCH_TIMEOUT) {
+	  if (buf == NULL) {
+		  API_EVENT(conn, NETCONN_EVT_RCVMINUS, 0);
+		  /* Avoid to lose any previous error code */
+		  NETCONN_SET_SAFE_ERR(conn, ERR_CLSD);
+		  return ERR_CLSD;
+	  }
+	  len = ((struct pbuf *)buf)->tot_len;
   }
 #endif /* LWIP_TCP */
 #if LWIP_TCP && (LWIP_UDP || LWIP_RAW)
@@ -403,8 +411,8 @@ netconn_recv_data(struct netconn *conn, void **new_buf)
 #endif /* LWIP_TCP && (LWIP_UDP || LWIP_RAW) */
 #if (LWIP_UDP || LWIP_RAW)
   {
-    LWIP_ASSERT("buf != NULL", buf != NULL);
-    len = netbuf_len((struct netbuf *)buf);
+	  LWIP_ASSERT("buf != NULL", buf != NULL);
+	  len = netbuf_len((struct netbuf *)buf);
   }
 #endif /* (LWIP_UDP || LWIP_RAW) */
 

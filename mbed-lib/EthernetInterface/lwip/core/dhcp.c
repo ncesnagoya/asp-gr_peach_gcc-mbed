@@ -629,51 +629,44 @@ dhcp_start(struct netif *netif)
 
   LWIP_ERROR("netif != NULL", (netif != NULL), return ERR_ARG;);
   dhcp = netif->dhcp;
-  //  LWIP_DEBUGF(DHCP_DEBUG | LWIP_DBG_TRACE | LWIP_DBG_STATE, ("dhcp_start(netif=%p) %c%c%"U16_F"\n", (void*)netif, netif->name[0], netif->name[1], (u16_t)netif->num));
-  syslog(LOG_NOTICE, "dhcp_start(netif=%x) %s num=%d", (void*)netif, netif->name, (u16_t)netif->num);
+  LWIP_DEBUGF(DHCP_DEBUG | LWIP_DBG_TRACE | LWIP_DBG_STATE, ("dhcp_start(netif=%p) %c%c%"U16_F"\n", (void*)netif, netif->name[0], netif->name[1], (u16_t)netif->num));
   /* Remove the flag that says this netif is handled by DHCP,
      it is set when we succeeded starting. */
   netif->flags &= ~NETIF_FLAG_DHCP;
 
   /* check hwtype of the netif */
   if ((netif->flags & NETIF_FLAG_ETHARP) == 0) {
-	  //    LWIP_DEBUGF(DHCP_DEBUG | LWIP_DBG_TRACE, ("dhcp_start(): No ETHARP netif\n"));
-	  syslog(LOG_NOTICE, "dhcp_start(): No ETHARP netif");
+	  LWIP_DEBUGF(DHCP_DEBUG | LWIP_DBG_TRACE, ("dhcp_start(): No ETHARP netif\n"));
     return ERR_ARG;
   }
 
   /* check MTU of the netif */
   if (netif->mtu < DHCP_MAX_MSG_LEN_MIN_REQUIRED) {
-	  //    LWIP_DEBUGF(DHCP_DEBUG | LWIP_DBG_TRACE, ("dhcp_start(): Cannot use this netif with DHCP: MTU is too small\n"));
-	  syslog(LOG_NOTICE, "dhcp_start(): Cannot use this netif with DHCP: MTU is too small\n");
+	  LWIP_DEBUGF(DHCP_DEBUG | LWIP_DBG_TRACE, ("dhcp_start(): Cannot use this netif with DHCP: MTU is too small\n"));
     return ERR_MEM;
   }
 
   /* no DHCP client attached yet? */
   if (dhcp == NULL) {
-	  //LWIP_DEBUGF(DHCP_DEBUG | LWIP_DBG_TRACE, ("dhcp_start(): starting new DHCP client\n"));
-    syslog(LOG_NOTICE, "dhcp_start(): starting new DHCP client");
-	dhcp = (struct dhcp *)mem_malloc(sizeof(struct dhcp));
+	  LWIP_DEBUGF(DHCP_DEBUG | LWIP_DBG_TRACE, ("dhcp_start(): starting new DHCP client\n"));
+	  dhcp = (struct dhcp *)mem_malloc(sizeof(struct dhcp));
 
-	if (dhcp == NULL) {
-		//      LWIP_DEBUGF(DHCP_DEBUG | LWIP_DBG_TRACE, ("dhcp_start(): could not allocate dhcp\n"));
-		syslog(LOG_NOTICE, "dhcp_start(): could not allocate dhcp");
-		return ERR_MEM;
-	}
+	  if (dhcp == NULL) {
+		  LWIP_DEBUGF(DHCP_DEBUG | LWIP_DBG_TRACE, ("dhcp_start(): could not allocate dhcp\n"));
+		  return ERR_MEM;
+	  }
 
-    /* store this dhcp client in the netif */
-    netif->dhcp = dhcp;
-    //LWIP_DEBUGF(DHCP_DEBUG | LWIP_DBG_TRACE, ("dhcp_start(): allocated dhcp"));
-	syslog(LOG_NOTICE, "dhcp_start(): allocated dhcp");
-	/* already has DHCP client attached */
+	  /* store this dhcp client in the netif */
+	  netif->dhcp = dhcp;
+	  LWIP_DEBUGF(DHCP_DEBUG | LWIP_DBG_TRACE, ("dhcp_start(): allocated dhcp"));
+	  /* already has DHCP client attached */
   } else {
-	  //    LWIP_DEBUGF(DHCP_DEBUG | LWIP_DBG_TRACE | LWIP_DBG_STATE, ("dhcp_start(): restarting DHCP configuration\n"));
-	  syslog(LOG_NOTICE, "dhcp_start(): restarting DHCP configuration");
-    if (dhcp->pcb != NULL) {
-      udp_remove(dhcp->pcb);
-    }
-    LWIP_ASSERT("pbuf p_out wasn't freed", dhcp->p_out == NULL);
-    LWIP_ASSERT("reply wasn't freed", dhcp->msg_in == NULL );
+	  LWIP_DEBUGF(DHCP_DEBUG | LWIP_DBG_TRACE | LWIP_DBG_STATE, ("dhcp_start(): restarting DHCP configuration\n"));
+	  if (dhcp->pcb != NULL) {
+		  udp_remove(dhcp->pcb);
+	  }
+	  LWIP_ASSERT("pbuf p_out wasn't freed", dhcp->p_out == NULL);
+	  LWIP_ASSERT("reply wasn't freed", dhcp->msg_in == NULL );
   }
 
   /* clear data structure */
@@ -682,9 +675,9 @@ dhcp_start(struct netif *netif)
   /* allocate UDP PCB */
   dhcp->pcb = udp_new();
   if (dhcp->pcb == NULL) {
-	  //    LWIP_DEBUGF(DHCP_DEBUG  | LWIP_DBG_TRACE, ("dhcp_start(): could not obtain pcb\n"));
+	  LWIP_DEBUGF(DHCP_DEBUG  | LWIP_DBG_TRACE, ("dhcp_start(): could not obtain pcb\n"));
 	  syslog(LOG_NOTICE, "dhcp_start(): could not obtain pcb");
-    return ERR_MEM;
+	  return ERR_MEM;
   }
   dhcp->pcb->so_options |= SOF_BROADCAST;
   /* set up local and remote port for the pcb */
@@ -692,14 +685,13 @@ dhcp_start(struct netif *netif)
   udp_connect(dhcp->pcb, IP_ADDR_ANY, DHCP_SERVER_PORT);
   /* set up the recv callback and argument */
   udp_recv(dhcp->pcb, dhcp_recv, netif);
-  //  LWIP_DEBUGF(DHCP_DEBUG | LWIP_DBG_TRACE, ("dhcp_start(): starting DHCP configuration\n"));
-  syslog(LOG_NOTICE, "dhcp_start(): starting DHCP configuration");
+  LWIP_DEBUGF(DHCP_DEBUG | LWIP_DBG_TRACE, ("dhcp_start(): starting DHCP configuration\n"));
   /* (re)start the DHCP negotiation */
   result = dhcp_discover(netif);
   if (result != ERR_OK) {
-    /* free resources allocated above */
-    dhcp_stop(netif);
-    return ERR_MEM;
+	  /* free resources allocated above */
+	  dhcp_stop(netif);
+	  return ERR_MEM;
   }
   /* Set the flag that says this netif is handled by DHCP. */
   netif->flags |= NETIF_FLAG_DHCP;
@@ -1242,11 +1234,14 @@ dhcp_stop(struct netif *netif)
 {
   struct dhcp *dhcp;
   LWIP_ERROR("dhcp_stop: netif != NULL", (netif != NULL), return;);
+  syslog(LOG_NOTICE, "dhcp_stop: netif != NULL");  
+
   dhcp = netif->dhcp;
   /* Remove the flag that says this netif is handled by DHCP. */
   netif->flags &= ~NETIF_FLAG_DHCP;
 
   LWIP_DEBUGF(DHCP_DEBUG | LWIP_DBG_TRACE, ("dhcp_stop()\n"));
+  syslog(LOG_NOTICE, "dhcp_stop()");    
   /* netif is DHCP configured? */
   if (dhcp != NULL) {
 #if LWIP_DHCP_AUTOIP_COOP

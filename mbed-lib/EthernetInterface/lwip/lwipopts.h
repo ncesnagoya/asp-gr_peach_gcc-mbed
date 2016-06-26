@@ -77,7 +77,8 @@
 #define LWIP_SO_RCVTIMEO            1
 #define LWIP_TCP_KEEPALIVE          1
 
-// Debug Options
+// Debug Options 
+#if 0 // Configure at opt.h.
 // #define LWIP_DEBUG
 #define UDP_LPC_EMAC                LWIP_DBG_OFF
 #define SYS_DEBUG                   LWIP_DBG_OFF
@@ -89,6 +90,7 @@
 #define API_LIB_DEBUG               LWIP_DBG_OFF
 #define API_MSG_DEBUG               LWIP_DBG_OFF
 #define TCPIP_DEBUG                 LWIP_DBG_OFF
+#define SOCKETS_DEBUG               LWIP_DBG_OFF
 #define SOCKETS_DEBUG               LWIP_DBG_OFF
 #define TCP_DEBUG                   LWIP_DBG_OFF
 #define TCP_INPUT_DEBUG             LWIP_DBG_OFF
@@ -102,6 +104,7 @@
 #define ETHARP_DEBUG                LWIP_DBG_OFF
 #define NETIF_DEBUG                 LWIP_DBG_OFF
 #define DHCP_DEBUG                  LWIP_DBG_OFF
+#endif
 
 #ifdef LWIP_DEBUG
 #define MEMP_OVERFLOW_CHECK         1

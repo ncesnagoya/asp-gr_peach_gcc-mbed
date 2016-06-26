@@ -2,11 +2,11 @@
 #define _HTTPSAMPLE_H_
 
 #ifndef INIT_MAIN_TASK_PRI
-#define  INIT_MAIN_TASK_PRI  1
+#define INIT_MAIN_TASK_PRI  1
 #endif /*  INIT_MAIN_TASK_PRI */
 
 #ifndef HTTP_MAIN_TASK_PRI
-#define  HTTP_MAIN_TASK_PRI  5
+#define HTTP_MAIN_TASK_PRI  4
 #endif /* HTTP_MAIN_TASK_PRI */
 
 #ifndef INIT_MAIN_TASK_STACK_SIZE
@@ -14,12 +14,12 @@
 #endif  /* INIT_MAIN_TASK_STACK_SIZE */
 
 #ifndef HTTP_MAIN_TASK_STACK_SIZE
-#define HTTP_MAIN_TASK_STACK_SIZE 1024
+#define HTTP_MAIN_TASK_STACK_SIZE 1024 * 5
 #endif  /* HTTP_MAIN_TASK_STACK_SIZE */
 
 #ifndef KMM_SIZE
-#define	KMM_SIZE		(HTTP_MAIN_TASK_STACK_SIZE * 32)	/* カーネルが割り付ける   */
-#endif /* KMM_SIZE */						/*     メモリ領域のサイズ */
+#define	KMM_SIZE	(HTTP_MAIN_TASK_STACK_SIZE * 16)	/* カーネルが割り付ける */
+#endif /* KMM_SIZE */						/* メモリ領域のサイズ */
 
 #ifdef __cplusplus
 extern "C" {

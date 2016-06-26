@@ -54,8 +54,10 @@ SRCDIR = ../../asp-1.9.2-utf8
 #  MBEDライブラリのビルド
 #
 include $(MBED_LIB_DIR)/mbed-src/Makefile.src
-# include $(MBED_LIB_DIR)/HttpServer_snapshot/HMakefile.hss
 include $(MBED_LIB_DIR)/EthernetInterface/Makefile.eif
+include $(MBED_LIB_DIR)/mbed-rpc/Makefile.rpc
+include $(MBED_LIB_DIR)/HttpServer_snapshot/Makefile.hss
+include $(MBED_LIB_DIR)/FATFileSystem/Makefile.ffs
 include $(MBED_LIB_DIR)/Makefile.mbd
 
 #
@@ -68,7 +70,6 @@ APPL_DIR = .
 INCLUDES += $(INCLUDE_PATHS) # MBEDライブラリのヘッダファイルをアプリで使う
 COPTS += -mfpu=vfpv3 -mfloat-abi=hard
 CDEFS += -DTOPPERS_OMIT_BSS_INIT -DTOPPERS_OMIT_DATA_INIT # ASPのスタートアップルーチンでは初期化処理は不要
-# CDEFS += -DTOPPERS_OMIT_SYSLOG # ASPカーネルの syslog 機能を外す
 
 APPL_CXXFLAGS += $(CC_FLAGS) $(CC_SYMBOLS) -std=gnu++98 -fno-rtti
 CXXLIBS += $(LD_SYS_LIBS)

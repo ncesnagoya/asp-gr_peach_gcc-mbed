@@ -348,6 +348,7 @@ err_tcp(void *arg, err_t err)
 {
   struct netconn *conn;
   enum netconn_state old_state;
+
   SYS_ARCH_DECL_PROTECT(lev);
 
   conn = (struct netconn *)arg;
@@ -375,12 +376,12 @@ err_tcp(void *arg, err_t err)
   /* pass NULL-message to recvmbox to wake up pending recv */
   if (sys_mbox_valid(&conn->recvmbox)) {
     /* use trypost to prevent deadlock */
-    sys_mbox_trypost(&conn->recvmbox, NULL);
+	  sys_mbox_trypost(&conn->recvmbox, NULL);
   }
   /* pass NULL-message to acceptmbox to wake up pending accept */
   if (sys_mbox_valid(&conn->acceptmbox)) {
     /* use trypost to preven deadlock */
-    sys_mbox_trypost(&conn->acceptmbox, NULL);
+	  sys_mbox_trypost(&conn->acceptmbox, NULL);
   }
 
   if ((old_state == NETCONN_WRITE) || (old_state == NETCONN_CLOSE) ||
@@ -605,12 +606,13 @@ netconn_alloc(enum netconn_type t, netconn_callback callback)
     memp_free(MEMP_NETCONN, conn);
     return NULL;
   }
+
   if (sys_mbox_new(&conn->recvmbox, size) != ERR_OK) {
     sys_sem_free(&conn->op_completed);
     memp_free(MEMP_NETCONN, conn);
     return NULL;
   }
-
+  
 #if LWIP_TCP
   sys_mbox_set_invalid(&conn->acceptmbox);
 #endif

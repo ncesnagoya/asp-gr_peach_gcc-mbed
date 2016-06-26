@@ -11,11 +11,14 @@
 //#include "rtos.h"
 //#include "JPEG_Converter.h"
 #include "EthernetInterface.h"
-//#include "HTTPServer.h"
-//#include "mbed_rpc.h"
-//#include "RomRamFileSystem.h"
-//#include "file_table.h"        //Binary data of web pages
+#include "HTTPServer.h"
+#include "mbed_rpc.h"
+#include "RomRamFileSystem.h"
+#include "file_table.h"        //Binary data of web pages
 //#include "i2c_setting.h"
+
+#include "syssvc/logtask.h"
+
 
 #define VIDEO_CVBS             (0)                 /* Analog  Video Signal */
 #define VIDEO_CMOS_CAMERA      (1)                 /* Digital Video Signal */
@@ -45,16 +48,16 @@ svc_perror(const char *file, int_t line, const char *expr, ER ercd)
  */
 typedef void (*func_ptr)(void);
 void init_main_task(intptr_t exinf) {
+
 	extern func_ptr __preinit_array_start[0], __preinit_array_end[0];
 	for (func_ptr* func = __preinit_array_start; func != __preinit_array_end; func++) {
 		(*func)();
 	}	
-	
+
 	extern func_ptr __init_array_start[0], __init_array_end[0];
 	for (func_ptr* func = __init_array_start; func != __init_array_end; func++) {
 		(*func)();
 	}
-
 	/* syslogの設定 */
 	SVC_PERROR(syslog_msk_log(LOG_UPTO(LOG_INFO), LOG_UPTO(LOG_EMERG)));	
 }
@@ -97,7 +100,7 @@ void init_main_task(intptr_t exinf) {
 #define VIDEO_BUFFER_HEIGHT    (PIXEL_VW)
 
 EthernetInterface network;
-//RomRamFileSystem romramfs("romram");
+RomRamFileSystem romramfs("romram");
 
 #if defined(__ICCARM__)
 #pragma data_alignment=16
@@ -319,10 +322,9 @@ static void camera_start(void) {
 }
 #endif /* camera_start(void) */
 
-#if 0 /* snapshot_req(const char ** pp_data) */
 static int snapshot_req(const char ** pp_data) {
-    int encode_size;
-
+    int encode_size = 0;
+#if 0
     while ((jcu_encoding == 1) || (image_change == 0)) {
         Thread::wait(1);
     }
@@ -331,10 +333,9 @@ static int snapshot_req(const char ** pp_data) {
 
     *pp_data = (const char *)JpegBuffer[jcu_buf_index_read];
     encode_size = (int)jcu_encode_size[jcu_buf_index_read];
-
+#endif
     return encode_size;
 }
-#endif /* snapshot_req(const char ** pp_data) */
 
 #if 0 /* TerminalWrite(Arguments* arg, Reply* r) */
 static void TerminalWrite(Arguments* arg, Reply* r) {
@@ -342,7 +343,6 @@ static void TerminalWrite(Arguments* arg, Reply* r) {
 }
 #endif /* TerminalWrite(Arguments* arg, Reply* r) */
 
-#if 0 /* void mount_romramfs(void) */
 static void mount_romramfs(void) {
     FILE * fp;
 
@@ -393,7 +393,6 @@ static void mount_romramfs(void) {
     fwrite(window_htm_tbl, sizeof(char), sizeof(window_htm_tbl), fp);
     fclose(fp);
 }
-#endif  /* void mount_romramfs(void) */
 
 #if 0 /*  SetI2CfromWeb(Arguments* arg, Reply* r) */
 static void SetI2CfromWeb(Arguments* arg, Reply* r) {
@@ -427,71 +426,71 @@ void
 http_main_task(intptr_t exinf) {
 	syslog(LOG_NOTICE, "Sample program starts (exinf = %d).", (int_t) exinf);
     printf("********* PROGRAM START ***********\r\n");
-
-
+	
     /* Please enable this line when performing the setting from the
 	   Terminal side. */
 //    Thread thread(SetI2CfromTerm, NULL, osPriorityBelowNormal, DEFAULT_STACK_SIZE);
 
-/*	
     mount_romramfs();   //RomRamFileSystem Mount
-    camera_start();     //Camera Start
+	syslog(LOG_NOTICE, "LOG_NOTICE: RomRamFile System Mounted.");	
 
+	//    camera_start();     //Camera Start
+	
+/*		
     RPC::add_rpc_class<RpcDigitalOut>();
     RPC::construct<RpcDigitalOut, PinName, const char*>(LED1, "led1");
     RPC::construct<RpcDigitalOut, PinName, const char*>(LED2, "led2");
     RPC::construct<RpcDigitalOut, PinName, const char*>(LED3, "led3");
     RPCFunction rpcFunc(TerminalWrite, "TerminalWrite");
     RPCFunction rpcSetI2C(SetI2CfromWeb, "SetI2CfromWeb");
-*/
-	
+*/		
     printf("Network Setting up...\r\n");
-	syslog(LOG_NOTICE, "Network Setting up...");
+	syslog(LOG_NOTICE, "LOG_NOTICE: Network Setting up...");
 	
 #if (USE_DHCP == 1)
     if (network.init() != 0) {                             //for DHCP Server
 #else
     if (network.init(IP_ADDRESS, SUBNET_MASK, DEFAULT_GATEWAY) != 0) { //for Static IP Address (IPAddress, NetMasks, Gateway)
 #endif
-        printf("Network Initialize Error \r\n");
+		//        printf("Network Initialize Error \r\n");
 		syslog(LOG_NOTICE, "Network Initialize Error");
 		//        return -1;
         return;		
     }
-	syslog(LOG_NOTICE, "Network Initialized");
-	
-	if (network.connect(10000) != 0) {
-		printf("Network Connect Error \r\n");
-		syslog(LOG_NOTICE, "Network Connect Error");
-		//        return -1;
-		return;
-    }
+	syslog(LOG_NOTICE, "Network was initialized successfully");
 
-    syslog(LOG_NOTICE, "MAC Address is %s", network.getMACAddress());
-    syslog(LOG_NOTICE, "IP Address is %s", network.getIPAddress());
-    syslog(LOG_NOTICE, "NetMask is %s\r\n", network.getNetworkMask());
-    syslog(LOG_NOTICE, "Gateway Address is %s", network.getGateway());
+	//if (network.connect(5000) != 0) {
+	while (network.connect(5000) != 0) {
+		//		printf("Network Connect Error \r\n");
+		syslog(LOG_NOTICE, "LOG_NOTICE: Network Connect Error");
+		//        return -1;
+		//return;
+    }
+			
+	//    syslog(LOG_NOTICE, "MAC Address is %s", network.getMACAddress());
+	//    syslog(LOG_NOTICE, "IP Address is %s", network.getIPAddress());
+	//    syslog(LOG_NOTICE, "NetMask is %s\r\n", network.getNetworkMask());
+	//    syslog(LOG_NOTICE, "Gateway Address is %s", network.getGateway());
 	
-    printf("MAC Address is %s\r\n", network.getMACAddress());
-    printf("IP Address is %s\r\n", network.getIPAddress());
-    printf("NetMask is %s\r\n", network.getNetworkMask());
-    printf("Gateway Address is %s\r\n", network.getGateway());
+	printf("MAC Address is %s\r\n", network.getMACAddress());
+	printf("IP Address is %s\r\n", network.getIPAddress());
+	printf("NetMask is %s\r\n", network.getNetworkMask());
+	printf("Gateway Address is %s\r\n", network.getGateway());
 	
-	syslog(LOG_NOTICE, "Network Setup OK");
+	//	syslog(LOG_INFO, "LOG_INFO: Network Setup OK");
 	printf("Network Setup OK\r\n");
-		
-	/*
+	
     SnapshotHandler::attach_req(&snapshot_req);
-    HTTPServerAddHandler<SnapshotHandler>("/camera"); //Camera
-    FSHandler::mount("/romram", "/");
-    HTTPServerAddHandler<FSHandler>("/");
-    HTTPServerAddHandler<RPCHandler>("/rpc");
-    HTTPServerStart(80);
-	*/
+	HTTPServerAddHandler<SnapshotHandler>("/camera"); //Camera
+	FSHandler::mount("/romram", "/");
+	HTTPServerAddHandler<FSHandler>("/");
+	HTTPServerAddHandler<RPCHandler>("/rpc");
+	HTTPServerStart(80);	
 }
 
 // set mac address
 void mbed_mac_address(char *mac) {
+	// PEACH1
     mac[0] = 0x00;
     mac[1] = 0x02;
     mac[2] = 0xF7;

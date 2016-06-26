@@ -87,6 +87,7 @@ tcpip_thread(void *arg)
     /* wait for a message, timeouts are processed while waiting */
     sys_timeouts_mbox_fetch(&mbox, (void **)&msg);
     LOCK_TCPIP_CORE();
+	LWIP_DEBUGF(TCPIP_DEBUG, ("tcpip_thread: Message type =  %d\n", msg->type));
     switch (msg->type) {
 #if LWIP_NETCONN
     case TCPIP_MSG_API:
@@ -137,9 +138,9 @@ tcpip_thread(void *arg)
 #endif /* LWIP_TCPIP_TIMEOUT */
 
     default:
-      LWIP_DEBUGF(TCPIP_DEBUG, ("tcpip_thread: invalid message: %d\n", msg->type));
-      LWIP_ASSERT("tcpip_thread: invalid message", 0);
-      break;
+		LWIP_DEBUGF(TCPIP_DEBUG, ("tcpip_thread: invalid message: %d\n", msg->type));
+		LWIP_ASSERT("tcpip_thread: invalid message", 0);
+		break;
     }
   }
 }
@@ -216,7 +217,7 @@ tcpip_callback_with_block(tcpip_callback_fn function, void *ctx, u8_t block)
     msg->type = TCPIP_MSG_CALLBACK;
     msg->msg.cb.function = function;
     msg->msg.cb.ctx = ctx;
-    if (block) {
+    if (block) {		
       sys_mbox_post(&mbox, msg);
     } else {
       if (sys_mbox_trypost(&mbox, msg) != ERR_OK) {
@@ -305,14 +306,15 @@ tcpip_apimsg(struct api_msg *apimsg)
   /* catch functions that don't set err */
   apimsg->msg.err = ERR_VAL;
 #endif
-  
+
   if (sys_mbox_valid(&mbox)) {
-    msg.type = TCPIP_MSG_API;
-    msg.msg.apimsg = apimsg;
-    sys_mbox_post(&mbox, &msg);
-    sys_arch_sem_wait(&apimsg->msg.conn->op_completed, 0);
-    return apimsg->msg.err;
+	  msg.type = TCPIP_MSG_API;
+	  msg.msg.apimsg = apimsg;
+	  sys_mbox_post(&mbox, &msg);
+	  sys_arch_sem_wait(&apimsg->msg.conn->op_completed, 0);
+	  return apimsg->msg.err;
   }
+  
   return ERR_VAL;
 }
 

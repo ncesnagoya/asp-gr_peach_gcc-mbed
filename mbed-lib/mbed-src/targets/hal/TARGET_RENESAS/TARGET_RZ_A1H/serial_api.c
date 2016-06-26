@@ -228,7 +228,8 @@ void serial_init(serial_t *obj, PinName tx, PinName rx) {
     obj->uart->SCEMR = 0x0000u;
 
     /* ---- Bit rate register (SCBRR) setting ---- */
-    serial_baud  (obj, 9600);
+	//    serial_baud  (obj, 9600);
+    serial_baud  (obj, 115200);	
     serial_format(obj, 8, ParityNone, 1);
 
     /* ---- FIFO control register (SCFCR) setting ---- */

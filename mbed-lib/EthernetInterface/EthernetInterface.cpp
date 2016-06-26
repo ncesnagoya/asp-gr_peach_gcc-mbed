@@ -67,7 +67,6 @@ static void netif_status_callback(struct netif *netif) {
 }
 
 static void init_netif(ip_addr_t *ipaddr, ip_addr_t *netmask, ip_addr_t *gw) {
-	// OK
     tcpip_init(tcpip_init_done, NULL);
 	// tcpip_inited.wait();
 	wai_sem(TCPIP_INITED);
@@ -122,9 +121,7 @@ int EthernetInterface::connect(unsigned int timeout_ms) {
         // Wait for an IP Address
         // -1: error, 0: timeout
 		// inited = netif_up.wait(timeout_ms);
-		syslog(LOG_NOTICE, "connect() twai_sem start");
 		inited = twai_sem(NETIF_UP, timeout_ms);
-		syslog(LOG_NOTICE, "connect() twai_sem finished");
     } else {
         netif_set_up(&netif);        
         // Wait for the link up

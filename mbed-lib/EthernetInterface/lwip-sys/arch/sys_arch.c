@@ -80,7 +80,7 @@ u32_t sys_now(void) {
  *      err_t                   -- ERR_OK if message posted, else ERR_MEM
  *---------------------------------------------------------------------------*/
 err_t sys_mbox_new(sys_mbox_t *mbox, int queue_sz) {
-	T_CMBX cmbx;
+	T_CDTQ cdtq;
 	
     if (queue_sz > MB_SIZE)
         error("sys_mbox_new size error\n");
@@ -91,11 +91,13 @@ err_t sys_mbox_new(sys_mbox_t *mbox, int queue_sz) {
     mbox->def.queue_sz = queue_sz;
 #endif
 	//    mbox->id = osMessageCreate(&mbox->def, NULL);
-	cmbx.mbxatr = TA_TPRI;
-	cmbx.maxmpri = 1;
-	cmbx.mprihd = NULL;
-	mbox->id = acre_mbx(&cmbx);
+	cdtq.dtqatr = NULL; // FIFO
+	cdtq.dtqcnt = queue_sz;
+	cdtq.dtqmb = NULL;
+	mbox->id = acre_dtq(&cdtq);
 
+	syslog(LOG_NOTICE, "A new data queue (ID=%d) was created now.", mbox->id);
+	
 	//    return (mbox->id == NULL) ? (ERR_MEM) : (ERR_OK);
 	return (mbox->id == E_ID) ? (ERR_MEM) : (ERR_OK);
 }
@@ -111,9 +113,11 @@ err_t sys_mbox_new(sys_mbox_t *mbox, int queue_sz) {
  *      sys_mbox_t *mbox         -- Handle of mailbox
  *---------------------------------------------------------------------------*/
 void sys_mbox_free(sys_mbox_t *mbox) {
-    osEvent event = osMessageGet(mbox->id, 0);
-    if (event.status == osEventMessage)
+	//    osEvent event = osMessageGet(mbox->id, 0);
+	//    if (event.status == osEventMessage)
+	if (ini_dtq(mbox->id) != E_OK) {
         error("sys_mbox_free error\n");
+	}
 }
 
 /*---------------------------------------------------------------------------*
@@ -127,8 +131,10 @@ void sys_mbox_free(sys_mbox_t *mbox) {
  *---------------------------------------------------------------------------*/
 void sys_mbox_post(sys_mbox_t *mbox, void *msg) {
 	//    if (osMessagePut(mbox->id, (uint32_t)msg, osWaitForever) != osOK)
-	if (snd_mbx(mbox->id, (T_MSG*)msg) != E_OK)
+
+	if (snd_dtq(mbox->id, (intptr_t)msg) != E_OK) {
         error("sys_mbox_post error\n");
+	}
 }
 
 /*---------------------------------------------------------------------------*
@@ -147,7 +153,7 @@ void sys_mbox_post(sys_mbox_t *mbox, void *msg) {
 err_t sys_mbox_trypost(sys_mbox_t *mbox, void *msg) {
 	ER ercd;
 	//    osStatus status = osMessagePut(mbox->id, (uint32_t)msg, 0);
-	ercd = snd_mbx(mbox->id, (T_MSG*)msg);
+	ercd = snd_dtq(mbox->id, (intptr_t)msg);
 	
 	//    return (status == osOK) ? (ERR_OK) : (ERR_MEM);
 	return (ercd == E_OK) ? (ERR_OK) : (ERR_MEM);
@@ -183,9 +189,18 @@ u32_t sys_arch_mbox_fetch(sys_mbox_t *mbox, void **msg, u32_t timeout) {
     
 	//    osEvent event = osMessageGet(mbox->id, (timeout != 0)?(timeout):(osWaitForever));
     //if (event.status != osEventMessage)
-	if (trcv_mbx(mbox->id, (T_MSG**)msg, timeout) == E_TMOUT) {
-        return SYS_ARCH_TIMEOUT;
-	}    
+	if (timeout != 0) {
+		if (trcv_dtq(mbox->id, (intptr_t *)msg, timeout) == E_TMOUT) {
+			return SYS_ARCH_TIMEOUT;
+		}
+	} else {
+		// if timeout == 0 then wait forever.
+		ER ercd = rcv_dtq(mbox->id, (intptr_t *)msg);
+		
+		if (ercd != E_OK) {
+			error("rcv_dtq returned with error= %d\n", ercd);
+		}
+	}
 	//    *msg = (void *)event.value.v;
     
     return (us_ticker_read() - start) / 1000;
@@ -206,11 +221,12 @@ u32_t sys_arch_mbox_fetch(sys_mbox_t *mbox, void **msg, u32_t timeout) {
  *                                  return ERR_OK.
  *---------------------------------------------------------------------------*/
 u32_t sys_arch_mbox_tryfetch(sys_mbox_t *mbox, void **msg) {
-    osEvent event = osMessageGet(mbox->id, 0);
-    if (event.status != osEventMessage)
+	//    osEvent event = osMessageGet(mbox->id, 0);
+	//    if (event.status != osEventMessage)
+	if (prcv_dtq(mbox->id, (intptr_t *)msg) == E_TMOUT) {
         return SYS_MBOX_EMPTY;
-    
-    *msg = (void *)event.value.v;
+	}
+	//    *msg = (void *)event.value.v;
     
     return ERR_OK;
 }
@@ -276,11 +292,15 @@ err_t sys_sem_new(sys_sem_t *sem, u8_t count) {
 u32_t sys_arch_sem_wait(sys_sem_t *sem, u32_t timeout) {
     u32_t start = us_ticker_read();
 
-    if (twai_sem(sem->id, timeout) == E_TMOUT) {
-	//    if (osSemaphoreWait(sem->id, (timeout != 0)?(timeout):(osWaitForever)) < 1)
-        return SYS_ARCH_TIMEOUT;
+	if (timeout != 0) {
+		if (twai_sem(sem->id, timeout) == E_TMOUT) {
+			//    if (osSemaphoreWait(sem->id, (timeout != 0)?(timeout):(osWaitForever)) < 1)
+			return SYS_ARCH_TIMEOUT;
+		}
+	} else {
+		wai_sem(sem->id);
 	}
-    
+	
     return (us_ticker_read() - start) / 1000;
 }
 
@@ -295,17 +315,19 @@ u32_t sys_arch_sem_wait(sys_sem_t *sem, u32_t timeout) {
 void sys_sem_signal(sys_sem_t *data) {	
 	ER ercd;
 
-	if(sns_ctx()) {
+	if (sns_ctx()) {
 		ercd = isig_sem(data->id);
 	} else {
 		ercd = sig_sem(data->id);
-	}		
-
+	}
+	
 	//    if (osSemaphoreRelease(data->id) != osOK)	
 	if (ercd != E_OK) {
-		syslog(LOG_EMERG, "mbed_die()");
-        mbed_die(); /* Can be called by ISR do not use printf */
+		//		syslog(LOG_NOTICE, "Error with ercd=%d in sys_sem_signal.", ercd);
+		//		mbed_die(); /* Can be called by ISR do not use printf */
+		return;
 	}
+	//	syslog(LOG_NOTICE, " Semaphore (ID=%d) was released.", data->id);
 }
 
 /*---------------------------------------------------------------------------*
@@ -388,7 +410,6 @@ void sys_init(void) {
     lwip_sys_mutex = acre_sem(&csem);
 	//    if (lwip_sys_mutex == NULL)
 	if (lwip_sys_mutex < 0) {
-		syslog(LOG_EMERG, "sys_init error");
         error("sys_init error\n");
 	}
 }
@@ -427,7 +448,6 @@ u32_t sys_jiffies(void) {
 sys_prot_t sys_arch_protect(void) {
 	//    if (osMutexWait(lwip_sys_mutex, osWaitForever) != osOK)
 	if (wai_sem(lwip_sys_mutex) != E_OK) {
-		syslog(LOG_EMERG, "sys_arch_protect error");
         error("sys_arch_protect error\n");
 	}
     return (sys_prot_t) 1;
@@ -447,7 +467,6 @@ sys_prot_t sys_arch_protect(void) {
 void sys_arch_unprotect(sys_prot_t p) {
 	//    if (osMutexRelease(lwip_sys_mutex) != osOK)
     if (sig_sem(lwip_sys_mutex) != E_OK) {
-		syslog(LOG_EMERG, "sys_arch_unprotect error");
 		error("sys_arch_unprotect error\n");
 	}
 }
@@ -489,7 +508,6 @@ sys_thread_t sys_thread_new(const char *pcName,
     LWIP_DEBUGF(SYS_DEBUG, ("New Thread: %s\n", pcName));
 	
     if (thread_pool_index >= SYS_THREAD_POOL_N) {
-		syslog(LOG_EMERG, "sys_thread_new number error");
         error("sys_thread_new number error\n");
 	}
     sys_thread_t t = (sys_thread_t)&thread_pool[thread_pool_index];
@@ -514,10 +532,9 @@ sys_thread_t sys_thread_new(const char *pcName,
 	ctsk.stk = NULL;
 	t->id = acre_tsk(&ctsk);
     if (t->id > 0) {
-		syslog(LOG_NOTICE, "A new task %s(ID=%d) was created now.", pcName, t->id);
+		syslog(LOG_NOTICE, "A new task %s(ID=%d) with Pri=%d was created now.", pcName, t->id, priority);
 	} else {		
-        //error("sys_thread_new create error\n");
-		syslog(LOG_EMERG, "sys_thread_new create error");
+        error("sys_thread_new create error\n");
 	}
 
     return t;

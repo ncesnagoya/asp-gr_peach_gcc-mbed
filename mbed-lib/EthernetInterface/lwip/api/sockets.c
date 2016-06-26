@@ -321,23 +321,27 @@ lwip_accept(int s, struct sockaddr *addr, socklen_t *addrlen)
   SYS_ARCH_DECL_PROTECT(lev);
 
   LWIP_DEBUGF(SOCKETS_DEBUG, ("lwip_accept(%d)...\n", s));
+	
   sock = get_socket(s);
   if (!sock) {
-    return -1;
+	  syslog(LOG_EMERG, "ERROR: get_socket return 0.");
+	  return -1;
   }
 
   if (netconn_is_nonblocking(sock->conn) && (sock->rcvevent <= 0)) {
     LWIP_DEBUGF(SOCKETS_DEBUG, ("lwip_accept(%d): returning EWOULDBLOCK\n", s));
     sock_set_errno(sock, EWOULDBLOCK);
+	syslog(LOG_EMERG, "error 1.");
     return -1;
   }
 
   /* wait for a new connection */
   err = netconn_accept(sock->conn, &newconn);
   if (err != ERR_OK) {
-    LWIP_DEBUGF(SOCKETS_DEBUG, ("lwip_accept(%d): netconn_acept failed, err=%d\n", s, err));
-    sock_set_errno(sock, err_to_errno(err));
-    return -1;
+	  syslog(LOG_EMERG, "error 2 with err = %d.", err);
+	  LWIP_DEBUGF(SOCKETS_DEBUG, ("lwip_accept(%d): netconn_acept failed, err=%d\n", s, err));
+	  sock_set_errno(sock, err_to_errno(err));
+	  return -1;
   }
   LWIP_ASSERT("newconn != NULL", newconn != NULL);
   /* Prevent automatic window updates, we do this on our own! */
@@ -349,6 +353,7 @@ lwip_accept(int s, struct sockaddr *addr, socklen_t *addrlen)
     LWIP_DEBUGF(SOCKETS_DEBUG, ("lwip_accept(%d): netconn_peer failed, err=%d\n", s, err));
     netconn_delete(newconn);
     sock_set_errno(sock, err_to_errno(err));
+	syslog(LOG_EMERG, "error 3.");
     return -1;
   }
 
@@ -373,12 +378,14 @@ lwip_accept(int s, struct sockaddr *addr, socklen_t *addrlen)
   if (newsock == -1) {
     netconn_delete(newconn);
     sock_set_errno(sock, ENFILE);
+	syslog(LOG_EMERG, "error 4.");
     return -1;
   }
   LWIP_ASSERT("invalid socket index", (newsock >= 0) && (newsock < NUM_SOCKETS));
   LWIP_ASSERT("newconn->callback == event_callback", newconn->callback == event_callback);
   nsock = &sockets[newsock];
 
+  
   /* See event_callback: If data comes in right away after an accept, even
    * though the server task might not have created a new socket yet.
    * In that case, newconn->socket is counted down (newconn->socket--),
@@ -392,7 +399,7 @@ lwip_accept(int s, struct sockaddr *addr, socklen_t *addrlen)
   LWIP_DEBUGF(SOCKETS_DEBUG, ("lwip_accept(%d) returning new sock=%d addr=", s, newsock));
   ip_addr_debug_print(SOCKETS_DEBUG, &naddr);
   LWIP_DEBUGF(SOCKETS_DEBUG, (" port=%"U16_F"\n", port));
-
+  
   sock_set_errno(sock, 0);
   return newsock;
 }
@@ -585,7 +592,7 @@ lwip_recvfrom(int s, void *mem, size_t len, int flags,
         sock_set_errno(sock, EWOULDBLOCK);
         return -1;
       }
-
+ 	  
       /* No data was left from the previous operation, so we try to get
          some from the network. */
       if (netconn_type(sock->conn) == NETCONN_TCP) {
@@ -614,8 +621,9 @@ lwip_recvfrom(int s, void *mem, size_t len, int flags,
           return -1;
         }
       }
-      LWIP_ASSERT("buf != NULL", buf != NULL);
-      sock->lastdata = buf;
+
+	  LWIP_ASSERT("buf != NULL", buf != NULL);
+	  sock->lastdata = buf;	  
     }
 
     if (netconn_type(sock->conn) == NETCONN_TCP) {
@@ -953,8 +961,8 @@ lwip_socket(int domain, int type, int protocol)
                                  domain == PF_INET ? "PF_INET" : "UNKNOWN", protocol));
     break;
   case SOCK_STREAM:
-    conn = netconn_new_with_callback(NETCONN_TCP, event_callback);
-    LWIP_DEBUGF(SOCKETS_DEBUG, ("lwip_socket(%s, SOCK_STREAM, %d) = ",
+	  conn = netconn_new_with_callback(NETCONN_TCP, event_callback);
+	  LWIP_DEBUGF(SOCKETS_DEBUG, ("lwip_socket(%s, SOCK_STREAM, %d) = ",
                                  domain == PF_INET ? "PF_INET" : "UNKNOWN", protocol));
     if (conn != NULL) {
       /* Prevent automatic window updates, we do this on our own! */
@@ -979,6 +987,7 @@ lwip_socket(int domain, int type, int protocol)
   if (i == -1) {
     netconn_delete(conn);
     set_errno(ENFILE);
+	syslog(LOG_EMERG, "ERROR: alloc_socket returned %d", i);
     return -1;
   }
   conn->socket = i;
