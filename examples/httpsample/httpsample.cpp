@@ -438,7 +438,7 @@ http_main_task(intptr_t exinf) {
     RPC::construct<RpcDigitalOut, PinName, const char*>(LED2, "led2");
     RPC::construct<RpcDigitalOut, PinName, const char*>(LED3, "led3");
     RPCFunction rpcFunc(TerminalWrite, "TerminalWrite");
-	//    RPCFunction rpcSetI2C(SetI2CfromWeb, "SetI2CfromWeb");
+    RPCFunction rpcSetI2C(SetI2CfromWeb, "SetI2CfromWeb");
 
     printf("Network Setting up...\r\n");
 	syslog(LOG_NOTICE, "LOG_NOTICE: Network Setting up...");
