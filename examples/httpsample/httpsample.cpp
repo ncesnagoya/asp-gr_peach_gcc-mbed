@@ -337,7 +337,7 @@ static int snapshot_req(const char ** pp_data) {
     return encode_size;
 }
 
-#if 0 /* TerminalWrite(Arguments* arg, Reply* r) */
+#if 1 /* TerminalWrite(Arguments* arg, Reply* r) */
 static void TerminalWrite(Arguments* arg, Reply* r) {
     printf("%s\n",arg->argv[0]);
 }
@@ -436,14 +436,13 @@ http_main_task(intptr_t exinf) {
 
 	//    camera_start();     //Camera Start
 	
-/*		
     RPC::add_rpc_class<RpcDigitalOut>();
     RPC::construct<RpcDigitalOut, PinName, const char*>(LED1, "led1");
     RPC::construct<RpcDigitalOut, PinName, const char*>(LED2, "led2");
     RPC::construct<RpcDigitalOut, PinName, const char*>(LED3, "led3");
     RPCFunction rpcFunc(TerminalWrite, "TerminalWrite");
-    RPCFunction rpcSetI2C(SetI2CfromWeb, "SetI2CfromWeb");
-*/		
+	//    RPCFunction rpcSetI2C(SetI2CfromWeb, "SetI2CfromWeb");
+
     printf("Network Setting up...\r\n");
 	syslog(LOG_NOTICE, "LOG_NOTICE: Network Setting up...");
 	
