@@ -57,7 +57,7 @@ extern "C" {
  *  システムログタスク関連の定数のデフォルト値の定義
  */ 
 #ifndef LOGTASK_PRIORITY
-#define LOGTASK_PRIORITY	3		/* 初期優先度 */
+#define LOGTASK_PRIORITY	4		/* 初期優先度 */
 #endif /* LOGTASK_PRIORITY */
 
 #ifndef LOGTASK_STACK_SIZE
