@@ -77,4 +77,4 @@ LDSCRIPT = $(LINKER_SCRIPT)
 #  ASPカーネルライブラリ
 #
 KERNEL_LIB = .
-include ./Makefile.asp
+include $(SRCDIR)/Makefile.asp

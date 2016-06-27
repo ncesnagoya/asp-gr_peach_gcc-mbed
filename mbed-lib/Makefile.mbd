@@ -65,5 +65,7 @@ $(LIB).a: $(ALL_OBJ)
 	$(AR) -rcs $(LIB).a $(ALL_OBJ)
 	$(RANLIB) $(LIB).a
 
-DEPS = $(OBJECTS:.o=.d)
+CLEAN_FILES += $(PROJECT).map
+
+DEPS = $(ALL_OBJ:.o=.d) $(APPLNAME).d
 -include $(DEPS)
