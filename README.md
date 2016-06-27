@@ -1,6 +1,6 @@
 # What's this
 
-TOPPERS/ASP Kernel and useful libraries for GR-PEACH have been distributed here.
+[TOPPERS/ASP Kernel](http://toppers.jp/en/asp-kernel.html) and useful libraries for [GR-PEACH](http://gadget.renesas.com/en/product/peach.html) have been distributed here.
 
 ## TOPPERS/ASP Kernel
 
@@ -9,8 +9,8 @@ ASP stands for Advanced Standard Profile which is improved version of the standa
 
 The detail specification of the ASP Kernel can be found at the following site.
 
-- TOPPERS Next Generaton Specification (Japanese only): http://toppers.jp/documents.html
-- µITRON4.0 Specification (English version): http://www.ertl.jp/ITRON/SPEC/mitron4-e.html
+- [TOPPERS Next Generaton Specification](http://toppers.jp/documents.html) (Japanese only)
+- [µITRON4.0 Specification](http://www.ertl.jp/ITRON/SPEC/mitron4-e.html) (English version)
 
 
 ## Libraries
@@ -33,10 +33,12 @@ Application developers can use the following useful libraries.
 
 # Links
 
-- GR-PEACH: https://developer.mbed.org/platforms/Renesas-GR-PEACH/
- - ※The original MBED library for GR-PEACH can be downloaded here.
-- TOPPERS/ASP Kernel: http://toppers.jp/en/asp-kernel.html
-- ARM Tool Chain: http://gnuarmeclipse.github.io/toolchain/install/
+- GR-PEACH
+ - [Official](http://gadget.renesas.com/en/product/peach.html)
+ - [MBED site](https://developer.mbed.org/platforms/Renesas-GR-PEACH/)
+  - The original MBED library for GR-PEACH can be downloaded here.
+- [TOPPERS Project](http://toppers.jp/en)
+- [GNU ARM Eclipse](http://gnuarmeclipse.github.io/toolchain/install/)
 
 # Contacts
 
