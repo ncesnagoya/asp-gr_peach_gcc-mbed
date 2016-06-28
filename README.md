@@ -2,16 +2,18 @@
 
 [TOPPERS/ASP Kernel](http://toppers.jp/en/asp-kernel.html) and useful libraries for [GR-PEACH](http://gadget.renesas.com/en/product/peach.html) have been distributed here.
 
+
+![Stack](https://raw.github.com/wiki/ncesnagoya/asp-gr_peach_gcc-mbed/images/stack.png)
+
 ## TOPPERS/ASP Kernel
 
 The TOPPERS/ASP kernel is a sophisticated real-time kernel for embedded real-time systems.
 ASP stands for Advanced Standard Profile which is improved version of the standard profile defined in μITRON4.0 specification. 
 
-The detail specification of the ASP Kernel can be found at the following site.
+The detail specification of the ASP Kernel can be found at the following sites.
 
 - [TOPPERS Next Generaton Specification](http://toppers.jp/documents.html) (Japanese only)
 - [µITRON4.0 Specification](http://www.ertl.jp/ITRON/SPEC/mitron4-e.html) (English version)
-
 
 ## Libraries
 
