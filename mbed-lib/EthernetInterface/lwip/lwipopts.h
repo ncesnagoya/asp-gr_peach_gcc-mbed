@@ -32,7 +32,6 @@
 #include "syssvc/serial.h"
 #include "syssvc/syslog.h"
 //#include "kernel_cfg.h"
-#include "httpsample.h"
 
 #define SYS_LIGHTWEIGHT_PROT        1
 
