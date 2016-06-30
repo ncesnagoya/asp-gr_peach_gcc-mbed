@@ -4,8 +4,8 @@
 #include "syssvc/serial.h"
 #include "syssvc/syslog.h"
 #include "kernel_cfg.h"
-#include "httpsample.h"
 
+#include "httpsample.h"
 #include "mbed.h"
 //#include "DisplayBace.h"
 //#include "rtos.h"
@@ -25,8 +25,6 @@
 #define VIDEO_RGB888           (1)
 #define VIDEO_RGB565           (2)
 
-extern "C" void *__dso_handle = 0;
-
 /*
  *  サービスコールのエラーのログ出力
  */
@@ -39,27 +37,6 @@ svc_perror(const char *file, int_t line, const char *expr, ER ercd)
 }
 
 #define	SVC_PERROR(expr)	svc_perror(__FILE__, __LINE__, #expr, (expr))
-
-/*
- *  初期化タスク
- *
- *  C++の静的グローバルクラスのコンストラクタを呼び出す．
- */
-typedef void (*func_ptr)(void);
-void init_main_task(intptr_t exinf) {
-
-	extern func_ptr __preinit_array_start[0], __preinit_array_end[0];
-	for (func_ptr* func = __preinit_array_start; func != __preinit_array_end; func++) {
-		(*func)();
-	}	
-
-	extern func_ptr __init_array_start[0], __init_array_end[0];
-	for (func_ptr* func = __init_array_start; func != __init_array_end; func++) {
-		(*func)();
-	}
-	/* syslogの設定 */
-	SVC_PERROR(syslog_msk_log(LOG_UPTO(LOG_INFO), LOG_UPTO(LOG_EMERG)));	
-}
 
 /**** User Selection *********/
 /** Network setting **/
@@ -421,6 +398,9 @@ static void SetI2CfromWeb(Arguments* arg, Reply* r) {
 
 void
 http_main_task(intptr_t exinf) {
+	/* syslogの設定 */
+	SVC_PERROR(syslog_msk_log(LOG_UPTO(LOG_INFO), LOG_UPTO(LOG_EMERG)));	
+
 	syslog(LOG_NOTICE, "Sample program starts (exinf = %d).", (int_t) exinf);
     printf("********* PROGRAM START ***********\r\n");
 	

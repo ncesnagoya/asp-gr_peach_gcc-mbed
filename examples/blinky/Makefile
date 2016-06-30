@@ -48,6 +48,7 @@ MBED_LIB_DIR = ../../mbed-lib
 #
 #  MBEDライブラリのビルド
 #
+include $(MBED_LIB_DIR)/common/Makefile.cmn
 include $(MBED_LIB_DIR)/mbed-src/Makefile.src
 include $(MBED_LIB_DIR)/SoftPWM/Makefile.pwm
 include $(MBED_LIB_DIR)/Makefile.mbd

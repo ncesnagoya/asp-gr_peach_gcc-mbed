@@ -1,7 +1,7 @@
 CXX_OBJ += $(MBED_LIB_DIR)/arduino-lib/core/Ethernet.o \
 	   $(MBED_LIB_DIR)/arduino-lib/core/HardwareSerial.o \
 	   $(MBED_LIB_DIR)/arduino-lib/core/IPAddress.o \
-	   $(MBED_LIB_DIR)/arduino-lib/core/main.o \
+	   $(MBED_LIB_DIR)/arduino-lib/core/arduino_main.o \
 	   $(MBED_LIB_DIR)/arduino-lib/core/MsTimer2.o \
 	   $(MBED_LIB_DIR)/arduino-lib/core/Print.o \
 	   $(MBED_LIB_DIR)/arduino-lib/core/Stream.o \

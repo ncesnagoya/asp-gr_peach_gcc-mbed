@@ -21,16 +21,18 @@
 #include <Tone_private.h>
 #include <MsTimer2_private.h>
 
+#include "arduino_main.h"
+
 static void msecInterrupt(void);
 
-int main()
+void arduino_main_task(intptr_t exinf)
 {
     start1msecInterrupt(msecInterrupt);
     setup();
     for (;;) {
         loop();
     }
-    return 0;
+    return;
 }
 
 static void msecInterrupt(void)

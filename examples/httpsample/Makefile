@@ -53,6 +53,7 @@ SRCDIR = ../../asp-1.9.2-utf8
 #
 #  MBEDライブラリのビルド
 #
+include $(MBED_LIB_DIR)/common/Makefile.cmn
 include $(MBED_LIB_DIR)/mbed-src/Makefile.src
 include $(MBED_LIB_DIR)/EthernetInterface/Makefile.eif
 include $(MBED_LIB_DIR)/mbed-rpc/Makefile.rpc

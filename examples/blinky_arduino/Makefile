@@ -48,11 +48,10 @@ MBED_LIB_DIR = ../../mbed-lib
 #
 #  MBEDライブラリのビルド
 #
+include $(MBED_LIB_DIR)/common/Makefile.cmn
 include $(MBED_LIB_DIR)/arduino-lib/Makefile.ard # 同名のヘッダファイルがあるのでmbed-srcよりも前で読み込む
-include $(MBED_LIB_DIR)/mbed-src/Makefile-Arduino.src
-#include $(MBED_LIB_DIR)/mbed-src/Makefile.src
+include $(MBED_LIB_DIR)/mbed-src/Makefile-Arduino.src # Makefile.src の代わりにこちらを使用
 include $(MBED_LIB_DIR)/EthernetInterface/Makefile.eif
-
 include $(MBED_LIB_DIR)/Makefile.mbd
 
 #
