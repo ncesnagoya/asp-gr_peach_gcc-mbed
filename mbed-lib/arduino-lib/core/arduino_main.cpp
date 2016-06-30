@@ -16,6 +16,12 @@
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+#include <kernel.h>
+#include <t_syslog.h>
+#include <t_stdlib.h>
+#include "syssvc/serial.h"
+#include "syssvc/syslog.h"
+
 #include <Arduino.h>
 #include <wiring_private.h>
 #include <Tone_private.h>
@@ -25,15 +31,48 @@
 
 static void msecInterrupt(void);
 
+extern void setup(void);
+extern void loop(void);
+
 void arduino_main_task(intptr_t exinf)
 {
     start1msecInterrupt(msecInterrupt);
     setup();
-    for (;;) {
-        loop();
-    }
     return;
 }
+
+#define RCA_TASK_BODY(NUM) \
+extern void loop##NUM(void); \
+\
+void \
+rca_task##NUM(intptr_t exinf) \
+{ \
+    syslog(LOG_NOTICE, "Arduino Task" #NUM " start!");	\
+    dly_tsk(1);											\
+    while(1){ \
+        loop##NUM(); \
+    }     \
+}
+
+#if LOOP_NUM > 0
+RCA_TASK_BODY(1)
+#endif /* LOOP_NUM > 0 */
+
+#if LOOP_NUM > 1
+RCA_TASK_BODY(2)
+#endif /* LOOP_NUM > 1 */
+
+#if LOOP_NUM > 2
+RCA_TASK_BODY(3)
+#endif /* LOOP_NUM > 2 */
+
+#if LOOP_NUM > 3
+RCA_TASK_BODY(4)
+#endif /* LOOP_NUM > 3 */
+
+#if LOOP_NUM > 4
+RCA_TASK_BODY(5)
+#endif /* LOOP_NUM > 4 */
 
 static void msecInterrupt(void)
 {
