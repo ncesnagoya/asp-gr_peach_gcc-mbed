@@ -32,7 +32,7 @@ void setup()
 	}	
 }
 
-void loop1()
+void loop()
 {
 	digitalWrite(PIN_LED_RED, 1);
 	delay(INTERVAL_RED);
@@ -40,14 +40,14 @@ void loop1()
 	delay(INTERVAL_RED);
 }
 
-void loop2(){
+void loop1(){
     digitalWrite(PIN_LED_GREEN, 1);
     delay(INTERVAL_GREEN);
     digitalWrite(PIN_LED_GREEN, 0);
 	delay(INTERVAL_GREEN);
 }
 
-void loop3(){
+void loop2(){
     digitalWrite(PIN_LED_BLUE, 1);
     delay(INTERVAL_BLUE);
 	digitalWrite(PIN_LED_BLUE, 0);

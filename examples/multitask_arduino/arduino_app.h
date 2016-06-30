@@ -1,7 +1,7 @@
 #ifndef _ARDUINO_APP_H_
 #define _ARDUINO_APP_H_
 
-#define LOOP_NUM 3 /* number of loops */
+#define ADDITIONAL_LOOP_NUM 2 /* number of additional loops */
 
 #ifndef KMM_SIZE
 #define	KMM_SIZE	(INIT_MAIN_TASK_STACK_SIZE * 16) /* カーネルが割り付ける */

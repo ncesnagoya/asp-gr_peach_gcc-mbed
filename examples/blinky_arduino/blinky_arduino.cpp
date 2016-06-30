@@ -21,7 +21,7 @@ void setup()
 	pinMode(PIN_SW        , INPUT);
 }
 
-void loop1()
+void loop()
 {
 	while(digitalRead(PIN_SW) == 0){
 		digitalWrite(PIN_LED_USER, 1);

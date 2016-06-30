@@ -38,6 +38,13 @@ void arduino_main_task(intptr_t exinf)
 {
     start1msecInterrupt(msecInterrupt);
     setup();
+
+	chg_pri(TSK_SELF, LOOP_PRI);
+
+	syslog(LOG_NOTICE, "Arduino Main Loop start!");	\	
+	while(1){
+		loop();
+	}	
     return;
 }
 
@@ -47,32 +54,32 @@ extern void loop##NUM(void); \
 void \
 rca_task##NUM(intptr_t exinf) \
 { \
-    syslog(LOG_NOTICE, "Arduino Task" #NUM " start!");	\
+    syslog(LOG_NOTICE, "Arduino Loop" #NUM " start!");	\
     dly_tsk(1);											\
     while(1){ \
         loop##NUM(); \
     }     \
 }
 
-#if LOOP_NUM > 0
+#if ADDITIONAL_LOOP_NUM > 0
 RCA_TASK_BODY(1)
-#endif /* LOOP_NUM > 0 */
+#endif /* ADDITIONAL_LOOP_NUM > 0 */
 
-#if LOOP_NUM > 1
+#if ADDITIONAL_LOOP_NUM > 1
 RCA_TASK_BODY(2)
-#endif /* LOOP_NUM > 1 */
+#endif /* ADDITIONAL_LOOP_NUM > 1 */
 
-#if LOOP_NUM > 2
+#if ADDITIONAL_LOOP_NUM > 2
 RCA_TASK_BODY(3)
-#endif /* LOOP_NUM > 2 */
+#endif /* ADDITIONAL_LOOP_NUM > 2 */
 
-#if LOOP_NUM > 3
+#if ADDITIONAL_LOOP_NUM > 3
 RCA_TASK_BODY(4)
-#endif /* LOOP_NUM > 3 */
+#endif /* ADDITIONAL_LOOP_NUM > 3 */
 
-#if LOOP_NUM > 4
+#if ADDITIONAL_LOOP_NUM > 4
 RCA_TASK_BODY(5)
-#endif /* LOOP_NUM > 4 */
+#endif /* ADDITIONAL_LOOP_NUM > 4 */
 
 static void msecInterrupt(void)
 {

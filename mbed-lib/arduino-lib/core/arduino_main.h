@@ -12,13 +12,13 @@
  *  Check number of task
  */
 
-#ifndef LOOP_NUM
-#error LOOP_NUM is not defined!
+#ifndef ADDITIONAL_LOOP_NUM
+#error ADDITIONAL_LOOP_NUM is not defined!
 #endif
 
-#if LOOP_NUM > RCA_NUM_TASK_MAX
+#if ADDITIONAL_LOOP_NUM > RCA_NUM_TASK_MAX
 #error The number of loop is over!
-#endif /* LOOP_NUM > RCA_NUM_TASK_MAX */
+#endif /* ADDITIONAL_LOOP_NUM > RCA_NUM_TASK_MAX */
 
 /*
  * Default Macro  
