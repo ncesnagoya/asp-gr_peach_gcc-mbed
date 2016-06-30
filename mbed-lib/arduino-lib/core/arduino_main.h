@@ -11,11 +11,6 @@
 /*
  *  Check number of task
  */
-
-#ifndef ADDITIONAL_LOOP_NUM
-#error ADDITIONAL_LOOP_NUM is not defined!
-#endif
-
 #if ADDITIONAL_LOOP_NUM > RCA_NUM_TASK_MAX
 #error The number of loop is over!
 #endif /* ADDITIONAL_LOOP_NUM > RCA_NUM_TASK_MAX */
