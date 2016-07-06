@@ -48,11 +48,11 @@ Application developers can use the following useful libraries.
 
 ## For command Line-based development
 
-- [Installation and Building Guide](https://github.com/ncesnagoya/asp-gr_peach_gcc-mbed/wiki/Installation\ and\ Building)
+- [Installation and Building Guide](https://github.com/ncesnagoya/asp-gr_peach_gcc-mbed/wiki/InstallationAndBuilding)
 
 ## For all developpers
 
-- [Example programs](https://github.com/ncesnagoya/asp-gr_peach_gcc-mbed/wiki/Example\ programs) 
+- [Example programs](https://github.com/ncesnagoya/asp-gr_peach_gcc-mbed/wiki/ExamplePrograms) 
 
 # Refereces and Links
 
