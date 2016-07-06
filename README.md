@@ -1,7 +1,6 @@
-# What's this
+# What's this?
 
 [TOPPERS/ASP Kernel](http://toppers.jp/en/asp-kernel.html) and useful libraries for [GR-PEACH](http://gadget.renesas.com/en/product/peach.html) have been distributed here.
-
 
 ![Stack](https://raw.github.com/wiki/ncesnagoya/asp-gr_peach_gcc-mbed/images/stack.png)
 
@@ -49,8 +48,11 @@ Application developers can use the following useful libraries.
 
 ## For command Line-based development
 
-- [Installation Guide](https://github.com/ncesnagoya/asp-gr_peach_gcc-mbed/wiki/Installation\ and\ Build)
-- [Running example programs](https://github.com/ncesnagoya/asp-gr_peach_gcc-mbed/wiki/Running-example-programs) 
+- [Installation and Building Guide](https://github.com/ncesnagoya/asp-gr_peach_gcc-mbed/wiki/Installation\ and\ Build)
+
+## For all developpers
+
+- [Example programs](https://github.com/ncesnagoya/asp-gr_peach_gcc-mbed/wiki/Eexample\ programs) 
 
 # Refereces and Links
 
