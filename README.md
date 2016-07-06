@@ -10,12 +10,8 @@
 TOPPERS/ASP kernel is a sophisticated real-time kernel for embedded real-time systems.
 ASP stands for Advanced Standard Profile which is improved version of the standard profile defined in μITRON4.0 specification. 
 
-The detail specification of TOPPERS/ASP kernel can be found at the following sites.
-
-- [TOPPERS Next Generaton Specification](http://toppers.jp/documents.html) (Japanese only)
-- [µITRON4.0 Specification](http://www.ertl.jp/ITRON/SPEC/mitron4-e.html) (English version)
-
 TOPPERS/ASP kernel has been distributed with [TOPPERS License](http://toppers.jp/en/license.html).
+The detail specification of TOPPERS/ASP kernel can be found at Refereces.
 
 ## Libraries
 
@@ -45,20 +41,36 @@ Application developers can use the following useful libraries.
  - TrueStudio or Eclipse can be used to perform high functional debugging.
  - Install manuals will be provied here in near future.
  
-# References
+# Documents
+
+## For web compiler-based development
 
 - [Get Started for beginners](https://github.com/ncesnagoya/asp-gr_peach_gcc-mbed/wiki/GetStarted)
-- [Installation Guide for Command Line-based Development](https://github.com/ncesnagoya/asp-gr_peach_gcc-mbed/wiki/Installation)
+
+## For command Line-based development
+
+- [Installation Guide](https://github.com/ncesnagoya/asp-gr_peach_gcc-mbed/wiki/Installation)
 - [Running example programs](https://github.com/ncesnagoya/asp-gr_peach_gcc-mbed/wiki/Running-example-programs) 
 
-# Links
+# Refereces and Links
+
+## References
+
+### TOPPERS/ASP Kernel / μITRON Specification
+
+- [TOPPERS Next Generaton Specification](http://toppers.jp/documents.html) (Japanese only)
+- [µITRON4.0 Specification](http://www.ertl.jp/ITRON/SPEC/mitron4-e.html) (English version)
+
+### GR-PEACH
+
+- [Official](http://gadget.renesas.com/en/product/peach.html)
+- [MBED site](https://developer.mbed.org/platforms/Renesas-GR-PEACH/)
+  - The original MBED library for GR-PEACH can be downloaded here.
+
+## Other Links
 
 - [TOPPERS Project](http://toppers.jp/en)
 - [Gadget RENESAS](http://gadget.renesas.com/en/)
-- GR-PEACH
- - [Official](http://gadget.renesas.com/en/product/peach.html)
- - [MBED site](https://developer.mbed.org/platforms/Renesas-GR-PEACH/)
-   - The original MBED library for GR-PEACH can be downloaded here.
 - [GNU ARM Eclipse](http://gnuarmeclipse.github.io/toolchain/install/)
 
 # Contacts
