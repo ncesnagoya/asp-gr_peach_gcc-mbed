@@ -49,7 +49,7 @@ Application developers can use the following useful libraries.
 
 ## For command Line-based development
 
-- [Installation Guide](https://github.com/ncesnagoya/asp-gr_peach_gcc-mbed/wiki/Installation)
+- [Installation Guide](https://github.com/ncesnagoya/asp-gr_peach_gcc-mbed/wiki/Installation\ and\ Build)
 - [Running example programs](https://github.com/ncesnagoya/asp-gr_peach_gcc-mbed/wiki/Running-example-programs) 
 
 # Refereces and Links
