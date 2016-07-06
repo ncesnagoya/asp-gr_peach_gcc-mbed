@@ -32,21 +32,36 @@ Application developers can use the following useful libraries.
  - I2C (i2c)
  - Softwere PWM (SoftPRM)
 - Arduino libaray based on MBED library (arduino-lib) [GPLv2]
+
+# Software Development Enviroment
+
+- Web compiler provided by RENESAS (Recommended for beginners)
+ - You can get started programming without installing software in your computer.
+ - No high functional debugging such like breakpoints, step-by-step execution, etc. 
+- Command Line
+ - Install development tools including arm cross-compilers and source code in your computer.
+ - Please read Installation Guide for more details.
+- IDE
+ - TrueStudio or Eclipse can be used to perform high functional debugging.
+ - Install manuals will be provied here in near future.
  
 # References
 
-- [Installation Guide](https://github.com/ncesnagoya/asp-gr_peach_gcc-mbed/wiki/Installation)
+- [Get Started for beginners](https://github.com/ncesnagoya/asp-gr_peach_gcc-mbed/wiki/GetStarted)
+- [Installation Guide for Command Line-based Development](https://github.com/ncesnagoya/asp-gr_peach_gcc-mbed/wiki/Installation)
 - [Running example programs](https://github.com/ncesnagoya/asp-gr_peach_gcc-mbed/wiki/Running-example-programs) 
 
 # Links
 
+- [TOPPERS Project](http://toppers.jp/en)
+- [Gadget RENESAS](http://gadget.renesas.com/en/)
 - GR-PEACH
  - [Official](http://gadget.renesas.com/en/product/peach.html)
  - [MBED site](https://developer.mbed.org/platforms/Renesas-GR-PEACH/)
    - The original MBED library for GR-PEACH can be downloaded here.
-- [TOPPERS Project](http://toppers.jp/en)
 - [GNU ARM Eclipse](http://gnuarmeclipse.github.io/toolchain/install/)
 
 # Contacts
 
 Please feel free to ask me or send pull requests if you have any questions or requests.
+Pull requests and contributions to this project are welcome anytime!
