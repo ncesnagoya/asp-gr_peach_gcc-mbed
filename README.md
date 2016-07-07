@@ -65,7 +65,8 @@ Application developers can use the following useful libraries.
 
 ### GR-PEACH
 
-- [Official](http://gadget.renesas.com/en/product/peach.html)
+- [Official site (Renesas)](http://gadget.renesas.com/en/product/peach.html)
+- [Official site (Core)](http://www.core.co.jp.e.ko.hp.transer.com/product/m2m/gr-peach/index.html)
 - [MBED site](https://developer.mbed.org/platforms/Renesas-GR-PEACH/)
   - The original MBED library for GR-PEACH can be downloaded here.
 
