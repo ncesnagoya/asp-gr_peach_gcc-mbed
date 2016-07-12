@@ -10,7 +10,7 @@ TOPPERS/ASP kernel is a sophisticated real-time kernel for embedded real-time sy
 ASP stands for Advanced Standard Profile which is improved version of the standard profile defined in μITRON4.0 specification. 
 
 TOPPERS/ASP kernel has been distributed with [TOPPERS License](http://toppers.jp/en/license.html).
-The detail specification of TOPPERS/ASP kernel can be found at Refereces.
+The detail specification of TOPPERS/ASP kernel can be found at Refereces in this page.
 
 ## Libraries
 
@@ -60,8 +60,9 @@ Application developers can use the following useful libraries.
 
 ### TOPPERS/ASP Kernel / μITRON Specification
 
-- [TOPPERS Next Generaton Specification](http://toppers.jp/documents.html) (Japanese only)
-- [µITRON4.0 Specification](http://www.ertl.jp/ITRON/SPEC/mitron4-e.html) (English version)
+- [TOPPERS/ASP Kernel Specification](https://github.com/ncesnagoya/asp-gr_peach_gcc-mbed/blob/master/docs/TOPPERS_ASP_Kernel_Specification.pdf)
+- [TOPPERS Next Generaton Specification](http://toppers.jp/documents.html) (Original, but Japanese only)
+- [µITRON4.0 Specification](http://www.ertl.jp/ITRON/SPEC/mitron4-e.html)
 
 ### GR-PEACH
 
