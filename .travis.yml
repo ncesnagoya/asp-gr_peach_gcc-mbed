@@ -5,9 +5,9 @@ language: cpp
 compiler: gcc
 
 before_install:
- - sudo add-apt-repository ppa:team-gcc-arm-embedded/ppa -y -qq
- - sudo apt-get update -qq
- - sudo apt-get install gcc-arm-embedded -y -qq
+ - sudo add-apt-repository ppa:team-gcc-arm-embedded/ppa -y
+ - sudo apt-get update
+ - sudo apt-get install gcc-arm-embedded -y
  - cd asp-1.9.2-utf8/cfg/cfg
  - wget http://toppers.jp/download.cgi/cfg-linux-static-1_9_5.gz
  - tar zxvf cfg-linux-static-1_9_5.gz
