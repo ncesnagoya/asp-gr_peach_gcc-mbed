@@ -16,4 +16,6 @@ before_script:
  - cd ../../../
  - cd examples/multitask_arduino
 
-script: make depend; make
+script:
+ - make depend
+ - make
