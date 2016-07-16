@@ -13,6 +13,8 @@ before_script:
  - cd asp-1.9.2-utf8/cfg/cfg
  - wget http://toppers.jp/download.cgi/cfg-linux-static-1_9_5.gz
  - gunzip cfg-linux-static-1_9_5.gz
+ - mv cfg-linux-static-1_9_5 cfg
+ - chmod +x cfg
  - cd ../../../
  - cd examples/multitask_arduino
 
