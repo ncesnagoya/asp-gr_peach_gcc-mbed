@@ -57,7 +57,7 @@ include $(MBED_LIB_DIR)/Makefile.mbd
 #
 #  ASPソースファイルのディレクトリの定義
 #
-SRCDIR = ../../asp-1.9.2-utf8
+SRCDIR = $(CURDIR)/../../asp-1.9.2-utf8
 
 #
 #  ASPカーネルのビルドに関するその他のオプション
