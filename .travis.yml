@@ -5,7 +5,7 @@ language: cpp
 compiler: gcc
 
 before_install:
- - sudo add-apt-repository ppa:team-gcc-arm-embedded/ppa -y # -qq is for travis CI
+ - sudo add-apt-repository ppa:team-gcc-arm-embedded/ppa -y
  - sudo apt-get update
  - sudo apt-get install gcc-arm-embedded -y
 
@@ -15,6 +15,7 @@ before_script:
  - tar zxvf cfg-linux-static-1_9_5.gz
  - cd ../../../
  - cd examples/multitask_arduino
+ - pwd
 
 script:
  - make depend
