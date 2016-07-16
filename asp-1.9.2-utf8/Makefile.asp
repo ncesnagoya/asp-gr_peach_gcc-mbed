@@ -341,7 +341,8 @@ $(OBJFILE): $(APPL_CFG) kernel_cfg.timestamp $(ALL_OBJS) $(LIBS_DEP)
 #
 $(OBJNAME).bin: $(OBJFILE)
 	$(OBJCOPY) -O binary -S $(OBJFILE) $(OBJNAME).bin
-	cp -X $(OBJNAME).bin /Volumes/MBED # for MacOSX
+#	cp -X $(OBJNAME).bin /Volumes/MBED # for MacOSX
+	
 #
 #  Sレコードファイルの生成
 #
