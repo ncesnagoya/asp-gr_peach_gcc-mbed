@@ -9,14 +9,15 @@ before_install:
  - sudo apt-get update
  - sudo apt-get install gcc-arm-embedded -y
 
-before_script:
- - cd asp-1.9.2-utf8/cfg/cfg
+install:
+ - pushd asp-1.9.2-utf8/cfg/cfg
  - wget http://toppers.jp/download.cgi/cfg-linux-static-1_9_5.gz
  - tar zxvf cfg-linux-static-1_9_5.gz
  - pwd
  - ls -l
 # - $(CURDIR)/cfg -v
- - cd ../../../examples/multitask_arduino
+ - popd
+ - push examples/multitask_arduino
  - ls -l ../../asp-1.9.2-utf8/cfg/cfg/
 
 script:
