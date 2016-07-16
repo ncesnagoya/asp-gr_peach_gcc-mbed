@@ -10,7 +10,8 @@ before_install:
  - sudo apt-get install gcc-arm-embedded libboost1.55-all-dev -y
 
 install:
- - pushd asp-1.9.2-utf8/cfg/cfg
+# - pushd asp-1.9.2-utf8/cfg/cfg
+ - pushd asp-1.9.2-utf8/cfg
  - make
 # - wget http://toppers.jp/download.cgi/cfg-linux-static-1_9_5.gz
 # - tar zxvf cfg-linux-static-1_9_5.gz
