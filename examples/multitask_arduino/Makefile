@@ -12,31 +12,6 @@ USE_CXX = true
 #APPL_COBJS   += 
 APPL_CFG = $(APPLNAME).cfg
 
-#
-#  Serialの扱い
-#   ARDUINO_SERIAL
-#    NOUSE_SERIAL
-#    USE_SERIAL
-#    USE_SERIALUSB_AS_SERIAL
-#    USE_SERIAL5_AS_SERIAL
-#
-#ARDUINO_SERIAL = NOUSE_SERIAL
-#ARDUINO_SERIAL = USE_SERIAL
-#ARDUINO_SERIAL = USE_SERIALUSB_AS_SERIAL
-#ARDUINO_SERIAL = USE_SERIAL5_AS_SERIAL
-
-#
-#  ライブラリの使用
-#  
-#USE_ARDUINO_SPI = true
-#USE_ARDUINO_NCESCAN = true
-#USE_ARDUINO_SD  = true
-#USE_ARDUINO_TFT = true
-#USE_ETHERNET2 = true
-#USE_NAXESMOTION = true
-#USE_ARDUINO_RTC = true
-#USE_WIRE = true
-
 DEBUG = true
 OMIT_OPTIMIZATION = true
 
@@ -57,7 +32,7 @@ include $(MBED_LIB_DIR)/Makefile.mbd
 #
 #  ASPソースファイルのディレクトリの定義
 #
-SRCDIR = $(CURDIR)/../../asp-1.9.2-utf8
+SRCDIR = ../../asp-1.9.2-utf8
 
 #
 #  ASPカーネルのビルドに関するその他のオプション
