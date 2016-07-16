@@ -11,14 +11,12 @@ before_install:
 
 before_script:
  - cd asp-1.9.2-utf8/cfg/cfg
- - pwd
- - rm cfg
  - wget http://toppers.jp/download.cgi/cfg-linux-static-1_9_5.gz
- - ls -l
  - tar zxvf cfg-linux-static-1_9_5.gz
+ - pwd
+ - ls -l
  - ./cfg -v
  - cd ../../../examples/multitask_arduino
- - pwd
  - ls -l ../../asp-1.9.2-utf8/cfg/cfg/
 
 script:
