@@ -4,6 +4,12 @@
 
 ![Stack](https://raw.github.com/wiki/ncesnagoya/asp-gr_peach_gcc-mbed/images/stack.png)
 
+
+
+Build Environment in Travis | Status
+------------ | -------------
+Ubuntu 14.04.3 LTS | [![Build Status](https://travis-ci.org/ncesnagoya/asp-gr_peach_gcc-mbed.svg?branch=master)](https://travis-ci.org/ncesnagoya/asp-gr_peach_gcc-mbed)
+
 ## TOPPERS/ASP Kernel
 
 TOPPERS/ASP kernel is a sophisticated real-time kernel for embedded real-time systems.
