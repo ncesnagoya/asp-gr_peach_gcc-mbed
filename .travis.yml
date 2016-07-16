@@ -8,15 +8,17 @@ before_install:
  - sudo add-apt-repository ppa:team-gcc-arm-embedded/ppa -y
  - sudo apt-get update
  - sudo apt-get install gcc-arm-embedded -y
+
+before_script:
  - cd asp-1.9.2-utf8/cfg/cfg
+ - pwd
  - wget http://toppers.jp/download.cgi/cfg-linux-static-1_9_5.gz
+ - ls -l
  - tar zxvf cfg-linux-static-1_9_5.gz
  - ./cfg -v
  - cd ../../../examples/multitask_arduino
  - pwd
  - ls -l ../../asp-1.9.2-utf8/cfg/cfg/
-
-before_script:
 
 script:
  - make depend
