@@ -16,6 +16,7 @@ before_script:
  - cd ../../../
  - cd examples/multitask_arduino
  - pwd
+ - ls -l ../../asp-1.9.2-utf8/cfg/cfg
 
 script:
  - make depend
