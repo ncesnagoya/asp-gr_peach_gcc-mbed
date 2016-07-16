@@ -1,44 +1,18 @@
-language: c
+sudo: required
+dist: trusty
+language: cpp
 
-matrix:
-  fast_finish: true
-  include:
-    - os: linux
-      sudo: false
-      env: GCC_VER=4.8
-    - os: linux
-      sudo: false
-      env: GCC_VER=4.9
-    - os: linux
-      sudo: false
-      env: GCC_VER=5.0
-
-addons:
-  apt:
-    packages:
-    - libc6-i386 
+compiler: gcc
 
 before_install:
-  - if [ "${TRAVIS_OS_NAME}" = "linux" ]; then
-         pushd .
-      && cd ~ && mkdir gcc && cd gcc
-      && if [ "$GCC_VER" = "4.8" ]; then GCC_URL="https://launchpadlibrarian.net/186124160/gcc-arm-none-eabi-4_8-2014q3-20140805-linux.tar.bz2" ; fi
-      && if [ "$GCC_VER" = "4.9" ]; then GCC_URL="https://launchpad.net/gcc-arm-embedded/4.9/4.9-2015-q3-update/+download/gcc-arm-none-eabi-4_9-2015q3-20150921-linux.tar.bz2" ; fi
-      && if [ "$GCC_VER" = "5.0" ]; then GCC_URL="https://launchpad.net/gcc-arm-embedded/5.0/5-2016-q1-update/+download/gcc-arm-none-eabi-5_3-2016q1-20160330-linux.tar.bz2" ; fi
-      && wget -O gcc.tar.bz2 ${GCC_URL}
-      && tar -jxf gcc.tar.bz2 --strip 1
-      && exportline="export PATH=\$HOME/gcc/bin:\$PATH"
-      && if grep -Fxq "$exportline" ~/.profile; then echo nothing to do ; else echo $exportline >> ~/.profile; fi
-      && . ~/.profile
-      && popd
-      ;
-   fi
+ - sudo add-apt-repository ppa:team-gcc-arm-embedded/ppa -y # -qq is for travis CI
+ - sudo apt-get update
+ - sudo apt-get install gcc-arm-embedded libboost1.55-all-dev -y
 
 before_script:
-  - arm-none-eabi-gcc --version
+ - cd asp-1.9.2-utf8/cfg/cfg
+ - make
+ - cd ../../../
+ - cd examples/multitask_arduino
 
-script:
-  - make
-
-notifications:
-  email: false
+script: make depend; make
