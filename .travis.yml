@@ -13,10 +13,10 @@ before_script:
  - cd asp-1.9.2-utf8/cfg/cfg
  - wget http://toppers.jp/download.cgi/cfg-linux-static-1_9_5.gz
  - tar zxvf cfg-linux-static-1_9_5.gz
- - cd ../../../
- - cd examples/multitask_arduino
+ - ./cfg -v
+ - cd ../../../examples/multitask_arduino
  - pwd
- - ls -l ../../asp-1.9.2-utf8/cfg/cfg
+ - ls -l ../../asp-1.9.2-utf8/cfg/cfg/
 
 script:
  - make depend
