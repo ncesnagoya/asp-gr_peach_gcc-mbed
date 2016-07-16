@@ -3,8 +3,16 @@
 PROJDIR = ..
 WORKDIR = $(PROJDIR)/cfg
 
+ifdef HAS_CFG_XML
+	CPPFLAGS := $(CPPFLAGS) -I$(XERCES_DIR)
+endif
+
 CPPFLAGS := $(CPPFLAGS) -I$(BOOST_DIR) -I$(PROJDIR)
-CXXFLAGS := $(CXXFLAGS) -O2 -g
+LDFLAGS := $(CXXFLAGS)
+
+ifeq ($(OSTYPE), msys)
+	LDFLAGS := $(LDFLAGS) -static-libgcc -static-libstdc++
+endif
 
 CXXFILES = \
 	cfg.cpp \
@@ -17,19 +25,24 @@ CXXFILES = \
 
 OBJFILES := $(CXXFILES:%.cpp=%.o)
 
-ifeq ($(OSTYPE),msys)
-BOOST_LIBFILES = /mingw/lib/libboost_system-mgw-mt-s.lib /mingw/lib/libboost_filesystem-mgw-mt-s.lib /mingw/lib/libboost_program_options-mgw-mt-s.lib
-else
-BOOST_LIBFILES := $(BOOST_LIBFILES) -lboost_system$(LIBBOOST_SUFFIX) -lboost_filesystem$(LIBBOOST_SUFFIX) -lboost_program_options$(LIBBOOST_SUFFIX)
+BOOST_LIBFILES := $(BOOST_LIBFILES) -lboost_system$(LIBBOOST_SUFFIX) -lboost_filesystem$(LIBBOOST_SUFFIX) -lboost_program_options$(LIBBOOST_SUFFIX) -lboost_regex$(LIBBOOST_SUFFIX)
+ifdef HAS_CFG_XML
+	XERCES_LIBSFILE := $(XERCES_LIBSFILE) -lxerces-c -licui18n -licuuc -licudata
 endif
 
 LIBFILES = $(PROJDIR)/toppers/itronx/libitronx.a \
-	$(PROJDIR)/toppers/libtoppers.a \
+	$(PROJDIR)/toppers/oil/liboil.a
+
+ifdef HAS_CFG_XML
+	LIBFILES := $(LIBFILES) $(PROJDIR)/toppers/xml/libxml.a
+endif
+
+LIBFILES := $(LIBFILES) $(PROJDIR)/toppers/libtoppers.a \
 
 all: cfg
 
 cfg: $(OBJFILES) $(LIBFILES)
-	$(CXX) $(CXXFLAGS) -o cfg $(OBJFILES) -L$(LIBBOOST_DIR) $(LIBFILES) $(BOOST_LIBFILES)
+	$(CXX) $(LDFLAGS) -o cfg $(OBJFILES) -L$(LIBBOOST_DIR) -L$(LIBXERCES_DIR) $(LIBFILES) $(BOOST_LIBFILES) $(XERCES_LIBSFILE)
 
 depend:
 	$(CXX) $(CPPFLAGS) -M $(CXXFILES) > Makefile.depend

@@ -2,36 +2,36 @@
  *  TOPPERS Software
  *      Toyohashi Open Platform for Embedded Real-Time Systems
  *
- *  Copyright (C) 2007-2010 by TAKAGI Nobuhisa
+ *  Copyright (C) 2007-2012 by TAKAGI Nobuhisa
  * 
- *  �嵭����Ԥϡ��ʲ���(1)��(4)�ξ������������˸¤ꡤ�ܥ��եȥ���
- *  �����ܥ��եȥ���������Ѥ�����Τ�ޤࡥ�ʲ�Ʊ���ˤ���ѡ�ʣ������
- *  �ѡ������ۡʰʲ������ѤȸƤ֡ˤ��뤳�Ȥ�̵���ǵ������롥
- *  (1) �ܥ��եȥ������򥽡��������ɤη������Ѥ�����ˤϡ��嵭������
- *      ��ɽ�����������Ѿ�浪��Ӳ�����̵�ݾڵ��꤬�����Τޤޤη��ǥ���
- *      ����������˴ޤޤ�Ƥ��뤳�ȡ�
- *  (2) �ܥ��եȥ������򡤥饤�֥������ʤɡ�¾�Υ��եȥ�������ȯ�˻�
- *      �ѤǤ�����Ǻ����ۤ�����ˤϡ������ۤ�ȼ���ɥ�����ȡ�����
- *      �ԥޥ˥奢��ʤɡˤˡ��嵭�����ɽ�����������Ѿ�浪��Ӳ���
- *      ��̵�ݾڵ����Ǻܤ��뤳�ȡ�
- *  (3) �ܥ��եȥ������򡤵�����Ȥ߹���ʤɡ�¾�Υ��եȥ�������ȯ�˻�
- *      �ѤǤ��ʤ����Ǻ����ۤ�����ˤϡ����Τ����줫�ξ�����������
- *      �ȡ�
- *    (a) �����ۤ�ȼ���ɥ�����ȡ����Ѽԥޥ˥奢��ʤɡˤˡ��嵭����
- *        �ɽ�����������Ѿ�浪��Ӳ�����̵�ݾڵ����Ǻܤ��뤳�ȡ�
- *    (b) �����ۤη��֤��̤�������ˡ�ˤ�äơ�TOPPERS�ץ��������Ȥ�
- *        ��𤹤뤳�ȡ�
- *  (4) �ܥ��եȥ����������Ѥˤ��ľ��Ū�ޤ��ϴ���Ū�������뤤���ʤ�»
- *      ������⡤�嵭����Ԥ����TOPPERS�ץ��������Ȥ����դ��뤳�ȡ�
- *      �ޤ����ܥ��եȥ������Υ桼���ޤ��ϥ���ɥ桼������Τ����ʤ���
- *      ͳ�˴�Ť����ᤫ��⡤�嵭����Ԥ����TOPPERS�ץ��������Ȥ�
- *      ���դ��뤳�ȡ�
+ *  上記著作権者は，以下の(1)〜(4)の条件を満たす場合に限り，本ソフトウェ
+ *  ア（本ソフトウェアを改変したものを含む．以下同じ）を使用・複製・改
+ *  変・再配布（以下，利用と呼ぶ）することを無償で許諾する．
+ *  (1) 本ソフトウェアをソースコードの形で利用する場合には，上記の著作
+ *      権表示，この利用条件および下記の無保証規定が，そのままの形でソー
+ *      スコード中に含まれていること．
+ *  (2) 本ソフトウェアを，ライブラリ形式など，他のソフトウェア開発に使
+ *      用できる形で再配布する場合には，再配布に伴うドキュメント（利用
+ *      者マニュアルなど）に，上記の著作権表示，この利用条件および下記
+ *      の無保証規定を掲載すること．
+ *  (3) 本ソフトウェアを，機器に組み込むなど，他のソフトウェア開発に使
+ *      用できない形で再配布する場合には，次のいずれかの条件を満たすこ
+ *      と．
+ *    (a) 再配布に伴うドキュメント（利用者マニュアルなど）に，上記の著
+ *        作権表示，この利用条件および下記の無保証規定を掲載すること．
+ *    (b) 再配布の形態を，別に定める方法によって，TOPPERSプロジェクトに
+ *        報告すること．
+ *  (4) 本ソフトウェアの利用により直接的または間接的に生じるいかなる損
+ *      害からも，上記著作権者およびTOPPERSプロジェクトを免責すること．
+ *      また，本ソフトウェアのユーザまたはエンドユーザからのいかなる理
+ *      由に基づく請求からも，上記著作権者およびTOPPERSプロジェクトを
+ *      免責すること．
  * 
- *  �ܥ��եȥ������ϡ�̵�ݾڤ��󶡤���Ƥ����ΤǤ��롥�嵭����Ԥ�
- *  ���TOPPERS�ץ��������Ȥϡ��ܥ��եȥ������˴ؤ��ơ�����λ�����Ū
- *  ���Ф���Ŭ������ޤ�ơ������ʤ��ݾڤ�Ԥ�ʤ����ޤ����ܥ��եȥ���
- *  �������Ѥˤ��ľ��Ū�ޤ��ϴ���Ū�������������ʤ�»���˴ؤ��Ƥ⡤��
- *  ����Ǥ�����ʤ���
+ *  本ソフトウェアは，無保証で提供されているものである．上記著作権者お
+ *  よびTOPPERSプロジェクトは，本ソフトウェアに関して，特定の使用目的
+ *  に対する適合性も含めて，いかなる保証も行わない．また，本ソフトウェ
+ *  アの利用により直接的または間接的に生じたいかなる損害に関しても，そ
+ *  の責任を負わない．
  * 
  */
 #include <cctype>
@@ -62,14 +62,14 @@ namespace toppers
     }
 
     /*!
-     *  \brief  ��ŪAPI�ι�ʸ����
-     *  \param[in,out]  next      �ƥ����Ȥ��ɤ߹��߰��֡���ʸ���ϸ�μ����ɤ߹��߰��֤γ�Ǽ��
-     *  \param[in]      last      �ƥ����Ȥν�ü����
-     *  \param[in]      info_map  ��ŪAPI����ޥå�
-     *  \param[in]      ucn       ���ʸ��̾��ͭ���ˤ������ true ����ꤹ�롣
-     *  \param[in]      codeset   ʸ��������
-     *  \retval         true    ����
-     *  \retval         false   ����
+     *  \brief  静的APIの構文解析
+     *  \param[in,out]  next      テキストの読み込み位置、兼構文解析後の次の読み込み位置の格納先
+     *  \param[in]      last      テキストの終端位置
+     *  \param[in]      info_map  静的API情報マップ
+     *  \param[in]      ucn       国際文字名を有効にする場合は true を指定する。
+     *  \param[in]      codeset   文字コード
+     *  \retval         true    成功
+     *  \retval         false   失敗
      */
     bool static_api::parse( text::const_iterator& next, text::const_iterator last,
                             std::map< std::string, info > const& info_map,
@@ -94,8 +94,8 @@ namespace toppers
         return false;
       }
 
-      // ���顼��å������Ѥι��ֹ�
-      // ���ι��ֹ�ϡ���ŪAPI�γ��ϰ��֤Τ�ΤǤ��뤿�ᡢ���顼ȯ���սꤽ�Τ�Υ��Х��ؤ����ȤϤǤ��ʤ���
+      // エラーメッセージ用の行番号
+      // この行番号は、静的APIの開始位置のものであるため、エラー発生箇所そのものズバリを指すことはできない。
       temp.line_ = next_temp.line();
 
       pi = boost::spirit::classic::parse( next_temp, last, parser, boost::spirit::classic::space_p );
@@ -104,7 +104,7 @@ namespace toppers
         return false;
       }
 
-      // ��ŪAPI��¸�ߤ��뤫�ɤ�����Ƚ�ꤪ��ӥ����˥���μ���
+      // 静的APIが存在するかどうかの判定およびシグニチャの取得
       std::string api_name( tokens.front() );
       std::map< std::string, info >::const_iterator info_iter = info_map.find( api_name );
       info const* pinfo = 0;
@@ -119,10 +119,10 @@ namespace toppers
         return false;
       }
 
-      // �ƥѥ�᡼���β���
+      // 各パラメータの解析
       std::istringstream iss( pinfo->params );
-      int order = 0;            // �ѥ�᡼���ꥹ����ν��
-      bool param_list = false;  // �ѥ�᡼���ꥹ�Ȳ�����ե饰
+      int order = 0;            // パラメータリスト内の順序
+      bool param_list = false;  // パラメータリスト解析中フラグ
       std::string symbol;
       bool skip = false;
 
@@ -130,6 +130,11 @@ namespace toppers
             iter != last;
             ++iter )
       {
+        if ( iss.eof() )
+        {
+          error( temp.line_, _( "too many parameters for static API `%s\'" ), api_name );
+          break;
+        }
         if ( !param_list )
         {
           iss >> symbol;
@@ -137,7 +142,7 @@ namespace toppers
           {
             param_list = true;
             order = 0;
-            symbol.resize( symbol.size() - 3 );
+            //symbol.resize( symbol.size() - 3 );
           }
         }
         if ( symbol == "{" || symbol == "}" )
@@ -159,7 +164,7 @@ namespace toppers
             }
             param_list = false;
           }
-          else if ( *symbol.rbegin() == '\?' ) // ��ά��ǽ�ѥ�᡼���Υ����å�
+          else if ( *symbol.rbegin() == '\?' ) // 省略可能パラメータのスキップ
           {
             skip = true;
             --iter;
@@ -175,7 +180,8 @@ namespace toppers
           value.symbol = symbol;
           if ( param_list )
           {
-            value.symbol += boost::lexical_cast< std::string >( order++ );
+            //value.symbol += boost::lexical_cast< std::string >( order++ );
+            value.order = order++;
           }
           value.text = *iter;
           value.value = 0;

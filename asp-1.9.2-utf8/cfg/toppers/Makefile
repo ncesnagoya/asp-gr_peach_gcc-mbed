@@ -4,7 +4,6 @@ PROJDIR = ..
 WORKDIR = $(PROJDIR)/toppers
 
 CPPFLAGS := $(CPPFLAGS) -I$(BOOST_DIR) -I$(PROJDIR)
-CXXFLAGS := $(CXXFLAGS) -O2 -g
 
 CXXFILES = \
 	builtin_function.cpp \

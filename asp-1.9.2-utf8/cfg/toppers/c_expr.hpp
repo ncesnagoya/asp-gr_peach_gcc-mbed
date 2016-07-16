@@ -2,44 +2,44 @@
  *  TOPPERS Software
  *      Toyohashi Open Platform for Embedded Real-Time Systems
  *
- *  Copyright (C) 2005-2011 by TAKAGI Nobuhisa
+ *  Copyright (C) 2005-2012 by TAKAGI Nobuhisa
  * 
- *  �嵭����Ԥϡ��ʲ���(1)��(4)�ξ������������˸¤ꡤ�ܥ��եȥ���
- *  �����ܥ��եȥ���������Ѥ�����Τ�ޤࡥ�ʲ�Ʊ���ˤ���ѡ�ʣ������
- *  �ѡ������ۡʰʲ������ѤȸƤ֡ˤ��뤳�Ȥ�̵���ǵ������롥
- *  (1) �ܥ��եȥ������򥽡��������ɤη������Ѥ�����ˤϡ��嵭������
- *      ��ɽ�����������Ѿ�浪��Ӳ�����̵�ݾڵ��꤬�����Τޤޤη��ǥ���
- *      ����������˴ޤޤ�Ƥ��뤳�ȡ�
- *  (2) �ܥ��եȥ������򡤥饤�֥������ʤɡ�¾�Υ��եȥ�������ȯ�˻�
- *      �ѤǤ�����Ǻ����ۤ�����ˤϡ������ۤ�ȼ���ɥ�����ȡ�����
- *      �ԥޥ˥奢��ʤɡˤˡ��嵭�����ɽ�����������Ѿ�浪��Ӳ���
- *      ��̵�ݾڵ����Ǻܤ��뤳�ȡ�
- *  (3) �ܥ��եȥ������򡤵�����Ȥ߹���ʤɡ�¾�Υ��եȥ�������ȯ�˻�
- *      �ѤǤ��ʤ����Ǻ����ۤ�����ˤϡ����Τ����줫�ξ�����������
- *      �ȡ�
- *    (a) �����ۤ�ȼ���ɥ�����ȡ����Ѽԥޥ˥奢��ʤɡˤˡ��嵭����
- *        �ɽ�����������Ѿ�浪��Ӳ�����̵�ݾڵ����Ǻܤ��뤳�ȡ�
- *    (b) �����ۤη��֤��̤�������ˡ�ˤ�äơ�TOPPERS�ץ��������Ȥ�
- *        ��𤹤뤳�ȡ�
- *  (4) �ܥ��եȥ����������Ѥˤ��ľ��Ū�ޤ��ϴ���Ū�������뤤���ʤ�»
- *      ������⡤�嵭����Ԥ����TOPPERS�ץ��������Ȥ����դ��뤳�ȡ�
- *      �ޤ����ܥ��եȥ������Υ桼���ޤ��ϥ���ɥ桼������Τ����ʤ���
- *      ͳ�˴�Ť����ᤫ��⡤�嵭����Ԥ����TOPPERS�ץ��������Ȥ�
- *      ���դ��뤳�ȡ�
+ *  上記著作権者は，以下の(1)〜(4)の条件を満たす場合に限り，本ソフトウェ
+ *  ア（本ソフトウェアを改変したものを含む．以下同じ）を使用・複製・改
+ *  変・再配布（以下，利用と呼ぶ）することを無償で許諾する．
+ *  (1) 本ソフトウェアをソースコードの形で利用する場合には，上記の著作
+ *      権表示，この利用条件および下記の無保証規定が，そのままの形でソー
+ *      スコード中に含まれていること．
+ *  (2) 本ソフトウェアを，ライブラリ形式など，他のソフトウェア開発に使
+ *      用できる形で再配布する場合には，再配布に伴うドキュメント（利用
+ *      者マニュアルなど）に，上記の著作権表示，この利用条件および下記
+ *      の無保証規定を掲載すること．
+ *  (3) 本ソフトウェアを，機器に組み込むなど，他のソフトウェア開発に使
+ *      用できない形で再配布する場合には，次のいずれかの条件を満たすこ
+ *      と．
+ *    (a) 再配布に伴うドキュメント（利用者マニュアルなど）に，上記の著
+ *        作権表示，この利用条件および下記の無保証規定を掲載すること．
+ *    (b) 再配布の形態を，別に定める方法によって，TOPPERSプロジェクトに
+ *        報告すること．
+ *  (4) 本ソフトウェアの利用により直接的または間接的に生じるいかなる損
+ *      害からも，上記著作権者およびTOPPERSプロジェクトを免責すること．
+ *      また，本ソフトウェアのユーザまたはエンドユーザからのいかなる理
+ *      由に基づく請求からも，上記著作権者およびTOPPERSプロジェクトを
+ *      免責すること．
  * 
- *  �ܥ��եȥ������ϡ�̵�ݾڤ��󶡤���Ƥ����ΤǤ��롥�嵭����Ԥ�
- *  ���TOPPERS�ץ��������Ȥϡ��ܥ��եȥ������˴ؤ��ơ�����λ�����Ū
- *  ���Ф���Ŭ������ޤ�ơ������ʤ��ݾڤ�Ԥ�ʤ����ޤ����ܥ��եȥ���
- *  �������Ѥˤ��ľ��Ū�ޤ��ϴ���Ū�������������ʤ�»���˴ؤ��Ƥ⡤��
- *  ����Ǥ�����ʤ���
+ *  本ソフトウェアは，無保証で提供されているものである．上記著作権者お
+ *  よびTOPPERSプロジェクトは，本ソフトウェアに関して，特定の使用目的
+ *  に対する適合性も含めて，いかなる保証も行わない．また，本ソフトウェ
+ *  アの利用により直接的または間接的に生じたいかなる損害に関しても，そ
+ *  の責任を負わない．
  * 
  */
 
 /*!
  *  \file   toppers/c_expr.hpp
- *  \brief  C����μ��ι�ʸ���Ϥ˴ؤ���������
+ *  \brief  C言語の式の構文解析に関する宣言定義
  *
- *  ���Υե�������������륯�饹
+ *  このファイルで定義されるクラス
  *  \code
  *  struct c_expr_parser_base< Derived >;
  *  struct c_expr_parser;
@@ -50,23 +50,23 @@
 #define TOPPERS_C_EXPR_HPP_
 
 #include "toppers/c_parser.hpp"
-#include <boost/cstdint.hpp>
+#include "toppers/workaround.hpp"
 
 namespace toppers
 {
 
   /*!
    *  \struct c_expr_parser_base c_expr.hpp "toppers/c_expr.hpp"
-   *  \brief  C����μ���ʸ���Ϥ��뤿��δ��쥯�饹
+   *  \brief  C言語の式を構文解析するための基底クラス
    *
-   *  �ºݤ˻��Ѥ���ݤϡ� c_expr_parser_base ����� c_expr_parser_base::definition
-   *  ���饹����������ɬ�פ�����ޤ��� c_expr_parser_base::definition ���������饹�Ǥϡ�
-   *  start ���дؿ���������ơ���ʸ���ɬ�פʥ롼�����Ф��褦�ˤ��Ƥ���������
-   *  �������뤳�Ȥǡ��������ʸˡ���켡����ʸˡ�Ȥ��ä��褦�ˡ�C�����ʸˡ�Υ���
-   *  ���åȤ��ưפ˺��Ф����Ȥ��Ǥ��ޤ���
+   *  実際に使用する際は、 c_expr_parser_base および c_expr_parser_base::definition
+   *  クラスを派生する必要があります。 c_expr_parser_base::definition の派生クラスでは、
+   *  start メンバ関数を定義して、構文中の必要なルールを取り出すようにしてください。
+   *  こうすることで、定数式の文法、一次式の文法といったように、C言語の文法のサブ
+   *  セットを容易に作り出すことができます。
    *
    *  \code
-   *  // �켡������Ф���
+   *  // 一次式を取り出す例
    *  struct c_primary_expression : c_expr_parser_base< c_primary_expression >
    *  {
    *    template < class Scanner >
@@ -83,7 +83,7 @@ namespace toppers
   public:
     /*!
      *  \struct definition c_expr.hpp "toppers/c_expr.hpp"
-     *  \brief  ʸˡ���
+     *  \brief  文法定義
      */
     template < class Scanner >
       struct definition
@@ -141,8 +141,8 @@ namespace toppers
       c_chlit_parser_t c_chlit_p;
 
       /*!
-       *  \brief  ���󥹥ȥ饯��
-       *  \param  self  ʸˡ���饹�� c_expr_parser_base< Derived > ���饹����ηѾ��ˤؤλ���
+       *  \brief  コンストラクタ
+       *  \param  self  文法クラス（ c_expr_parser_base< Derived > クラスからの継承）への参照
        */
       definition( Derived const& self )
         : identifier( c_ident_parser( self.ucn_, self.c_plus_plus_ ) ),
@@ -153,7 +153,7 @@ namespace toppers
         static functor_parser< detail::c_integer_constant_parse_functor< boost::uintmax_t > > const c_int_const_p;
         static functor_parser< detail::c_integer_suffix_parse_functor > const c_int_suffix_p;
 
-        primary_expression =  // ʣ���ƥ��̤�б�
+        primary_expression =  // 複合リテラル未対応
             identifier
           | constant
           | string_literal
@@ -191,7 +191,7 @@ namespace toppers
 		    ch_p( '&' ) | '*' | '~' | '!' | '+' | '-';
         cast_expression =
             *( '(' >> type_name >> ')' ) >> unary_expression
-          | +( '(' >> ( type_name | identifier ) >> ')' );  // ��ʸ���Ϥ˼��Ԥ����Զ���к�
+          | +( '(' >> ( type_name | identifier ) >> ')' );  // 構文解析に失敗する不具合対策
         multiplicative_expression =
             cast_expression >>
            *(
@@ -241,7 +241,7 @@ namespace toppers
         constant =
             floating_constant
           | integer_constant
-          | identifier  // ������
+          | identifier  // 列挙定数
           | character_constant;
         floating_constant =
             decimal_floating_constant
@@ -311,14 +311,14 @@ namespace toppers
           | ( lexeme_d[ ( str_p( "struct" ) | "union" ) >> +space_p >> !identifier ] >> '{' >> +struct_declaration >> '}' );
         struct_declaration =
             specifier_qualifier_list >> !list_p( struct_declarator, ',' ) >> ';';
-            // lisp_p( struct_declarator, ',' )���ά��ǽ�Ȥ��Ƥ���Τϡ�
-            // struct_declarator �� identifier �� specifier_qualifier_list ��
-            // typedef ̾�ȴְ㤦���Ȥ���򤹤뤿��
+            // lisp_p( struct_declarator, ',' )を省略可能としているのは、
+            // struct_declarator の identifier を specifier_qualifier_list が
+            // typedef 名と間違うことを回避するため
         struct_declarator =
-            ( !declarator >> ':' >> constant_expression ) // �ӥåȥե������
+            ( !declarator >> ':' >> constant_expression ) // ビットフィールド
           | declarator;
         enum_specifier =
-            ( lexeme_d[ "enum" >> +space_p >> !identifier ] >> '{' >> list_p( enumerator, ',', ',' ) >> '}' )   // C99�Ǥ������Υ���ޤ����äƤ�褤
+            ( lexeme_d[ "enum" >> +space_p >> !identifier ] >> '{' >> list_p( enumerator, ',', ',' ) >> '}' )   // C99では末尾のカンマがあってもよい
           | lexeme_d[ "enum" >> +space_p >> identifier ];
         enumerator =
             identifier >> !( '=' >> constant_expression );
@@ -328,7 +328,7 @@ namespace toppers
         pointer =
            +( '*' >> *type_qualifier );
         parameter_type_list =
-            parameter_list >> !( ch_p( ',' ) >> "..." );  // ���Ѹİ���
+            parameter_list >> !( ch_p( ',' ) >> "..." );  // 可変個引数
         parameter_list =
             parameter_declaration % ',';
         parameter_declaration = 
@@ -350,10 +350,10 @@ namespace toppers
     bool c_plus_plus_;
 
     /*!
-     *  \brief  ���󥹥ȥ饯��
-     *  \param  ucn         ���ʸ��̾���б�������� true ����ꤹ��
-     *  \param  codeset     ʸ��������
-     *  \param  c_plus_plus C++ ���б�������� true ����ꤹ��
+     *  \brief  コンストラクタ
+     *  \param  ucn         国際文字名に対応する場合は true を指定する
+     *  \param  codeset     文字コード
+     *  \param  c_plus_plus C++ に対応する場合は true を指定する
      */
     explicit c_expr_parser_base( bool ucn = false, codeset_t codeset = ascii, bool c_plus_plus = false )
       : ucn_( ucn ), codeset_( codeset ), c_plus_plus_( c_plus_plus )
@@ -363,7 +363,7 @@ namespace toppers
 
   /*!
    *  \class  c_expr_parser c_expr.hpp "toppers/c_expr.hpp" 
-   *  \brief  C����μ��ι�ʸ���ϥ��饹
+   *  \brief  C言語の式の構文解析クラス
    */
   struct c_expr_parser : c_expr_parser_base< c_expr_parser >
   {
@@ -371,7 +371,7 @@ namespace toppers
 
     /*!
      *  \struct definition c_expr.hpp "toppers/c_expr.hpp"
-     *  \brief  ʸˡ���
+     *  \brief  文法定義
      */
     template < class Scanner >
     struct definition : base_t::definition< Scanner >
@@ -383,9 +383,9 @@ namespace toppers
     };
 
     /*!
-     *  \brief  ���󥹥ȥ饯��
-     *  \param  ucn     ���ʸ��̾���б�������� true ����ꤹ��
-     *  \param  codeset ʸ��������
+     *  \brief  コンストラクタ
+     *  \param  ucn     国際文字名に対応する場合は true を指定する
+     *  \param  codeset 文字コード
      */
     explicit c_expr_parser( bool ucn = false, codeset_t codeset = ascii )
       : c_expr_parser_base< c_expr_parser >( ucn, codeset )
@@ -395,7 +395,7 @@ namespace toppers
 
   /*!
    *  \class  c_const_expr_parser c_expr.hpp "toppers/c_expr.hpp"
-   *  \brief  C�����������ι�ʸ���ϥ��饹
+   *  \brief  C言語の定数式の構文解析クラス
    */
   struct c_const_expr_parser : c_expr_parser_base< c_const_expr_parser >
   {
@@ -403,7 +403,7 @@ namespace toppers
 
     /*!
      *  \struct definition c_expr.hpp "toppers/c_expr.hpp"
-     *  \brief  ʸˡ���
+     *  \brief  文法定義
      */
     template < class Scanner >
     struct definition : base_t::definition< Scanner >
@@ -415,9 +415,9 @@ namespace toppers
     };
 
     /*!
-     *  \brief  ���󥹥ȥ饯��
-     *  \param  ucn     ���ʸ��̾���б�������� true ����ꤹ��
-     *  \param  codeset ʸ��������
+     *  \brief  コンストラクタ
+     *  \param  ucn     国際文字名に対応する場合は true を指定する
+     *  \param  codeset 文字コード
      */
     explicit c_const_expr_parser( bool ucn = false, codeset_t codeset = ascii )
       : c_expr_parser_base< c_const_expr_parser >( ucn, codeset )

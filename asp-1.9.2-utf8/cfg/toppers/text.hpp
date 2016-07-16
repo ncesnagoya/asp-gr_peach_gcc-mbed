@@ -2,44 +2,44 @@
  *  TOPPERS Software
  *      Toyohashi Open Platform for Embedded Real-Time Systems
  *
- *  Copyright (C) 2005-2008 by TAKAGI Nobuhisa
+ *  Copyright (C) 2005-2012 by TAKAGI Nobuhisa
  * 
- *  �嵭����Ԥϡ��ʲ���(1)��(4)�ξ������������˸¤ꡤ�ܥ��եȥ���
- *  �����ܥ��եȥ���������Ѥ�����Τ�ޤࡥ�ʲ�Ʊ���ˤ���ѡ�ʣ������
- *  �ѡ������ۡʰʲ������ѤȸƤ֡ˤ��뤳�Ȥ�̵���ǵ������롥
- *  (1) �ܥ��եȥ������򥽡��������ɤη������Ѥ�����ˤϡ��嵭������
- *      ��ɽ�����������Ѿ�浪��Ӳ�����̵�ݾڵ��꤬�����Τޤޤη��ǥ���
- *      ����������˴ޤޤ�Ƥ��뤳�ȡ�
- *  (2) �ܥ��եȥ������򡤥饤�֥������ʤɡ�¾�Υ��եȥ�������ȯ�˻�
- *      �ѤǤ�����Ǻ����ۤ�����ˤϡ������ۤ�ȼ���ɥ�����ȡ�����
- *      �ԥޥ˥奢��ʤɡˤˡ��嵭�����ɽ�����������Ѿ�浪��Ӳ���
- *      ��̵�ݾڵ����Ǻܤ��뤳�ȡ�
- *  (3) �ܥ��եȥ������򡤵�����Ȥ߹���ʤɡ�¾�Υ��եȥ�������ȯ�˻�
- *      �ѤǤ��ʤ����Ǻ����ۤ�����ˤϡ����Τ����줫�ξ�����������
- *      �ȡ�
- *    (a) �����ۤ�ȼ���ɥ�����ȡ����Ѽԥޥ˥奢��ʤɡˤˡ��嵭����
- *        �ɽ�����������Ѿ�浪��Ӳ�����̵�ݾڵ����Ǻܤ��뤳�ȡ�
- *    (b) �����ۤη��֤��̤�������ˡ�ˤ�äơ�TOPPERS�ץ��������Ȥ�
- *        ��𤹤뤳�ȡ�
- *  (4) �ܥ��եȥ����������Ѥˤ��ľ��Ū�ޤ��ϴ���Ū�������뤤���ʤ�»
- *      ������⡤�嵭����Ԥ����TOPPERS�ץ��������Ȥ����դ��뤳�ȡ�
- *      �ޤ����ܥ��եȥ������Υ桼���ޤ��ϥ���ɥ桼������Τ����ʤ���
- *      ͳ�˴�Ť����ᤫ��⡤�嵭����Ԥ����TOPPERS�ץ��������Ȥ�
- *      ���դ��뤳�ȡ�
+ *  上記著作権者は，以下の(1)〜(4)の条件を満たす場合に限り，本ソフトウェ
+ *  ア（本ソフトウェアを改変したものを含む．以下同じ）を使用・複製・改
+ *  変・再配布（以下，利用と呼ぶ）することを無償で許諾する．
+ *  (1) 本ソフトウェアをソースコードの形で利用する場合には，上記の著作
+ *      権表示，この利用条件および下記の無保証規定が，そのままの形でソー
+ *      スコード中に含まれていること．
+ *  (2) 本ソフトウェアを，ライブラリ形式など，他のソフトウェア開発に使
+ *      用できる形で再配布する場合には，再配布に伴うドキュメント（利用
+ *      者マニュアルなど）に，上記の著作権表示，この利用条件および下記
+ *      の無保証規定を掲載すること．
+ *  (3) 本ソフトウェアを，機器に組み込むなど，他のソフトウェア開発に使
+ *      用できない形で再配布する場合には，次のいずれかの条件を満たすこ
+ *      と．
+ *    (a) 再配布に伴うドキュメント（利用者マニュアルなど）に，上記の著
+ *        作権表示，この利用条件および下記の無保証規定を掲載すること．
+ *    (b) 再配布の形態を，別に定める方法によって，TOPPERSプロジェクトに
+ *        報告すること．
+ *  (4) 本ソフトウェアの利用により直接的または間接的に生じるいかなる損
+ *      害からも，上記著作権者およびTOPPERSプロジェクトを免責すること．
+ *      また，本ソフトウェアのユーザまたはエンドユーザからのいかなる理
+ *      由に基づく請求からも，上記著作権者およびTOPPERSプロジェクトを
+ *      免責すること．
  * 
- *  �ܥ��եȥ������ϡ�̵�ݾڤ��󶡤���Ƥ����ΤǤ��롥�嵭����Ԥ�
- *  ���TOPPERS�ץ��������Ȥϡ��ܥ��եȥ������˴ؤ��ơ�����λ�����Ū
- *  ���Ф���Ŭ������ޤ�ơ������ʤ��ݾڤ�Ԥ�ʤ����ޤ����ܥ��եȥ���
- *  �������Ѥˤ��ľ��Ū�ޤ��ϴ���Ū�������������ʤ�»���˴ؤ��Ƥ⡤��
- *  ����Ǥ�����ʤ���
+ *  本ソフトウェアは，無保証で提供されているものである．上記著作権者お
+ *  よびTOPPERSプロジェクトは，本ソフトウェアに関して，特定の使用目的
+ *  に対する適合性も含めて，いかなる保証も行わない．また，本ソフトウェ
+ *  アの利用により直接的または間接的に生じたいかなる損害に関しても，そ
+ *  の責任を負わない．
  * 
  */
 
 /*!
  *  \file   toppers/text.hpp
- *  \brief  �ƥ����ȥǡ��������˴ؤ���������
+ *  \brief  テキストデータ管理に関する宣言定義
  *
- *  ���Υե�������������륯�饹
+ *  このファイルで定義されるクラス
  *  \code
  *  class basic_text< Container, CharT, Traits, Allocator >;
  *  \endcode
@@ -62,13 +62,13 @@ namespace toppers
 
   /*!
    *  \class  basic_text  text.hpp "toppers/text.hpp"
-   *  \brief  �ƥ����ȥǡ��������ƥ�ץ졼�ȥ��饹
+   *  \brief  テキストデータ管理テンプレートクラス
    *
-   *  �ե����뤫���ɤ߹�����ƥ����ȥǡ����δ�����Ԥ�����Υ��饹�Ǥ���
-   *  ���Υ��饹�Ǥϡ��ƥ����ȥǡ�����ñ�ʤ�ʸ����Ȥ��ƤǤϤʤ������ϸ���
-   *  �ե�����̾�ȹ��ֹ���ղä������Ǵ������ޤ���
+   *  ファイルから読み込んだテキストデータの管理を行うためのクラスです。
+   *  このクラスでは、テキストデータを単なる文字列としてではなく、入力元の
+   *  ファイル名と行番号を付加した形で管理します。
    *
-   *  \note   ���Υ��饹�ϥƥ������Խ������Ӥ����ꤷ����ΤǤϤ���ޤ���
+   *  \note   このクラスはテキスト編集の用途を想定したものではありません。
    */
   template
   <
@@ -85,7 +85,7 @@ namespace toppers
     typedef ::toppers::text_line line_type;
     typedef basic_line_buf< CharT, Traits, Allocator > line_buf;
 
-    //  �ʲ��ϰ���Ū�ʥ���ƥʤȤθߴ��Τ���η����
+    //  以下は一般的なコンテナとの互換のための型定義
     ////////////////////////////////////////////////////////////////////////////////
     typedef CharT value_type;
     typedef Container< line_buf, std::allocator< line_buf > > container;
@@ -99,7 +99,7 @@ namespace toppers
 
     /*!
      *  \class  const_iterator text.hpp "toppers/text.hpp"
-     *  \brief  toppers::basic_text �Υ��ƥ졼��
+     *  \brief  toppers::basic_text のイテレータ
      */
     class const_iterator : public boost::iterator_facade< const_iterator, CharT, boost::random_access_traversal_tag, CharT const& >
     {
@@ -192,7 +192,7 @@ namespace toppers
 
     /*!
      *  \class  iterator text.hpp "toppers/text.hpp"
-     *  \brief  toppers::basic_text �Υ��ƥ졼��
+     *  \brief  toppers::basic_text のイテレータ
      */
     class iterator : public const_iterator
     {
@@ -217,14 +217,14 @@ namespace toppers
 
   public:
     /*!
-     *  \brief  �ǥե���ȥ��󥹥ȥ饯��
+     *  \brief  デフォルトコンストラクタ
      */
     basic_text() {}
 
     /*!
-     *  \brief  ���󥹥ȥ饯��
-     *  \param  first   ��������Ѥ���ǡ��������Ƭ
-     *  \param  last    ��������Ѥ���ǡ�����ν�ü+1
+     *  \brief  コンストラクタ
+     *  \param  first   初期化に用いるデータ列の先頭
+     *  \param  last    初期化に用いるデータ列の終端+1
      */
     basic_text( const_iterator const& first, const_iterator const& last )
     {
@@ -235,10 +235,10 @@ namespace toppers
     }
 
     /*!
-     *  \brief  ���󥹥ȥ饯��
-     *  \param  first   ��������Ѥ���ǡ��������Ƭ
-     *  \param  last    ��������Ѥ���ǡ�����ν�ü+1
-     *  \note   �ե�����̾��"unknown"�ˤʤ�ޤ���
+     *  \brief  コンストラクタ
+     *  \param  first   初期化に用いるデータ列の先頭
+     *  \param  last    初期化に用いるデータ列の終端+1
+     *  \note   ファイル名は"unknown"になります。
      */
     template < class InputIterator >
       basic_text( InputIterator first, InputIterator last )
@@ -250,16 +250,16 @@ namespace toppers
     }
 
     /*!
-     *  \brief  ���󥹥ȥ饯��
-     *  \param  first   ��������Ѥ���ǡ��������Ƭ
-     *  \param  last    ��������Ѥ���ǡ�����ν�ü+1
-     *  \param  directive ���Ԥ򥳥�ƥʤ˳�Ǽ���뤿��ν���
-     *  \note   �ե�����̾��"unknown"�ˤʤ�ޤ���
+     *  \brief  コンストラクタ
+     *  \param  first   初期化に用いるデータ列の先頭
+     *  \param  last    初期化に用いるデータ列の終端+1
+     *  \param  directive １行をコンテナに格納するための処理
+     *  \note   ファイル名は"unknown"になります。
      *
-     *  directive �� void directive( container& cont, line_buf& buf )�η�����
-     *  �Ȥ�ؿ��ؤΥݥ��󥿤ޤ��ϥե��󥯥��Ǥ��뤳�Ȥ����ꤷ�Ƥ��ޤ���
-     *  cont �������ǥǡ����γ�Ǽ�˻��Ѥ��륳��ƥʡ� buf �ϣ���ʬ��ʸ��
-     *  ��ȥե�����̾�����ֹ���Ǽ�����Хåե��Ǥ���
+     *  directive は void directive( container& cont, line_buf& buf )の形式を
+     *  とる関数へのポインタまたはファンクタであることを想定しています。
+     *  cont は内部でデータの格納に使用するコンテナ、 buf は１行分の文字
+     *  列とファイル名・行番号を格納したバッファです。
      */
     template < class InputIterator, class Directive >
       basic_text( InputIterator first, InputIterator last, Directive directive )
@@ -271,9 +271,9 @@ namespace toppers
     }
 
     /*!
-     *  \brief  ���󥹥ȥ饯��
-     *  \param  istr    ��������Ѥ������ϥ��ȥ꡼��
-     *  \note   �ե�����̾��"unknown"�ˤʤ�ޤ���
+     *  \brief  コンストラクタ
+     *  \param  istr    初期化に用いる入力ストリーム
+     *  \note   ファイル名は"unknown"になります。
      */
     basic_text( std::basic_istream< CharT, Traits >& istr )
     {
@@ -281,15 +281,15 @@ namespace toppers
     }
 
     /*!
-     *  \brief  ���󥹥ȥ饯��
-     *  \param  istr    ��������Ѥ������ϥ��ȥ꡼��
-     *  \param  directive ���Ԥ򥳥�ƥʤ˳�Ǽ���뤿��ν���
-     *  \note   �ե�����̾��"unknown"�ˤʤ�ޤ���
+     *  \brief  コンストラクタ
+     *  \param  istr    初期化に用いる入力ストリーム
+     *  \param  directive １行をコンテナに格納するための処理
+     *  \note   ファイル名は"unknown"になります。
      *
-     *  directive �� void directive( container& cont, line_buf& buf )�η�����
-     *  �Ȥ�ؿ��ؤΥݥ��󥿤ޤ��ϥե��󥯥��Ǥ��뤳�Ȥ����ꤷ�Ƥ��ޤ���
-     *  cont �������ǥǡ����γ�Ǽ�˻��Ѥ��륳��ƥʡ� buf �ϣ���ʬ��ʸ��
-     *  ��ȥե�����̾�����ֹ���Ǽ�����Хåե��Ǥ���
+     *  directive は void directive( container& cont, line_buf& buf )の形式を
+     *  とる関数へのポインタまたはファンクタであることを想定しています。
+     *  cont は内部でデータの格納に使用するコンテナ、 buf は１行分の文字
+     *  列とファイル名・行番号を格納したバッファです。
      */
     template < class Directive >
       basic_text( std::basic_istream< CharT, Traits >& istr, Directive directive )
@@ -298,8 +298,8 @@ namespace toppers
     }
 
     /*!
-     *  \brief  ��Ƭ���֤μ���
-     *  \return ��Ƭʸ���ؤΥ��ƥ졼�����֤�
+     *  \brief  先頭位置の取得
+     *  \return 先頭文字へのイテレータを返す
      */
     const_iterator begin() const
     {
@@ -307,8 +307,8 @@ namespace toppers
     }
 
     /*!
-     *  \brief  ��Ƭ���֤μ���
-     *  \return ��Ƭʸ���ؤΥ��ƥ졼�����֤�
+     *  \brief  先頭位置の取得
+     *  \return 先頭文字へのイテレータを返す
      */
     iterator begin()
     {
@@ -316,8 +316,47 @@ namespace toppers
     }
 
     /*!
-     *  \brief  ��ü����+1�μ���
-     *  \return ��üʸ���μ����ǤؤΥ��ƥ졼�����֤�
+     *  \brief  行数の取得
+     *  \param  pos  先頭文字からのオフセット
+     *  \return posで指定されたオフセットから行数を求め，イテレータを返す
+     */
+    const_iterator line_at(size_type pos) const
+    {
+        // modified by takuya
+        //typedef text::container::const_iterator const_row_iterator;
+        typedef typename container::const_iterator const_row_iterator;
+        const_iterator first( container_.begin() ), last( container_.end() );
+        int count = 0 , buf_size , i;
+        size_type sum = 0;
+
+        while((sum < pos) && (first != last))
+        {
+            const_row_iterator current( first.get_row() );
+            buf_size = current->buf.size();
+            sum += buf_size;
+            i = 0;
+            while(i < buf_size)
+            {
+                i++;
+                first++;
+            }
+            count += 1;
+        }
+        
+        if(first < last)
+        {
+            first -= buf_size;
+            return const_iterator(first);
+        }
+        else
+        {
+            return const_iterator( --last );
+        }
+    }   
+
+    /*!
+     *  \brief  終端位置+1の取得
+     *  \return 終端文字の次要素へのイテレータを返す
      */
     const_iterator end() const
     {
@@ -325,8 +364,8 @@ namespace toppers
     }
 
     /*!
-     *  \brief  ��ü����+1�μ���
-     *  \return ��üʸ���μ����ǤؤΥ��ƥ졼�����֤�
+     *  \brief  終端位置+1の取得
+     *  \return 終端文字の次要素へのイテレータを返す
      */
     iterator end()
     {
@@ -334,8 +373,8 @@ namespace toppers
     }
 
     /*!
-     *  \brief  �ս���Ƭ���֤μ���
-     *  \return �ս���Ƭʸ���ؤεե��ƥ졼�����֤�
+     *  \brief  逆順先頭位置の取得
+     *  \return 逆順先頭文字への逆イテレータを返す
      */
     const_reverse_iterator rbegin() const
     {
@@ -344,8 +383,8 @@ namespace toppers
     }
 
     /*!
-     *  \brief  �ս���Ƭ���֤μ���
-     *  \return �ս���Ƭʸ���ؤεե��ƥ졼�����֤�
+     *  \brief  逆順先頭位置の取得
+     *  \return 逆順先頭文字への逆イテレータを返す
      */
     reverse_iterator rbegin()
     {
@@ -354,8 +393,8 @@ namespace toppers
     }
 
     /*!
-     *  \brief  �ս罪ü����+1�μ���
-     *  \return �ս罪üʸ���μ����Ǥؤεե��ƥ졼�����֤�
+     *  \brief  逆順終端位置+1の取得
+     *  \return 逆順終端文字の次要素への逆イテレータを返す
      */
     const_reverse_iterator rend() const
     {
@@ -363,8 +402,8 @@ namespace toppers
     }
 
     /*!
-     *  \brief  �ս罪ü����+1�μ���
-     *  \return �ս罪üʸ���μ����Ǥؤεե��ƥ졼�����֤�
+     *  \brief  逆順終端位置+1の取得
+     *  \return 逆順終端文字の次要素への逆イテレータを返す
      */
     reverse_iterator rend()
     {
@@ -372,8 +411,8 @@ namespace toppers
     }
 
     /*!
-     *  \brief  ��Ƭʸ���λ���
-     *  \return ��Ƭʸ���ؤλ��Ȥ��֤�
+     *  \brief  先頭文字の参照
+     *  \return 先頭文字への参照を返す
      */
     const_reference front() const
     {
@@ -381,8 +420,8 @@ namespace toppers
     }
 
     /*!
-     *  \brief  ��Ƭʸ���λ���
-     *  \return ��Ƭʸ���ؤλ��Ȥ��֤�
+     *  \brief  先頭文字の参照
+     *  \return 先頭文字への参照を返す
      */
     reference front()
     {
@@ -390,8 +429,8 @@ namespace toppers
     }
 
     /*!
-     *  \brief  ��üʸ���λ���
-     *  \return ��üʸ���ؤλ��Ȥ��֤�
+     *  \brief  終端文字の参照
+     *  \return 終端文字への参照を返す
      */
     const_reference back() const
     {
@@ -400,8 +439,8 @@ namespace toppers
     }
 
     /*!
-     *  \brief  ��üʸ���λ���
-     *  \return ��üʸ���ؤλ��Ȥ��֤�
+     *  \brief  終端文字の参照
+     *  \return 終端文字への参照を返す
      */
     reference back()
     {
@@ -410,8 +449,8 @@ namespace toppers
     }
 
     /*!
-     *  \brief  ������֤�ʸ���λ���
-     *  \return ������֤�ʸ���ؤλ��Ȥ��֤�
+     *  \brief  指定位置の文字の参照
+     *  \return 指定位置の文字への参照を返す
      */
     const_reference at( size_type pos ) const
     {
@@ -419,8 +458,8 @@ namespace toppers
     }
 
     /*!
-     *  \brief  ������֤�ʸ���λ���
-     *  \return ������֤�ʸ���ؤλ��Ȥ��֤�
+     *  \brief  指定位置の文字の参照
+     *  \return 指定位置の文字への参照を返す
      */
     reference at( size_type pos )
     {
@@ -428,9 +467,9 @@ namespace toppers
     }
 
     /*!
-     *  \brief  �����ϰϤΥƥ����ȥǡ������ɲ�
-     *  \param  first �ɲä��Ѥ���ǡ��������Ƭ
-     *  \param  last  �ɲä��Ѥ���ǡ�����ν�ü+1
+     *  \brief  指定範囲のテキストデータを追加
+     *  \param  first 追加に用いるデータ列の先頭
+     *  \param  last  追加に用いるデータ列の終端+1
      */
     void append( const_iterator const& first, const_iterator const& last )
     {
@@ -443,11 +482,11 @@ namespace toppers
     }
 
     /*!
-     *  \brief  �����ϰϤΥƥ����ȥǡ������ɲ�
-     *  \param  first �ɲä��Ѥ���ǡ��������Ƭ
-     *  \param  last  �ɲä��Ѥ���ǡ�����ν�ü+1
-     *  \note   �ե�����̾�ȹ��ֹ���ɲ���ν�ü�Τ�Τ��³���ޤ���
-     *          �ɲ���˥ǡ������ʤ�����"unknown"�ˤʤ�ޤ���
+     *  \brief  指定範囲のテキストデータを追加
+     *  \param  first 追加に用いるデータ列の先頭
+     *  \param  last  追加に用いるデータ列の終端+1
+     *  \note   ファイル名と行番号は追加先の終端のものを継続します。
+     *          追加先にデータがない場合は"unknown"になります。
      */
     template < class InputIterator >
       void append( InputIterator first, InputIterator last )
@@ -456,17 +495,17 @@ namespace toppers
     }
 
     /*!
-     *  \brief  �����ϰϤΥƥ����ȥǡ������ɲ�
-     *  \param  first �ɲä��Ѥ���ǡ��������Ƭ
-     *  \param  last  �ɲä��Ѥ���ǡ�����ν�ü+1
-     *  \param  directive ���Ԥ򥳥�ƥʤ˳�Ǽ���뤿��ν���
-     *  \note   �ե�����̾�ȹ��ֹ���ɲ���ν�ü�Τ�Τ��³���ޤ���
-     *          �ɲ���˥ǡ������ʤ�����"unknown"�ˤʤ�ޤ���
+     *  \brief  指定範囲のテキストデータを追加
+     *  \param  first 追加に用いるデータ列の先頭
+     *  \param  last  追加に用いるデータ列の終端+1
+     *  \param  directive １行をコンテナに格納するための処理
+     *  \note   ファイル名と行番号は追加先の終端のものを継続します。
+     *          追加先にデータがない場合は"unknown"になります。
      *
-     *  directive �� void directive( container& cont, line_buf& buf )�η�����
-     *  �Ȥ�ؿ��ؤΥݥ��󥿤ޤ��ϥե��󥯥��Ǥ��뤳�Ȥ����ꤷ�Ƥ��ޤ���
-     *  cont �������ǥǡ����γ�Ǽ�˻��Ѥ��륳��ƥʡ� buf �ϣ���ʬ��ʸ��
-     *  ��ȥե�����̾�����ֹ���Ǽ�����Хåե��Ǥ���
+     *  directive は void directive( container& cont, line_buf& buf )の形式を
+     *  とる関数へのポインタまたはファンクタであることを想定しています。
+     *  cont は内部でデータの格納に使用するコンテナ、 buf は１行分の文字
+     *  列とファイル名・行番号を格納したバッファです。
      */
     template < class InputIterator, class Directive >
       void append( InputIterator first, InputIterator last, Directive directive )
@@ -480,10 +519,10 @@ namespace toppers
     }
 
     /*!
-     *  \brief  �����ϰϤΥƥ����ȥǡ������ɲ�
-     *  \param  istr      �ɲä��Ѥ������ϥ��ȥ꡼��
-     *  \note   �ե�����̾�ȹ��ֹ���ɲ���ν�ü�Τ�Τ��³���ޤ���
-     *          �ɲ���˥ǡ������ʤ�����"unknown"�ˤʤ�ޤ���
+     *  \brief  指定範囲のテキストデータを追加
+     *  \param  istr      追加に用いる入力ストリーム
+     *  \note   ファイル名と行番号は追加先の終端のものを継続します。
+     *          追加先にデータがない場合は"unknown"になります。
      */
     void append( std::basic_istream< CharT, Traits >& istr )
     {
@@ -491,16 +530,16 @@ namespace toppers
     }
 
     /*!
-     *  \brief  �����ϰϤΥƥ����ȥǡ������ɲ�
-     *  \param  istr      �ɲä��Ѥ������ϥ��ȥ꡼��
-     *  \param  directive ���Ԥ򥳥�ƥʤ˳�Ǽ���뤿��ν���
-     *  \note   �ե�����̾�ȹ��ֹ���ɲ���ν�ü�Τ�Τ��³���ޤ���
-     *          �ɲ���˥ǡ������ʤ�����"unknown"�ˤʤ�ޤ���
+     *  \brief  指定範囲のテキストデータを追加
+     *  \param  istr      追加に用いる入力ストリーム
+     *  \param  directive １行をコンテナに格納するための処理
+     *  \note   ファイル名と行番号は追加先の終端のものを継続します。
+     *          追加先にデータがない場合は"unknown"になります。
      *
-     *  directive �� void directive( container& cont, line_buf& buf )�η�����
-     *  �Ȥ�ؿ��ؤΥݥ��󥿤ޤ��ϥե��󥯥��Ǥ��뤳�Ȥ����ꤷ�Ƥ��ޤ���
-     *  cont �������ǥǡ����γ�Ǽ�˻��Ѥ��륳��ƥʡ� buf �ϣ���ʬ��ʸ��
-     *  ��ȥե�����̾�����ֹ���Ǽ�����Хåե��Ǥ���
+     *  directive は void directive( container& cont, line_buf& buf )の形式を
+     *  とる関数へのポインタまたはファンクタであることを想定しています。
+     *  cont は内部でデータの格納に使用するコンテナ、 buf は１行分の文字
+     *  列とファイル名・行番号を格納したバッファです。
      */
     template < class Directive >
       void append( std::basic_istream< CharT, Traits >& istr, Directive directive )
@@ -511,9 +550,9 @@ namespace toppers
     }
 
     /*!
-     *  \brief  �����ϰϤΥƥ����ȥǡ���������
-     *  \param  first �������Ѥ���ǡ��������Ƭ
-     *  \param  last  �������Ѥ���ǡ�����ν�ü+1
+     *  \brief  指定範囲のテキストデータを代入
+     *  \param  first 代入に用いるデータ列の先頭
+     *  \param  last  代入に用いるデータ列の終端+1
      */
     void assign( const_iterator const& first, const_iterator const& last )
     {
@@ -522,10 +561,10 @@ namespace toppers
     }
 
     /*!
-     *  \brief  �����ϰϤΥƥ����ȥǡ���������
-     *  \param  first �������Ѥ���ǡ��������Ƭ
-     *  \param  last  �������Ѥ���ǡ�����ν�ü+1
-     *  \note   �ե�����̾��"unknown"�ˤʤ�ޤ���
+     *  \brief  指定範囲のテキストデータを代入
+     *  \param  first 代入に用いるデータ列の先頭
+     *  \param  last  代入に用いるデータ列の終端+1
+     *  \note   ファイル名は"unknown"になります。
      */
     template < class InputIterator >
       void assign( InputIterator first, InputIterator last )
@@ -535,16 +574,16 @@ namespace toppers
     }
 
     /*!
-     *  \brief  �����ϰϤΥƥ����ȥǡ���������
-     *  \param  first �������Ѥ���ǡ��������Ƭ
-     *  \param  last  �������Ѥ���ǡ�����ν�ü+1
-     *  \param  directive ���Ԥ򥳥�ƥʤ˳�Ǽ���뤿��ν���
-     *  \note   �ե�����̾��"unknown"�ˤʤ�ޤ���
+     *  \brief  指定範囲のテキストデータを代入
+     *  \param  first 代入に用いるデータ列の先頭
+     *  \param  last  代入に用いるデータ列の終端+1
+     *  \param  directive １行をコンテナに格納するための処理
+     *  \note   ファイル名は"unknown"になります。
      *
-     *  directive �� void directive( container& cont, line_buf& buf )�η�����
-     *  �Ȥ�ؿ��ؤΥݥ��󥿤ޤ��ϥե��󥯥��Ǥ��뤳�Ȥ����ꤷ�Ƥ��ޤ���
-     *  cont �������ǥǡ����γ�Ǽ�˻��Ѥ��륳��ƥʡ� buf �ϣ���ʬ��ʸ��
-     *  ��ȥե�����̾�����ֹ���Ǽ�����Хåե��Ǥ���
+     *  directive は void directive( container& cont, line_buf& buf )の形式を
+     *  とる関数へのポインタまたはファンクタであることを想定しています。
+     *  cont は内部でデータの格納に使用するコンテナ、 buf は１行分の文字
+     *  列とファイル名・行番号を格納したバッファです。
      */
     template < class InputIterator, class Directive >
       void assign( InputIterator first, InputIterator last, Directive directive )
@@ -554,10 +593,10 @@ namespace toppers
     }
 
     /*!
-     *  \brief  �����ϰϤΥƥ����ȥǡ���������
-     *  \param  istr      �������Ѥ������ϥ��ȥ꡼��
-     *  \note   �ե�����̾�ȹ��ֹ��������ν�ü�Τ�Τ��³���ޤ���
-     *          �ɲ���˥ǡ������ʤ�����"unknown"�ˤʤ�ޤ���
+     *  \brief  指定範囲のテキストデータを代入
+     *  \param  istr      代入に用いる入力ストリーム
+     *  \note   ファイル名と行番号は代入先の終端のものを継続します。
+     *          追加先にデータがない場合は"unknown"になります。
      */
     void assign( std::basic_istream< CharT, Traits >& istr )
     {
@@ -566,16 +605,16 @@ namespace toppers
     }
 
     /*!
-     *  \brief  �����ϰϤΥƥ����ȥǡ���������
-     *  \param  istr      �������Ѥ������ϥ��ȥ꡼��
-     *  \param  directive ���Ԥ򥳥�ƥʤ˳�Ǽ���뤿��ν���
-     *  \note   �ե�����̾�ȹ��ֹ��������ν�ü�Τ�Τ��³���ޤ���
-     *          �ɲ���˥ǡ������ʤ�����"unknown"�ˤʤ�ޤ���
+     *  \brief  指定範囲のテキストデータを代入
+     *  \param  istr      代入に用いる入力ストリーム
+     *  \param  directive １行をコンテナに格納するための処理
+     *  \note   ファイル名と行番号は代入先の終端のものを継続します。
+     *          追加先にデータがない場合は"unknown"になります。
      *
-     *  directive �� void directive( container& cont, line_buf& buf )�η�����
-     *  �Ȥ�ؿ��ؤΥݥ��󥿤ޤ��ϥե��󥯥��Ǥ��뤳�Ȥ����ꤷ�Ƥ��ޤ���
-     *  cont �������ǥǡ����γ�Ǽ�˻��Ѥ��륳��ƥʡ� buf �ϣ���ʬ��ʸ��
-     *  ��ȥե�����̾�����ֹ���Ǽ�����Хåե��Ǥ���
+     *  directive は void directive( container& cont, line_buf& buf )の形式を
+     *  とる関数へのポインタまたはファンクタであることを想定しています。
+     *  cont は内部でデータの格納に使用するコンテナ、 buf は１行分の文字
+     *  列とファイル名・行番号を格納したバッファです。
      */
     template < class Directive >
       void assign( std::basic_istream< CharT, Traits >& istr, Directive directive )
@@ -585,8 +624,8 @@ namespace toppers
     }
 
     /*!
-     *  \brief  ��ü��ʸ�����ɲ�
-     *  \param  value �ɲä���ʸ��
+     *  \brief  終端に文字を追加
+     *  \param  value 追加する文字
      */
     void push_back( value_type value )
     {
@@ -612,7 +651,7 @@ namespace toppers
     }
 
     /*!
-     *  \brief  ��ü����ʸ������
+     *  \brief  終端から文字を削除
      */
     void pop_back()
     {
@@ -632,8 +671,8 @@ namespace toppers
     }
 
     /*!
-     *  \brief  ����ƥʤ������ɤ�����Ƚ��
-     *  \return ���ξ��� true ���֤�
+     *  \brief  コンテナが空かどうかの判別
+     *  \return 空の場合は true を返す
      */
     bool empty() const
     {
@@ -641,8 +680,8 @@ namespace toppers
     }
 
     /*!
-     *  \brief  ����ƥʤΥ�����
-     *  \return ����ƥʤ˴ޤޤ�Ƥ���ʸ�������֤�
+     *  \brief  コンテナのサイズ
+     *  \return コンテナに含まれている文字数を返す
      */
     size_type size() const
     {
@@ -650,8 +689,8 @@ namespace toppers
     }
 
     /*!
-     *  \brief  ����ƥʤθ�
-     *  \param  other   ���оݤȤʤ륳��ƥ�
+     *  \brief  コンテナの交換
+     *  \param  other   交換対象となるコンテナ
      */
     void swap( self_t& other )
     {
@@ -660,7 +699,7 @@ namespace toppers
     }
 
     /*!
-     *  \brief  ����ƥʤΥ��ꥢ
+     *  \brief  コンテナのクリア
      */
     void clear()
     {
@@ -680,7 +719,7 @@ namespace toppers
       return line_;
     }
   private:
-    //! Ʊ��Υ���ƥʤ����ϸ��Ȥ�����������
+    //! 同種のコンテナを入力元とする初期化処理
     void init( const_iterator const& first, const_iterator const& last )
     {
       line_buf buf( *first.get_row() );
@@ -696,7 +735,7 @@ namespace toppers
       line_ = buf.line;
     }
 
-    //! �ۼ�Υ���ƥʤ����ϸ��Ȥ�����������
+    //! 異種のコンテナを入力元とする初期化処理
     template < class InputIterator, class Directive >
       void init( InputIterator first, InputIterator last, Directive directive )
     {
@@ -719,7 +758,7 @@ namespace toppers
       line_ = buf.line;
     }
 
-    //! ���ϥ��ȥ꡼������ϸ��Ȥ�����������
+    //! 入力ストリームを入力元とする初期化処理
     template < class Directive >
       void init( std::basic_istream< CharT, Traits >& istr, Directive directive )
     {
@@ -743,7 +782,7 @@ namespace toppers
       line_ = buf.line;
     }
 
-    //! �ե�����̾�����ֹ�ν������μ���
+    //! ファイル名・行番号の初期情報の取得
     line_type const initial_line() const
     {
       if ( line_.line > 0 )
@@ -757,19 +796,19 @@ namespace toppers
       return container_.back().line;
     }
 
-    //! ���󥰥�Х���ʸ�������̷�����ʸ�����ؤ��Ѵ�
+    //! シングルバイト文字から別形式の文字型への変換
     static value_type widen( char ch )
     {
       return ::toppers::widen< value_type >( ch );
     }
 
-    //! size �ؿ���ǻ��Ѥ����߻�����
+    //! size 関数内で使用する累算処理
     static size_type add_line_size( size_type value, line_buf const& buf )
     {
       return value + buf.buf.size();
     }
 
-    //! Directive �Υǥե���Ƚ���
+    //! Directive のデフォルト処理
     static void append_directive( container& cont, line_buf& buf )
     {
       cont.push_back( buf );

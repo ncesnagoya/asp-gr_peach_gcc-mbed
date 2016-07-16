@@ -2,36 +2,36 @@
  *  TOPPERS Software
  *      Toyohashi Open Platform for Embedded Real-Time Systems
  *
- *  Copyright (C) 2007-2011 by TAKAGI Nobuhisa
+ *  Copyright (C) 2007-2012 by TAKAGI Nobuhisa
  * 
- *  ¾åµ­Ãøºî¸¢¼Ô¤Ï¡¤°Ê²¼¤Î(1)¡Á(4)¤Î¾ò·ï¤òËş¤¿¤¹¾ì¹ç¤Ë¸Â¤ê¡¤ËÜ¥½¥Õ¥È¥¦¥§
- *  ¥¢¡ÊËÜ¥½¥Õ¥È¥¦¥§¥¢¤ò²şÊÑ¤·¤¿¤â¤Î¤ò´Ş¤à¡¥°Ê²¼Æ±¤¸¡Ë¤ò»ÈÍÑ¡¦Ê£À½¡¦²ş
- *  ÊÑ¡¦ºÆÇÛÉÛ¡Ê°Ê²¼¡¤ÍøÍÑ¤È¸Æ¤Ö¡Ë¤¹¤ë¤³¤È¤òÌµ½ş¤ÇµöÂú¤¹¤ë¡¥
- *  (1) ËÜ¥½¥Õ¥È¥¦¥§¥¢¤ò¥½¡¼¥¹¥³¡¼¥É¤Î·Á¤ÇÍøÍÑ¤¹¤ë¾ì¹ç¤Ë¤Ï¡¤¾åµ­¤ÎÃøºî
- *      ¸¢É½¼¨¡¤¤³¤ÎÍøÍÑ¾ò·ï¤ª¤è¤Ó²¼µ­¤ÎÌµÊİ¾Úµ¬Äê¤¬¡¤¤½¤Î¤Ş¤Ş¤Î·Á¤Ç¥½¡¼
- *      ¥¹¥³¡¼¥ÉÃæ¤Ë´Ş¤Ş¤ì¤Æ¤¤¤ë¤³¤È¡¥
- *  (2) ËÜ¥½¥Õ¥È¥¦¥§¥¢¤ò¡¤¥é¥¤¥Ö¥é¥ê·Á¼°¤Ê¤É¡¤Â¾¤Î¥½¥Õ¥È¥¦¥§¥¢³«È¯¤Ë»È
- *      ÍÑ¤Ç¤­¤ë·Á¤ÇºÆÇÛÉÛ¤¹¤ë¾ì¹ç¤Ë¤Ï¡¤ºÆÇÛÉÛ¤ËÈ¼¤¦¥É¥­¥å¥á¥ó¥È¡ÊÍøÍÑ
- *      ¼Ô¥Ş¥Ë¥å¥¢¥ë¤Ê¤É¡Ë¤Ë¡¤¾åµ­¤ÎÃøºî¸¢É½¼¨¡¤¤³¤ÎÍøÍÑ¾ò·ï¤ª¤è¤Ó²¼µ­
- *      ¤ÎÌµÊİ¾Úµ¬Äê¤ò·ÇºÜ¤¹¤ë¤³¤È¡¥
- *  (3) ËÜ¥½¥Õ¥È¥¦¥§¥¢¤ò¡¤µ¡´ï¤ËÁÈ¤ß¹ş¤à¤Ê¤É¡¤Â¾¤Î¥½¥Õ¥È¥¦¥§¥¢³«È¯¤Ë»È
- *      ÍÑ¤Ç¤­¤Ê¤¤·Á¤ÇºÆÇÛÉÛ¤¹¤ë¾ì¹ç¤Ë¤Ï¡¤¼¡¤Î¤¤¤º¤ì¤«¤Î¾ò·ï¤òËş¤¿¤¹¤³
- *      ¤È¡¥
- *    (a) ºÆÇÛÉÛ¤ËÈ¼¤¦¥É¥­¥å¥á¥ó¥È¡ÊÍøÍÑ¼Ô¥Ş¥Ë¥å¥¢¥ë¤Ê¤É¡Ë¤Ë¡¤¾åµ­¤ÎÃø
- *        ºî¸¢É½¼¨¡¤¤³¤ÎÍøÍÑ¾ò·ï¤ª¤è¤Ó²¼µ­¤ÎÌµÊİ¾Úµ¬Äê¤ò·ÇºÜ¤¹¤ë¤³¤È¡¥
- *    (b) ºÆÇÛÉÛ¤Î·ÁÂÖ¤ò¡¤ÊÌ¤ËÄê¤á¤ëÊıË¡¤Ë¤è¤Ã¤Æ¡¤TOPPERS¥×¥í¥¸¥§¥¯¥È¤Ë
- *        Êó¹ğ¤¹¤ë¤³¤È¡¥
- *  (4) ËÜ¥½¥Õ¥È¥¦¥§¥¢¤ÎÍøÍÑ¤Ë¤è¤êÄ¾ÀÜÅª¤Ş¤¿¤Ï´ÖÀÜÅª¤ËÀ¸¤¸¤ë¤¤¤«¤Ê¤ëÂ»
- *      ³²¤«¤é¤â¡¤¾åµ­Ãøºî¸¢¼Ô¤ª¤è¤ÓTOPPERS¥×¥í¥¸¥§¥¯¥È¤òÌÈÀÕ¤¹¤ë¤³¤È¡¥
- *      ¤Ş¤¿¡¤ËÜ¥½¥Õ¥È¥¦¥§¥¢¤Î¥æ¡¼¥¶¤Ş¤¿¤Ï¥¨¥ó¥É¥æ¡¼¥¶¤«¤é¤Î¤¤¤«¤Ê¤ëÍı
- *      Í³¤Ë´ğ¤Å¤¯ÀÁµá¤«¤é¤â¡¤¾åµ­Ãøºî¸¢¼Ô¤ª¤è¤ÓTOPPERS¥×¥í¥¸¥§¥¯¥È¤ò
- *      ÌÈÀÕ¤¹¤ë¤³¤È¡¥
+ *  ä¸Šè¨˜è‘—ä½œæ¨©è€…ã¯ï¼Œä»¥ä¸‹ã®(1)ã€œ(4)ã®æ¡ä»¶ã‚’æº€ãŸã™å ´åˆã«é™ã‚Šï¼Œæœ¬ã‚½ãƒ•ãƒˆã‚¦ã‚§
+ *  ã‚¢ï¼ˆæœ¬ã‚½ãƒ•ãƒˆã‚¦ã‚§ã‚¢ã‚’æ”¹å¤‰ã—ãŸã‚‚ã®ã‚’å«ã‚€ï¼ä»¥ä¸‹åŒã˜ï¼‰ã‚’ä½¿ç”¨ãƒ»è¤‡è£½ãƒ»æ”¹
+ *  å¤‰ãƒ»å†é…å¸ƒï¼ˆä»¥ä¸‹ï¼Œåˆ©ç”¨ã¨å‘¼ã¶ï¼‰ã™ã‚‹ã“ã¨ã‚’ç„¡å„Ÿã§è¨±è«¾ã™ã‚‹ï¼
+ *  (1) æœ¬ã‚½ãƒ•ãƒˆã‚¦ã‚§ã‚¢ã‚’ã‚½ãƒ¼ã‚¹ã‚³ãƒ¼ãƒ‰ã®å½¢ã§åˆ©ç”¨ã™ã‚‹å ´åˆã«ã¯ï¼Œä¸Šè¨˜ã®è‘—ä½œ
+ *      æ¨©è¡¨ç¤ºï¼Œã“ã®åˆ©ç”¨æ¡ä»¶ãŠã‚ˆã³ä¸‹è¨˜ã®ç„¡ä¿è¨¼è¦å®šãŒï¼Œãã®ã¾ã¾ã®å½¢ã§ã‚½ãƒ¼
+ *      ã‚¹ã‚³ãƒ¼ãƒ‰ä¸­ã«å«ã¾ã‚Œã¦ã„ã‚‹ã“ã¨ï¼
+ *  (2) æœ¬ã‚½ãƒ•ãƒˆã‚¦ã‚§ã‚¢ã‚’ï¼Œãƒ©ã‚¤ãƒ–ãƒ©ãƒªå½¢å¼ãªã©ï¼Œä»–ã®ã‚½ãƒ•ãƒˆã‚¦ã‚§ã‚¢é–‹ç™ºã«ä½¿
+ *      ç”¨ã§ãã‚‹å½¢ã§å†é…å¸ƒã™ã‚‹å ´åˆã«ã¯ï¼Œå†é…å¸ƒã«ä¼´ã†ãƒ‰ã‚­ãƒ¥ãƒ¡ãƒ³ãƒˆï¼ˆåˆ©ç”¨
+ *      è€…ãƒãƒ‹ãƒ¥ã‚¢ãƒ«ãªã©ï¼‰ã«ï¼Œä¸Šè¨˜ã®è‘—ä½œæ¨©è¡¨ç¤ºï¼Œã“ã®åˆ©ç”¨æ¡ä»¶ãŠã‚ˆã³ä¸‹è¨˜
+ *      ã®ç„¡ä¿è¨¼è¦å®šã‚’æ²è¼‰ã™ã‚‹ã“ã¨ï¼
+ *  (3) æœ¬ã‚½ãƒ•ãƒˆã‚¦ã‚§ã‚¢ã‚’ï¼Œæ©Ÿå™¨ã«çµ„ã¿è¾¼ã‚€ãªã©ï¼Œä»–ã®ã‚½ãƒ•ãƒˆã‚¦ã‚§ã‚¢é–‹ç™ºã«ä½¿
+ *      ç”¨ã§ããªã„å½¢ã§å†é…å¸ƒã™ã‚‹å ´åˆã«ã¯ï¼Œæ¬¡ã®ã„ãšã‚Œã‹ã®æ¡ä»¶ã‚’æº€ãŸã™ã“
+ *      ã¨ï¼
+ *    (a) å†é…å¸ƒã«ä¼´ã†ãƒ‰ã‚­ãƒ¥ãƒ¡ãƒ³ãƒˆï¼ˆåˆ©ç”¨è€…ãƒãƒ‹ãƒ¥ã‚¢ãƒ«ãªã©ï¼‰ã«ï¼Œä¸Šè¨˜ã®è‘—
+ *        ä½œæ¨©è¡¨ç¤ºï¼Œã“ã®åˆ©ç”¨æ¡ä»¶ãŠã‚ˆã³ä¸‹è¨˜ã®ç„¡ä¿è¨¼è¦å®šã‚’æ²è¼‰ã™ã‚‹ã“ã¨ï¼
+ *    (b) å†é…å¸ƒã®å½¢æ…‹ã‚’ï¼Œåˆ¥ã«å®šã‚ã‚‹æ–¹æ³•ã«ã‚ˆã£ã¦ï¼ŒTOPPERSãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆã«
+ *        å ±å‘Šã™ã‚‹ã“ã¨ï¼
+ *  (4) æœ¬ã‚½ãƒ•ãƒˆã‚¦ã‚§ã‚¢ã®åˆ©ç”¨ã«ã‚ˆã‚Šç›´æ¥çš„ã¾ãŸã¯é–“æ¥çš„ã«ç”Ÿã˜ã‚‹ã„ã‹ãªã‚‹æ
+ *      å®³ã‹ã‚‰ã‚‚ï¼Œä¸Šè¨˜è‘—ä½œæ¨©è€…ãŠã‚ˆã³TOPPERSãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆã‚’å…è²¬ã™ã‚‹ã“ã¨ï¼
+ *      ã¾ãŸï¼Œæœ¬ã‚½ãƒ•ãƒˆã‚¦ã‚§ã‚¢ã®ãƒ¦ãƒ¼ã‚¶ã¾ãŸã¯ã‚¨ãƒ³ãƒ‰ãƒ¦ãƒ¼ã‚¶ã‹ã‚‰ã®ã„ã‹ãªã‚‹ç†
+ *      ç”±ã«åŸºã¥ãè«‹æ±‚ã‹ã‚‰ã‚‚ï¼Œä¸Šè¨˜è‘—ä½œæ¨©è€…ãŠã‚ˆã³TOPPERSãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆã‚’
+ *      å…è²¬ã™ã‚‹ã“ã¨ï¼
  * 
- *  ËÜ¥½¥Õ¥È¥¦¥§¥¢¤Ï¡¤ÌµÊİ¾Ú¤ÇÄó¶¡¤µ¤ì¤Æ¤¤¤ë¤â¤Î¤Ç¤¢¤ë¡¥¾åµ­Ãøºî¸¢¼Ô¤ª
- *  ¤è¤ÓTOPPERS¥×¥í¥¸¥§¥¯¥È¤Ï¡¤ËÜ¥½¥Õ¥È¥¦¥§¥¢¤Ë´Ø¤·¤Æ¡¤ÆÃÄê¤Î»ÈÍÑÌÜÅª
- *  ¤ËÂĞ¤¹¤ëÅ¬¹çÀ­¤â´Ş¤á¤Æ¡¤¤¤¤«¤Ê¤ëÊİ¾Ú¤â¹Ô¤ï¤Ê¤¤¡¥¤Ş¤¿¡¤ËÜ¥½¥Õ¥È¥¦¥§
- *  ¥¢¤ÎÍøÍÑ¤Ë¤è¤êÄ¾ÀÜÅª¤Ş¤¿¤Ï´ÖÀÜÅª¤ËÀ¸¤¸¤¿¤¤¤«¤Ê¤ëÂ»³²¤Ë´Ø¤·¤Æ¤â¡¤¤½
- *  ¤ÎÀÕÇ¤¤òÉé¤ï¤Ê¤¤¡¥
+ *  æœ¬ã‚½ãƒ•ãƒˆã‚¦ã‚§ã‚¢ã¯ï¼Œç„¡ä¿è¨¼ã§æä¾›ã•ã‚Œã¦ã„ã‚‹ã‚‚ã®ã§ã‚ã‚‹ï¼ä¸Šè¨˜è‘—ä½œæ¨©è€…ãŠ
+ *  ã‚ˆã³TOPPERSãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆã¯ï¼Œæœ¬ã‚½ãƒ•ãƒˆã‚¦ã‚§ã‚¢ã«é–¢ã—ã¦ï¼Œç‰¹å®šã®ä½¿ç”¨ç›®çš„
+ *  ã«å¯¾ã™ã‚‹é©åˆæ€§ã‚‚å«ã‚ã¦ï¼Œã„ã‹ãªã‚‹ä¿è¨¼ã‚‚è¡Œã‚ãªã„ï¼ã¾ãŸï¼Œæœ¬ã‚½ãƒ•ãƒˆã‚¦ã‚§
+ *  ã‚¢ã®åˆ©ç”¨ã«ã‚ˆã‚Šç›´æ¥çš„ã¾ãŸã¯é–“æ¥çš„ã«ç”Ÿã˜ãŸã„ã‹ãªã‚‹æå®³ã«é–¢ã—ã¦ã‚‚ï¼Œã
+ *  ã®è²¬ä»»ã‚’è² ã‚ãªã„ï¼
  * 
  */
 #include <fstream>
@@ -54,12 +54,13 @@ namespace
   typedef toppers::macro_processor::context context;
 
   /*!
-   *  \brief  ¥·¥ó¥Ü¥ë¤ËÂĞ±ş¤¹¤ë¥¢¥É¥ì¥¹¤Î¼èÆÀ
-   *  \param[in]  line      ¹ÔÈÖ¹æ
-   *  \param[in]  arg_list  ¥Ş¥¯¥í¼Â°ú¿ô¥ê¥¹¥È
-   *  \param[in]  p_ctx     ¥Ş¥¯¥í¥³¥ó¥Æ¥­¥¹¥È
-   *  \retval     ¥Ş¥¯¥íÊÖµÑÃÍ
+   *  \brief  ã‚·ãƒ³ãƒœãƒ«ã«å¯¾å¿œã™ã‚‹ã‚¢ãƒ‰ãƒ¬ã‚¹ã®å–å¾—
+   *  \param[in]  line      è¡Œç•ªå·
+   *  \param[in]  arg_list  ãƒã‚¯ãƒ­å®Ÿå¼•æ•°ãƒªã‚¹ãƒˆ
+   *  \param[in]  p_ctx     ãƒã‚¯ãƒ­ã‚³ãƒ³ãƒ†ã‚­ã‚¹ãƒˆ
+   *  \retval     ãƒã‚¯ãƒ­è¿”å´å€¤
    */
+  template < class Checker >
   var_t bf_symbol( text_line const& line, std::vector< var_t > const& arg_list, context* p_ctx )
   {
     using namespace toppers;
@@ -68,7 +69,7 @@ namespace
     if ( macro_processor::check_arity( line, arg_list.size(), 1, "SYMBOL" ) )
     {
       std::string symbol( macro_processor::to_string( arg_list[0], p_ctx ) );
-      std::tr1::shared_ptr< checker > chk = get_global< std::tr1::shared_ptr< checker > >( "checker" );
+      std::tr1::shared_ptr< Checker > chk = get_global< std::tr1::shared_ptr< Checker > >( "checker" );
       nm_symbol::entry entry = chk->find( symbol );
       if ( entry.type >= 0 )
       {
@@ -80,18 +81,19 @@ namespace
     return var_t();
   }
 
-  // VMA ¥¢¥É¥ì¥¹²ò·èÍÑ¥Æ¡¼¥Ö¥ë
+  // VMA ã‚¢ãƒ‰ãƒ¬ã‚¹è§£æ±ºç”¨ãƒ†ãƒ¼ãƒ–ãƒ«
   std::vector< std::pair< std::tr1::int64_t, std::vector< unsigned char > > > vma_table;
 
   /*!
-   *  \brief  »ØÄê¤·¤¿¥¢¥É¥ì¥¹¤Ë³ÊÇ¼¤µ¤ì¤Æ¤¤¤ëÃÍ¤Î¼èÆÀ
-   *  \param[in]  line      ¹ÔÈÖ¹æ
-   *  \param[in]  arg_list  ¥Ş¥¯¥í¼Â°ú¿ô¥ê¥¹¥È
-   *  \param[in]  p_ctx     ¥Ş¥¯¥í¥³¥ó¥Æ¥­¥¹¥È
-   *  \retval     ¥Ş¥¯¥íÊÖµÑÃÍ
+   *  \brief  æŒ‡å®šã—ãŸã‚¢ãƒ‰ãƒ¬ã‚¹ã«æ ¼ç´ã•ã‚Œã¦ã„ã‚‹å€¤ã®å–å¾—
+   *  \param[in]  line      è¡Œç•ªå·
+   *  \param[in]  arg_list  ãƒã‚¯ãƒ­å®Ÿå¼•æ•°ãƒªã‚¹ãƒˆ
+   *  \param[in]  p_ctx     ãƒã‚¯ãƒ­ã‚³ãƒ³ãƒ†ã‚­ã‚¹ãƒˆ
+   *  \retval     ãƒã‚¯ãƒ­è¿”å´å€¤
    *
-   *  Âè1°ú¿ô¤Ë¥¢¥É¥ì¥¹¤ò¡¢Âè2°ú¿ô¤ËÆÉ¤ß¹ş¤à¥Ğ¥¤¥È¿ô¤ò»ØÄê¤·¤Ş¤¹¡£
+   *  ç¬¬1å¼•æ•°ã«ã‚¢ãƒ‰ãƒ¬ã‚¹ã‚’ã€ç¬¬2å¼•æ•°ã«èª­ã¿è¾¼ã‚€ãƒã‚¤ãƒˆæ•°ã‚’æŒ‡å®šã—ã¾ã™ã€‚
    */
+  template < class Checker >
   var_t bf_peek( text_line const& line, std::vector< var_t > const& arg_list, context* p_ctx )
   {
     using namespace toppers;
@@ -101,7 +103,7 @@ namespace
     {
       std::size_t address = static_cast< std::size_t >( macro_processor::to_integer( arg_list[0], p_ctx ) );
       std::size_t size = static_cast< std::size_t >( macro_processor::to_integer( arg_list[1], p_ctx ) );
-      std::tr1::shared_ptr< checker > chk = get_global< std::tr1::shared_ptr< checker > >( "checker" );
+      std::tr1::shared_ptr< Checker > chk = get_global< std::tr1::shared_ptr< Checker > >( "checker" );
 
       std::map< std::string, var_t >::const_iterator le_iter( p_ctx->var_map.find( "LITTLE_ENDIAN" ) );
       if ( le_iter != p_ctx->var_map.end() )
@@ -119,7 +121,7 @@ namespace
             base = static_cast< long >( address - vma_table[i].first );
           }
         }
-        if ( pos >= 0 )  // VMA ¤«¤éÆÉ¤ß¼è¤ë
+        if ( pos >= 0 )  // VMA ã‹ã‚‰èª­ã¿å–ã‚‹
         {
           std::tr1::uint64_t value = 0;
           if ( little_endian )
@@ -148,7 +150,7 @@ namespace
           }
           e.i = value;
         }
-        else  // VMA ¤Ç¤Ï¤Ê¤¤¤Î¤Ç¡¢S¥ì¥³¡¼¥É¤«¤éÆÉ¤ß¼è¤ë
+        else  // VMA ã§ã¯ãªã„ã®ã§ã€Sãƒ¬ã‚³ãƒ¼ãƒ‰ã‹ã‚‰èª­ã¿å–ã‚‹
         {
           e.i = chk->get( address, size, !!little_endian );
         }
@@ -159,19 +161,20 @@ namespace
   }
 
   /*!
-   *  \brief  ¥á¥â¥ê¥Ö¥í¥Ã¥¯¤ÎÅ¾Á÷
-   *  \param[in]  line      ¹ÔÈÖ¹æ
-   *  \param[in]  arg_list  ¥Ş¥¯¥í¼Â°ú¿ô¥ê¥¹¥È
-   *  \param[in]  p_ctx     ¥Ş¥¯¥í¥³¥ó¥Æ¥­¥¹¥È
-   *  \retval     ¥Ş¥¯¥íÊÖµÑÃÍ
+   *  \brief  ãƒ¡ãƒ¢ãƒªãƒ–ãƒ­ãƒƒã‚¯ã®è»¢é€
+   *  \param[in]  line      è¡Œç•ªå·
+   *  \param[in]  arg_list  ãƒã‚¯ãƒ­å®Ÿå¼•æ•°ãƒªã‚¹ãƒˆ
+   *  \param[in]  p_ctx     ãƒã‚¯ãƒ­ã‚³ãƒ³ãƒ†ã‚­ã‚¹ãƒˆ
+   *  \retval     ãƒã‚¯ãƒ­è¿”å´å€¤
    *
-   *  Âè1°ú¿ô¤ËÅ¾Á÷¸µ¥¢¥É¥ì¥¹¡¢Âè2°ú¿ô¤ËÅ¾Á÷Àè¥¢¥É¥ì¥¹¡¢Âè3°ú¿ô¤ËÅ¾Á÷¤¹¤ë¥Ğ¥¤¥È¿ô¤ò»ØÄê¤·¤Ş¤¹¡£
-   *  »ØÄê¤·¤¿¥³¥Ô¡¼¸µ¥¢¥É¥ì¥¹¤«¤é¥³¥Ô¡¼Àè¥¢¥É¥ì¥¹¤Ø¡¢»ØÄê¥Ğ¥¤¥È¿ô¤Î¥á¥â¥ê¥Ö¥í¥Ã¥¯¤òÅ¾Á÷¤·¤Ş¤¹¡£
-   *  ¤³¤Î´Ø¿ô¤Ï¡¢LMA¤«¤éVMA¤Ø¤Î¥¢¥É¥ì¥¹ÊÑ´¹¤òÌÜÅª¤È¤·¤Æ»ÈÍÑ¤¹¤ë¤³¤È¤òÁÛÄê¤·¤Æ¤¤¤Ş¤¹¡£
+   *  ç¬¬1å¼•æ•°ã«è»¢é€å…ƒã‚¢ãƒ‰ãƒ¬ã‚¹ã€ç¬¬2å¼•æ•°ã«è»¢é€å…ˆã‚¢ãƒ‰ãƒ¬ã‚¹ã€ç¬¬3å¼•æ•°ã«è»¢é€ã™ã‚‹ãƒã‚¤ãƒˆæ•°ã‚’æŒ‡å®šã—ã¾ã™ã€‚
+   *  æŒ‡å®šã—ãŸã‚³ãƒ”ãƒ¼å…ƒã‚¢ãƒ‰ãƒ¬ã‚¹ã‹ã‚‰ã‚³ãƒ”ãƒ¼å…ˆã‚¢ãƒ‰ãƒ¬ã‚¹ã¸ã€æŒ‡å®šãƒã‚¤ãƒˆæ•°ã®ãƒ¡ãƒ¢ãƒªãƒ–ãƒ­ãƒƒã‚¯ã‚’è»¢é€ã—ã¾ã™ã€‚
+   *  ã“ã®é–¢æ•°ã¯ã€LMAã‹ã‚‰VMAã¸ã®ã‚¢ãƒ‰ãƒ¬ã‚¹å¤‰æ›ã‚’ç›®çš„ã¨ã—ã¦ä½¿ç”¨ã™ã‚‹ã“ã¨ã‚’æƒ³å®šã—ã¦ã„ã¾ã™ã€‚
    *
-   *  \attention  ¤³¤ÎÁÈ¤ß¹ş¤ß´Ø¿ô¤Ï¡¢LMA¤«¤éVMA¤Ø¤Î¥¢¥É¥ì¥¹ÊÑ´¹¤òÁÛÄê¤·¤Æ¤¤¤ë¤¿¤á¡¢ÉÑÈË¤ËÅ¾Á÷¤ò
-   *              ·«¤êÊÖ¤¹¤è¤¦¤Ê¾õ¶·¤Ë¤ÏÂĞ±ş¤·¤Æ¤¤¤Ş¤»¤ó¡Ê¥á¥â¥êÉÔÂ­¤¬È¯À¸¤·¤Ş¤¹¡Ë¡£
+   *  \attention  ã“ã®çµ„ã¿è¾¼ã¿é–¢æ•°ã¯ã€LMAã‹ã‚‰VMAã¸ã®ã‚¢ãƒ‰ãƒ¬ã‚¹å¤‰æ›ã‚’æƒ³å®šã—ã¦ã„ã‚‹ãŸã‚ã€é »ç¹ã«è»¢é€ã‚’
+   *              ç¹°ã‚Šè¿”ã™ã‚ˆã†ãªçŠ¶æ³ã«ã¯å¯¾å¿œã—ã¦ã„ã¾ã›ã‚“ï¼ˆãƒ¡ãƒ¢ãƒªä¸è¶³ãŒç™ºç”Ÿã—ã¾ã™ï¼‰ã€‚
    */
+  template < class Checker >
   var_t bf_bcopy( text_line const& line, std::vector< var_t > const& arg_list, context* p_ctx )
   {
     using namespace toppers;
@@ -182,7 +185,7 @@ namespace
       std::size_t src = static_cast< std::size_t >( macro_processor::to_integer( arg_list[0], p_ctx ) );
       std::size_t dst = static_cast< std::size_t >( macro_processor::to_integer( arg_list[1], p_ctx ) );
       std::size_t size = static_cast< std::size_t >( macro_processor::to_integer( arg_list[2], p_ctx ) );
-      std::tr1::shared_ptr< checker > chk = get_global< std::tr1::shared_ptr< checker > >( "checker" );
+      std::tr1::shared_ptr< Checker > chk = get_global< std::tr1::shared_ptr< Checker > >( "checker" );
 
       std::pair< std::tr1::int64_t, std::vector< unsigned char > > block;
       block.first = dst;
@@ -198,119 +201,141 @@ namespace
 
 }
 
-bool cfg3_main()
+namespace
 {
-  using namespace toppers;
-  using namespace toppers::itronx;
-
-  std::string kernel( get_global< std::string >( "kernel" ) );
-  itronx::factory factory( kernel );
-  global( "factory" ) = &factory;
-
-  // *.cfg¤Ècfg1_out.srec¤ÎÆÉ¤ß¹ş¤ß
-  std::string input_file;
-  try
+  template < class Factory>
+  inline bool cfg3_main_implementation( std::string const& kernel )
   {
-    input_file = get_global< std::string >( "input-file" );
-  }
-  catch ( boost::bad_any_cast& )
-  {
-    fatal( _( "no input files" ) );
-  }
-  std::string cfg1_out_name( get_global< std::string >( "cfg1_out" ) );
-  std::auto_ptr< cfg1_out > cfg1_out( factory.create_cfg1_out( cfg1_out_name ) );
+    using namespace toppers;
+    typedef typename Factory::cfg1_out Cfg1_out;
 
-  codeset_t codeset = get_global< codeset_t >( "codeset" );
-  cfg1_out->load_cfg( input_file, codeset, *factory.get_static_api_info_map() );
-  cfg1_out->load_srec();
+    Factory factory( kernel );
+    global( "factory" ) = &factory;
 
-  std::auto_ptr< checker > p_checker( factory.create_checker() );
-  std::tr1::shared_ptr< checker > chk( p_checker );
-  global( "checker" ) = chk;
-  std::string rom_image( get_global< std::string >( "rom-image" ) );
-  std::string symbol_table( get_global< std::string >( "symbol-table" ) );
-  chk->load_rom_image( rom_image, symbol_table );
-
-  // ¥Æ¥ó¥×¥ì¡¼¥È¥Õ¥¡¥¤¥ë
-  boost::any template_file( global( "template-file" ) );
-  if ( template_file.empty() )
-  {
-    // ¥Æ¥ó¥×¥ì¡¼¥È¥Õ¥¡¥¤¥ë¤¬»ØÄê¤µ¤ì¤Æ¤¤¤Ê¤±¤ì¤ĞºÇÄã¸Â¤Î¥Á¥§¥Ã¥¯¤Î¤ß¡Ê¸åÊı¸ß´¹À­¤Î¤¿¤á¡Ë
-    // ¥Ñ¥é¥á¡¼¥¿¥Á¥§¥Ã¥¯
-    if ( !chk->check( *cfg1_out ) )
+    // *.cfgã¨cfg1_out.srecã®èª­ã¿è¾¼ã¿
+    std::string input_file;
+    try
     {
-      return false;
+      get_global( "input-file", input_file );
     }
-  }
-  else
-  {
-    namespace fs = boost::filesystem;
-
-    // ¥Æ¥ó¥×¥ì¡¼¥È½èÍı
-    std::auto_ptr< macro_processor > mproc;
-    std::auto_ptr< component > component_ptr;
-
-    if ( get_global< bool >( "with-software-components" ) )
+    catch ( boost::bad_any_cast& )
     {
-      mproc = factory.create_macro_processor( *cfg1_out, cfg1_out->get_static_api_array() );
-      component_ptr.reset( new component( mproc.get() ) );
+      fatal( _( "no input files" ) );
+    }
+    std::string cfg1_out_name;
+    get_global( "cfg1_out", cfg1_out_name );
+    std::auto_ptr< Cfg1_out > cfg1_out( factory.create_cfg1_out( cfg1_out_name ) );
+
+    codeset_t codeset = get_global< codeset_t >( "codeset" );
+    cfg1_out->load_cfg( input_file, codeset, factory.get_cfg_info() );
+    cfg1_out->load_srec();
+
+    std::auto_ptr< typename Factory::checker > p_checker( factory.create_checker() );
+    std::tr1::shared_ptr< typename Factory::checker > chk( p_checker );
+    global( "checker" ) = chk;
+    std::string rom_image( get_global_string( "rom-image" ) );
+    std::string symbol_table( get_global_string( "symbol-table" ) );
+    chk->load_rom_image( rom_image, symbol_table );
+
+    // ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆãƒ•ã‚¡ã‚¤ãƒ«
+    boost::any template_file( global( "template-file" ) );
+    if ( template_file.empty() )
+    {
+      // ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆãƒ•ã‚¡ã‚¤ãƒ«ãŒæŒ‡å®šã•ã‚Œã¦ã„ãªã‘ã‚Œã°æœ€ä½é™ã®ãƒã‚§ãƒƒã‚¯ã®ã¿ï¼ˆå¾Œæ–¹äº’æ›æ€§ã®ãŸã‚ï¼‰
+      // ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒã‚§ãƒƒã‚¯
+      if ( !chk->check( *cfg1_out ) )
+      {
+        return false;
+      }
     }
     else
     {
-      cfg1_out::static_api_map api_map( cfg1_out->merge() );
-      assign_id( api_map ); // IDÈÖ¹æ¤Î³äÉÕ¤±
-      mproc = factory.create_macro_processor( *cfg1_out, api_map );
-    }
+      namespace fs = boost::filesystem;
 
-    // ¢­ ÄÉ²ÃÁÈ¤ß¹ş¤ß´Ø¿ô¤ÎÅĞÏ¿
-    toppers::macro_processor::func_t func_info = {};
-    func_info.name = "SYMBOL";
-    func_info.f = &bf_symbol;
-    mproc->add_builtin_function( func_info );
+      // ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆå‡¦ç†
+      std::auto_ptr< macro_processor > mproc;
+      std::auto_ptr< typename Factory::component > component_ptr;
 
-    func_info.name = "PEEK";
-    func_info.f = &bf_peek;
-    mproc->add_builtin_function( func_info );
+      if ( get_global_bool( "with-software-components" ) )
+      {
+        mproc = factory.create_macro_processor( *cfg1_out, component_ptr );
+      }
+      else
+      {
+        mproc = factory.create_macro_processor( *cfg1_out );
+      }
 
-    func_info.name = "BCOPY";
-    func_info.f = &bf_bcopy;
-    mproc->add_builtin_function( func_info );
-    // ¢¬ ÄÉ²ÃÁÈ¤ß¹ş¤ß´Ø¿ô¤ÎÅĞÏ¿
+      // â†“ è¿½åŠ çµ„ã¿è¾¼ã¿é–¢æ•°ã®ç™»éŒ²
+      toppers::macro_processor::func_t func_info = {};
+      func_info.name = "SYMBOL";
+      func_info.f = &bf_symbol< typename Factory::checker >;
+      mproc->add_builtin_function( func_info );
 
-//    fs::path cfg_dir( get_global< std::string >( "cfg-directory" ), fs::native );
-    fs::path cfg_dir( get_global< std::string >( "cfg-directory" ) );  // filesystem3ÂĞ±ş
-    std::vector< std::string > include_paths = get_global< std::vector< std::string > >( "include-path" );
-//    include_paths.push_back( cfg_dir.empty() ? "." : cfg_dir.native_file_string() );
-    include_paths.push_back( cfg_dir.empty() ? "." : cfg_dir.string() );  // filesystem3ÂĞ±ş
+      func_info.name = "PEEK";
+      func_info.f = &bf_peek< typename Factory::checker >;
+      mproc->add_builtin_function( func_info );
 
-    toppers::text in_text;
-    toppers::text pp_text;
-    std::string file_name( boost::any_cast< std::string& >( template_file ) );
+      func_info.name = "BCOPY";
+      func_info.f = &bf_bcopy< typename Factory::checker >;
+      mproc->add_builtin_function( func_info );
+      // â†‘ è¿½åŠ çµ„ã¿è¾¼ã¿é–¢æ•°ã®ç™»éŒ²
 
-    in_text.set_line( file_name, 1 );
-    std::ifstream ifs( file_name.c_str() );
-    if ( ifs.is_open() )
-    {
+      fs::path cfg_dir( get_global_string( "cfg-directory" ) );  // filesystem3å¯¾å¿œ
+      std::vector< std::string > include_paths = get_global< std::vector< std::string > >( "include-path" );
+      include_paths.push_back( cfg_dir.empty() ? "." : cfg_dir.string() );  // filesystem3å¯¾å¿œ
+
+      toppers::text in_text;
+      toppers::text pp_text;
+      std::string file_name( boost::any_cast< std::string& >( template_file ) );
+
+      in_text.set_line( file_name, 1 );
+      std::ifstream ifs( file_name.c_str() );
+      if ( !ifs.is_open() )
+      {
+        fatal( _( "`%1%` can not be found." ), file_name );
+      }
+
       in_text.append( ifs );
       macro_processor::preprocess( in_text, pp_text );
       mproc->evaluate( pp_text );
+
+      if ( get_error_count() > 0 )
+      {
+        return false;
+      }
+      // å‡ºåŠ›ãƒ•ã‚¡ã‚¤ãƒ«ãŒã‚ã‚‹ã‹ã©ã†ã‹åˆ†ã‹ã‚‰ãªã„ãŒã€ä¸€å¿œã‚»ãƒ¼ãƒ–ã™ã‚‹ã€‚
+      output_file::save();
     }
 
-    if ( get_error_count() > 0 )
+    // ãƒ‘ã‚¹4ä»¥é™ã‹ã‚‰ã‚‚æµç”¨ã•ã‚Œã‚‹ãŸã‚ã€ç¾åœ¨å‡¦ç†ä¸­ã®ãƒ‘ã‚¹ã‚’èª¿ã¹ã‚‹ã€‚
+    int pass = get_global< int >( "pass" );
+    int max_pass = get_global< int >( "max-pass" );
+    if ( max_pass == pass ) // æœ€çµ‚æ®µéšã®ãƒ‘ã‚¹ãŒæˆåŠŸã—ãŸã¨ãã«"check complete"ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’å‡ºã™ã€‚
     {
-      return false;
+      std::cerr << _( "check complete" ) << std::endl;
     }
-    // ½ĞÎÏ¥Õ¥¡¥¤¥ë¤¬¤¢¤ë¤«¤É¤¦¤«Ê¬¤«¤é¤Ê¤¤¤¬¡¢°ì±ş¥»¡¼¥Ö¤¹¤ë¡£
-    output_file::save();
-  }
 
-  // ¥Ñ¥¹4°Ê¹ß¤«¤é¤âÎ®ÍÑ¤µ¤ì¤ë¤¿¤á¡¢¸½ºß½èÍıÃæ¤Î¥Ñ¥¹¤òÄ´¤Ù¤ë¡£
-  int pass = get_global< int >( "pass" );
-  int max_pass = get_global< int >( "max-pass" );
-  if ( max_pass == pass ) // ºÇ½ªÃÊ³¬¤Î¥Ñ¥¹¤¬À®¸ù¤·¤¿¤È¤­¤Ë"check complete"¥á¥Ã¥»¡¼¥¸¤ò½Ğ¤¹¡£
+    return true;
+  }
+}
+
+bool cfg3_main()
+{
+  std::string kernel;
+  toppers::get_global( "kernel", kernel );
+
+  if ( toppers::get_global_bool( "oil" ) )
   {
-    std::cerr << _( "check complete" ) << std::endl;
+    return cfg3_main_implementation< toppers::oil::factory >( kernel );
   }
-
-  return true;
+#ifdef  HAS_CFG_XML
+  else if ( toppers::get_global_bool( "xml" ) )
+  {
+    return cfg3_main_implementation< toppers::xml::factory >( kernel );
+  }
+#endif
+  else
+  {
+    return cfg3_main_implementation< toppers::itronx::factory >( kernel );
+  }
 }

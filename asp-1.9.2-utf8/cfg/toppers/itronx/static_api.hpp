@@ -4,41 +4,41 @@
  *
  *  Copyright (C) 2007-2010 by TAKAGI Nobuhisa
  * 
- *  �嵭����Ԥϡ��ʲ���(1)��(4)�ξ������������˸¤ꡤ�ܥ��եȥ���
- *  �����ܥ��եȥ���������Ѥ�����Τ�ޤࡥ�ʲ�Ʊ���ˤ���ѡ�ʣ������
- *  �ѡ������ۡʰʲ������ѤȸƤ֡ˤ��뤳�Ȥ�̵���ǵ������롥
- *  (1) �ܥ��եȥ������򥽡��������ɤη������Ѥ�����ˤϡ��嵭������
- *      ��ɽ�����������Ѿ�浪��Ӳ�����̵�ݾڵ��꤬�����Τޤޤη��ǥ���
- *      ����������˴ޤޤ�Ƥ��뤳�ȡ�
- *  (2) �ܥ��եȥ������򡤥饤�֥������ʤɡ�¾�Υ��եȥ�������ȯ�˻�
- *      �ѤǤ�����Ǻ����ۤ�����ˤϡ������ۤ�ȼ���ɥ�����ȡ�����
- *      �ԥޥ˥奢��ʤɡˤˡ��嵭�����ɽ�����������Ѿ�浪��Ӳ���
- *      ��̵�ݾڵ����Ǻܤ��뤳�ȡ�
- *  (3) �ܥ��եȥ������򡤵�����Ȥ߹���ʤɡ�¾�Υ��եȥ�������ȯ�˻�
- *      �ѤǤ��ʤ����Ǻ����ۤ�����ˤϡ����Τ����줫�ξ�����������
- *      �ȡ�
- *    (a) �����ۤ�ȼ���ɥ�����ȡ����Ѽԥޥ˥奢��ʤɡˤˡ��嵭����
- *        �ɽ�����������Ѿ�浪��Ӳ�����̵�ݾڵ����Ǻܤ��뤳�ȡ�
- *    (b) �����ۤη��֤��̤�������ˡ�ˤ�äơ�TOPPERS�ץ��������Ȥ�
- *        ��𤹤뤳�ȡ�
- *  (4) �ܥ��եȥ����������Ѥˤ��ľ��Ū�ޤ��ϴ���Ū�������뤤���ʤ�»
- *      ������⡤�嵭����Ԥ����TOPPERS�ץ��������Ȥ����դ��뤳�ȡ�
- *      �ޤ����ܥ��եȥ������Υ桼���ޤ��ϥ���ɥ桼������Τ����ʤ���
- *      ͳ�˴�Ť����ᤫ��⡤�嵭����Ԥ����TOPPERS�ץ��������Ȥ�
- *      ���դ��뤳�ȡ�
+ *  上記著作権者は，以下の(1)〜(4)の条件を満たす場合に限り，本ソフトウェ
+ *  ア（本ソフトウェアを改変したものを含む．以下同じ）を使用・複製・改
+ *  変・再配布（以下，利用と呼ぶ）することを無償で許諾する．
+ *  (1) 本ソフトウェアをソースコードの形で利用する場合には，上記の著作
+ *      権表示，この利用条件および下記の無保証規定が，そのままの形でソー
+ *      スコード中に含まれていること．
+ *  (2) 本ソフトウェアを，ライブラリ形式など，他のソフトウェア開発に使
+ *      用できる形で再配布する場合には，再配布に伴うドキュメント（利用
+ *      者マニュアルなど）に，上記の著作権表示，この利用条件および下記
+ *      の無保証規定を掲載すること．
+ *  (3) 本ソフトウェアを，機器に組み込むなど，他のソフトウェア開発に使
+ *      用できない形で再配布する場合には，次のいずれかの条件を満たすこ
+ *      と．
+ *    (a) 再配布に伴うドキュメント（利用者マニュアルなど）に，上記の著
+ *        作権表示，この利用条件および下記の無保証規定を掲載すること．
+ *    (b) 再配布の形態を，別に定める方法によって，TOPPERSプロジェクトに
+ *        報告すること．
+ *  (4) 本ソフトウェアの利用により直接的または間接的に生じるいかなる損
+ *      害からも，上記著作権者およびTOPPERSプロジェクトを免責すること．
+ *      また，本ソフトウェアのユーザまたはエンドユーザからのいかなる理
+ *      由に基づく請求からも，上記著作権者およびTOPPERSプロジェクトを
+ *      免責すること．
  * 
- *  �ܥ��եȥ������ϡ�̵�ݾڤ��󶡤���Ƥ����ΤǤ��롥�嵭����Ԥ�
- *  ���TOPPERS�ץ��������Ȥϡ��ܥ��եȥ������˴ؤ��ơ�����λ�����Ū
- *  ���Ф���Ŭ������ޤ�ơ������ʤ��ݾڤ�Ԥ�ʤ����ޤ����ܥ��եȥ���
- *  �������Ѥˤ��ľ��Ū�ޤ��ϴ���Ū�������������ʤ�»���˴ؤ��Ƥ⡤��
- *  ����Ǥ�����ʤ���
+ *  本ソフトウェアは，無保証で提供されているものである．上記著作権者お
+ *  よびTOPPERSプロジェクトは，本ソフトウェアに関して，特定の使用目的
+ *  に対する適合性も含めて，いかなる保証も行わない．また，本ソフトウェ
+ *  アの利用により直接的または間接的に生じたいかなる損害に関しても，そ
+ *  の責任を負わない．
  * 
  */
 /*!
  *  \file   toppers/itronx/static_api.hpp
- *  \brief  ��ŪAPI����β��Ϥȴ����˴ؤ���������
+ *  \brief  静的API情報の解析と管理に関する宣言定義
  *
- *  ���Υե�������������륯�饹
+ *  このファイルで定義されるクラス
  *  \code
  *  class static_api;
  *  \endcode
@@ -64,44 +64,45 @@ namespace toppers
 
     /*!
      *  \class  static_api static_api.hpp "toppers/itronx/static_api.hpp"
-     *  \brief  ����ե�����졼�����ե�����˵��Ҥ��줿��ŪAPI�ξ����������뤿��Υ��饹
+     *  \brief  コンフィギュレーションファイルに記述された静的APIの情報を管理するためのクラス
      */
     class static_api
     {
     public:
       /*!
        *  \struct info  static_api.hpp "toppers/itronx/static_api.hpp"
-       *  \brief  ��ŪAPI�λ��ͤ˴ؤ������
+       *  \brief  静的APIの仕様に関する情報
        *
-       *  static_api::info �� params ������γ����Ǥ��դ���줿��Ƭ���ΰ�̣�ϼ��ΤȤ���
+       *  static_api::info の params メンバ内の各要素に付けられた接頭辞の意味は次のとおり
        *
-       *  - #: ���֥������ȼ��̻�
-       *  - %: ���֥������ȼ��̻Ҥǡ����ļ�ư���դ����оݤȤʤ�ʤ����
-       *  - .: ���̵������������ѥ�᡼��
-       *  - +: ����դ�����������ѥ�᡼��
-       *  - $: ʸ����������ѥ�᡼��
-       *  - &: ����������ѥ�᡼��
+       *  - #: オブジェクト識別子
+       *  - %: オブジェクト識別子で、かつ自動割付けの対象とならないもの
+       *  - .: 符号無し整数定数式パラメータ
+       *  - +: 符号付き整数定数式パラメータ
+       *  - $: 文字列定数式パラメータ
+       *  - &: 一般定数式パラメータ
        *
-       *  �ʤ���{ ����� } ���ص�Ū�˥ѥ�᡼���ΰ��Ȥ��ư��äƤ���ʹ�ʸ���Ϥ�ɬ�פʤ���ˡ�
+       *  なお、{ および } も便宜的にパラメータの一種として扱っている（構文解析に必要なため）。
        */
       struct info
       {
-        char const* type;     //!< �����ͥ륪�֥������Ȥμ��̤�ɽ����ʸ����"tsk", "sem"����
-        char const* api_name; //!< ��ŪAPI̾��"CRE_TSK", "CRE_SEM"����
-        char const* params;   //!< �ѥ�᡼���¤�
-        int id_pos;           //!< �ѥ�᡼���Τ���ID�ֹ�ΰ��֡�-1�ξ���ID�ֹ�̵����
-        bool slave;           //!< ¾����ŪAPI���Ф��ƽ�°�ط��ˤ������true��"DEF_TEX"����
+        char const* type;     //!< カーネルオブジェクトの種別を表す三文字（"tsk", "sem"等）
+        char const* api_name; //!< 静的API名（"CRE_TSK", "CRE_SEM"等）
+        char const* params;   //!< パラメータ並び
+        int id_pos;           //!< パラメータのうちID番号の位置（-1の場合はID番号無し）
+        bool slave;           //!< 他の静的APIに対して従属関係にある場合にtrue（"DEF_TEX"等）
       };
       /*!
        *  \struct parameter static_api.hpp "toppers/itronx/static_api.hpp"
-       *  \brief  ��ŪAPI�Υѥ�᡼���˴ؤ������
+       *  \brief  静的APIのパラメータに関する情報
        */
       struct parameter
       {
-        std::string symbol;   //!< ������̾
-        std::string text;     //!< �°����λ���
-        boost::optional< std::tr1::intmax_t > value;  //!< �°�������
+        std::string symbol;   //!< 仮引数名
+        std::string text;     //!< 実引数の字面
+        boost::optional< std::tr1::intmax_t > value;  //!< 実引数の値
         std::string string;
+        int order;            //!< リスト形式パラメータの連番
       };
       typedef std::vector< parameter > parameter_container;
       typedef parameter_container::iterator iterator;
@@ -151,7 +152,7 @@ namespace toppers
       void line( text_line const& value ) { line_ = value; }
       size_type count_integer_params() const;
         
-      //! ���֥������Ȥθ�
+      //! オブジェクトの交換
       void swap( static_api& other )
       {
         std::swap( pinfo_, other.pinfo_ );
@@ -173,9 +174,9 @@ namespace toppers
       }
 
       /*!
-       *  \brief  ID�ֹ�γ��դ�
-       *  \param[in]  first   ID�ֹ�����դ��� static_api �����Ƭ����
-       *  \param[in]  last    ID�ֹ�����դ��� static_api ��ν�ü + 1
+       *  \brief  ID番号の割付け
+       *  \param[in]  first   ID番号を割り付ける static_api 列の先頭位置
+       *  \param[in]  last    ID番号を割り付ける static_api 列の終端 + 1
        */
       template < class ForwardIterator >
         static void assign_id( ForwardIterator first, ForwardIterator last )
@@ -185,7 +186,7 @@ namespace toppers
         std::vector< std::string > id_res;
         typedef std::vector< std::string >::size_type size_type;
 
-        // ͽ��Ѥߤ�ID�ֹ�������Ф�
+        // 予約済みのID番号を洗い出す
         for ( ForwardIterator iter( first ); iter != last; ++iter )
         {
           static_api::info const* info = iter->get_info();
@@ -210,7 +211,7 @@ namespace toppers
                     std::string name( iter->at( info->id_pos ).text );
                     if ( !id_res[ id ].empty() )
                     {
-                      fatal( _( "%1% `%2%\' in %3% is duplicated" ), iter->at( info->id_pos ).symbol.c_str() + 1, id, info->api_name );
+                      fatal( _( "E_OBJ: %1% `%2%\' in %3% is duplicated" ), iter->at( info->id_pos ).symbol.c_str() + 1, id, info->api_name );
                     }
                     id_res[ id ] = name;
                   }
@@ -220,7 +221,7 @@ namespace toppers
           }
         }
 
-        // ͽ�󤵤�Ƥ��ʤ�ID�ֹ��ư���դ�
+        // 予約されていないID番号を自動割付け
         long id = 1;
         for ( ForwardIterator iter( first ); iter != last; ++iter )
         {
@@ -234,11 +235,11 @@ namespace toppers
               if ( iter->at( info->id_pos ).symbol[0] == '#' )
               {
                 std::vector< std::string >::iterator id_iter( std::find( id_res.begin(), id_res.end(), name ) );
-                if ( id_iter != id_res.end() )  // ����դ��Ѥߤξ��...
+                if ( id_iter != id_res.end() )  // 割り付け済みの場合...
                 {
                   id_value = id_iter - id_res.begin();
                 }
-                else  // �ޤ�����դ����Ƥ��ʤ����...
+                else  // まだ割り付けられていない場合...
                 {
                   long n = static_cast< long >( id_res.size() );
                   while ( id < n && !id_res[ id ].empty() )
@@ -269,10 +270,10 @@ namespace toppers
             {
               if ( id_map[ name ] < 1 )
               {
-                fatal( iter->line(), _( "`%1%\' is undefined" ), iter->at( info->id_pos ).text );
+                fatal( iter->line(), _( "E_NOEXS: `%1%\' is undefined" ), iter->at( info->id_pos ).text );
               }
               std::set< std::string >& set = slave_id_set[ info->api_name ];
-              if ( set.find( name ) != set.end() )  // DEF_TEX��ʣ�����Ƚ��
+              if ( set.find( name ) != set.end() )  // DEF_TEX重複定義の判定
               {
                 fatal( iter->line(), _( "E_OBJ: `%1%\' is duplicated" ), iter->at( info->id_pos ).text );
               }

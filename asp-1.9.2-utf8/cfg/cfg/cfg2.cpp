@@ -4,34 +4,34 @@
  *
  *  Copyright (C) 2007-2011 by TAKAGI Nobuhisa
  * 
- *  ¾åµ­Ãøºî¸¢¼Ô¤Ï¡¤°Ê²¼¤Î(1)¡Á(4)¤Î¾ò·ï¤òËş¤¿¤¹¾ì¹ç¤Ë¸Â¤ê¡¤ËÜ¥½¥Õ¥È¥¦¥§
- *  ¥¢¡ÊËÜ¥½¥Õ¥È¥¦¥§¥¢¤ò²şÊÑ¤·¤¿¤â¤Î¤ò´Ş¤à¡¥°Ê²¼Æ±¤¸¡Ë¤ò»ÈÍÑ¡¦Ê£À½¡¦²ş
- *  ÊÑ¡¦ºÆÇÛÉÛ¡Ê°Ê²¼¡¤ÍøÍÑ¤È¸Æ¤Ö¡Ë¤¹¤ë¤³¤È¤òÌµ½ş¤ÇµöÂú¤¹¤ë¡¥
- *  (1) ËÜ¥½¥Õ¥È¥¦¥§¥¢¤ò¥½¡¼¥¹¥³¡¼¥É¤Î·Á¤ÇÍøÍÑ¤¹¤ë¾ì¹ç¤Ë¤Ï¡¤¾åµ­¤ÎÃøºî
- *      ¸¢É½¼¨¡¤¤³¤ÎÍøÍÑ¾ò·ï¤ª¤è¤Ó²¼µ­¤ÎÌµÊİ¾Úµ¬Äê¤¬¡¤¤½¤Î¤Ş¤Ş¤Î·Á¤Ç¥½¡¼
- *      ¥¹¥³¡¼¥ÉÃæ¤Ë´Ş¤Ş¤ì¤Æ¤¤¤ë¤³¤È¡¥
- *  (2) ËÜ¥½¥Õ¥È¥¦¥§¥¢¤ò¡¤¥é¥¤¥Ö¥é¥ê·Á¼°¤Ê¤É¡¤Â¾¤Î¥½¥Õ¥È¥¦¥§¥¢³«È¯¤Ë»È
- *      ÍÑ¤Ç¤­¤ë·Á¤ÇºÆÇÛÉÛ¤¹¤ë¾ì¹ç¤Ë¤Ï¡¤ºÆÇÛÉÛ¤ËÈ¼¤¦¥É¥­¥å¥á¥ó¥È¡ÊÍøÍÑ
- *      ¼Ô¥Ş¥Ë¥å¥¢¥ë¤Ê¤É¡Ë¤Ë¡¤¾åµ­¤ÎÃøºî¸¢É½¼¨¡¤¤³¤ÎÍøÍÑ¾ò·ï¤ª¤è¤Ó²¼µ­
- *      ¤ÎÌµÊİ¾Úµ¬Äê¤ò·ÇºÜ¤¹¤ë¤³¤È¡¥
- *  (3) ËÜ¥½¥Õ¥È¥¦¥§¥¢¤ò¡¤µ¡´ï¤ËÁÈ¤ß¹ş¤à¤Ê¤É¡¤Â¾¤Î¥½¥Õ¥È¥¦¥§¥¢³«È¯¤Ë»È
- *      ÍÑ¤Ç¤­¤Ê¤¤·Á¤ÇºÆÇÛÉÛ¤¹¤ë¾ì¹ç¤Ë¤Ï¡¤¼¡¤Î¤¤¤º¤ì¤«¤Î¾ò·ï¤òËş¤¿¤¹¤³
- *      ¤È¡¥
- *    (a) ºÆÇÛÉÛ¤ËÈ¼¤¦¥É¥­¥å¥á¥ó¥È¡ÊÍøÍÑ¼Ô¥Ş¥Ë¥å¥¢¥ë¤Ê¤É¡Ë¤Ë¡¤¾åµ­¤ÎÃø
- *        ºî¸¢É½¼¨¡¤¤³¤ÎÍøÍÑ¾ò·ï¤ª¤è¤Ó²¼µ­¤ÎÌµÊİ¾Úµ¬Äê¤ò·ÇºÜ¤¹¤ë¤³¤È¡¥
- *    (b) ºÆÇÛÉÛ¤Î·ÁÂÖ¤ò¡¤ÊÌ¤ËÄê¤á¤ëÊıË¡¤Ë¤è¤Ã¤Æ¡¤TOPPERS¥×¥í¥¸¥§¥¯¥È¤Ë
- *        Êó¹ğ¤¹¤ë¤³¤È¡¥
- *  (4) ËÜ¥½¥Õ¥È¥¦¥§¥¢¤ÎÍøÍÑ¤Ë¤è¤êÄ¾ÀÜÅª¤Ş¤¿¤Ï´ÖÀÜÅª¤ËÀ¸¤¸¤ë¤¤¤«¤Ê¤ëÂ»
- *      ³²¤«¤é¤â¡¤¾åµ­Ãøºî¸¢¼Ô¤ª¤è¤ÓTOPPERS¥×¥í¥¸¥§¥¯¥È¤òÌÈÀÕ¤¹¤ë¤³¤È¡¥
- *      ¤Ş¤¿¡¤ËÜ¥½¥Õ¥È¥¦¥§¥¢¤Î¥æ¡¼¥¶¤Ş¤¿¤Ï¥¨¥ó¥É¥æ¡¼¥¶¤«¤é¤Î¤¤¤«¤Ê¤ëÍı
- *      Í³¤Ë´ğ¤Å¤¯ÀÁµá¤«¤é¤â¡¤¾åµ­Ãøºî¸¢¼Ô¤ª¤è¤ÓTOPPERS¥×¥í¥¸¥§¥¯¥È¤ò
- *      ÌÈÀÕ¤¹¤ë¤³¤È¡¥
+ *  ä¸Šè¨˜è‘—ä½œæ¨©è€…ã¯ï¼Œä»¥ä¸‹ã®(1)ã€œ(4)ã®æ¡ä»¶ã‚’æº€ãŸã™å ´åˆã«é™ã‚Šï¼Œæœ¬ã‚½ãƒ•ãƒˆã‚¦ã‚§
+ *  ã‚¢ï¼ˆæœ¬ã‚½ãƒ•ãƒˆã‚¦ã‚§ã‚¢ã‚’æ”¹å¤‰ã—ãŸã‚‚ã®ã‚’å«ã‚€ï¼ä»¥ä¸‹åŒã˜ï¼‰ã‚’ä½¿ç”¨ãƒ»è¤‡è£½ãƒ»æ”¹
+ *  å¤‰ãƒ»å†é…å¸ƒï¼ˆä»¥ä¸‹ï¼Œåˆ©ç”¨ã¨å‘¼ã¶ï¼‰ã™ã‚‹ã“ã¨ã‚’ç„¡å„Ÿã§è¨±è«¾ã™ã‚‹ï¼
+ *  (1) æœ¬ã‚½ãƒ•ãƒˆã‚¦ã‚§ã‚¢ã‚’ã‚½ãƒ¼ã‚¹ã‚³ãƒ¼ãƒ‰ã®å½¢ã§åˆ©ç”¨ã™ã‚‹å ´åˆã«ã¯ï¼Œä¸Šè¨˜ã®è‘—ä½œ
+ *      æ¨©è¡¨ç¤ºï¼Œã“ã®åˆ©ç”¨æ¡ä»¶ãŠã‚ˆã³ä¸‹è¨˜ã®ç„¡ä¿è¨¼è¦å®šãŒï¼Œãã®ã¾ã¾ã®å½¢ã§ã‚½ãƒ¼
+ *      ã‚¹ã‚³ãƒ¼ãƒ‰ä¸­ã«å«ã¾ã‚Œã¦ã„ã‚‹ã“ã¨ï¼
+ *  (2) æœ¬ã‚½ãƒ•ãƒˆã‚¦ã‚§ã‚¢ã‚’ï¼Œãƒ©ã‚¤ãƒ–ãƒ©ãƒªå½¢å¼ãªã©ï¼Œä»–ã®ã‚½ãƒ•ãƒˆã‚¦ã‚§ã‚¢é–‹ç™ºã«ä½¿
+ *      ç”¨ã§ãã‚‹å½¢ã§å†é…å¸ƒã™ã‚‹å ´åˆã«ã¯ï¼Œå†é…å¸ƒã«ä¼´ã†ãƒ‰ã‚­ãƒ¥ãƒ¡ãƒ³ãƒˆï¼ˆåˆ©ç”¨
+ *      è€…ãƒãƒ‹ãƒ¥ã‚¢ãƒ«ãªã©ï¼‰ã«ï¼Œä¸Šè¨˜ã®è‘—ä½œæ¨©è¡¨ç¤ºï¼Œã“ã®åˆ©ç”¨æ¡ä»¶ãŠã‚ˆã³ä¸‹è¨˜
+ *      ã®ç„¡ä¿è¨¼è¦å®šã‚’æ²è¼‰ã™ã‚‹ã“ã¨ï¼
+ *  (3) æœ¬ã‚½ãƒ•ãƒˆã‚¦ã‚§ã‚¢ã‚’ï¼Œæ©Ÿå™¨ã«çµ„ã¿è¾¼ã‚€ãªã©ï¼Œä»–ã®ã‚½ãƒ•ãƒˆã‚¦ã‚§ã‚¢é–‹ç™ºã«ä½¿
+ *      ç”¨ã§ããªã„å½¢ã§å†é…å¸ƒã™ã‚‹å ´åˆã«ã¯ï¼Œæ¬¡ã®ã„ãšã‚Œã‹ã®æ¡ä»¶ã‚’æº€ãŸã™ã“
+ *      ã¨ï¼
+ *    (a) å†é…å¸ƒã«ä¼´ã†ãƒ‰ã‚­ãƒ¥ãƒ¡ãƒ³ãƒˆï¼ˆåˆ©ç”¨è€…ãƒãƒ‹ãƒ¥ã‚¢ãƒ«ãªã©ï¼‰ã«ï¼Œä¸Šè¨˜ã®è‘—
+ *        ä½œæ¨©è¡¨ç¤ºï¼Œã“ã®åˆ©ç”¨æ¡ä»¶ãŠã‚ˆã³ä¸‹è¨˜ã®ç„¡ä¿è¨¼è¦å®šã‚’æ²è¼‰ã™ã‚‹ã“ã¨ï¼
+ *    (b) å†é…å¸ƒã®å½¢æ…‹ã‚’ï¼Œåˆ¥ã«å®šã‚ã‚‹æ–¹æ³•ã«ã‚ˆã£ã¦ï¼ŒTOPPERSãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆã«
+ *        å ±å‘Šã™ã‚‹ã“ã¨ï¼
+ *  (4) æœ¬ã‚½ãƒ•ãƒˆã‚¦ã‚§ã‚¢ã®åˆ©ç”¨ã«ã‚ˆã‚Šç›´æ¥çš„ã¾ãŸã¯é–“æ¥çš„ã«ç”Ÿã˜ã‚‹ã„ã‹ãªã‚‹æ
+ *      å®³ã‹ã‚‰ã‚‚ï¼Œä¸Šè¨˜è‘—ä½œæ¨©è€…ãŠã‚ˆã³TOPPERSãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆã‚’å…è²¬ã™ã‚‹ã“ã¨ï¼
+ *      ã¾ãŸï¼Œæœ¬ã‚½ãƒ•ãƒˆã‚¦ã‚§ã‚¢ã®ãƒ¦ãƒ¼ã‚¶ã¾ãŸã¯ã‚¨ãƒ³ãƒ‰ãƒ¦ãƒ¼ã‚¶ã‹ã‚‰ã®ã„ã‹ãªã‚‹ç†
+ *      ç”±ã«åŸºã¥ãè«‹æ±‚ã‹ã‚‰ã‚‚ï¼Œä¸Šè¨˜è‘—ä½œæ¨©è€…ãŠã‚ˆã³TOPPERSãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆã‚’
+ *      å…è²¬ã™ã‚‹ã“ã¨ï¼
  * 
- *  ËÜ¥½¥Õ¥È¥¦¥§¥¢¤Ï¡¤ÌµÊİ¾Ú¤ÇÄó¶¡¤µ¤ì¤Æ¤¤¤ë¤â¤Î¤Ç¤¢¤ë¡¥¾åµ­Ãøºî¸¢¼Ô¤ª
- *  ¤è¤ÓTOPPERS¥×¥í¥¸¥§¥¯¥È¤Ï¡¤ËÜ¥½¥Õ¥È¥¦¥§¥¢¤Ë´Ø¤·¤Æ¡¤ÆÃÄê¤Î»ÈÍÑÌÜÅª
- *  ¤ËÂĞ¤¹¤ëÅ¬¹çÀ­¤â´Ş¤á¤Æ¡¤¤¤¤«¤Ê¤ëÊİ¾Ú¤â¹Ô¤ï¤Ê¤¤¡¥¤Ş¤¿¡¤ËÜ¥½¥Õ¥È¥¦¥§
- *  ¥¢¤ÎÍøÍÑ¤Ë¤è¤êÄ¾ÀÜÅª¤Ş¤¿¤Ï´ÖÀÜÅª¤ËÀ¸¤¸¤¿¤¤¤«¤Ê¤ëÂ»³²¤Ë´Ø¤·¤Æ¤â¡¤¤½
- *  ¤ÎÀÕÇ¤¤òÉé¤ï¤Ê¤¤¡¥
+ *  æœ¬ã‚½ãƒ•ãƒˆã‚¦ã‚§ã‚¢ã¯ï¼Œç„¡ä¿è¨¼ã§æä¾›ã•ã‚Œã¦ã„ã‚‹ã‚‚ã®ã§ã‚ã‚‹ï¼ä¸Šè¨˜è‘—ä½œæ¨©è€…ãŠ
+ *  ã‚ˆã³TOPPERSãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆã¯ï¼Œæœ¬ã‚½ãƒ•ãƒˆã‚¦ã‚§ã‚¢ã«é–¢ã—ã¦ï¼Œç‰¹å®šã®ä½¿ç”¨ç›®çš„
+ *  ã«å¯¾ã™ã‚‹é©åˆæ€§ã‚‚å«ã‚ã¦ï¼Œã„ã‹ãªã‚‹ä¿è¨¼ã‚‚è¡Œã‚ãªã„ï¼ã¾ãŸï¼Œæœ¬ã‚½ãƒ•ãƒˆã‚¦ã‚§
+ *  ã‚¢ã®åˆ©ç”¨ã«ã‚ˆã‚Šç›´æ¥çš„ã¾ãŸã¯é–“æ¥çš„ã«ç”Ÿã˜ãŸã„ã‹ãªã‚‹æå®³ã«é–¢ã—ã¦ã‚‚ï¼Œã
+ *  ã®è²¬ä»»ã‚’è² ã‚ãªã„ï¼
  * 
  */
 #include <fstream>
@@ -45,261 +45,122 @@
 #include <boost/filesystem/path.hpp>
 #include <boost/filesystem/operations.hpp>
 
-/*!
- *  \brief  ¥ª¥Ö¥¸¥§¥¯¥ÈIDÈÖ¹æ¤Î³äÉÕ¤±
- *  \param[in]  api_map   ¥½¡¼¥¹¤Ëµ­½Ò¤µ¤ì¤¿ÀÅÅªAPI¤òÅĞÏ¿¤·¤¿¥³¥ó¥Æ¥Ê
- */
-void assign_id( toppers::itronx::cfg1_out::static_api_map& api_map )
+namespace
 {
-  using namespace toppers;
-  using namespace toppers::itronx;
-
-  std::string id_input_file( get_global< std::string >( "id-input-file" ) );
-  if ( id_input_file.empty() )  // --id-input-file ¥ª¥×¥·¥ç¥ó¤¬»ØÄê¤µ¤ì¤Æ¤¤¤Ê¤¤¾ì¹ç...
+  template < class Factory >
+  inline bool cfg2_main_implementation( std::string const& kernel )
   {
-    for ( cfg1_out::static_api_map::iterator iter( api_map.begin() ), last( api_map.end() );
-          iter != last;
-          ++iter )
+    using namespace toppers;
+    typedef typename Factory::cfg1_out Cfg1_out;
+
+    Factory factory( kernel );
+    global( "factory" ) = &factory;
+
+    // *.cfgã¨cfg1_out.srecã®èª­ã¿è¾¼ã¿
+    std::string input_file;
+    try
     {
-      static_api::assign_id( iter->second.begin(), iter->second.end() );
+      get_global( "input-file", input_file );
     }
-  }
-  else  // --id-input-file ¥ª¥×¥·¥ç¥ó¤¬»ØÄê¤µ¤ì¤Æ¤¤¤ë¾ì¹ç...
-  {
-    typedef std::map< std::string, std::pair< long, bool > > id_map_t;
-    id_map_t id_map;
-    std::ifstream ifs( id_input_file.c_str() );
-    while ( ifs )
+    catch ( boost::bad_any_cast& )
     {
-      std::string linebuf;
-      std::getline( ifs, linebuf );
-      if ( ifs.bad() )
-      {
-        fatal( _( "I/O error" ) );
-      }
-      if ( linebuf.empty() || linebuf == "\r" )
-      {
-        break;
-      }
+      fatal( _( "no input files" ) );
+    }
+    std::string cfg1_out_name( get_global_string( "cfg1_out" ) );
+    std::auto_ptr< Cfg1_out > cfg1_out( factory.create_cfg1_out( cfg1_out_name ) );
 
-      std::istringstream iss( linebuf );
-      std::string name;
-      iss >> name;
-      if ( iss.fail() )
-      {
-        fatal( _( "id file `%1%\' is invalid" ), id_input_file );
-      }
-
-      long value;
-      iss >> value;
-      if ( iss.fail() )
-      {
-        fatal( _( "id file `%1%\' is invalid" ), id_input_file );
-      }
-
-      if ( id_map.find( name ) != id_map.end() )
-      {
-        fatal( _( "E_OBJ: `%1%\' is duplicated" ), name );
-      }
-      else
-      {
-        id_map[ name ] = std::make_pair( value, false );
-      }
+    codeset_t codeset = get_global< codeset_t >( "codeset" );
+    cfg1_out->load_cfg( input_file, codeset, factory.get_cfg_info() );
+    if ( !get_global_bool( "omit-symbol" ) )
+    {
+      cfg1_out->load_srec();
     }
 
-    for ( cfg1_out::static_api_map::iterator iter( api_map.begin() ), last( api_map.end() );
-          iter != last;
-          ++iter )
+    std::auto_ptr< macro_processor > mproc;
+    std::auto_ptr< typename Factory::component > component_ptr;
+
+    if ( get_global_bool( "with-software-components" ) )
     {
-      for ( std::vector< static_api >::iterator iter2( iter->second.begin() ), last2( iter->second.end() );
-            iter2 != last2;
-            ++iter2 )
-      {
-        static_api::info const* info = iter2->get_info();
-        if ( info->id_pos >= 0 )
-        {
-          std::string name( iter2->at( info->id_pos ).text );
-          std::string symbol( iter2->at( info->id_pos ).symbol );
-          if ( !info->slave && symbol[0] == '#' )
-          {
-            id_map_t::iterator hit( id_map.find( name ) );
-            if ( hit != id_map.end() )
-            {
-              long id_value = hit->second.first;
-              if ( id_value > 0 )
-              {
-                iter2->at( info->id_pos ).value = id_value;
-                hit->second.second = true;
-              }
-            }
-          }
-        }
-      }
-      static_api::assign_id( iter->second.begin(), iter->second.end() );
+      mproc = factory.create_macro_processor( *cfg1_out, component_ptr );
+    }
+    else  // å¾“æ¥ä»•æ§˜ï¼ˆã‚½ãƒ•ãƒˆã‚¦ã‚§ã‚¢éƒ¨å“éå¯¾å¿œï¼‰
+    {
+      mproc = factory.create_macro_processor( *cfg1_out );
     }
 
-    for ( id_map_t::const_iterator iter( id_map.begin() ), last( id_map.end() ); iter != last; ++iter )  // »Ä¤êÊª¤¬¤¢¤ì¤Ğ...
-    {
-      if ( !iter->second.second )
-      {
-        warning( _( "object identifier `%1%\' is not used" ), iter->first );
-      }
-    }
-  }
-
-  // --id-output-file ¥ª¥×¥·¥ç¥ó¤¬»ØÄê¤µ¤ì¤Æ¤¤¤ë¾ì¹ç
-  std::string id_output_file( get_global< std::string >( "id-output-file" ) );
-  if ( !id_output_file.empty() )
-  {
-    std::ofstream ofs( id_output_file.c_str() );
-    for ( cfg1_out::static_api_map::iterator iter( api_map.begin() ), last( api_map.end() );
-      iter != last;
-      ++iter )
-    {
-      for ( std::vector< static_api >::const_iterator iter2( iter->second.begin() ), last2( iter->second.end() );
-            iter2 != last2;
-            ++iter2 )
-      {
-        static_api::info const* info = iter2->get_info();
-        if ( info->id_pos >= 0 )
-        {
-          std::string name( iter2->at( info->id_pos ).text );
-          std::string symbol( iter2->at( info->id_pos ).symbol );
-          if ( !info->slave && symbol[0] == '#' )
-          {
-            ofs << name << '\t' << iter2->at( info->id_pos ).value.get() << std::endl;
-          }
-        }
-      }
-    }
-  }
-}
-
-
-/*!
- *  \brief  ¥Ş¥¯¥í¥×¥í¥»¥Ã¥µ¤ËÅĞÏ¿¤¹¤ëID³äÉÕ¤±´Ø¿ô
- *  \param[in]  line      ¹ÔÈÖ¹æ
- *  \param[in]  arg_list  ¥Ş¥¯¥í¼Â°ú¿ô¥ê¥¹¥È
- *  \param[in]  p_ctx     ¥Ş¥¯¥í¥³¥ó¥Æ¥­¥¹¥È
- *  \retval     ¥Ş¥¯¥íÊÖµÑÃÍ
- */
-toppers::macro_processor::var_t bf_assignid( toppers::text_line const& line,
-                                             std::vector< toppers::macro_processor::var_t > const& arg_list,
-                                             toppers::macro_processor::context* p_ctx )
-{
-  using namespace toppers;
-  using namespace toppers::itronx;
-  using toppers::text_line;
-  typedef toppers::macro_processor::element element;
-  typedef toppers::macro_processor::var_t var_t;
-  typedef toppers::macro_processor::context context;
-
-  return var_t();
-}
-
-//! ÁÈ¤ß¹ş¤ß´Ø¿ôASSIGNID¤òÅĞÏ¿¤¹¤ë
-void register_bf_assignid( toppers::macro_processor* mproc )
-{
-  // ¢­ ÄÉ²ÃÁÈ¤ß¹ş¤ß´Ø¿ô¤ÎÅĞÏ¿
-  toppers::macro_processor::func_t func_info = {};
-  func_info.name = "ASSIGNID";
-  func_info.f = &bf_assignid;
-  mproc->add_builtin_function( func_info );
-}
-
-/*!
- *  \brief  ¥Ñ¥¹£²½èÍı
- *  \retval true  À®¸ù
- *  \retval false ¼ºÇÔ
- */
-bool cfg2_main()
-{
-  using namespace toppers;
-  using namespace toppers::itronx;
-
-  std::string kernel( get_global< std::string >( "kernel" ) );
-  itronx::factory factory( kernel );
-  global( "factory" ) = &factory;
-
-  // *.cfg¤Ècfg1_out.srec¤ÎÆÉ¤ß¹ş¤ß
-  std::string input_file;
-  try
-  {
-    input_file = get_global< std::string >( "input-file" );
-  }
-  catch ( boost::bad_any_cast& )
-  {
-    fatal( _( "no input files" ) );
-  }
-  std::string cfg1_out_name( get_global< std::string >( "cfg1_out" ) );
-  std::auto_ptr< cfg1_out > cfg1_out( factory.create_cfg1_out( cfg1_out_name ) );
-
-  codeset_t codeset = get_global< codeset_t >( "codeset" );
-  cfg1_out->load_cfg( input_file, codeset, *factory.get_static_api_info_map() );
-  cfg1_out->load_srec();
-
-  std::auto_ptr< macro_processor > mproc;
-  std::auto_ptr< component > component_ptr;
-
-  if ( get_global< bool >( "with-software-components" ) )
-  {
-    mproc = factory.create_macro_processor( *cfg1_out, cfg1_out->get_static_api_array() );
-    component_ptr.reset( new component( mproc.get() ) );
-  }
-  else  // ½¾Íè»ÅÍÍ¡Ê¥½¥Õ¥È¥¦¥§¥¢ÉôÉÊÈóÂĞ±ş¡Ë
-  {
-    cfg1_out::static_api_map api_map( cfg1_out->merge() );
-    assign_id( api_map ); // IDÈÖ¹æ¤Î³äÉÕ¤±
-    mproc = factory.create_macro_processor( *cfg1_out, api_map );
-  }
-
-  // ¥Æ¥ó¥×¥ì¡¼¥È½èÍı
-  boost::any template_file( global( "template-file" ) );
-  namespace fs = boost::filesystem;
-//  fs::path cfg_dir( get_global< std::string >( "cfg-directory" ), fs::native );
-  fs::path cfg_dir( get_global< std::string >( "cfg-directory" ) );  // filesystem3ÂĞ±ş
-  std::vector< std::string > include_paths = get_global< std::vector< std::string > >( "include-path" );
-//  include_paths.push_back( cfg_dir.empty() ? "." : cfg_dir.native_file_string() );
-  include_paths.push_back( cfg_dir.empty() ? "." : cfg_dir.string() );  // filesystem3ÂĞ±ş
-  if ( !template_file.empty() )
-  {
-    toppers::text in_text;
-    toppers::text pp_text;
-    std::string file_name( boost::any_cast< std::string& >( template_file ) );
-
-    in_text.set_line( file_name, 1 );
-    std::ifstream ifs( file_name.c_str() );
-    in_text.append( ifs );
-    macro_processor::preprocess( in_text, pp_text );
-    mproc->evaluate( pp_text );
-  }
-  else  // ¥Æ¥ó¥×¥ì¡¼¥È¥Õ¥¡¥¤¥ë¤¬»ØÄê¤µ¤ì¤Æ¤¤¤Ê¤¤¤Î¤Ç¡¢¶¦ÄÌÉôÊ¬¡Êkernel.tf¡Ë¤Î¤ß¤ò½èÍı
-  {
-    fs::path kernel_cfg_template_file( cfg_dir/fs::path( "../../kernel/kernel.tf" ) );
-    if ( !fs::exists( kernel_cfg_template_file ) )
-    {
-//      error( _( "cannot open file `%1%\'" ), kernel_cfg_template_file.native_file_string() );
-      error( _( "cannot open file `%1%\'" ), kernel_cfg_template_file.string() );  // filesystem3ÂĞ±ş
-    }
-    else
+    // ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆå‡¦ç†
+    boost::any template_file( global( "template-file" ) );
+    namespace fs = boost::filesystem;
+    fs::path cfg_dir( get_global_string( "cfg-directory" ) );  // filesystem3å¯¾å¿œ
+    std::vector< std::string > include_paths = get_global< std::vector< std::string > >( "include-path" );
+    include_paths.push_back( cfg_dir.empty() ? "." : cfg_dir.string() );  // filesystem3å¯¾å¿œ
+    if ( !template_file.empty() )
     {
       toppers::text in_text;
       toppers::text pp_text;
+      std::string file_name( boost::any_cast< std::string& >( template_file ) );
 
-//      in_text.set_line( kernel_cfg_template_file.native_file_string(), 1 );
-      in_text.set_line( kernel_cfg_template_file.string(), 1 );  // filesystem3ÂĞ±ş
-//      std::ifstream ifs( kernel_cfg_template_file.native_file_string().c_str() );
-      std::ifstream ifs( kernel_cfg_template_file.string().c_str() );  // filesystem3ÂĞ±ş
+      in_text.set_line( file_name, 1 );
+      std::ifstream ifs( file_name.c_str() );
+      if ( !ifs.is_open() )
+      {
+        fatal( _( "`%1%` can not be found." ), file_name );
+      }
       in_text.append( ifs );
       macro_processor::preprocess( in_text, pp_text );
       mproc->evaluate( pp_text );
     }
-  }
+    else  // ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆãƒ•ã‚¡ã‚¤ãƒ«ãŒæŒ‡å®šã•ã‚Œã¦ã„ãªã„ã®ã§ã€å…±é€šéƒ¨åˆ†ï¼ˆkernel.tfï¼‰ã®ã¿ã‚’å‡¦ç†
+    {
+      fs::path kernel_cfg_template_file( cfg_dir/fs::path( "../../kernel/kernel.tf" ) );
+      if ( !fs::exists( kernel_cfg_template_file ) )
+      {
+        error( _( "cannot open file `%1%\'" ), kernel_cfg_template_file.string() );  // filesystem3å¯¾å¿œ
+      }
+      else
+      {
+        toppers::text in_text;
+        toppers::text pp_text;
 
-  if ( get_error_count() > 0 )
-  {
-    return false;
+        in_text.set_line( kernel_cfg_template_file.string(), 1 );  // filesystem3å¯¾å¿œ
+        std::ifstream ifs( kernel_cfg_template_file.string().c_str() );  // filesystem3å¯¾å¿œ
+        in_text.append( ifs );
+        macro_processor::preprocess( in_text, pp_text );
+        mproc->evaluate( pp_text );
+      }
+    }
+
+    if ( get_error_count() > 0 )
+    {
+      return false;
+    }
+    output_file::save();
+    return true;
   }
-  output_file::save();
-  return true;
 }
+
+/*!
+ *  \brief  ãƒ‘ã‚¹ï¼’å‡¦ç†
+ *  \retval true  æˆåŠŸ
+ *  \retval false å¤±æ•—
+ */
+bool cfg2_main()
+{
+  std::string kernel;
+  toppers::get_global( "kernel", kernel );
+  if ( toppers::get_global_bool( "oil" ) )
+  {
+    return cfg2_main_implementation< toppers::oil::factory >( kernel );
+  }
+#ifdef  HAS_CFG_XML
+  else if ( toppers::get_global_bool( "xml" ) )
+  {
+    return cfg2_main_implementation< toppers::xml::factory >( kernel );
+  }
+#endif
+  else
+  {
+    return cfg2_main_implementation< toppers::itronx::factory >( kernel );
+  }
+}
+

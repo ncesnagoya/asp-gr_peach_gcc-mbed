@@ -4,38 +4,38 @@
  *
  *  Copyright (C) 2007-2011 by TAKAGI Nobuhisa
  * 
- *  �嵭����Ԥϡ��ʲ���(1)��(4)�ξ������������˸¤ꡤ�ܥ��եȥ���
- *  �����ܥ��եȥ���������Ѥ�����Τ�ޤࡥ�ʲ�Ʊ���ˤ���ѡ�ʣ������
- *  �ѡ������ۡʰʲ������ѤȸƤ֡ˤ��뤳�Ȥ�̵���ǵ������롥
- *  (1) �ܥ��եȥ������򥽡��������ɤη������Ѥ�����ˤϡ��嵭������
- *      ��ɽ�����������Ѿ�浪��Ӳ�����̵�ݾڵ��꤬�����Τޤޤη��ǥ���
- *      ����������˴ޤޤ�Ƥ��뤳�ȡ�
- *  (2) �ܥ��եȥ������򡤥饤�֥������ʤɡ�¾�Υ��եȥ�������ȯ�˻�
- *      �ѤǤ�����Ǻ����ۤ�����ˤϡ������ۤ�ȼ���ɥ�����ȡ�����
- *      �ԥޥ˥奢��ʤɡˤˡ��嵭�����ɽ�����������Ѿ�浪��Ӳ���
- *      ��̵�ݾڵ����Ǻܤ��뤳�ȡ�
- *  (3) �ܥ��եȥ������򡤵�����Ȥ߹���ʤɡ�¾�Υ��եȥ�������ȯ�˻�
- *      �ѤǤ��ʤ����Ǻ����ۤ�����ˤϡ����Τ����줫�ξ�����������
- *      �ȡ�
- *    (a) �����ۤ�ȼ���ɥ�����ȡ����Ѽԥޥ˥奢��ʤɡˤˡ��嵭����
- *        �ɽ�����������Ѿ�浪��Ӳ�����̵�ݾڵ����Ǻܤ��뤳�ȡ�
- *    (b) �����ۤη��֤��̤�������ˡ�ˤ�äơ�TOPPERS�ץ��������Ȥ�
- *        ��𤹤뤳�ȡ�
- *  (4) �ܥ��եȥ����������Ѥˤ��ľ��Ū�ޤ��ϴ���Ū�������뤤���ʤ�»
- *      ������⡤�嵭����Ԥ����TOPPERS�ץ��������Ȥ����դ��뤳�ȡ�
- *      �ޤ����ܥ��եȥ������Υ桼���ޤ��ϥ���ɥ桼������Τ����ʤ���
- *      ͳ�˴�Ť����ᤫ��⡤�嵭����Ԥ����TOPPERS�ץ��������Ȥ�
- *      ���դ��뤳�ȡ�
+ *  上記著作権者は，以下の(1)〜(4)の条件を満たす場合に限り，本ソフトウェ
+ *  ア（本ソフトウェアを改変したものを含む．以下同じ）を使用・複製・改
+ *  変・再配布（以下，利用と呼ぶ）することを無償で許諾する．
+ *  (1) 本ソフトウェアをソースコードの形で利用する場合には，上記の著作
+ *      権表示，この利用条件および下記の無保証規定が，そのままの形でソー
+ *      スコード中に含まれていること．
+ *  (2) 本ソフトウェアを，ライブラリ形式など，他のソフトウェア開発に使
+ *      用できる形で再配布する場合には，再配布に伴うドキュメント（利用
+ *      者マニュアルなど）に，上記の著作権表示，この利用条件および下記
+ *      の無保証規定を掲載すること．
+ *  (3) 本ソフトウェアを，機器に組み込むなど，他のソフトウェア開発に使
+ *      用できない形で再配布する場合には，次のいずれかの条件を満たすこ
+ *      と．
+ *    (a) 再配布に伴うドキュメント（利用者マニュアルなど）に，上記の著
+ *        作権表示，この利用条件および下記の無保証規定を掲載すること．
+ *    (b) 再配布の形態を，別に定める方法によって，TOPPERSプロジェクトに
+ *        報告すること．
+ *  (4) 本ソフトウェアの利用により直接的または間接的に生じるいかなる損
+ *      害からも，上記著作権者およびTOPPERSプロジェクトを免責すること．
+ *      また，本ソフトウェアのユーザまたはエンドユーザからのいかなる理
+ *      由に基づく請求からも，上記著作権者およびTOPPERSプロジェクトを
+ *      免責すること．
  * 
- *  �ܥ��եȥ������ϡ�̵�ݾڤ��󶡤���Ƥ����ΤǤ��롥�嵭����Ԥ�
- *  ���TOPPERS�ץ��������Ȥϡ��ܥ��եȥ������˴ؤ��ơ�����λ�����Ū
- *  ���Ф���Ŭ������ޤ�ơ������ʤ��ݾڤ�Ԥ�ʤ����ޤ����ܥ��եȥ���
- *  �������Ѥˤ��ľ��Ū�ޤ��ϴ���Ū�������������ʤ�»���˴ؤ��Ƥ⡤��
- *  ����Ǥ�����ʤ���
+ *  本ソフトウェアは，無保証で提供されているものである．上記著作権者お
+ *  よびTOPPERSプロジェクトは，本ソフトウェアに関して，特定の使用目的
+ *  に対する適合性も含めて，いかなる保証も行わない．また，本ソフトウェ
+ *  アの利用により直接的または間接的に生じたいかなる損害に関しても，そ
+ *  の責任を負わない．
  * 
  */
 #include <cstdlib>
-#include <stdlib.h>	// Cygwin�к�
+#include <stdlib.h>	// Cygwin対策
 #include <cstring>
 #include <clocale>
 #include <string>
@@ -67,7 +67,7 @@ namespace toppers
       for ( std::string::const_iterator iter( msgstr.begin() ), last( msgstr.end() ); iter != last; ++iter )
       {
         int c = static_cast< unsigned char >( *iter );
-        if ( ( ( c & 0xc0 ) == 0xc0 ) || ( c < 0x80 ) ) // ��ԥХ���
+        if ( ( ( c & 0xc0 ) == 0xc0 ) || ( c < 0x80 ) ) // 先行バイト
         {
           if ( wc != 0 )
           {
@@ -88,10 +88,10 @@ namespace toppers
           }
           else
           {
-            // ���������Ȥ�̤�б��ʤ������б������Ȥ��Ƥ⡢ʸ���������Ѵ����ˤ��������ǽ�����
+            // サロゲートは未対応（ここで対応したとしても、文字コード変換時にしくじる可能性大）
           }
         }
-        else    // ��³�Х���
+        else    // 後続バイト
         {
           wc = static_cast< wchar_t >( ( wc << 6 ) | ( c & 0x3f ) );
         }
@@ -102,11 +102,11 @@ namespace toppers
       }
       *wcs = L'\0';
 
-      // �� ���δ֤Ϸ褷���㳰��ȯ�����ʤ�
+      // ↓ この間は決して例外が発生しない
       char const* locale = std::setlocale( LC_CTYPE, "" );
-      /* std:: */wcstombs( buf.get(), wbuf.get(), size + 1 );     // Unicode ����Ķ���¸��ʸ�������ɤ��Ѵ�
+      /* std:: */wcstombs( buf.get(), wbuf.get(), size + 1 );     // Unicode から環境依存の文字コードへ変換
       std::setlocale( LC_CTYPE, locale );
-      // �� ���δ֤Ϸ褷���㳰��ȯ�����ʤ�
+      // ↑ この間は決して例外が発生しない
 
       msgcat[ msgid ] = std::string( buf.get() );
     }
@@ -116,16 +116,16 @@ namespace toppers
   }
 
   /*!
-   *  \brief      ��å��������������Υ�����
-   *  \param[in]  dir     *.po �ե����뤬¸�ߤ���ǥ��쥯�ȥ�
-   *  \retval     true    ����
-   *  \retval     false   ����
+   *  \brief      メッセージカタログのロード
+   *  \param[in]  dir     *.po ファイルが存在するディレクトリ
+   *  \retval     true    成功
+   *  \retval     false   失敗
    *
-   *  ��������ز����뤿�ᡢ.po�ե�����ε�����ˡ�ˤϰʲ������󤬤��롣
-   *  - msgid, msgstr ��ɬ���Ԥ���Ƭ�˵��Ҥ��롣
-   *  - msgid, msgstr ��ľ��ˤϡ�ɬ��������ʸ����ʸ���Ȥ�������ľ���ʸ����򵭽Ҥ��롣
-   *  - ʸ����Τߤ򵭽Ҥ���Ԥ�ɬ�� " �ǻϤ�롣
-   *  - .po�ե�����Ϥ�ʸ�������ɤ�ɬ�� UTF-8N �Ȥ��롣
+   *  実装を簡便化するため、.poファイルの記述方法には以下の制約がある。
+   *  - msgid, msgstr は必ず行の先頭に記述する。
+   *  - msgid, msgstr の直後には、必ず空白類文字一文字とし、その直後に文字列を記述する。
+   *  - 文字列のみを記述する行は必ず " で始める。
+   *  - .poファイルはの文字コードは必ず UTF-8N とする。
    */
   bool load_msgcat( std::string const& dir )
   {
@@ -139,12 +139,12 @@ namespace toppers
     std::string lang( env );
 
 //    fs::path cfg_dir( dir, fs::native );
-    fs::path cfg_dir( dir );  // filesystem3�б�
+    fs::path cfg_dir( dir );  // filesystem3対応
 //    fs::path po_file( cfg_dir/fs::path( lang + ".po", fs::native ) );
-    fs::path po_file( cfg_dir/fs::path( lang + ".po" ) );  // filesystem3�б�
+    fs::path po_file( cfg_dir/fs::path( lang + ".po" ) );  // filesystem3対応
 
 //    std::ifstream ifs( po_file.native_file_string().c_str() );
-    std::ifstream ifs( po_file.string().c_str() );  // filesystem3�б�
+    std::ifstream ifs( po_file.string().c_str() );  // filesystem3対応
     std::string msgid;
     std::string msgstr;
 
@@ -153,8 +153,8 @@ namespace toppers
       std::string str;
       std::getline( ifs, str );
 
-      // ����ʸ���ΰ㤤��ۼ�
-      std::string::size_type pos = str.find_last_not_of( " \t\r\n" ); // �Ĥ��Ǥ˹����ζ���������
+      // 改行文字の違いを吸収
+      std::string::size_type pos = str.find_last_not_of( " \t\r\n" ); // ついでに行末の空白類も除去
       if ( pos != std::string::npos && pos < str.size() - 1 )
       {
         char c = str[pos];
@@ -163,7 +163,7 @@ namespace toppers
 
       if ( str.empty() || str[ 0 ] == '#' || str == "" )
       {
-        ;   // ���Ԥޤ��ϥ����ȹ�
+        ;   // 空行またはコメント行
       }
       else
       {
@@ -183,7 +183,7 @@ namespace toppers
           {
             msgstr += expand_quote( str );
           }
-          if ( !msgid.empty() && !msgstr.empty() )  // ľ���� msgid / msgstr ����Ͽ
+          if ( !msgid.empty() && !msgstr.empty() )  // 直前の msgid / msgstr を登録
           {
             register_msgcat( msgid, msgstr );
             msgid.clear();
@@ -201,9 +201,9 @@ namespace toppers
   }
 
   /*!
-   *  \brief      ��å�����������
-   *  \param[in]  message   ��å�����ID
-   *  \return     ������Υ�å�����
+   *  \brief      メッセージの翻訳
+   *  \param[in]  message   メッセージID
+   *  \return     翻訳後のメッセージ
    */
   std::string const& gettext( std::string const& message )
   {

@@ -15,13 +15,19 @@ ifndef BOOST_DIR
 	endif
 endif
 
-# ��͂ȃ}�V���ȂǂŃR���p�C���ɔ��ɒ������Ԃ�������A�������̓R���p�C������
-# �n���O�A�b�v����ꍇ�ɂ́A-O0�ɕύX���Ă݂Ă��������B
+# 非力なマシンなどでコンパイルに非常に長い時間がかかる、もしくはコンパイル時に
+# ハングアップする場合には、-O0に変更してみてください。
 OPTIMIZE = -O2
 
-SUBDIRS  = toppers \
-	toppers/itronx \
-	cfg
+MODULES = toppers/itronx \
+	toppers/oil
+
+ifdef HAS_CFG_XML
+	MODULES := $(MODULES) toppers/xml
+	OPTIONS := $(OPTIONS) -DHAS_CFG_XML=1
+endif
+
+SUBDIRS  = toppers $(MODULES) cfg
 
 all: $(SUBDIRS)
 

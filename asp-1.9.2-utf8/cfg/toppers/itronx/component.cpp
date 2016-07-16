@@ -4,34 +4,34 @@
  *
  *  Copyright (C) 2010 by TAKAGI Nobuhisa
  * 
- *  �嵭����Ԥϡ��ʲ���(1)��(4)�ξ������������˸¤ꡤ�ܥ��եȥ���
- *  �����ܥ��եȥ���������Ѥ�����Τ�ޤࡥ�ʲ�Ʊ���ˤ���ѡ�ʣ������
- *  �ѡ������ۡʰʲ������ѤȸƤ֡ˤ��뤳�Ȥ�̵���ǵ������롥
- *  (1) �ܥ��եȥ������򥽡��������ɤη������Ѥ�����ˤϡ��嵭������
- *      ��ɽ�����������Ѿ�浪��Ӳ�����̵�ݾڵ��꤬�����Τޤޤη��ǥ���
- *      ����������˴ޤޤ�Ƥ��뤳�ȡ�
- *  (2) �ܥ��եȥ������򡤥饤�֥������ʤɡ�¾�Υ��եȥ�������ȯ�˻�
- *      �ѤǤ�����Ǻ����ۤ�����ˤϡ������ۤ�ȼ���ɥ�����ȡ�����
- *      �ԥޥ˥奢��ʤɡˤˡ��嵭�����ɽ�����������Ѿ�浪��Ӳ���
- *      ��̵�ݾڵ����Ǻܤ��뤳�ȡ�
- *  (3) �ܥ��եȥ������򡤵�����Ȥ߹���ʤɡ�¾�Υ��եȥ�������ȯ�˻�
- *      �ѤǤ��ʤ����Ǻ����ۤ�����ˤϡ����Τ����줫�ξ�����������
- *      �ȡ�
- *    (a) �����ۤ�ȼ���ɥ�����ȡ����Ѽԥޥ˥奢��ʤɡˤˡ��嵭����
- *        �ɽ�����������Ѿ�浪��Ӳ�����̵�ݾڵ����Ǻܤ��뤳�ȡ�
- *    (b) �����ۤη��֤��̤�������ˡ�ˤ�äơ�TOPPERS�ץ��������Ȥ�
- *        ��𤹤뤳�ȡ�
- *  (4) �ܥ��եȥ����������Ѥˤ��ľ��Ū�ޤ��ϴ���Ū�������뤤���ʤ�»
- *      ������⡤�嵭����Ԥ����TOPPERS�ץ��������Ȥ����դ��뤳�ȡ�
- *      �ޤ����ܥ��եȥ������Υ桼���ޤ��ϥ���ɥ桼������Τ����ʤ���
- *      ͳ�˴�Ť����ᤫ��⡤�嵭����Ԥ����TOPPERS�ץ��������Ȥ�
- *      ���դ��뤳�ȡ�
+ *  上記著作権者は，以下の(1)〜(4)の条件を満たす場合に限り，本ソフトウェ
+ *  ア（本ソフトウェアを改変したものを含む．以下同じ）を使用・複製・改
+ *  変・再配布（以下，利用と呼ぶ）することを無償で許諾する．
+ *  (1) 本ソフトウェアをソースコードの形で利用する場合には，上記の著作
+ *      権表示，この利用条件および下記の無保証規定が，そのままの形でソー
+ *      スコード中に含まれていること．
+ *  (2) 本ソフトウェアを，ライブラリ形式など，他のソフトウェア開発に使
+ *      用できる形で再配布する場合には，再配布に伴うドキュメント（利用
+ *      者マニュアルなど）に，上記の著作権表示，この利用条件および下記
+ *      の無保証規定を掲載すること．
+ *  (3) 本ソフトウェアを，機器に組み込むなど，他のソフトウェア開発に使
+ *      用できない形で再配布する場合には，次のいずれかの条件を満たすこ
+ *      と．
+ *    (a) 再配布に伴うドキュメント（利用者マニュアルなど）に，上記の著
+ *        作権表示，この利用条件および下記の無保証規定を掲載すること．
+ *    (b) 再配布の形態を，別に定める方法によって，TOPPERSプロジェクトに
+ *        報告すること．
+ *  (4) 本ソフトウェアの利用により直接的または間接的に生じるいかなる損
+ *      害からも，上記著作権者およびTOPPERSプロジェクトを免責すること．
+ *      また，本ソフトウェアのユーザまたはエンドユーザからのいかなる理
+ *      由に基づく請求からも，上記著作権者およびTOPPERSプロジェクトを
+ *      免責すること．
  * 
- *  �ܥ��եȥ������ϡ�̵�ݾڤ��󶡤���Ƥ����ΤǤ��롥�嵭����Ԥ�
- *  ���TOPPERS�ץ��������Ȥϡ��ܥ��եȥ������˴ؤ��ơ�����λ�����Ū
- *  ���Ф���Ŭ������ޤ�ơ������ʤ��ݾڤ�Ԥ�ʤ����ޤ����ܥ��եȥ���
- *  �������Ѥˤ��ľ��Ū�ޤ��ϴ���Ū�������������ʤ�»���˴ؤ��Ƥ⡤��
- *  ����Ǥ�����ʤ���
+ *  本ソフトウェアは，無保証で提供されているものである．上記著作権者お
+ *  よびTOPPERSプロジェクトは，本ソフトウェアに関して，特定の使用目的
+ *  に対する適合性も含めて，いかなる保証も行わない．また，本ソフトウェ
+ *  アの利用により直接的または間接的に生じたいかなる損害に関しても，そ
+ *  の責任を負わない．
  * 
  */
 #include <cstdlib>
@@ -78,14 +78,14 @@ namespace toppers
     }
 
     /*!
-     *  \brief  ID�ֹ����դ���
-     *  \param[in]  line      ���ֹ�
-     *  \param[in]  arg_list  �ޥ����°����ꥹ��
-     *  \param[in]  p_ctx     �ޥ�������ƥ�����
-     *  \retval     �ޥ����ֵ���
-     *  �������ǻ��ꤷ�����̤Υ��֥������Ȥ��Ф���ID�ֹ����դ����ġ��Υѥ�᡼����ɽ���ѿ���
-     *  TEXT_LINE��ID_LIST��ORDER_LIST�������RORDER_LIST�����ꤹ�롣��������ID�ֹ������ʤ�
-     *  ���֥������Ȥξ�硢ID_LIST�����ꤷ�ʤ���
+     *  \brief  ID番号を割付ける
+     *  \param[in]  line      行番号
+     *  \param[in]  arg_list  マクロ実引数リスト
+     *  \param[in]  p_ctx     マクロコンテキスト
+     *  \retval     マクロ返却値
+     *  第一引数で指定した種別のオブジェクトに対してID番号を割付け、個々のパラメータを表す変数、
+     *  TEXT_LINE、ID_LIST、ORDER_LIST、およびRORDER_LISTを設定する。ただし、ID番号を持たない
+     *  オブジェクトの場合、ID_LISTは設定しない。
      */
     var_t bf_assignid( text_line const& line, std::vector< var_t > const& arg_list, context* p_ctx )
     {
@@ -94,7 +94,7 @@ namespace toppers
         itronx::factory* factory = get_global< itronx::factory* >( "factory" );
         std::map< std::string, itronx::static_api::info > const* info_map = factory->get_static_api_info_map();
 
-        std::string type = get_s( arg_list[ 0 ], p_ctx );    // ������ꥹ�Ȥμ���̾
+        std::string type = get_s( arg_list[ 0 ], p_ctx );    // 出力先リストの識別名
         std::string TYPE = toppers::toupper( type );
         typedef std::map< std::string, long > id_map_t;
         typedef std::map< long, std::string > id_rmap_t;
@@ -104,7 +104,7 @@ namespace toppers
         bool has_id = false;
 
         std::string id_input_file( get_global< std::string >( "id-input-file" ) );
-        if ( !id_input_file.empty() )  // --id-input-file ���ץ���󤬻��ꤵ��Ƥ�����...
+        if ( !id_input_file.empty() )  // --id-input-file オプションが指定されている場合...
         {
           std::ifstream ifs( id_input_file.c_str() );
           while ( ifs )
@@ -170,21 +170,21 @@ namespace toppers
           var_t args = p_ctx->var_map[ "API.ARGS[" + str_i + "]" ];
           long id = -1;
 
-          if ( info.id_pos >= 0 )  // ID�ֹ�Τ�����...
+          if ( info.id_pos >= 0 )  // ID番号のあるもの...
           {
             if ( !info.slave )
             {
-              if ( std::strchr( info.params, '#' ) != 0 ) // ���֥������ȼ���̾����ľ��...
+              if ( std::strchr( info.params, '#' ) != 0 ) // オブジェクト識別名を持つ場合...
               {
-                for ( id = 1; id_rmap.find( id ) != id_rmap.end(); id++ ) // ̤���Ѥ�ID�ֹ�򸡺�
+                for ( id = 1; id_rmap.find( id ) != id_rmap.end(); id++ ) // 未使用のID番号を検索
                   ;
-                args.at( info.id_pos ).i = id; // ID�ֹ������
+                args.at( info.id_pos ).i = id; // ID番号を設定
               }
               else
               {
                 id = static_cast< long >( *args.at( info.id_pos ).i );
               }
-              std::string idname = args[ info.id_pos ].s; // ID�λ���
+              std::string idname = args[ info.id_pos ].s; // IDの字面
               id_map[ idname ] = id;
               id_rmap[ id ] = idname;
               order_list.push_back( args[ info.id_pos ] );
@@ -194,13 +194,13 @@ namespace toppers
               id_map_t::iterator it = id_map.find( args.at( info.id_pos ).s );
               if ( it == id_map.end() )
               {
-                fatal( line, _( "`%1%\' is undefined" ), args[ info.id_pos ].s );
+                fatal( line, _( "E_NOEXS: `%1%\' is undefined" ), args[ info.id_pos ].s );
               }
               args.at( info.id_pos ).i = it->second;
             }
             has_id = true;
           }
-          else  // ID�ֹ��̵�����...
+          else  // ID番号の無いもの...
           {
             element e;
             e.i = order;
@@ -208,7 +208,7 @@ namespace toppers
           }
           std::string str_id = boost::lexical_cast< std::string >( id > 0 ? id : order );
 
-          // �ƥѥ�᡼�����ѿ�������
+          // 各パラメータの変数を設定
           for ( var_t::size_type i = 0, n = params.size(); i < n; i++ )
           {
             std::string var_name = params[ i ].s + "[" + str_id + "]";
@@ -230,18 +230,18 @@ namespace toppers
     }
 
     /*!
-     *  \brief  ���ꤷ��Ϣ�����󷲤���ŪAPI���ɲä���
-     *  \param[in]  line      ���ֹ�
-     *  \param[in]  arg_list  �ޥ����°����ꥹ��
-     *  \param[in]  p_ctx     �ޥ�������ƥ�����
-     *  \retval     �ޥ����ֵ���
-     *  API.�ǻϤޤ�Ϣ�����󷲤�ɬ�פ˱�����Ŭ�ڤ��Ѵ���Ԥä���ǡ��̤Υץ�ե��å����ǻϤޤ�
-     *  Ϣ�����󷲤��ɲä��롣���ꤹ�������ˡ�Ȥ��Ƥϡ�����Υ��եȥ��������ʤ������ǽ����ŪAPI
-     *  �˴ؤ��Ƥϡ��ɲä�Ԥ�ʤ�����¾����ŪAPI���֤��������ɲä�Ԥ�������Ǥ��ʤ���ŪAPI�˴ؤ���
-     *  �Ϥ��Τޤ��ɲä�Ԥ���
-     *  ���δؿ����������ˤ�API.�ǻϤޤ�Ϣ�������Ϣ�֤���������ˤ��ɲ����Ϣ�����󷲤�
-     *  �ץ�ե��å������軰�����ˤ��оݤȤ�����ŪAPI̾����Ͱ����ˤ��ɲä���ѥ�᡼������ܥ��
-     *  �¤Ӥ���ް����ˤϥѥ�᡼�����¤Ӥ���ꤹ�롣     
+     *  \brief  指定した連想配列群に静的APIを追加する
+     *  \param[in]  line      行番号
+     *  \param[in]  arg_list  マクロ実引数リスト
+     *  \param[in]  p_ctx     マクロコンテキスト
+     *  \retval     マクロ返却値
+     *  API.で始まる連想配列群を、必要に応じて適切に変換を行った上で、別のプレフィックスで始まる
+     *  連想配列群に追加する。想定する使用方法としては、特定のソフトウェア部品で理解可能な静的API
+     *  に関しては、追加を行わないか、他の静的APIに置き換えて追加を行う。理解できない静的APIに関して
+     *  はそのまま追加を行う。
+     *  この関数の第一引数にはAPI.で始まる連想配列の連番を、第二引数には追加先に連想配列群の
+     *  プレフィックスを、第三引数には対象とする静的API名を、第四引数には追加するパラメータシンボルの
+     *  並びを、第五引数にはパラメータの並びを指定する。     
      */
     var_t bf_addapi( text_line const& line, std::vector< var_t > const& arg_list, context* p_ctx )
     {
@@ -251,11 +251,11 @@ namespace toppers
         itronx::factory* factory = get_global< itronx::factory* >( "factory" );
         std::map< std::string, itronx::static_api::info > const* info_map = factory->get_static_api_info_map();
 
-        std::tr1::int64_t order = get_i( arg_list[ 0 ], p_ctx );  // ������ŪAPI��Ϣ��
-        std::string list_name = get_s( arg_list[ 1 ], p_ctx );    // ������ꥹ�Ȥμ���̾
-        std::string api_name = get_s( arg_list[ 2 ], p_ctx );     // ��ŪAPI̾
-        var_t params = arg_list[ 3 ]; // �ѥ�᡼������ܥ���¤�
-        var_t args = arg_list[ 4 ];   // �ѥ�᡼�����¤�
+        std::tr1::int64_t order = get_i( arg_list[ 0 ], p_ctx );  // 元の静的APIの連番
+        std::string list_name = get_s( arg_list[ 1 ], p_ctx );    // 出力先リストの識別名
+        std::string api_name = get_s( arg_list[ 2 ], p_ctx );     // 静的API名
+        var_t params = arg_list[ 3 ]; // パラメータシンボルの並び
+        var_t args = arg_list[ 4 ];   // パラメータの並び
 
         std::map< std::string, itronx::static_api::info >::const_iterator it = info_map->find( api_name );
         if ( it != info_map->end() )
@@ -289,21 +289,21 @@ namespace toppers
     }
 
     /*!
-     *  \brief  �ѿ����θ�
-     *  \param[in]  line      ���ֹ�
-     *  \param[in]  arg_list  �ޥ����°����ꥹ��
-     *  \param[in]  p_ctx     �ޥ�������ƥ�����
-     *  \retval     �ޥ����ֵ���
-     *  �������������������ǻ��ꤷ���ץ�ե��å���������ѿ����������ؤ��롣
-     *  ��ADDAPI�Ǵؿ��ǡ��̤Υץ�ե��å��������Ϣ��������Ȥ�Ω�Ƥ����Ȥϡ����δؿ����Ѥ��뤳�Ȥǡ�
-     *  API.��ץ�ե��å����˻���Ϣ������ȸ򴹤��뤳�Ȥ��Ǥ��롣
+     *  \brief  変数群の交換
+     *  \param[in]  line      行番号
+     *  \param[in]  arg_list  マクロ実引数リスト
+     *  \param[in]  p_ctx     マクロコンテキスト
+     *  \retval     マクロ返却値
+     *  第一引数および第二引数で指定したプレフィックスを持つ変数群を入れ替える。
+     *  ‘ADDAPI’関数で、別のプレフィックスを持つ連想配列を組み立てたあとは、この関数を用いることで、
+     *  API.をプレフィックスに持つ連想配列と交換することができる。
      */
     var_t bf_swapprefix( text_line const& line, std::vector< var_t > const& arg_list, context* p_ctx )
     {
       if ( macro_processor::check_arity( line, arg_list.size(), 2, "SWAPPREFIX" ) )
       {
-        std::string list1_name = get_s( arg_list[ 0 ], p_ctx ) + ".";    // ������API�ꥹ�Ȥμ���̾.
-        std::string list2_name = get_s( arg_list[ 1 ], p_ctx ) + ".";    // ¾����API�ꥹ�Ȥμ���̾.
+        std::string list1_name = get_s( arg_list[ 0 ], p_ctx ) + ".";    // 一方のAPIリストの識別名.
+        std::string list2_name = get_s( arg_list[ 1 ], p_ctx ) + ".";    // 他方のAPIリストの識別名.
         std::string::size_type list1_size = list1_name.size();
         std::string::size_type list2_size = list2_name.size();
 
@@ -329,19 +329,19 @@ namespace toppers
     }
 
     /*!
-     *  \brief  �ѿ����θ�
-     *  \param[in]  line      ���ֹ�
-     *  \param[in]  arg_list  �ޥ����°����ꥹ��
-     *  \param[in]  p_ctx     �ޥ�������ƥ�����
-     *  \retval     �ޥ����ֵ���
-     *  �������ǻ��ꤷ���ץ�ե��å����ǻϤޤ��ѿ����������롣��SWAPPREFIX�Ǵؿ��Ǹ򴹤������ȡ�
-     *  ���פˤʤä��ѿ����Ϥ��δؿ��Ǻ�����Ƥ������Ȥ�˾�ޤ�����
+     *  \brief  変数群の交換
+     *  \param[in]  line      行番号
+     *  \param[in]  arg_list  マクロ実引数リスト
+     *  \param[in]  p_ctx     マクロコンテキスト
+     *  \retval     マクロ返却値
+     *  第一引数で指定したプレフィックスで始まる変数群を削除する。’SWAPPREFIX’関数で交換したあと、
+     *  不要になった変数群はこの関数で削除しておくことが望ましい。
      */
     var_t bf_cleanvars( text_line const& line, std::vector< var_t > const& arg_list, context* p_ctx )
     {
       if ( macro_processor::check_arity( line, arg_list.size(), 1, "CLEANVARS" ) )
       {
-        std::string prefix = get_s( arg_list[ 0 ], p_ctx ) + ".";    // �ѿ�����Ƭ��
+        std::string prefix = get_s( arg_list[ 0 ], p_ctx ) + ".";    // 変数の接頭辞
         std::size_t n = prefix.size();
         std::map< std::string, var_t > temp_map;
 

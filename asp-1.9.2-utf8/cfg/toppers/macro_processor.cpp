@@ -2,36 +2,36 @@
  *  TOPPERS Software
  *      Toyohashi Open Platform for Embedded Real-Time Systems
  *
- *  Copyright (C) 2007-2011 by TAKAGI Nobuhisa
+ *  Copyright (C) 2007-2012 by TAKAGI Nobuhisa
  * 
- *  ¾åµ­Ãøºî¸¢¼Ô¤Ï¡¤°Ê²¼¤Î(1)¡Á(4)¤Î¾ò·ï¤òËş¤¿¤¹¾ì¹ç¤Ë¸Â¤ê¡¤ËÜ¥½¥Õ¥È¥¦¥§
- *  ¥¢¡ÊËÜ¥½¥Õ¥È¥¦¥§¥¢¤ò²şÊÑ¤·¤¿¤â¤Î¤ò´Ş¤à¡¥°Ê²¼Æ±¤¸¡Ë¤ò»ÈÍÑ¡¦Ê£À½¡¦²ş
- *  ÊÑ¡¦ºÆÇÛÉÛ¡Ê°Ê²¼¡¤ÍøÍÑ¤È¸Æ¤Ö¡Ë¤¹¤ë¤³¤È¤òÌµ½ş¤ÇµöÂú¤¹¤ë¡¥
- *  (1) ËÜ¥½¥Õ¥È¥¦¥§¥¢¤ò¥½¡¼¥¹¥³¡¼¥É¤Î·Á¤ÇÍøÍÑ¤¹¤ë¾ì¹ç¤Ë¤Ï¡¤¾åµ­¤ÎÃøºî
- *      ¸¢É½¼¨¡¤¤³¤ÎÍøÍÑ¾ò·ï¤ª¤è¤Ó²¼µ­¤ÎÌµÊİ¾Úµ¬Äê¤¬¡¤¤½¤Î¤Ş¤Ş¤Î·Á¤Ç¥½¡¼
- *      ¥¹¥³¡¼¥ÉÃæ¤Ë´Ş¤Ş¤ì¤Æ¤¤¤ë¤³¤È¡¥
- *  (2) ËÜ¥½¥Õ¥È¥¦¥§¥¢¤ò¡¤¥é¥¤¥Ö¥é¥ê·Á¼°¤Ê¤É¡¤Â¾¤Î¥½¥Õ¥È¥¦¥§¥¢³«È¯¤Ë»È
- *      ÍÑ¤Ç¤­¤ë·Á¤ÇºÆÇÛÉÛ¤¹¤ë¾ì¹ç¤Ë¤Ï¡¤ºÆÇÛÉÛ¤ËÈ¼¤¦¥É¥­¥å¥á¥ó¥È¡ÊÍøÍÑ
- *      ¼Ô¥Ş¥Ë¥å¥¢¥ë¤Ê¤É¡Ë¤Ë¡¤¾åµ­¤ÎÃøºî¸¢É½¼¨¡¤¤³¤ÎÍøÍÑ¾ò·ï¤ª¤è¤Ó²¼µ­
- *      ¤ÎÌµÊİ¾Úµ¬Äê¤ò·ÇºÜ¤¹¤ë¤³¤È¡¥
- *  (3) ËÜ¥½¥Õ¥È¥¦¥§¥¢¤ò¡¤µ¡´ï¤ËÁÈ¤ß¹ş¤à¤Ê¤É¡¤Â¾¤Î¥½¥Õ¥È¥¦¥§¥¢³«È¯¤Ë»È
- *      ÍÑ¤Ç¤­¤Ê¤¤·Á¤ÇºÆÇÛÉÛ¤¹¤ë¾ì¹ç¤Ë¤Ï¡¤¼¡¤Î¤¤¤º¤ì¤«¤Î¾ò·ï¤òËş¤¿¤¹¤³
- *      ¤È¡¥
- *    (a) ºÆÇÛÉÛ¤ËÈ¼¤¦¥É¥­¥å¥á¥ó¥È¡ÊÍøÍÑ¼Ô¥Ş¥Ë¥å¥¢¥ë¤Ê¤É¡Ë¤Ë¡¤¾åµ­¤ÎÃø
- *        ºî¸¢É½¼¨¡¤¤³¤ÎÍøÍÑ¾ò·ï¤ª¤è¤Ó²¼µ­¤ÎÌµÊİ¾Úµ¬Äê¤ò·ÇºÜ¤¹¤ë¤³¤È¡¥
- *    (b) ºÆÇÛÉÛ¤Î·ÁÂÖ¤ò¡¤ÊÌ¤ËÄê¤á¤ëÊıË¡¤Ë¤è¤Ã¤Æ¡¤TOPPERS¥×¥í¥¸¥§¥¯¥È¤Ë
- *        Êó¹ğ¤¹¤ë¤³¤È¡¥
- *  (4) ËÜ¥½¥Õ¥È¥¦¥§¥¢¤ÎÍøÍÑ¤Ë¤è¤êÄ¾ÀÜÅª¤Ş¤¿¤Ï´ÖÀÜÅª¤ËÀ¸¤¸¤ë¤¤¤«¤Ê¤ëÂ»
- *      ³²¤«¤é¤â¡¤¾åµ­Ãøºî¸¢¼Ô¤ª¤è¤ÓTOPPERS¥×¥í¥¸¥§¥¯¥È¤òÌÈÀÕ¤¹¤ë¤³¤È¡¥
- *      ¤Ş¤¿¡¤ËÜ¥½¥Õ¥È¥¦¥§¥¢¤Î¥æ¡¼¥¶¤Ş¤¿¤Ï¥¨¥ó¥É¥æ¡¼¥¶¤«¤é¤Î¤¤¤«¤Ê¤ëÍı
- *      Í³¤Ë´ğ¤Å¤¯ÀÁµá¤«¤é¤â¡¤¾åµ­Ãøºî¸¢¼Ô¤ª¤è¤ÓTOPPERS¥×¥í¥¸¥§¥¯¥È¤ò
- *      ÌÈÀÕ¤¹¤ë¤³¤È¡¥
+ *  ä¸Šè¨˜è‘—ä½œæ¨©è€…ã¯ï¼Œä»¥ä¸‹ã®(1)ã€œ(4)ã®æ¡ä»¶ã‚’æº€ãŸã™å ´åˆã«é™ã‚Šï¼Œæœ¬ã‚½ãƒ•ãƒˆã‚¦ã‚§
+ *  ã‚¢ï¼ˆæœ¬ã‚½ãƒ•ãƒˆã‚¦ã‚§ã‚¢ã‚’æ”¹å¤‰ã—ãŸã‚‚ã®ã‚’å«ã‚€ï¼ä»¥ä¸‹åŒã˜ï¼‰ã‚’ä½¿ç”¨ãƒ»è¤‡è£½ãƒ»æ”¹
+ *  å¤‰ãƒ»å†é…å¸ƒï¼ˆä»¥ä¸‹ï¼Œåˆ©ç”¨ã¨å‘¼ã¶ï¼‰ã™ã‚‹ã“ã¨ã‚’ç„¡å„Ÿã§è¨±è«¾ã™ã‚‹ï¼
+ *  (1) æœ¬ã‚½ãƒ•ãƒˆã‚¦ã‚§ã‚¢ã‚’ã‚½ãƒ¼ã‚¹ã‚³ãƒ¼ãƒ‰ã®å½¢ã§åˆ©ç”¨ã™ã‚‹å ´åˆã«ã¯ï¼Œä¸Šè¨˜ã®è‘—ä½œ
+ *      æ¨©è¡¨ç¤ºï¼Œã“ã®åˆ©ç”¨æ¡ä»¶ãŠã‚ˆã³ä¸‹è¨˜ã®ç„¡ä¿è¨¼è¦å®šãŒï¼Œãã®ã¾ã¾ã®å½¢ã§ã‚½ãƒ¼
+ *      ã‚¹ã‚³ãƒ¼ãƒ‰ä¸­ã«å«ã¾ã‚Œã¦ã„ã‚‹ã“ã¨ï¼
+ *  (2) æœ¬ã‚½ãƒ•ãƒˆã‚¦ã‚§ã‚¢ã‚’ï¼Œãƒ©ã‚¤ãƒ–ãƒ©ãƒªå½¢å¼ãªã©ï¼Œä»–ã®ã‚½ãƒ•ãƒˆã‚¦ã‚§ã‚¢é–‹ç™ºã«ä½¿
+ *      ç”¨ã§ãã‚‹å½¢ã§å†é…å¸ƒã™ã‚‹å ´åˆã«ã¯ï¼Œå†é…å¸ƒã«ä¼´ã†ãƒ‰ã‚­ãƒ¥ãƒ¡ãƒ³ãƒˆï¼ˆåˆ©ç”¨
+ *      è€…ãƒãƒ‹ãƒ¥ã‚¢ãƒ«ãªã©ï¼‰ã«ï¼Œä¸Šè¨˜ã®è‘—ä½œæ¨©è¡¨ç¤ºï¼Œã“ã®åˆ©ç”¨æ¡ä»¶ãŠã‚ˆã³ä¸‹è¨˜
+ *      ã®ç„¡ä¿è¨¼è¦å®šã‚’æ²è¼‰ã™ã‚‹ã“ã¨ï¼
+ *  (3) æœ¬ã‚½ãƒ•ãƒˆã‚¦ã‚§ã‚¢ã‚’ï¼Œæ©Ÿå™¨ã«çµ„ã¿è¾¼ã‚€ãªã©ï¼Œä»–ã®ã‚½ãƒ•ãƒˆã‚¦ã‚§ã‚¢é–‹ç™ºã«ä½¿
+ *      ç”¨ã§ããªã„å½¢ã§å†é…å¸ƒã™ã‚‹å ´åˆã«ã¯ï¼Œæ¬¡ã®ã„ãšã‚Œã‹ã®æ¡ä»¶ã‚’æº€ãŸã™ã“
+ *      ã¨ï¼
+ *    (a) å†é…å¸ƒã«ä¼´ã†ãƒ‰ã‚­ãƒ¥ãƒ¡ãƒ³ãƒˆï¼ˆåˆ©ç”¨è€…ãƒãƒ‹ãƒ¥ã‚¢ãƒ«ãªã©ï¼‰ã«ï¼Œä¸Šè¨˜ã®è‘—
+ *        ä½œæ¨©è¡¨ç¤ºï¼Œã“ã®åˆ©ç”¨æ¡ä»¶ãŠã‚ˆã³ä¸‹è¨˜ã®ç„¡ä¿è¨¼è¦å®šã‚’æ²è¼‰ã™ã‚‹ã“ã¨ï¼
+ *    (b) å†é…å¸ƒã®å½¢æ…‹ã‚’ï¼Œåˆ¥ã«å®šã‚ã‚‹æ–¹æ³•ã«ã‚ˆã£ã¦ï¼ŒTOPPERSãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆã«
+ *        å ±å‘Šã™ã‚‹ã“ã¨ï¼
+ *  (4) æœ¬ã‚½ãƒ•ãƒˆã‚¦ã‚§ã‚¢ã®åˆ©ç”¨ã«ã‚ˆã‚Šç›´æ¥çš„ã¾ãŸã¯é–“æ¥çš„ã«ç”Ÿã˜ã‚‹ã„ã‹ãªã‚‹æ
+ *      å®³ã‹ã‚‰ã‚‚ï¼Œä¸Šè¨˜è‘—ä½œæ¨©è€…ãŠã‚ˆã³TOPPERSãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆã‚’å…è²¬ã™ã‚‹ã“ã¨ï¼
+ *      ã¾ãŸï¼Œæœ¬ã‚½ãƒ•ãƒˆã‚¦ã‚§ã‚¢ã®ãƒ¦ãƒ¼ã‚¶ã¾ãŸã¯ã‚¨ãƒ³ãƒ‰ãƒ¦ãƒ¼ã‚¶ã‹ã‚‰ã®ã„ã‹ãªã‚‹ç†
+ *      ç”±ã«åŸºã¥ãè«‹æ±‚ã‹ã‚‰ã‚‚ï¼Œä¸Šè¨˜è‘—ä½œæ¨©è€…ãŠã‚ˆã³TOPPERSãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆã‚’
+ *      å…è²¬ã™ã‚‹ã“ã¨ï¼
  * 
- *  ËÜ¥½¥Õ¥È¥¦¥§¥¢¤Ï¡¤ÌµÊİ¾Ú¤ÇÄó¶¡¤µ¤ì¤Æ¤¤¤ë¤â¤Î¤Ç¤¢¤ë¡¥¾åµ­Ãøºî¸¢¼Ô¤ª
- *  ¤è¤ÓTOPPERS¥×¥í¥¸¥§¥¯¥È¤Ï¡¤ËÜ¥½¥Õ¥È¥¦¥§¥¢¤Ë´Ø¤·¤Æ¡¤ÆÃÄê¤Î»ÈÍÑÌÜÅª
- *  ¤ËÂĞ¤¹¤ëÅ¬¹çÀ­¤â´Ş¤á¤Æ¡¤¤¤¤«¤Ê¤ëÊİ¾Ú¤â¹Ô¤ï¤Ê¤¤¡¥¤Ş¤¿¡¤ËÜ¥½¥Õ¥È¥¦¥§
- *  ¥¢¤ÎÍøÍÑ¤Ë¤è¤êÄ¾ÀÜÅª¤Ş¤¿¤Ï´ÖÀÜÅª¤ËÀ¸¤¸¤¿¤¤¤«¤Ê¤ëÂ»³²¤Ë´Ø¤·¤Æ¤â¡¤¤½
- *  ¤ÎÀÕÇ¤¤òÉé¤ï¤Ê¤¤¡¥
+ *  æœ¬ã‚½ãƒ•ãƒˆã‚¦ã‚§ã‚¢ã¯ï¼Œç„¡ä¿è¨¼ã§æä¾›ã•ã‚Œã¦ã„ã‚‹ã‚‚ã®ã§ã‚ã‚‹ï¼ä¸Šè¨˜è‘—ä½œæ¨©è€…ãŠ
+ *  ã‚ˆã³TOPPERSãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆã¯ï¼Œæœ¬ã‚½ãƒ•ãƒˆã‚¦ã‚§ã‚¢ã«é–¢ã—ã¦ï¼Œç‰¹å®šã®ä½¿ç”¨ç›®çš„
+ *  ã«å¯¾ã™ã‚‹é©åˆæ€§ã‚‚å«ã‚ã¦ï¼Œã„ã‹ãªã‚‹ä¿è¨¼ã‚‚è¡Œã‚ãªã„ï¼ã¾ãŸï¼Œæœ¬ã‚½ãƒ•ãƒˆã‚¦ã‚§
+ *  ã‚¢ã®åˆ©ç”¨ã«ã‚ˆã‚Šç›´æ¥çš„ã¾ãŸã¯é–“æ¥çš„ã«ç”Ÿã˜ãŸã„ã‹ãªã‚‹æå®³ã«é–¢ã—ã¦ã‚‚ï¼Œã
+ *  ã®è²¬ä»»ã‚’è² ã‚ãªã„ï¼
  * 
  */
 #include <cstdlib>
@@ -55,7 +55,7 @@
 #include <boost/spirit/include/classic_parse_tree.hpp>
 #include <boost/lexical_cast.hpp>
 
-// ÈóÉ¸½à¥Ş¥¯¥í¤ÎÄêµÁ¤ò½üµî
+// éæ¨™æº–ãƒã‚¯ãƒ­ã®å®šç¾©ã‚’é™¤å»
 #ifdef  max
 #undef  max
 #endif
@@ -75,7 +75,7 @@ namespace toppers
 
      /*!
       *  \struct parser macro_processor.cpp "toppers/macro_processor.cpp"
-      *  \brief  ¥Ş¥¯¥íÆâ¤Ëµ­½Ò¤µ¤ì¤ë¼°¤Î¥Ñ¡¼¥µ
+      *  \brief  ãƒã‚¯ãƒ­å†…ã«è¨˜è¿°ã•ã‚Œã‚‹å¼ã®ãƒ‘ãƒ¼ã‚µ
       */
     struct parser : boost::spirit::classic::grammar< parser >
     {
@@ -104,7 +104,7 @@ namespace toppers
 
       /*!
        *  \struct error_handler static_api_parser.hpp "toppers/itronx/static_api_parser.hpp"
-       *  \brief  ÀÅÅªAPI¤Î¹½Ê¸²òÀÏ¤Ë¤ª¤±¤ë¥¨¥é¡¼½èÍı¥Õ¥¡¥ó¥¯¥¿
+       *  \brief  é™çš„APIã®æ§‹æ–‡è§£æã«ãŠã‘ã‚‹ã‚¨ãƒ©ãƒ¼å‡¦ç†ãƒ•ã‚¡ãƒ³ã‚¯ã‚¿
        */
       struct error_handler
       {
@@ -133,7 +133,7 @@ namespace toppers
           }
           else
           {
-            // ¥Æ¥ó¥×¥ì¡¼¥È¥Õ¥¡¥¤¥ë¤ÎºÇ½ª¹Ô¤òµá¤á¤ë
+            // ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆãƒ•ã‚¡ã‚¤ãƒ«ã®æœ€çµ‚è¡Œã‚’æ±‚ã‚ã‚‹
             typename Error::iterator_t prev( scan.first );
             for ( iter = scan.first; iter != scan.last; ++iter )
             {
@@ -291,14 +291,14 @@ namespace toppers
               [
                 lexeme_d
                 [
-                  if_p( '0' ) // 16¿Ê¤Ş¤¿¤Ï8¿Ê
+                  if_p( '0' ) // 16é€²ã¾ãŸã¯8é€²
                   [
                     !(
                         ( ( ch_p( 'x' ) | 'X' ) >> ( hex_p | +xdigit_p ) )
                       | ( oct_p | +chset<>( "0-7" ) )
                      )
                   ]
-                  .else_p // 10¿Ê
+                  .else_p // 10é€²
                   [
                     ( int_p | +digit_p )
                   ]
@@ -379,10 +379,18 @@ namespace toppers
             ];
           warning_ =
               "$WARNING$" >> top >> "$END$" >> !eol_p
-            | "$WARNING" >> expression >> '$' >> top >> "$END$";
+			  // Ticket #75å¯¾ç­–
+			  // ã¡ã‚‡ã£ã¨ä¸ç´°å·¥ã ãŒã€ä»–ã®æ–¹æ³•ã§ã¯ã†ã¾ãã„ã‹ãªã‹ã£ãŸ
+            | "$WARNING " >> expression >> '$' >> top >> "$END$"
+            | "$WARNING\t" >> expression >> '$' >> top >> "$END$"
+            | "$WARNING\n" >> expression >> '$' >> top >> "$END$";
           error_ =
               "$ERROR$" >> top >> "$END$" >> !eol_p
-            | "$ERROR" >> expression >> '$' >> top >> "$END$";
+			  // Ticket #75å¯¾ç­–
+			  // ã¡ã‚‡ã£ã¨ä¸ç´°å·¥ã ãŒã€ä»–ã®æ–¹æ³•ã§ã¯ã†ã¾ãã„ã‹ãªã‹ã£ãŸ
+            | "$ERROR " >> expression >> '$' >> top >> "$END$"
+            | "$ERROR\t" >> expression >> '$' >> top >> "$END$"
+            | "$ERROR\n" >> expression >> '$' >> top >> "$END$";
           file_ =
               "$FILE" >> string_literal >> '$';
           expr_ =
@@ -447,7 +455,7 @@ namespace toppers
     typedef macro_processor::var_t var_t;
     typedef macro_processor::context context;
 
-    //! ÊÑ¿ô¤¬Êİ»ı¤¹¤ë¿ôÃÍ¤Î»²¾È
+    //! å¤‰æ•°ãŒä¿æŒã™ã‚‹æ•°å€¤ã®å‚ç…§
     std::tr1::int64_t get_i( var_t const& var, context const* p_ctx )
     {
       if ( var.empty() )
@@ -463,7 +471,7 @@ namespace toppers
       }
       return e.i.get();
     }
-    //! ÊÑ¿ô¤¬Êİ»ı¤¹¤ëÊ¸»úÎó¤Î»²¾È
+    //! å¤‰æ•°ãŒä¿æŒã™ã‚‹æ–‡å­—åˆ—ã®å‚ç…§
     std::string get_s( var_t const& var, context const* p_ctx )
     {
       if ( var.empty() )
@@ -496,7 +504,7 @@ namespace toppers
     typedef boost::spirit::classic::tree_node< boost::spirit::classic::node_iter_data< text::const_iterator > > tree_node_t;
     bool eval_node( tree_node_t const& node, context* p_ctx );
 
-    //! ÂåÆş¼°
+    //! ä»£å…¥å¼
     bool assignment_expr( tree_node_t const& node, context* p_ctx )
     {
       //   0 1   2
@@ -515,7 +523,7 @@ namespace toppers
       return true;
     }
 
-    //! ÏÀÍıÏÂ¼°
+    //! è«–ç†å’Œå¼
     bool logical_or_expr( tree_node_t const& node, context* p_ctx )
     {
       //   0  1   2
@@ -525,7 +533,7 @@ namespace toppers
       if ( eval_node( node.children[ 0 ], p_ctx ) )
       {
         std::size_t const n = node.children.size();
-        if ( n == 1 )  // º¸ÊÕ¤Î¤ß
+        if ( n == 1 )  // å·¦è¾ºã®ã¿
         {
           return true;
         }
@@ -567,7 +575,7 @@ namespace toppers
       return result;
     }
 
-    //! ÏÀÍıÀÑ¼°
+    //! è«–ç†ç©å¼
     bool logical_and_expr( tree_node_t const& node, context* p_ctx )
     {
       //   0  1   2
@@ -577,7 +585,7 @@ namespace toppers
       if ( eval_node( node.children[ 0 ], p_ctx ) )
       {
         std::size_t const n = node.children.size();
-        if ( n == 1 )  // º¸ÊÕ¤Î¤ß
+        if ( n == 1 )  // å·¦è¾ºã®ã¿
         {
           return true;
         }
@@ -619,7 +627,7 @@ namespace toppers
       return result;
     }
 
-    //! ¥Ó¥Ã¥ÈÏÂ¼°
+    //! ãƒ“ãƒƒãƒˆå’Œå¼
     bool or_expr( tree_node_t const& node, context* p_ctx )
     {
       //   0 1   2
@@ -627,7 +635,7 @@ namespace toppers
       if ( eval_node( node.children[ 0 ], p_ctx ) )
       {
         std::size_t const n = node.children.size();
-        if ( n == 1 )  // º¸ÊÕ¤Î¤ß
+        if ( n == 1 )  // å·¦è¾ºã®ã¿
         {
           return true;
         }
@@ -644,7 +652,7 @@ namespace toppers
       return true;
     }
 
-    //! ÇÓÂ¾ÅªÏÀÍıÏÂ¼°
+    //! æ’ä»–çš„è«–ç†å’Œå¼
     bool xor_expr( tree_node_t const& node, context* p_ctx )
     {
       //   0 1   2
@@ -652,7 +660,7 @@ namespace toppers
       if ( eval_node( node.children[ 0 ], p_ctx ) )
       {
         std::size_t const n = node.children.size();
-        if ( n == 1 )  // º¸ÊÕ¤Î¤ß
+        if ( n == 1 )  // å·¦è¾ºã®ã¿
         {
           return true;
         }
@@ -669,7 +677,7 @@ namespace toppers
       return true;
     }
 
-    //! ¥Ó¥Ã¥ÈÀÑ¼°
+    //! ãƒ“ãƒƒãƒˆç©å¼
     bool and_expr( tree_node_t const& node, context* p_ctx )
     {
       //   0 1   2
@@ -677,7 +685,7 @@ namespace toppers
       if ( eval_node( node.children[ 0 ], p_ctx ) )
       {
         std::size_t const n = node.children.size();
-        if ( n == 1 )  // º¸ÊÕ¤Î¤ß
+        if ( n == 1 )  // å·¦è¾ºã®ã¿
         {
           return true;
         }
@@ -694,7 +702,7 @@ namespace toppers
       return true;
     }
 
-    //! Åù²Á¼°¡Ê==¡¢!=¡Ë
+    //! ç­‰ä¾¡å¼ï¼ˆ==ã€!=ï¼‰
     bool equality_expr( tree_node_t const& node, context* p_ctx )
     {
       //   0  1   2
@@ -702,7 +710,7 @@ namespace toppers
       if ( eval_node( node.children[ 0 ], p_ctx ) )
       {
         std::size_t const n = node.children.size();
-        if ( n == 1 )  // º¸ÊÕ¤Î¤ß
+        if ( n == 1 )  // å·¦è¾ºã®ã¿
         {
           return true;
         }
@@ -729,7 +737,7 @@ namespace toppers
       return true;
     }
 
-    //! ´Ø·¸¼°¡ÊÉÔÅù¹æ¡Ë
+    //! é–¢ä¿‚å¼ï¼ˆä¸ç­‰å·ï¼‰
     bool relational_expr( tree_node_t const& node, context* p_ctx )
     {
       //   0  1   2
@@ -737,7 +745,7 @@ namespace toppers
       if ( eval_node( node.children[0], p_ctx ) )
       {
         std::size_t const n = node.children.size();
-        if ( n == 1 )  // º¸ÊÕ¤Î¤ß
+        if ( n == 1 )  // å·¦è¾ºã®ã¿
         {
           return true;
         }
@@ -772,7 +780,7 @@ namespace toppers
       return true;
     }
 
-    //! ¥·¥Õ¥È¼°
+    //! ã‚·ãƒ•ãƒˆå¼
     bool shift_expr( tree_node_t const& node, context* p_ctx )
     {
       //   0  1   2
@@ -780,7 +788,7 @@ namespace toppers
       if ( eval_node( node.children[ 0 ], p_ctx ) )
       {
         std::size_t const n = node.children.size();
-        if ( n == 1 )  // º¸ÊÕ¤Î¤ß
+        if ( n == 1 )  // å·¦è¾ºã®ã¿
         {
           return true;
         }
@@ -791,7 +799,7 @@ namespace toppers
           std::string op( node.children[ i ].value.begin(), node.children[ i ].value.end() );
           std::tr1::int64_t value = get_i( lhs, p_ctx );
           std::tr1::int64_t shift = get_i( rhs, p_ctx );
-          if ( shift < 0 )  // Éé¤ÎÃÍ¤Ç¥·¥Õ¥È¤·¤è¤¦¤È¤·¤¿
+          if ( shift < 0 )  // è² ã®å€¤ã§ã‚·ãƒ•ãƒˆã—ã‚ˆã†ã¨ã—ãŸ
           {
             error( node.children[ 0 ].value.begin().line(), _( "shift with nagative value `%1%\'" ), shift );
           }
@@ -802,18 +810,18 @@ namespace toppers
           if ( op == "<<" )
           {
             if ( value < 0 )
-            { // Éé¤ÎÃÍ¤Î¥·¥Õ¥È¤Ï¤Ç¤­¤Ê¤¤
+            { // è² ã®å€¤ã®ã‚·ãƒ•ãƒˆã¯ã§ããªã„
               error( node.children[0].value.begin().line(), _( "negative value `%1%\' is shift" ), value );
             }
             else if ( shift != 0 && static_cast< std::tr1::int64_t >( static_cast< std::tr1::uint64_t >( 1 ) << ( 63 - shift ) ) <= value )
-            { // ¥·¥Õ¥È¤Î·ë²Ì¤¬Éé¤Ë¤Ê¤ë
+            { // ã‚·ãƒ•ãƒˆã®çµæœãŒè² ã«ãªã‚‹
               error( node.children[0].value.begin().line(), _( "shift with too large value `%1%\'" ), shift );
             }
             value = value << shift;
           }
           else
           {
-            if ( value < 0 )  // ¶¯À©Åª¤Ë»»½Ñ¥·¥Õ¥È¤µ¤»¤ë
+            if ( value < 0 )  // å¼·åˆ¶çš„ã«ç®—è¡“ã‚·ãƒ•ãƒˆã•ã›ã‚‹
             {
               value = static_cast< std::tr1::int64_t >( ( static_cast< std::tr1::uint64_t >( value ) >> shift ) | ( ~static_cast< std::tr1::uint64_t >( 0 ) << shift ) );
             }
@@ -831,7 +839,7 @@ namespace toppers
       return true;
     }
 
-    //! ²Ã¸º¼°
+    //! åŠ æ¸›å¼
     bool additive_expr( tree_node_t const& node, context* p_ctx )
     {
       //   0  1   2
@@ -839,7 +847,7 @@ namespace toppers
       if ( eval_node( node.children[ 0 ], p_ctx ) )
       {
         std::size_t const n = node.children.size();
-        if ( n == 1 )  // º¸ÊÕ¤Î¤ß
+        if ( n == 1 )  // å·¦è¾ºã®ã¿
         {
           return true;
         }
@@ -857,7 +865,7 @@ namespace toppers
               || ( y < 0 && ( std::numeric_limits< std::tr1::int64_t >::min() - y ) > x ) )
             {
               error( node.children[ 0 ].value.begin().line(), _( "overflow at `%1%\'" ), get_s( lhs, p_ctx ) + "+" + get_s( rhs, p_ctx ) );
-              // e.i ¤ËÃÍ¤Ï¥»¥Ã¥È¤µ¤ì¤Ê¤¤
+              // e.i ã«å€¤ã¯ã‚»ãƒƒãƒˆã•ã‚Œãªã„
             }
             else
             {
@@ -870,7 +878,7 @@ namespace toppers
               || ( y > 0 && ( std::numeric_limits< std::tr1::int64_t >::min() + y ) > x ) )
             {
               error( node.children[ 0 ].value.begin().line(), _( "overflow at `%1%\'" ), get_s( lhs, p_ctx ) + "-" + get_s( rhs, p_ctx ) );
-              // e.i ¤ËÃÍ¤Ï¥»¥Ã¥È¤µ¤ì¤Ê¤¤
+              // e.i ã«å€¤ã¯ã‚»ãƒƒãƒˆã•ã‚Œãªã„
             }
             else
             {
@@ -884,7 +892,7 @@ namespace toppers
       return true;
     }
 
-    //! ¾è½ü¼°
+    //! ä¹—é™¤å¼
     bool multiplicative_expr( tree_node_t const& node, context* p_ctx )
     {
       //   0  1   2
@@ -892,7 +900,7 @@ namespace toppers
       if ( eval_node( node.children[ 0 ], p_ctx ) )
       {
         std::size_t const n = node.children.size();
-        if ( n == 1 )  // º¸ÊÕ¤Î¤ß
+        if ( n == 1 )  // å·¦è¾ºã®ã¿
         {
           return true;
         }
@@ -914,7 +922,7 @@ namespace toppers
                  || ( ( x < 0 ) != ( y < 0 ) ) && ( std::numeric_limits< std::tr1::int64_t >::min() / y > x ) )
             {
               error( node.children[0].value.begin().line(), _( "overflow at `%1%\'" ), get_s( lhs, p_ctx ) + "*" + get_s( rhs, p_ctx ) );
-              // e.i ¤ËÃÍ¤Ï¥»¥Ã¥È¤µ¤ì¤Ê¤¤
+              // e.i ã«å€¤ã¯ã‚»ãƒƒãƒˆã•ã‚Œãªã„
             }
             else
             {
@@ -926,13 +934,13 @@ namespace toppers
             if ( y == 0 )
             {
               error( node.value.begin().line(), _( "devide by zero" ) );
-              // e.i ¤Ë¤ÏÃÍ¤¬¥»¥Ã¥È¤µ¤ì¤Ê¤¤
+              // e.i ã«ã¯å€¤ãŒã‚»ãƒƒãƒˆã•ã‚Œãªã„
             }
             else
             {
               std::tr1::int64_t value;
-              // ËÜÅö¤Ï¤³¤³¤Ç°ìÊı¤Î¥ª¥Ú¥é¥ó¥É¤¬Éé¤Î¾ì¹ç¤Î½èÍı¤ò¹Ô¤¦É¬Í×¤¬¤¢¤ë¡£
-              // ¤½¤ó¤ÊÊÑ¤Ê½èÍı·Ï¤Ï¼Â¼ÁÅª¤Ë¤Ê¤¤¤Î¤ÇÊüÃÖ
+              // æœ¬å½“ã¯ã“ã“ã§ä¸€æ–¹ã®ã‚ªãƒšãƒ©ãƒ³ãƒ‰ãŒè² ã®å ´åˆã®å‡¦ç†ã‚’è¡Œã†å¿…è¦ãŒã‚ã‚‹ã€‚
+              // ãã‚“ãªå¤‰ãªå‡¦ç†ç³»ã¯å®Ÿè³ªçš„ã«ãªã„ã®ã§æ”¾ç½®
               if ( op == "/" )
               {
                 value = ( x / y );
@@ -951,7 +959,7 @@ namespace toppers
       return true;
     }
 
-    //! Ã±¹à¼°¡Ê¸åÃÖ¼°¡¢Ã±¹à±é»»»Ò °ì¼¡¼°¡Ë
+    //! å˜é …å¼ï¼ˆå¾Œç½®å¼ã€å˜é …æ¼”ç®—å­ ä¸€æ¬¡å¼ï¼‰
     bool unary_expr( tree_node_t const& node, context* p_ctx )
     {
       //  0 1..n-2          n-1
@@ -959,7 +967,7 @@ namespace toppers
       if ( eval_node( node.children[ node.children.size() - 1 ], p_ctx ) )
       {
         std::size_t const n = node.children.size();
-        if ( n == 1 )  // °ì¼¡¼°¤Î¤ß
+        if ( n == 1 )  // ä¸€æ¬¡å¼ã®ã¿
         {
           return true;
         }
@@ -989,7 +997,7 @@ namespace toppers
               if ( value == std::numeric_limits< std::tr1::int64_t >::min() )
               {
                 error( node.children[0].value.begin().line(), _( "overflow at `%1%\'" ), "-" + get_s( expr, p_ctx ) );
-                // e.i ¤ËÃÍ¤Ï¥»¥Ã¥È¤µ¤ì¤Ê¤¤
+                // e.i ã«å€¤ã¯ã‚»ãƒƒãƒˆã•ã‚Œãªã„
               }
               else
               {
@@ -1006,7 +1014,7 @@ namespace toppers
             }
             value = *e.i;
           }
-          else  // op == "@" ¡ÊÃÍÂ°À­ ¢ª Ê¸»úÎóÂ°À­¡Ë
+          else  // op == "@" ï¼ˆå€¤å±æ€§ â†’ æ–‡å­—åˆ—å±æ€§ï¼‰
           {
             if ( expr.front().i )
             {
@@ -1017,7 +1025,7 @@ namespace toppers
               e.s = expr.front().v;
             }
           }
-          expr[ 0 ] = e;  // ±é»»·ë²Ì¤òÎßÀÑ¤¹¤ë
+          expr[ 0 ] = e;  // æ¼”ç®—çµæœã‚’ç´¯ç©ã™ã‚‹
           if ( i == t )
           {
             break;
@@ -1028,7 +1036,7 @@ namespace toppers
       return true;
     }
 
-    //! ¸åÃÖ¼°¡Ê´Ø¿ô¸Æ¤Ó½Ğ¤·¡¢°ì¼¡¼°¡Ë
+    //! å¾Œç½®å¼ï¼ˆé–¢æ•°å‘¼ã³å‡ºã—ã€ä¸€æ¬¡å¼ï¼‰
     bool postfix_expr( tree_node_t const& node, context* p_ctx )
     {
       //            0 1    2 3 4..2+2*n-1 2+2*n 2+2*n+1 
@@ -1036,17 +1044,17 @@ namespace toppers
       // primary_expr
       if ( eval_node( node.children[0], p_ctx ) )
       {
-        if ( node.children.size() > 1 )   // ´Ø¿ô¤Î¸Æ¤Ó½Ğ¤·
+        if ( node.children.size() > 1 )   // é–¢æ•°ã®å‘¼ã³å‡ºã—
         {
           var_t ident( p_ctx->stack.top() ); p_ctx->stack.pop();
           std::string func_name( get_s( ident, p_ctx ) );
           std::map< std::string, macro_processor::func_t >::const_iterator iter( p_ctx->func_map.find( func_name ) );
-          if ( iter == p_ctx->func_map.end() )  // ¤½¤ó¤Ê´Ø¿ô¤Ï¤Ê¤¤
+          if ( iter == p_ctx->func_map.end() )  // ãã‚“ãªé–¢æ•°ã¯ãªã„
           {
             error( node.children[ 0 ].value.begin().line(), _( "function `%1%\' is undefined" ), func_name );
             p_ctx->stack.push( var_t() );
           }
-          else  // ´Ø¿ô¤ò¸Æ¤Ó½Ğ¤¹
+          else  // é–¢æ•°ã‚’å‘¼ã³å‡ºã™
           {
             std::vector< var_t > arg_list;
             for ( std::size_t i = 0, n = node.children.size() - 1; 2 + 2*i < n; i++ )
@@ -1058,11 +1066,11 @@ namespace toppers
               }
             }
             var_t result;
-            if ( iter->second.f != 0 )  // ÁÈ¤ß¹ş¤ß´Ø¿ô
+            if ( iter->second.f != 0 )  // çµ„ã¿è¾¼ã¿é–¢æ•°
             {
               result = ( *iter->second.f )( node.children[0].value.begin().line(), arg_list, p_ctx );
             }
-            else if ( iter->second.node != 0 )  // ¥æ¡¼¥¶¡¼ÄêµÁ´Ø¿ô
+            else if ( iter->second.node != 0 )  // ãƒ¦ãƒ¼ã‚¶ãƒ¼å®šç¾©é–¢æ•°
             {
               // ARGC
               {
@@ -1088,16 +1096,19 @@ namespace toppers
                 p_ctx->var_map[ argv_n ] = var_t();
               }
 
+              std::string prev_location( get_error_location() );
+              set_error_location( func_name.c_str() );
               tree_node_t const* func_body_node = reinterpret_cast< tree_node_t const* >( iter->second.node );
               if ( !eval_node( *func_body_node, p_ctx ) )
               {
-                // ¸Æ¤Ó½Ğ¤·¼ºÇÔ
+                // å‘¼ã³å‡ºã—å¤±æ•—
                 p_ctx->stack.push( result );
                 return false;
               }
+              set_error_location( prev_location.c_str() );
 
               result = p_ctx->var_map[ "RESULT" ];
-              p_ctx->var_map[ "RESULT" ] = var_t(); // ÊÑ¿ô$RESULT$¤ò¥¯¥ê¥¢
+              p_ctx->var_map[ "RESULT" ] = var_t(); // å¤‰æ•°$RESULT$ã‚’ã‚¯ãƒªã‚¢
             }
             p_ctx->stack.push( result );
           }
@@ -1106,7 +1117,7 @@ namespace toppers
       return true;
     }
 
-    //! °ì¼¡¼°¡Êº¸ÊÕÃÍ¼°¡¢(¼°)¡Ë
+    //! ä¸€æ¬¡å¼ï¼ˆå·¦è¾ºå€¤å¼ã€(å¼)ï¼‰
     bool primary_expr( tree_node_t const& node, context* p_ctx )
     {
       bool result = true;
@@ -1131,7 +1142,7 @@ namespace toppers
       return result;
     }
 
-    //! º¸ÊÕÃÍ¼°¡ÊÊÑ¿ô¡¢ÇÛÎóÊÑ¿ô¡Ë
+    //! å·¦è¾ºå€¤å¼ï¼ˆå¤‰æ•°ã€é…åˆ—å¤‰æ•°ï¼‰
     bool lvalue_expr( tree_node_t const& node, context* p_ctx )
     {
       //          0 1          2 3
@@ -1163,7 +1174,7 @@ namespace toppers
       return true;
     }
 
-    //! ¼±ÊÌ»Ò
+    //! è­˜åˆ¥å­
     bool identifier( tree_node_t const& node, context* p_ctx )
     {
       element e;
@@ -1174,13 +1185,13 @@ namespace toppers
       return true;
     }
 
-    //! À°¿ôÄê¿ô
+    //! æ•´æ•°å®šæ•°
     bool constant( tree_node_t const& node, context* p_ctx )
     {
       element e;
       e.s.assign( node.children[0].value.begin(), node.children[0].value.end() );
 
-      // Boost 1.39.0?°Ê¾å¤Ç¡¢0¤ÎÁ°¤Î¶õÇò¤ò´Ş¤á¤Æ¥È¡¼¥¯¥ó¤È¤·¤Æ¤·¤Ş¤¦ÉÔ¶ñ¹ç¤ÎÂĞºö
+      // Boost 1.39.0?ä»¥ä¸Šã§ã€0ã®å‰ã®ç©ºç™½ã‚’å«ã‚ã¦ãƒˆãƒ¼ã‚¯ãƒ³ã¨ã—ã¦ã—ã¾ã†ä¸å…·åˆã®å¯¾ç­–
       std::string::size_type pos = e.s.find_first_not_of( " \t\n" );
       if (pos != std::string::npos )
       {
@@ -1200,19 +1211,19 @@ namespace toppers
       return true;
     }
 
-    //! Ê¸»úÎó
+    //! æ–‡å­—åˆ—
     bool string_literal( tree_node_t const& node, context* p_ctx )
     {
       // 0 1..n-2 n-1
       // " ......   "
       element e;
-      // ¤³¤³¤Ç¹½Ê¸¥¨¥é¡¼Îã³°¤Ë¤Ê¤ë¤³¤È¤Ï¤¢¤êÆÀ¤Ê¤¤¡£¡Ê¹½Ê¸²òÀÏ¸å¤Ê¤Î¤Ç¡Ë
+      // ã“ã“ã§æ§‹æ–‡ã‚¨ãƒ©ãƒ¼ä¾‹å¤–ã«ãªã‚‹ã“ã¨ã¯ã‚ã‚Šå¾—ãªã„ã€‚ï¼ˆæ§‹æ–‡è§£æå¾Œãªã®ã§ï¼‰
       e.s = expand_quote( std::string( node.children[0].value.begin(), node.children[0].value.end() ) );
       p_ctx->stack.push( var_t( 1, e ) );
       return true;
     }
 
-    //! ½ç½øÉÕ¤­¥ê¥¹¥È
+    //! é †åºä»˜ããƒªã‚¹ãƒˆ
     bool ordered_list( tree_node_t const& node, context* p_ctx )
     {
       // 0                1 2     n-1
@@ -1235,7 +1246,7 @@ namespace toppers
       return true;
     }
 
-    //! ½ç½øÉÕ¤­¥ê¥¹¥È¡ÊÅùº¹¿ôÎó¡Ë
+    //! é †åºä»˜ããƒªã‚¹ãƒˆï¼ˆç­‰å·®æ•°åˆ—ï¼‰
     bool ordered_sequence( tree_node_t const& node, context* p_ctx )
     {
       //   0 1   2 3   4 5   6
@@ -1275,7 +1286,7 @@ namespace toppers
       return true;
     }
 
-    //! ½ç½øÉÕ¤­¥ê¥¹¥È¡ÊÎóµ­¡Ë
+    //! é †åºä»˜ããƒªã‚¹ãƒˆï¼ˆåˆ—è¨˜ï¼‰
     bool ordered_item( tree_node_t const& node, context* p_ctx )
     {
       //   0 1   2
@@ -1293,7 +1304,7 @@ namespace toppers
       return true;
     }
 
-    //! ¥È¥Ã¥×¥ì¥Ù¥ë
+    //! ãƒˆãƒƒãƒ—ãƒ¬ãƒ™ãƒ«
     bool top( tree_node_t const& node, context* p_ctx )
     {
       bool result = true;
@@ -1319,7 +1330,7 @@ namespace toppers
       return result;
     }
 
-    //! $FUNCTIONÌ¿Îá
+    //! $FUNCTIONå‘½ä»¤
     bool function_( tree_node_t const& node, context* p_ctx )
     {
       bool result = true;
@@ -1343,7 +1354,7 @@ namespace toppers
         macro_processor::func_t func;
         func.name = get_s( ident, p_ctx );
         func.node = &node.children[ 3 ];
-        func.f = 0; // ÁÈ¤ß¹ş¤ß´Ø¿ô¤Ç¤Ï¤Ê¤¤¤Î¤Ç
+        func.f = 0; // çµ„ã¿è¾¼ã¿é–¢æ•°ã§ã¯ãªã„ã®ã§
         p_ctx->func_map[ func.name ] = func;
       }
       else
@@ -1354,7 +1365,7 @@ namespace toppers
       return result;
     }
 
-    //! $IFÌ¿Îá
+    //! $IFå‘½ä»¤
     bool if_( tree_node_t const& node, context* p_ctx )
     {
       bool result = true;
@@ -1430,7 +1441,7 @@ namespace toppers
       return result;
     }
 
-    //! FOREACHÌ¿Îá
+    //! FOREACHå‘½ä»¤
     bool foreach_( tree_node_t const& node, context* p_ctx )
     {
       bool result = true;
@@ -1461,7 +1472,7 @@ namespace toppers
       return result;
     }
 
-    //! $JOINEACHÌ¿Îá
+    //! $JOINEACHå‘½ä»¤
     bool joineach_( tree_node_t const& node, context* p_ctx )
     {
       bool result = true;
@@ -1479,7 +1490,7 @@ namespace toppers
         if ( eval_node( node.children[ 2 ], p_ctx ) )     // order_list
         {
           var_t order_list( p_ctx->stack.top() ); p_ctx->stack.pop();
-          if ( !order_list.empty() && order_list[0].i )
+          if ( !order_list.empty() )
           {
             if ( eval_node( node.children[ 3 ], p_ctx ) ) // delimitor
             {
@@ -1500,7 +1511,7 @@ namespace toppers
       return result;
     }
 
-    //! WHILEÌ¿Îá
+    //! WHILEå‘½ä»¤
     bool while_( tree_node_t const& node, context* p_ctx )
     {
       bool result = true;
@@ -1537,7 +1548,7 @@ namespace toppers
       return result;
     }
 
-    //! $JOINWHILEÌ¿Îá
+    //! $JOINWHILEå‘½ä»¤
     bool joinwhile_( tree_node_t const& node, context* p_ctx )
     {
       bool result = true;
@@ -1579,7 +1590,7 @@ namespace toppers
       return result;
     }
 
-    //! $ERRORÌ¿Îá
+    //! $ERRORå‘½ä»¤
     bool error_( tree_node_t const& node, context* p_ctx )
     { 
       //         0    1     2   3     4
@@ -1594,7 +1605,7 @@ namespace toppers
       }
 
       output_file of = p_ctx->target_file;
-      p_ctx->target_file = output_file( "stderr", std::ios_base::out ); // ½ĞÎÏÀè¤ò°ì»şÅª¤ËÉ¸½à¥¨¥é¡¼½ĞÎÏ¤ËÀÚ¤êÂØ¤¨¤ë¡£
+      p_ctx->target_file = output_file( "stderr", std::ios_base::out ); // å‡ºåŠ›å…ˆã‚’ä¸€æ™‚çš„ã«æ¨™æº–ã‚¨ãƒ©ãƒ¼å‡ºåŠ›ã«åˆ‡ã‚Šæ›¿ãˆã‚‹ã€‚
 
       bool is_error = ( static_cast< parser::rule_id_t >( node.value.id().to_long() ) == parser::id_error_ );
 
@@ -1626,18 +1637,18 @@ namespace toppers
 
       if ( is_error )
       {
-        increment_error_count();  // error´Ø¿ô¤ò»È¤ï¤Ê¤¤¤Î¤Ç¡¢ÌÀ¼¨Åª¤Ë¥¨¥é¡¼¥«¥¦¥ó¥È¤òÁàºî¤¹¤ë¡£
+        increment_error_count();  // erroré–¢æ•°ã‚’ä½¿ã‚ãªã„ã®ã§ã€æ˜ç¤ºçš„ã«ã‚¨ãƒ©ãƒ¼ã‚«ã‚¦ãƒ³ãƒˆã‚’æ“ä½œã™ã‚‹ã€‚
       }
       return result;
     }
 
-    //! $WARNINGÌ¿Îá
+    //! $WARNINGå‘½ä»¤
     bool warning_( tree_node_t const& node, context* p_ctx )
     {
       return error_( node, p_ctx );
     }
 
-    //! $FILEÌ¿Îá
+    //! $FILEå‘½ä»¤
     bool file_( tree_node_t const& node, context* p_ctx )
     {
       //     0              1 2
@@ -1651,7 +1662,7 @@ namespace toppers
       return true;
     }
 
-    //! ¼°
+    //! å¼
     bool expr_( tree_node_t const& node, context* p_ctx )
     {
       // 0          1 2
@@ -1667,14 +1678,14 @@ namespace toppers
       return true;
     }
 
-    // ¥Ş¥¯¥íÌ¿Îá°Ê³°
+    // ãƒã‚¯ãƒ­å‘½ä»¤ä»¥å¤–
     bool plain( tree_node_t const& node, context* p_ctx )
     {
       std::string buf;
       buf.reserve( node.children[ 0 ].value.end() - node.children[ 0 ].value.begin() );
 	  std::size_t offset = 0;
 
-	  if ( std::isspace( static_cast< unsigned char >( *node.children[ 0 ].value.begin() ) ) )	// plain¤ÎÀèÆ¬¤¬¶õÇòÎàÊ¸»ú¤Î¾ì¹ç¡¢¤Ê¤¼¤«Æó½Å¤Ë¤Ê¤ëÉÔ¶ñ¹ç¤Î»ÃÄêÂĞºö
+	  if ( std::isspace( static_cast< unsigned char >( *node.children[ 0 ].value.begin() ) ) )	// plainã®å…ˆé ­ãŒç©ºç™½é¡æ–‡å­—ã®å ´åˆã€ãªãœã‹äºŒé‡ã«ãªã‚‹ä¸å…·åˆã®æš«å®šå¯¾ç­–
 	  	offset = 1;
 
 	  for ( text::const_iterator iter( node.children[ 0 ].value.begin() + offset ), last( node.children[0].value.end() ); iter != last; ++iter )
@@ -1697,7 +1708,7 @@ namespace toppers
       return true;
     }
 
-    // ¹½Ê¸ÌÚ¤Î³Æ¥Î¡¼¥É¤ÎÉ¾²Á
+    // æ§‹æ–‡æœ¨ã®å„ãƒãƒ¼ãƒ‰ã®è©•ä¾¡
     bool eval_node( tree_node_t const& node, context* p_ctx )
     {
       bool result = true;
@@ -1921,7 +1932,7 @@ namespace toppers
     }
     catch ( die_terminate& )
     {
-      // $DIE()$´Ø¿ô¤¬¸Æ¤Ğ¤ì¤¿
+      // $DIE()$é–¢æ•°ãŒå‘¼ã°ã‚ŒãŸ
     }
     catch ( expr_error& )
     {
@@ -1959,13 +1970,13 @@ namespace toppers
   }
 
   /*!
-    *  \brief  ¥³¥á¥ó¥È¤Î½üµî
-    *  \param[in]  first   ½èÍıÂĞ¾İ¥·¡¼¥±¥ó¥¹¤ÎÀèÆ¬°ÌÃÖ  
-    *  \param[in]  last    ½èÍıÂĞ¾İ¥·¡¼¥±¥ó¥¹¤Î½ªÃ¼°ÌÃÖ¤Î¼¡
-    *  \param[out] result  ½èÍı·ë²Ì¤Î³ÊÇ¼Àè
-    *  \return     ½èÍı´°Î»¸å¤Î result ¤ÎÃÍ
+    *  \brief  ã‚³ãƒ¡ãƒ³ãƒˆã®é™¤å»
+    *  \param[in]  first   å‡¦ç†å¯¾è±¡ã‚·ãƒ¼ã‚±ãƒ³ã‚¹ã®å…ˆé ­ä½ç½®  
+    *  \param[in]  last    å‡¦ç†å¯¾è±¡ã‚·ãƒ¼ã‚±ãƒ³ã‚¹ã®çµ‚ç«¯ä½ç½®ã®æ¬¡
+    *  \param[out] result  å‡¦ç†çµæœã®æ ¼ç´å…ˆ
+    *  \return     å‡¦ç†å®Œäº†å¾Œã® result ã®å€¤
     *
-    *  ¡Ö$ + ¶õÇòÎàÊ¸»ú¡×¤Ç»Ï¤Ş¤ê¡¢²ş¹Ô¤Ç½ª¤ï¤ë¥³¥á¥ó¥È¤ò½üµî¤·¤Ş¤¹¡£
+    *  ã€Œ$ + ç©ºç™½é¡æ–‡å­—ã€ã§å§‹ã¾ã‚Šã€æ”¹è¡Œã§çµ‚ã‚ã‚‹ã‚³ãƒ¡ãƒ³ãƒˆã‚’é™¤å»ã—ã¾ã™ã€‚
     */
   void macro_processor::remove_comment( text const& in, text& out )
   {
@@ -1979,17 +1990,17 @@ namespace toppers
       std::string::size_type found_pos;
 
       if ( ( ( buf.size() >= 2 ) && ( buf[0] == '$' ) && std::isspace( static_cast< unsigned char >( buf[1] ) ) )
-        || ( buf.size() == 1 && buf[0] == '$' ) )	// ¹ÔÆ¬¤Ë¸Â¤ê¡¢'$'Ã±ÆÈ¤Ç¤â¥³¥á¥ó¥È¤È¤ß¤Ê¤¹
+        || ( buf.size() == 1 && buf[0] == '$' ) )	// è¡Œé ­ã«é™ã‚Šã€'$'å˜ç‹¬ã§ã‚‚ã‚³ãƒ¡ãƒ³ãƒˆã¨ã¿ãªã™
       {
         *result = '\n'; 
       }
-      else if ( ( found_pos = buf.find( std::string( "$#" ) ) ) != std::string::npos )  // ¹Ô¤ÎÅÓÃæ¤Ë"$#"¤¬¤¢¤ì¤Ğ¡¢¤½¤ì°Ê¹ß¤ò¥³¥á¥ó¥È¤È¤ß¤Ê¤¹
+      else if ( ( found_pos = buf.find( std::string( "$#" ) ) ) != std::string::npos )  // è¡Œã®é€”ä¸­ã«"$#"ãŒã‚ã‚Œã°ã€ãã‚Œä»¥é™ã‚’ã‚³ãƒ¡ãƒ³ãƒˆã¨ã¿ãªã™
       {
         result = std::copy( buf.begin(), buf.begin() + found_pos, result );
       }
 	  else
       {
-        // ¥³¥á¥ó¥È¹Ô°Ê³°¤Ï¹ÔÆ¬¤Î¶õÇòÎà¤ò½üµî¤¹¤ë¡£
+        // ã‚³ãƒ¡ãƒ³ãƒˆè¡Œä»¥å¤–ã¯è¡Œé ­ã®ç©ºç™½é¡ã‚’é™¤å»ã™ã‚‹ã€‚
         first = std::find_if( first, iter, std::not1( std::ptr_fun< char, bool >( &toppers::isspace ) ) );
         result = std::copy( first, iter + 1, result );
       }
@@ -2003,7 +2014,7 @@ namespace toppers
     size_type const npos = std::string::npos;
 std::string debug_str;
 
-    if ( in.empty() ) // ¶õ¤Î¥Õ¥¡¥¤¥ë¤¬ÆşÎÏ¤µ¤ì¤¿¾ì¹ç¤ÎÂĞºö
+    if ( in.empty() ) // ç©ºã®ãƒ•ã‚¡ã‚¤ãƒ«ãŒå…¥åŠ›ã•ã‚ŒãŸå ´åˆã®å¯¾ç­–
     {
       return;
     }
@@ -2123,7 +2134,7 @@ std::string debug_str;
     }
 
     var_t result = p_ctx->var_map[ "RESULT" ];
-    p_ctx->var_map[ "RESULT" ] = var_t(); // ÊÑ¿ô$RESULT$¤ò¥¯¥ê¥¢
+    p_ctx->var_map[ "RESULT" ] = var_t(); // å¤‰æ•°$RESULT$ã‚’ã‚¯ãƒªã‚¢
     return result;
   }
 

@@ -2,38 +2,51 @@
  *  TOPPERS Software
  *      Toyohashi Open Platform for Embedded Real-Time Systems
  *
- *  Copyright (C) 2007-2009 by TAKAGI Nobuhisa
+ *  Copyright (C) 2007-2012 by TAKAGI Nobuhisa
  * 
- *  ¾åµ­Ãøºî¸¢¼Ô¤Ï¡¤°Ê²¼¤Î(1)¡Á(4)¤Î¾ò·ï¤òËş¤¿¤¹¾ì¹ç¤Ë¸Â¤ê¡¤ËÜ¥½¥Õ¥È¥¦¥§
- *  ¥¢¡ÊËÜ¥½¥Õ¥È¥¦¥§¥¢¤ò²şÊÑ¤·¤¿¤â¤Î¤ò´Ş¤à¡¥°Ê²¼Æ±¤¸¡Ë¤ò»ÈÍÑ¡¦Ê£À½¡¦²ş
- *  ÊÑ¡¦ºÆÇÛÉÛ¡Ê°Ê²¼¡¤ÍøÍÑ¤È¸Æ¤Ö¡Ë¤¹¤ë¤³¤È¤òÌµ½ş¤ÇµöÂú¤¹¤ë¡¥
- *  (1) ËÜ¥½¥Õ¥È¥¦¥§¥¢¤ò¥½¡¼¥¹¥³¡¼¥É¤Î·Á¤ÇÍøÍÑ¤¹¤ë¾ì¹ç¤Ë¤Ï¡¤¾åµ­¤ÎÃøºî
- *      ¸¢É½¼¨¡¤¤³¤ÎÍøÍÑ¾ò·ï¤ª¤è¤Ó²¼µ­¤ÎÌµÊİ¾Úµ¬Äê¤¬¡¤¤½¤Î¤Ş¤Ş¤Î·Á¤Ç¥½¡¼
- *      ¥¹¥³¡¼¥ÉÃæ¤Ë´Ş¤Ş¤ì¤Æ¤¤¤ë¤³¤È¡¥
- *  (2) ËÜ¥½¥Õ¥È¥¦¥§¥¢¤ò¡¤¥é¥¤¥Ö¥é¥ê·Á¼°¤Ê¤É¡¤Â¾¤Î¥½¥Õ¥È¥¦¥§¥¢³«È¯¤Ë»È
- *      ÍÑ¤Ç¤­¤ë·Á¤ÇºÆÇÛÉÛ¤¹¤ë¾ì¹ç¤Ë¤Ï¡¤ºÆÇÛÉÛ¤ËÈ¼¤¦¥É¥­¥å¥á¥ó¥È¡ÊÍøÍÑ
- *      ¼Ô¥Ş¥Ë¥å¥¢¥ë¤Ê¤É¡Ë¤Ë¡¤¾åµ­¤ÎÃøºî¸¢É½¼¨¡¤¤³¤ÎÍøÍÑ¾ò·ï¤ª¤è¤Ó²¼µ­
- *      ¤ÎÌµÊİ¾Úµ¬Äê¤ò·ÇºÜ¤¹¤ë¤³¤È¡¥
- *  (3) ËÜ¥½¥Õ¥È¥¦¥§¥¢¤ò¡¤µ¡´ï¤ËÁÈ¤ß¹ş¤à¤Ê¤É¡¤Â¾¤Î¥½¥Õ¥È¥¦¥§¥¢³«È¯¤Ë»È
- *      ÍÑ¤Ç¤­¤Ê¤¤·Á¤ÇºÆÇÛÉÛ¤¹¤ë¾ì¹ç¤Ë¤Ï¡¤¼¡¤Î¤¤¤º¤ì¤«¤Î¾ò·ï¤òËş¤¿¤¹¤³
- *      ¤È¡¥
- *    (a) ºÆÇÛÉÛ¤ËÈ¼¤¦¥É¥­¥å¥á¥ó¥È¡ÊÍøÍÑ¼Ô¥Ş¥Ë¥å¥¢¥ë¤Ê¤É¡Ë¤Ë¡¤¾åµ­¤ÎÃø
- *        ºî¸¢É½¼¨¡¤¤³¤ÎÍøÍÑ¾ò·ï¤ª¤è¤Ó²¼µ­¤ÎÌµÊİ¾Úµ¬Äê¤ò·ÇºÜ¤¹¤ë¤³¤È¡¥
- *    (b) ºÆÇÛÉÛ¤Î·ÁÂÖ¤ò¡¤ÊÌ¤ËÄê¤á¤ëÊıË¡¤Ë¤è¤Ã¤Æ¡¤TOPPERS¥×¥í¥¸¥§¥¯¥È¤Ë
- *        Êó¹ğ¤¹¤ë¤³¤È¡¥
- *  (4) ËÜ¥½¥Õ¥È¥¦¥§¥¢¤ÎÍøÍÑ¤Ë¤è¤êÄ¾ÀÜÅª¤Ş¤¿¤Ï´ÖÀÜÅª¤ËÀ¸¤¸¤ë¤¤¤«¤Ê¤ëÂ»
- *      ³²¤«¤é¤â¡¤¾åµ­Ãøºî¸¢¼Ô¤ª¤è¤ÓTOPPERS¥×¥í¥¸¥§¥¯¥È¤òÌÈÀÕ¤¹¤ë¤³¤È¡¥
- *      ¤Ş¤¿¡¤ËÜ¥½¥Õ¥È¥¦¥§¥¢¤Î¥æ¡¼¥¶¤Ş¤¿¤Ï¥¨¥ó¥É¥æ¡¼¥¶¤«¤é¤Î¤¤¤«¤Ê¤ëÍı
- *      Í³¤Ë´ğ¤Å¤¯ÀÁµá¤«¤é¤â¡¤¾åµ­Ãøºî¸¢¼Ô¤ª¤è¤ÓTOPPERS¥×¥í¥¸¥§¥¯¥È¤ò
- *      ÌÈÀÕ¤¹¤ë¤³¤È¡¥
+ *  ä¸Šè¨˜è‘—ä½œæ¨©è€…ã¯ï¼Œä»¥ä¸‹ã®(1)ã€œ(4)ã®æ¡ä»¶ã‚’æº€ãŸã™å ´åˆã«é™ã‚Šï¼Œæœ¬ã‚½ãƒ•ãƒˆã‚¦ã‚§
+ *  ã‚¢ï¼ˆæœ¬ã‚½ãƒ•ãƒˆã‚¦ã‚§ã‚¢ã‚’æ”¹å¤‰ã—ãŸã‚‚ã®ã‚’å«ã‚€ï¼ä»¥ä¸‹åŒã˜ï¼‰ã‚’ä½¿ç”¨ãƒ»è¤‡è£½ãƒ»æ”¹
+ *  å¤‰ãƒ»å†é…å¸ƒï¼ˆä»¥ä¸‹ï¼Œåˆ©ç”¨ã¨å‘¼ã¶ï¼‰ã™ã‚‹ã“ã¨ã‚’ç„¡å„Ÿã§è¨±è«¾ã™ã‚‹ï¼
+ *  (1) æœ¬ã‚½ãƒ•ãƒˆã‚¦ã‚§ã‚¢ã‚’ã‚½ãƒ¼ã‚¹ã‚³ãƒ¼ãƒ‰ã®å½¢ã§åˆ©ç”¨ã™ã‚‹å ´åˆã«ã¯ï¼Œä¸Šè¨˜ã®è‘—ä½œ
+ *      æ¨©è¡¨ç¤ºï¼Œã“ã®åˆ©ç”¨æ¡ä»¶ãŠã‚ˆã³ä¸‹è¨˜ã®ç„¡ä¿è¨¼è¦å®šãŒï¼Œãã®ã¾ã¾ã®å½¢ã§ã‚½ãƒ¼
+ *      ã‚¹ã‚³ãƒ¼ãƒ‰ä¸­ã«å«ã¾ã‚Œã¦ã„ã‚‹ã“ã¨ï¼
+ *  (2) æœ¬ã‚½ãƒ•ãƒˆã‚¦ã‚§ã‚¢ã‚’ï¼Œãƒ©ã‚¤ãƒ–ãƒ©ãƒªå½¢å¼ãªã©ï¼Œä»–ã®ã‚½ãƒ•ãƒˆã‚¦ã‚§ã‚¢é–‹ç™ºã«ä½¿
+ *      ç”¨ã§ãã‚‹å½¢ã§å†é…å¸ƒã™ã‚‹å ´åˆã«ã¯ï¼Œå†é…å¸ƒã«ä¼´ã†ãƒ‰ã‚­ãƒ¥ãƒ¡ãƒ³ãƒˆï¼ˆåˆ©ç”¨
+ *      è€…ãƒãƒ‹ãƒ¥ã‚¢ãƒ«ãªã©ï¼‰ã«ï¼Œä¸Šè¨˜ã®è‘—ä½œæ¨©è¡¨ç¤ºï¼Œã“ã®åˆ©ç”¨æ¡ä»¶ãŠã‚ˆã³ä¸‹è¨˜
+ *      ã®ç„¡ä¿è¨¼è¦å®šã‚’æ²è¼‰ã™ã‚‹ã“ã¨ï¼
+ *  (3) æœ¬ã‚½ãƒ•ãƒˆã‚¦ã‚§ã‚¢ã‚’ï¼Œæ©Ÿå™¨ã«çµ„ã¿è¾¼ã‚€ãªã©ï¼Œä»–ã®ã‚½ãƒ•ãƒˆã‚¦ã‚§ã‚¢é–‹ç™ºã«ä½¿
+ *      ç”¨ã§ããªã„å½¢ã§å†é…å¸ƒã™ã‚‹å ´åˆã«ã¯ï¼Œæ¬¡ã®ã„ãšã‚Œã‹ã®æ¡ä»¶ã‚’æº€ãŸã™ã“
+ *      ã¨ï¼
+ *    (a) å†é…å¸ƒã«ä¼´ã†ãƒ‰ã‚­ãƒ¥ãƒ¡ãƒ³ãƒˆï¼ˆåˆ©ç”¨è€…ãƒãƒ‹ãƒ¥ã‚¢ãƒ«ãªã©ï¼‰ã«ï¼Œä¸Šè¨˜ã®è‘—
+ *        ä½œæ¨©è¡¨ç¤ºï¼Œã“ã®åˆ©ç”¨æ¡ä»¶ãŠã‚ˆã³ä¸‹è¨˜ã®ç„¡ä¿è¨¼è¦å®šã‚’æ²è¼‰ã™ã‚‹ã“ã¨ï¼
+ *    (b) å†é…å¸ƒã®å½¢æ…‹ã‚’ï¼Œåˆ¥ã«å®šã‚ã‚‹æ–¹æ³•ã«ã‚ˆã£ã¦ï¼ŒTOPPERSãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆã«
+ *        å ±å‘Šã™ã‚‹ã“ã¨ï¼
+ *  (4) æœ¬ã‚½ãƒ•ãƒˆã‚¦ã‚§ã‚¢ã®åˆ©ç”¨ã«ã‚ˆã‚Šç›´æ¥çš„ã¾ãŸã¯é–“æ¥çš„ã«ç”Ÿã˜ã‚‹ã„ã‹ãªã‚‹æ
+ *      å®³ã‹ã‚‰ã‚‚ï¼Œä¸Šè¨˜è‘—ä½œæ¨©è€…ãŠã‚ˆã³TOPPERSãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆã‚’å…è²¬ã™ã‚‹ã“ã¨ï¼
+ *      ã¾ãŸï¼Œæœ¬ã‚½ãƒ•ãƒˆã‚¦ã‚§ã‚¢ã®ãƒ¦ãƒ¼ã‚¶ã¾ãŸã¯ã‚¨ãƒ³ãƒ‰ãƒ¦ãƒ¼ã‚¶ã‹ã‚‰ã®ã„ã‹ãªã‚‹ç†
+ *      ç”±ã«åŸºã¥ãè«‹æ±‚ã‹ã‚‰ã‚‚ï¼Œä¸Šè¨˜è‘—ä½œæ¨©è€…ãŠã‚ˆã³TOPPERSãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆã‚’
+ *      å…è²¬ã™ã‚‹ã“ã¨ï¼
  * 
- *  ËÜ¥½¥Õ¥È¥¦¥§¥¢¤Ï¡¤ÌµÊİ¾Ú¤ÇÄó¶¡¤µ¤ì¤Æ¤¤¤ë¤â¤Î¤Ç¤¢¤ë¡¥¾åµ­Ãøºî¸¢¼Ô¤ª
- *  ¤è¤ÓTOPPERS¥×¥í¥¸¥§¥¯¥È¤Ï¡¤ËÜ¥½¥Õ¥È¥¦¥§¥¢¤Ë´Ø¤·¤Æ¡¤ÆÃÄê¤Î»ÈÍÑÌÜÅª
- *  ¤ËÂĞ¤¹¤ëÅ¬¹çÀ­¤â´Ş¤á¤Æ¡¤¤¤¤«¤Ê¤ëÊİ¾Ú¤â¹Ô¤ï¤Ê¤¤¡¥¤Ş¤¿¡¤ËÜ¥½¥Õ¥È¥¦¥§
- *  ¥¢¤ÎÍøÍÑ¤Ë¤è¤êÄ¾ÀÜÅª¤Ş¤¿¤Ï´ÖÀÜÅª¤ËÀ¸¤¸¤¿¤¤¤«¤Ê¤ëÂ»³²¤Ë´Ø¤·¤Æ¤â¡¤¤½
- *  ¤ÎÀÕÇ¤¤òÉé¤ï¤Ê¤¤¡¥
+ *  æœ¬ã‚½ãƒ•ãƒˆã‚¦ã‚§ã‚¢ã¯ï¼Œç„¡ä¿è¨¼ã§æä¾›ã•ã‚Œã¦ã„ã‚‹ã‚‚ã®ã§ã‚ã‚‹ï¼ä¸Šè¨˜è‘—ä½œæ¨©è€…ãŠ
+ *  ã‚ˆã³TOPPERSãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆã¯ï¼Œæœ¬ã‚½ãƒ•ãƒˆã‚¦ã‚§ã‚¢ã«é–¢ã—ã¦ï¼Œç‰¹å®šã®ä½¿ç”¨ç›®çš„
+ *  ã«å¯¾ã™ã‚‹é©åˆæ€§ã‚‚å«ã‚ã¦ï¼Œã„ã‹ãªã‚‹ä¿è¨¼ã‚‚è¡Œã‚ãªã„ï¼ã¾ãŸï¼Œæœ¬ã‚½ãƒ•ãƒˆã‚¦ã‚§
+ *  ã‚¢ã®åˆ©ç”¨ã«ã‚ˆã‚Šç›´æ¥çš„ã¾ãŸã¯é–“æ¥çš„ã«ç”Ÿã˜ãŸã„ã‹ãªã‚‹æå®³ã«é–¢ã—ã¦ã‚‚ï¼Œã
+ *  ã®è²¬ä»»ã‚’è² ã‚ãªã„ï¼
  * 
  */
+
+// Boost.Filesystem v3å†…ã§std::locale("")ãŒä½¿ç”¨ã•ã‚Œã¦ã„ã‚‹ãŒã€GCCã®ä¸å…·åˆã§
+// ä¾‹å¤–ãŒç™ºç”Ÿã™ã‚‹ã€‚
+// ã“ã‚Œã‚’å›é¿ã™ã‚‹ãŸã‚ã®æš«å®šå¯¾å¿œ
+#ifdef  __GNUC__
+#include <stdlib.h>
+namespace Ticket_83_fix
+{
+  char s_[] = "LANG=C";
+  int _ = putenv(s_);
+}
+#endif
+
 #include "cfg.hpp"
 #include <boost/program_options.hpp>
 #include <boost/spirit/include/classic.hpp>
@@ -41,7 +54,7 @@
 namespace
 {
 
-  //! Ï¢Â³¤·¤¿¥¹¥é¥Ã¥·¥å / ¤òÃ±°ì¤Î¥¹¥é¥Ã¥·¥å¤ËÃÖ´¹¤¹¤ë
+  //! é€£ç¶šã—ãŸã‚¹ãƒ©ãƒƒã‚·ãƒ¥ / ã‚’å˜ä¸€ã®ã‚¹ãƒ©ãƒƒã‚·ãƒ¥ã«ç½®æ›ã™ã‚‹
   std::string slashes_to_single_slash( std::string const& str )
   {
     std::string result( str );
@@ -53,20 +66,20 @@ namespace
     return result;
   }
 
-  //! µ¯Æ°¥ª¥×¥·¥ç¥ó¤Î²òÀÏ
+  //! èµ·å‹•ã‚ªãƒ—ã‚·ãƒ§ãƒ³ã®è§£æ
   int parse_program_options( int argc, char* argv[] )
   {
     namespace po = boost::program_options;
     int pass = 0;
 
-    // °ìÈÌ¥ª¥×¥·¥ç¥ó
+    // ä¸€èˆ¬ã‚ªãƒ—ã‚·ãƒ§ãƒ³
     po::options_description generic( _( "Generic options" ) );
     generic.add_options()
       ( "help", _( "display this information" ) )    
       ( "version,v", _( "display cfg version number" ) )
       ;
 
-    // ÀßÄê¥ª¥×¥·¥ç¥ó
+    // è¨­å®šã‚ªãƒ—ã‚·ãƒ§ãƒ³
     po::options_description config( _( "Configuration" ) );
     config.add_options()
       ( "kernel,k", po::value< std::string >()->default_value( std::string( "asp" ) ), _( "kernel type (default: asp)" ) )
@@ -88,9 +101,11 @@ namespace
       ( "external-id", _( "output ID numbers as external `const\' object" ) )
       ( "print-dependencies,M", po::value< std::string >(), _( "output dependencies of source file (for `make\')" ) )
       ( "with-software-components", _( "with software components" ) )
+      ( "ini-file", po::value< std::string >()->default_value( std::string() ), _( "configuration file for XML" ) )
+      ( "omit-symbol", _( "omit Symbol table and ROM image(S-record) files. Only use in pass 2." ) )
       ;
 
-    // ÈóÉ½¼¨¥ª¥×¥·¥ç¥ó
+    // éè¡¨ç¤ºã‚ªãƒ—ã‚·ãƒ§ãƒ³
     po::options_description hidden( _( "Hidden options" ) );
     hidden.add_options()
       ( "input-file,s", po::value< std::string >(), _( "input file" ) )
@@ -117,33 +132,65 @@ namespace
       toppers::fatal( _( "illegal options" ) );
     }
 
-    // ¥°¥í¡¼¥Ğ¥ëÊÑ¿ô¤ÎÀßÄê
+    // ã‚°ãƒ­ãƒ¼ãƒãƒ«å¤‰æ•°ã®è¨­å®š
     if ( vm.count( "print-dependencies" ) )
     {
       toppers::global( "print-dependencies" ) = vm[ "print-dependencies" ].as< std::string >();
-      pass = 1; // °ÍÂ¸´Ø·¸¤Î½ĞÎÏ¤¬É¬Í×¤Ê¾ì¹ç¡¢¶¯À©Åª¤Ë¥Ñ¥¹1¤ËÊÑ¹¹
+      pass = 1; // ä¾å­˜é–¢ä¿‚ã®å‡ºåŠ›ãŒå¿…è¦ãªå ´åˆã€å¼·åˆ¶çš„ã«ãƒ‘ã‚¹1ã«å¤‰æ›´
     }
 
     toppers::global( "pass" ) = pass;
+    if ( vm.count( "input-file" ) )
+    {
+      toppers::global( "input-file" )
+        = slashes_to_single_slash( vm[ "input-file" ].as< std::string >() );
+    }
     if ( vm.count( "kernel" ) )
     {
       std::string kernel = toppers::tolower( vm[ "kernel" ].as< std::string >() );
       toppers::global( "kernel" ) = kernel;
+      int atk = -1;
       bool has_class = false;
       bool has_domain = false;
+      bool oil = false;
+      bool xml = false;
 
       if ( kernel == "fmp" || kernel == "fmp+hrp2" || kernel == "hrp2+fmp" )
       {
         has_class = true;
       }
-      if ( kernel == "hrp2" || kernel == "fmp+hrp2" || kernel == "hrp2+fmp" )
+      if ( kernel == "hrp2" || kernel == "fmp+hrp2" || kernel == "hrp2+fmp" || kernel == "atk2" || kernel == "atk2_osap" )
       {
         has_domain = true;
+      }
+
+      if ( kernel.compare( 0, 4, "atk1" ) == 0 )
+      {
+        oil = true;
+        atk = 1;
+      }
+      else if ( kernel.compare( 0, 4, "atk2" ) == 0 )
+      {
+        std::string input_file = toppers::get_global_string( "input-file" );
+        std::string::size_type pos = input_file.rfind( '.' );
+        std::string suffix( input_file.substr( pos ) );
+        if ( pos != std::string::npos && suffix == ".oil" )
+        {
+          oil = true;
+        }
+        else if ( suffix != ".cfg" && kernel != "atk2_no_osap" && kernel != "atk2_osap" )
+        {
+          xml = true;
+        }
+        atk = 2;
       }
 
       toppers::global( "max-pass" ) = ( has_domain ? 4 : 3 );
       toppers::global( "has-class" ) = has_class;
       toppers::global( "has-domain" ) = has_domain;
+      toppers::global( "oil" ) = oil;
+      toppers::global( "xml" ) = xml;
+      toppers::global( "atk" ) = atk;
     }
     if ( vm.count( "include-path" ) )
     {
@@ -155,11 +202,6 @@ namespace
     {
       toppers::global( "template-file" )
         = slashes_to_single_slash( vm[ "template-file" ].as< std::string >() );
-    }
-    if ( vm.count( "input-file" ) )
-    {
-      toppers::global( "input-file" )
-        = slashes_to_single_slash( vm[ "input-file" ].as< std::string >() );
     }
     if ( vm.count( "input-charset" ) )
     {
@@ -218,7 +260,7 @@ namespace
       std::transform( msgcat_dirs.begin(), msgcat_dirs.end(), msgcat_dirs.begin(), &slashes_to_single_slash );
       std::for_each( msgcat_dirs.begin(), msgcat_dirs.end(), &toppers::load_msgcat );
     }
-    if ( true ) // include-path ¤ò¶õ¤Ë¤·¤Æ¤Ï¤Ê¤é¤Ê¤¤
+    if ( true ) // include-path ã‚’ç©ºã«ã—ã¦ã¯ãªã‚‰ãªã„
     {
       std::vector< std::string > include_path;
       boost::any t( toppers::global( "include-path" ) );
@@ -226,7 +268,7 @@ namespace
       {
         include_path = boost::any_cast< std::vector< std::string > >( t );
       }
-      include_path.push_back( toppers::get_global< std::string >( "cfg-directory" ) );
+      include_path.push_back( toppers::get_global_string( "cfg-directory" ) );
       toppers::global( "include-path" ) = include_path;
     }
     if ( vm.count( "output-directory" ) )
@@ -243,7 +285,7 @@ namespace
     }
     else
     {
-      toppers::global( "symbol-table" ) = toppers::get_global< std::string >( "kernel" ) + ".syms";
+      toppers::global( "symbol-table" ) = toppers::get_global_string( "kernel" ) + ".syms";
     }
     if ( vm.count( "id-output-file" ) )
     {
@@ -259,6 +301,7 @@ namespace
     }
     toppers::global( "external-id" ) = vm.count( "external-id" ) ? true : false;
     toppers::global( "with-software-components" ) = vm.count( "with-software-components" ) ? true : false;
+    toppers::global( "omit-symbol" ) = vm.count( "omit-symbol" ) ? true : false;
 
     toppers::global( "version" ) = std::string( CFG_VERSION );
 
@@ -273,12 +316,33 @@ namespace
       std::cout << visible << std::endl;
       toppers::global( "pass0" ) = true;
     }
+    if ( vm.count( "ini-file" ) )
+    {
+      std::string ini_file( slashes_to_single_slash( vm[ "ini-file" ].as< std::string >() ) );
+      toppers::global( "ini-file" ) = ini_file;
+      std::ifstream ifs( ini_file.c_str() );
+      if ( ifs.is_open() )
+      {
+        while ( ifs )
+        {
+          std::string buf;
+          std::getline( ifs, buf );
+          if ( buf.empty() || buf[0] == ';' )
+            continue;
+          std::string::size_type pos = buf.find( '=' );
+          if ( pos != std::string::npos )
+          {
+            toppers::global( "XML_" + buf.substr( 0, pos ) ) = buf.substr( pos + 1 );
+          }
+        }
+      }
+    }
     return pass;
   }
 
 }
 
-//! ¥³¥ó¥Õ¥£¥®¥å¥ì¡¼¥¿¤Î¥á¥¤¥ó½èÍı
+//! ã‚³ãƒ³ãƒ•ã‚£ã‚®ãƒ¥ãƒ¬ãƒ¼ã‚¿ã®ãƒ¡ã‚¤ãƒ³å‡¦ç†
 int cfg_main( int argc, char* argv[] )
 {
   using namespace toppers;
@@ -286,15 +350,15 @@ int cfg_main( int argc, char* argv[] )
   std::string const cfg_path( argv[0] );
   std::string const cfg_name( "cfg" );
   std::string::const_iterator iter = std::find_end( cfg_path.begin(), cfg_path.end(), cfg_name.begin(), cfg_name.end() );
-  // ´Ä¶­ÊÑ¿ô¤Î¥µ¡¼¥Á¤Ş¤Ç¤Ï¹Ô¤ï¤Ê¤¤
+  // ç’°å¢ƒå¤‰æ•°ã®ã‚µãƒ¼ãƒã¾ã§ã¯è¡Œã‚ãªã„
   std::string cfg_dir( cfg_path.begin(), iter );
   if ( *cfg_dir.rbegin() == '/' || *cfg_dir.rbegin() == '\\' )
   {
     cfg_dir.resize( cfg_dir.size() - 1 );
   }
   toppers::global( "cfg-directory" ) = cfg_dir;
-  toppers::global( "argv0" ) = std::string( argv[ 0 ] );  // ¥×¥í¥°¥é¥àÌ¾
-  toppers::global( "timestamp" ) = cfg_timestamp();       // ¥¿¥¤¥à¥¹¥¿¥ó¥×
+  toppers::global( "argv0" ) = std::string( argv[ 0 ] );  // ãƒ—ãƒ­ã‚°ãƒ©ãƒ å
+  toppers::global( "timestamp" ) = cfg_timestamp();       // ã‚¿ã‚¤ãƒ ã‚¹ã‚¿ãƒ³ãƒ—
 
   int pass = parse_program_options( argc, argv );
   bool ( * pfn_cfg[] )() = { &cfg0_main, &cfg1_main, &cfg2_main, &cfg3_main, &cfg4_main };

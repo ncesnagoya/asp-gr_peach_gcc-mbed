@@ -2,41 +2,41 @@
  *  TOPPERS Software
  *      Toyohashi Open Platform for Embedded Real-Time Systems
  *
- *  Copyright (C) 2007-2008 by TAKAGI Nobuhisa
+ *  Copyright (C) 2007-2012 by TAKAGI Nobuhisa
  * 
- *  ¾åµ­Ãøºî¸¢¼Ô¤Ï¡¤°Ê²¼¤Î(1)¡Á(4)¤Î¾ò·ï¤òËş¤¿¤¹¾ì¹ç¤Ë¸Â¤ê¡¤ËÜ¥½¥Õ¥È¥¦¥§
- *  ¥¢¡ÊËÜ¥½¥Õ¥È¥¦¥§¥¢¤ò²şÊÑ¤·¤¿¤â¤Î¤ò´Ş¤à¡¥°Ê²¼Æ±¤¸¡Ë¤ò»ÈÍÑ¡¦Ê£À½¡¦²ş
- *  ÊÑ¡¦ºÆÇÛÉÛ¡Ê°Ê²¼¡¤ÍøÍÑ¤È¸Æ¤Ö¡Ë¤¹¤ë¤³¤È¤òÌµ½ş¤ÇµöÂú¤¹¤ë¡¥
- *  (1) ËÜ¥½¥Õ¥È¥¦¥§¥¢¤ò¥½¡¼¥¹¥³¡¼¥É¤Î·Á¤ÇÍøÍÑ¤¹¤ë¾ì¹ç¤Ë¤Ï¡¤¾åµ­¤ÎÃøºî
- *      ¸¢É½¼¨¡¤¤³¤ÎÍøÍÑ¾ò·ï¤ª¤è¤Ó²¼µ­¤ÎÌµÊİ¾Úµ¬Äê¤¬¡¤¤½¤Î¤Ş¤Ş¤Î·Á¤Ç¥½¡¼
- *      ¥¹¥³¡¼¥ÉÃæ¤Ë´Ş¤Ş¤ì¤Æ¤¤¤ë¤³¤È¡¥
- *  (2) ËÜ¥½¥Õ¥È¥¦¥§¥¢¤ò¡¤¥é¥¤¥Ö¥é¥ê·Á¼°¤Ê¤É¡¤Â¾¤Î¥½¥Õ¥È¥¦¥§¥¢³«È¯¤Ë»È
- *      ÍÑ¤Ç¤­¤ë·Á¤ÇºÆÇÛÉÛ¤¹¤ë¾ì¹ç¤Ë¤Ï¡¤ºÆÇÛÉÛ¤ËÈ¼¤¦¥É¥­¥å¥á¥ó¥È¡ÊÍøÍÑ
- *      ¼Ô¥Ş¥Ë¥å¥¢¥ë¤Ê¤É¡Ë¤Ë¡¤¾åµ­¤ÎÃøºî¸¢É½¼¨¡¤¤³¤ÎÍøÍÑ¾ò·ï¤ª¤è¤Ó²¼µ­
- *      ¤ÎÌµÊİ¾Úµ¬Äê¤ò·ÇºÜ¤¹¤ë¤³¤È¡¥
- *  (3) ËÜ¥½¥Õ¥È¥¦¥§¥¢¤ò¡¤µ¡´ï¤ËÁÈ¤ß¹ş¤à¤Ê¤É¡¤Â¾¤Î¥½¥Õ¥È¥¦¥§¥¢³«È¯¤Ë»È
- *      ÍÑ¤Ç¤­¤Ê¤¤·Á¤ÇºÆÇÛÉÛ¤¹¤ë¾ì¹ç¤Ë¤Ï¡¤¼¡¤Î¤¤¤º¤ì¤«¤Î¾ò·ï¤òËş¤¿¤¹¤³
- *      ¤È¡¥
- *    (a) ºÆÇÛÉÛ¤ËÈ¼¤¦¥É¥­¥å¥á¥ó¥È¡ÊÍøÍÑ¼Ô¥Ş¥Ë¥å¥¢¥ë¤Ê¤É¡Ë¤Ë¡¤¾åµ­¤ÎÃø
- *        ºî¸¢É½¼¨¡¤¤³¤ÎÍøÍÑ¾ò·ï¤ª¤è¤Ó²¼µ­¤ÎÌµÊİ¾Úµ¬Äê¤ò·ÇºÜ¤¹¤ë¤³¤È¡¥
- *    (b) ºÆÇÛÉÛ¤Î·ÁÂÖ¤ò¡¤ÊÌ¤ËÄê¤á¤ëÊıË¡¤Ë¤è¤Ã¤Æ¡¤TOPPERS¥×¥í¥¸¥§¥¯¥È¤Ë
- *        Êó¹ğ¤¹¤ë¤³¤È¡¥
- *  (4) ËÜ¥½¥Õ¥È¥¦¥§¥¢¤ÎÍøÍÑ¤Ë¤è¤êÄ¾ÀÜÅª¤Ş¤¿¤Ï´ÖÀÜÅª¤ËÀ¸¤¸¤ë¤¤¤«¤Ê¤ëÂ»
- *      ³²¤«¤é¤â¡¤¾åµ­Ãøºî¸¢¼Ô¤ª¤è¤ÓTOPPERS¥×¥í¥¸¥§¥¯¥È¤òÌÈÀÕ¤¹¤ë¤³¤È¡¥
- *      ¤Ş¤¿¡¤ËÜ¥½¥Õ¥È¥¦¥§¥¢¤Î¥æ¡¼¥¶¤Ş¤¿¤Ï¥¨¥ó¥É¥æ¡¼¥¶¤«¤é¤Î¤¤¤«¤Ê¤ëÍı
- *      Í³¤Ë´ğ¤Å¤¯ÀÁµá¤«¤é¤â¡¤¾åµ­Ãøºî¸¢¼Ô¤ª¤è¤ÓTOPPERS¥×¥í¥¸¥§¥¯¥È¤ò
- *      ÌÈÀÕ¤¹¤ë¤³¤È¡¥
+ *  ä¸Šè¨˜è‘—ä½œæ¨©è€…ã¯ï¼Œä»¥ä¸‹ã®(1)ã€œ(4)ã®æ¡ä»¶ã‚’æº€ãŸã™å ´åˆã«é™ã‚Šï¼Œæœ¬ã‚½ãƒ•ãƒˆã‚¦ã‚§
+ *  ã‚¢ï¼ˆæœ¬ã‚½ãƒ•ãƒˆã‚¦ã‚§ã‚¢ã‚’æ”¹å¤‰ã—ãŸã‚‚ã®ã‚’å«ã‚€ï¼ä»¥ä¸‹åŒã˜ï¼‰ã‚’ä½¿ç”¨ãƒ»è¤‡è£½ãƒ»æ”¹
+ *  å¤‰ãƒ»å†é…å¸ƒï¼ˆä»¥ä¸‹ï¼Œåˆ©ç”¨ã¨å‘¼ã¶ï¼‰ã™ã‚‹ã“ã¨ã‚’ç„¡å„Ÿã§è¨±è«¾ã™ã‚‹ï¼
+ *  (1) æœ¬ã‚½ãƒ•ãƒˆã‚¦ã‚§ã‚¢ã‚’ã‚½ãƒ¼ã‚¹ã‚³ãƒ¼ãƒ‰ã®å½¢ã§åˆ©ç”¨ã™ã‚‹å ´åˆã«ã¯ï¼Œä¸Šè¨˜ã®è‘—ä½œ
+ *      æ¨©è¡¨ç¤ºï¼Œã“ã®åˆ©ç”¨æ¡ä»¶ãŠã‚ˆã³ä¸‹è¨˜ã®ç„¡ä¿è¨¼è¦å®šãŒï¼Œãã®ã¾ã¾ã®å½¢ã§ã‚½ãƒ¼
+ *      ã‚¹ã‚³ãƒ¼ãƒ‰ä¸­ã«å«ã¾ã‚Œã¦ã„ã‚‹ã“ã¨ï¼
+ *  (2) æœ¬ã‚½ãƒ•ãƒˆã‚¦ã‚§ã‚¢ã‚’ï¼Œãƒ©ã‚¤ãƒ–ãƒ©ãƒªå½¢å¼ãªã©ï¼Œä»–ã®ã‚½ãƒ•ãƒˆã‚¦ã‚§ã‚¢é–‹ç™ºã«ä½¿
+ *      ç”¨ã§ãã‚‹å½¢ã§å†é…å¸ƒã™ã‚‹å ´åˆã«ã¯ï¼Œå†é…å¸ƒã«ä¼´ã†ãƒ‰ã‚­ãƒ¥ãƒ¡ãƒ³ãƒˆï¼ˆåˆ©ç”¨
+ *      è€…ãƒãƒ‹ãƒ¥ã‚¢ãƒ«ãªã©ï¼‰ã«ï¼Œä¸Šè¨˜ã®è‘—ä½œæ¨©è¡¨ç¤ºï¼Œã“ã®åˆ©ç”¨æ¡ä»¶ãŠã‚ˆã³ä¸‹è¨˜
+ *      ã®ç„¡ä¿è¨¼è¦å®šã‚’æ²è¼‰ã™ã‚‹ã“ã¨ï¼
+ *  (3) æœ¬ã‚½ãƒ•ãƒˆã‚¦ã‚§ã‚¢ã‚’ï¼Œæ©Ÿå™¨ã«çµ„ã¿è¾¼ã‚€ãªã©ï¼Œä»–ã®ã‚½ãƒ•ãƒˆã‚¦ã‚§ã‚¢é–‹ç™ºã«ä½¿
+ *      ç”¨ã§ããªã„å½¢ã§å†é…å¸ƒã™ã‚‹å ´åˆã«ã¯ï¼Œæ¬¡ã®ã„ãšã‚Œã‹ã®æ¡ä»¶ã‚’æº€ãŸã™ã“
+ *      ã¨ï¼
+ *    (a) å†é…å¸ƒã«ä¼´ã†ãƒ‰ã‚­ãƒ¥ãƒ¡ãƒ³ãƒˆï¼ˆåˆ©ç”¨è€…ãƒãƒ‹ãƒ¥ã‚¢ãƒ«ãªã©ï¼‰ã«ï¼Œä¸Šè¨˜ã®è‘—
+ *        ä½œæ¨©è¡¨ç¤ºï¼Œã“ã®åˆ©ç”¨æ¡ä»¶ãŠã‚ˆã³ä¸‹è¨˜ã®ç„¡ä¿è¨¼è¦å®šã‚’æ²è¼‰ã™ã‚‹ã“ã¨ï¼
+ *    (b) å†é…å¸ƒã®å½¢æ…‹ã‚’ï¼Œåˆ¥ã«å®šã‚ã‚‹æ–¹æ³•ã«ã‚ˆã£ã¦ï¼ŒTOPPERSãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆã«
+ *        å ±å‘Šã™ã‚‹ã“ã¨ï¼
+ *  (4) æœ¬ã‚½ãƒ•ãƒˆã‚¦ã‚§ã‚¢ã®åˆ©ç”¨ã«ã‚ˆã‚Šç›´æ¥çš„ã¾ãŸã¯é–“æ¥çš„ã«ç”Ÿã˜ã‚‹ã„ã‹ãªã‚‹æ
+ *      å®³ã‹ã‚‰ã‚‚ï¼Œä¸Šè¨˜è‘—ä½œæ¨©è€…ãŠã‚ˆã³TOPPERSãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆã‚’å…è²¬ã™ã‚‹ã“ã¨ï¼
+ *      ã¾ãŸï¼Œæœ¬ã‚½ãƒ•ãƒˆã‚¦ã‚§ã‚¢ã®ãƒ¦ãƒ¼ã‚¶ã¾ãŸã¯ã‚¨ãƒ³ãƒ‰ãƒ¦ãƒ¼ã‚¶ã‹ã‚‰ã®ã„ã‹ãªã‚‹ç†
+ *      ç”±ã«åŸºã¥ãè«‹æ±‚ã‹ã‚‰ã‚‚ï¼Œä¸Šè¨˜è‘—ä½œæ¨©è€…ãŠã‚ˆã³TOPPERSãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆã‚’
+ *      å…è²¬ã™ã‚‹ã“ã¨ï¼
  * 
- *  ËÜ¥½¥Õ¥È¥¦¥§¥¢¤Ï¡¤ÌµÊİ¾Ú¤ÇÄó¶¡¤µ¤ì¤Æ¤¤¤ë¤â¤Î¤Ç¤¢¤ë¡¥¾åµ­Ãøºî¸¢¼Ô¤ª
- *  ¤è¤ÓTOPPERS¥×¥í¥¸¥§¥¯¥È¤Ï¡¤ËÜ¥½¥Õ¥È¥¦¥§¥¢¤Ë´Ø¤·¤Æ¡¤ÆÃÄê¤Î»ÈÍÑÌÜÅª
- *  ¤ËÂĞ¤¹¤ëÅ¬¹çÀ­¤â´Ş¤á¤Æ¡¤¤¤¤«¤Ê¤ëÊİ¾Ú¤â¹Ô¤ï¤Ê¤¤¡¥¤Ş¤¿¡¤ËÜ¥½¥Õ¥È¥¦¥§
- *  ¥¢¤ÎÍøÍÑ¤Ë¤è¤êÄ¾ÀÜÅª¤Ş¤¿¤Ï´ÖÀÜÅª¤ËÀ¸¤¸¤¿¤¤¤«¤Ê¤ëÂ»³²¤Ë´Ø¤·¤Æ¤â¡¤¤½
- *  ¤ÎÀÕÇ¤¤òÉé¤ï¤Ê¤¤¡¥
+ *  æœ¬ã‚½ãƒ•ãƒˆã‚¦ã‚§ã‚¢ã¯ï¼Œç„¡ä¿è¨¼ã§æä¾›ã•ã‚Œã¦ã„ã‚‹ã‚‚ã®ã§ã‚ã‚‹ï¼ä¸Šè¨˜è‘—ä½œæ¨©è€…ãŠ
+ *  ã‚ˆã³TOPPERSãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆã¯ï¼Œæœ¬ã‚½ãƒ•ãƒˆã‚¦ã‚§ã‚¢ã«é–¢ã—ã¦ï¼Œç‰¹å®šã®ä½¿ç”¨ç›®çš„
+ *  ã«å¯¾ã™ã‚‹é©åˆæ€§ã‚‚å«ã‚ã¦ï¼Œã„ã‹ãªã‚‹ä¿è¨¼ã‚‚è¡Œã‚ãªã„ï¼ã¾ãŸï¼Œæœ¬ã‚½ãƒ•ãƒˆã‚¦ã‚§
+ *  ã‚¢ã®åˆ©ç”¨ã«ã‚ˆã‚Šç›´æ¥çš„ã¾ãŸã¯é–“æ¥çš„ã«ç”Ÿã˜ãŸã„ã‹ãªã‚‹æå®³ã«é–¢ã—ã¦ã‚‚ï¼Œã
+ *  ã®è²¬ä»»ã‚’è² ã‚ãªã„ï¼
  * 
  */
 /*!
  *  \file   toppers/diagnostics.hpp
- *  \brief  ¿ÇÃÇ½èÍı¤Ë´Ø¤¹¤ëÀë¸ÀÄêµÁ
+ *  \brief  è¨ºæ–­å‡¦ç†ã«é–¢ã™ã‚‹å®£è¨€å®šç¾©
  */
 #ifndef TOPPERS_DIAGNOSTICS_HPP_
 #define TOPPERS_DIAGNOSTICS_HPP_
@@ -64,155 +64,187 @@ namespace toppers
   void set_program_name( char const* name );
   std::string const& get_program_name();
   int set_error_abort_threshold( int thresh );
-  void warning( const char* msg );
-  void warning( text_line const& line, const char* msg );
-  void error( const char* msg );
-  void error( text_line const& line, const char* msg );
-  void fatal( const char* msg );
-  void fatal( text_line const& line, const char* msg );
+  void warning( char const* msg );
+  void warning( text_line const& line, char const* msg );
+  void error( char const* msg );
+  void error( text_line const& line, char const* msg );
+  void fatal( char const* msg );
+  void fatal( text_line const& line, char const* msg );
+  void set_error_location( char const* msg );
+  char const* get_error_location();
 
   template < typename T1 >
-    inline void warning( const char* str, T1 const& arg1 )
+    inline void warning( char const* str, T1 const& arg1 )
   {
     warning( ( boost::format( str ) % arg1 ).str().c_str() );
   }
 
   template < typename T1, typename T2 >
-    inline void warning( const char* str, T1 const& arg1, T2 const& arg2 )
+    inline void warning( char const* str, T1 const& arg1, T2 const& arg2 )
   {
     warning( ( boost::format( str ) % arg1 % arg2 ).str().c_str() );
   }
 
   template < typename T1, typename T2, typename T3 >
-    inline void warning( const char* str, T1 const& arg1, T2 const& arg2, T3 const& arg3 )
+    inline void warning( char const* str, T1 const& arg1, T2 const& arg2, T3 const& arg3 )
   {
     warning( ( boost::format( str ) % arg1 % arg2 % arg3 ).str().c_str() );
   }
 
   template < typename T1, typename T2, typename T3, typename T4 >
-    inline void warning( const char* str, T1 const& arg1, T2 const& arg2, T3 const& arg3, T4 const& arg4 )
+    inline void warning( char const* str, T1 const& arg1, T2 const& arg2, T3 const& arg3, T4 const& arg4 )
   {
     warning( ( boost::format( str ) % arg1 % arg2 % arg3 % arg4 ).str().c_str() );
   }
 
   template < typename T1 >
-    inline void warning( text_line const& line, const char* str, T1 const& arg1 )
+    inline void warning( text_line const& line, char const* str, T1 const& arg1 )
   {
     warning( line, ( boost::format( str ) % arg1 ).str().c_str() );
   }
 
   template < typename T1, typename T2 >
-    inline void warning( text_line const& line, const char* str, T1 const& arg1, T2 const& arg2 )
+    inline void warning( text_line const& line, char const* str, T1 const& arg1, T2 const& arg2 )
   {
     warning( line, ( boost::format( str ) % arg1 % arg2 ).str().c_str() );
   }
 
   template < typename T1, typename T2, typename T3 >
-    inline void warning( text_line const& line, const char* str, T1 const& arg1, T2 const& arg2, T3 const& arg3 )
+    inline void warning( text_line const& line, char const* str, T1 const& arg1, T2 const& arg2, T3 const& arg3 )
   {
     warning( line, ( boost::format( str ) % arg1 % arg2 % arg3 ).str().c_str() );
   }
 
   template < typename T1, typename T2, typename T3, typename T4 >
-    inline void warning( text_line const& line, const char* str, T1 const& arg1, T2 const& arg2, T3 const& arg3, T4 const& arg4 )
+    inline void warning( text_line const& line, char const* str, T1 const& arg1, T2 const& arg2, T3 const& arg3, T4 const& arg4 )
   {
     warning( line, ( boost::format( str ) % arg1 % arg2 % arg3 % arg4 ).str().c_str() );
   }
 
+  template < typename T1, typename T2, typename T3, typename T4, typename T5 >
+    inline void warning( text_line const& line, char const* str, T1 const& arg1, T2 const& arg2, T3 const& arg3, T4 const& arg4, T5 const& arg5 )
+  {
+    warning( line, ( boost::format( str ) % arg1 % arg2 % arg3 % arg4 % arg5 ).str().c_str() );
+  }
+
   template < typename T1 >
-    inline void error( const char* str, T1 const& arg1 )
+    inline void error( char const* str, T1 const& arg1 )
   {
     error( ( boost::format( str ) % arg1 ).str().c_str() );
   }
 
   template < typename T1, typename T2 >
-    inline void error( const char* str, T1 const& arg1, T2 const& arg2 )
+    inline void error( char const* str, T1 const& arg1, T2 const& arg2 )
   {
     error( ( boost::format( str ) % arg1 % arg2 ).str().c_str() );
   }
 
   template < typename T1, typename T2, typename T3 >
-    inline void error( const char* str, T1 const& arg1, T2 const& arg2, T3 const& arg3 )
+    inline void error( char const* str, T1 const& arg1, T2 const& arg2, T3 const& arg3 )
   {
     error( ( boost::format( str ) % arg1 % arg2 % arg3 ).str().c_str() );
   }
 
   template < typename T1, typename T2, typename T3, typename T4 >
-    inline void error( const char* str, T1 const& arg1, T2 const& arg2, T3 const& arg3, T4 const& arg4 )
+    inline void error( char const* str, T1 const& arg1, T2 const& arg2, T3 const& arg3, T4 const& arg4 )
   {
     error( ( boost::format( str ) % arg1 % arg2 % arg3 % arg4 ).str().c_str() );
   }
 
+  template < typename T1, typename T2, typename T3, typename T4, typename T5 >
+    inline void error( char const* str, T1 const& arg1, T2 const& arg2, T3 const& arg3, T4 const& arg4, T5 const& arg5 )
+  {
+    error( ( boost::format( str ) % arg1 % arg2 % arg3 % arg4 % arg5 ).str().c_str() );
+  }
+
   template < typename T1 >
-    inline void error( text_line const& line, const char* str, T1 const& arg1 )
+    inline void error( text_line const& line, char const* str, T1 const& arg1 )
   {
     error( line, ( boost::format( str ) % arg1 ).str().c_str() );
   }
 
   template < typename T1, typename T2 >
-    inline void error( text_line const& line, const char* str, T1 const& arg1, T2 const& arg2 )
+    inline void error( text_line const& line, char const* str, T1 const& arg1, T2 const& arg2 )
   {
     error( line, ( boost::format( str ) % arg1 % arg2 ).str().c_str() );
   }
 
   template < typename T1, typename T2, typename T3 >
-    inline void error( text_line const& line, const char* str, T1 const& arg1, T2 const& arg2, T3 const& arg3 )
+    inline void error( text_line const& line, char const* str, T1 const& arg1, T2 const& arg2, T3 const& arg3 )
   {
     error( line, ( boost::format( str ) % arg1 % arg2 % arg3 ).str().c_str() );
   }
 
   template < typename T1, typename T2, typename T3, typename T4 >
-    inline void error( text_line const& line, const char* str, T1 const& arg1, T2 const& arg2, T3 const& arg3, T4 const& arg4 )
+    inline void error( text_line const& line, char const* str, T1 const& arg1, T2 const& arg2, T3 const& arg3, T4 const& arg4 )
   {
     error( line, ( boost::format( str ) % arg1 % arg2 % arg3 % arg4 ).str().c_str() );
   }
 
+  template < typename T1, typename T2, typename T3, typename T4, typename T5 >
+    inline void error( text_line const& line, char const* str, T1 const& arg1, T2 const& arg2, T3 const& arg3, T4 const& arg4, T5 const& arg5 )
+  {
+    error( line, ( boost::format( str ) % arg1 % arg2 % arg3 % arg4 % arg5 ).str().c_str() );
+  }
+
   template < typename T1 >
-    inline void fatal( const char* str, T1 const& arg1 )
+    inline void fatal( char const* str, T1 const& arg1 )
   {
     fatal( ( boost::format( str ) % arg1 ).str().c_str() );
   }
 
   template < typename T1, typename T2 >
-    inline void fatal( const char* str, T1 const& arg1, T2 const& arg2 )
+    inline void fatal( char const* str, T1 const& arg1, T2 const& arg2 )
   {
     fatal( ( boost::format( str ) % arg1 % arg2 ).str().c_str() );
   }
 
   template < typename T1, typename T2, typename T3 >
-    inline void fatal( const char* str, T1 const& arg1, T2 const& arg2, T3 const& arg3 )
+    inline void fatal( char const* str, T1 const& arg1, T2 const& arg2, T3 const& arg3 )
   {
     fatal( ( boost::format( str ) % arg1 % arg2 % arg3 ).str().c_str() );
   }
 
   template < typename T1, typename T2, typename T3, typename T4 >
-    inline void fatal( const char* str, T1 const& arg1, T2 const& arg2, T3 const& arg3, T4 const& arg4 )
+    inline void fatal( char const* str, T1 const& arg1, T2 const& arg2, T3 const& arg3, T4 const& arg4 )
   {
     fatal( ( boost::format( str ) % arg1 % arg2 % arg3 % arg4 ).str().c_str() );
   }
 
+  template < typename T1, typename T2, typename T3, typename T4, typename T5 >
+    inline void fatal( char const* str, T1 const& arg1, T2 const& arg2, T3 const& arg3, T4 const& arg4, T5 const& arg5 )
+  {
+    fatal( ( boost::format( str ) % arg1 % arg2 % arg3 % arg4 % arg5 ).str().c_str() );
+  }
+
   template < typename T1 >
-    inline void fatal( text_line const& line, const char* str, T1 const& arg1 )
+    inline void fatal( text_line const& line, char const* str, T1 const& arg1 )
   {
     fatal( line, ( boost::format( str ) % arg1 ).str().c_str() );
   }
 
   template < typename T1, typename T2 >
-    inline void fatal( text_line const& line, const char* str, T1 const& arg1, T2 const& arg2 )
+    inline void fatal( text_line const& line, char const* str, T1 const& arg1, T2 const& arg2 )
   {
     fatal( line, ( boost::format( str ) % arg1 % arg2 ).str().c_str() );
   }
 
   template < typename T1, typename T2, typename T3 >
-    inline void fatal( text_line const& line, const char* str, T1 const& arg1, T2 const& arg2, T3 const& arg3 )
+    inline void fatal( text_line const& line, char const* str, T1 const& arg1, T2 const& arg2, T3 const& arg3 )
   {
     fatal( line, ( boost::format( str ) % arg1 % arg2 % arg3 ).str().c_str() );
   }
 
   template < typename T1, typename T2, typename T3, typename T4 >
-    inline void fatal( text_line const& line, const char* str, T1 const& arg1, T2 const& arg2, T3 const& arg3, T4 const& arg4 )
+    inline void fatal( text_line const& line, char const* str, T1 const& arg1, T2 const& arg2, T3 const& arg3, T4 const& arg4 )
   {
     fatal( line, ( boost::format( str ) % arg1 % arg2 % arg3 % arg4 ).str().c_str() );
+  }
+
+  template < typename T1, typename T2, typename T3, typename T4, typename T5 >
+    inline void fatal( text_line const& line, char const* str, T1 const& arg1, T2 const& arg2, T3 const& arg3, T4 const& arg4, T5 const& arg5 )
+  {
+    fatal( line, ( boost::format( str ) % arg1 % arg2 % arg3 % arg4 % arg5 ).str().c_str() );
   }
 
   inline void exit()

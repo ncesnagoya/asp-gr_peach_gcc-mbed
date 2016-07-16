@@ -2,36 +2,36 @@
  *  TOPPERS Software
  *      Toyohashi Open Platform for Embedded Real-Time Systems
  *
- *  Copyright (C) 2007-2011 by TAKAGI Nobuhisa
+ *  Copyright (C) 2007-2012 by TAKAGI Nobuhisa
  * 
- *  ¾åµ­Ãøºî¸¢¼Ô¤Ï¡¤°Ê²¼¤Î(1)¡Á(4)¤Î¾ò·ï¤òËş¤¿¤¹¾ì¹ç¤Ë¸Â¤ê¡¤ËÜ¥½¥Õ¥È¥¦¥§
- *  ¥¢¡ÊËÜ¥½¥Õ¥È¥¦¥§¥¢¤ò²şÊÑ¤·¤¿¤â¤Î¤ò´Ş¤à¡¥°Ê²¼Æ±¤¸¡Ë¤ò»ÈÍÑ¡¦Ê£À½¡¦²ş
- *  ÊÑ¡¦ºÆÇÛÉÛ¡Ê°Ê²¼¡¤ÍøÍÑ¤È¸Æ¤Ö¡Ë¤¹¤ë¤³¤È¤òÌµ½ş¤ÇµöÂú¤¹¤ë¡¥
- *  (1) ËÜ¥½¥Õ¥È¥¦¥§¥¢¤ò¥½¡¼¥¹¥³¡¼¥É¤Î·Á¤ÇÍøÍÑ¤¹¤ë¾ì¹ç¤Ë¤Ï¡¤¾åµ­¤ÎÃøºî
- *      ¸¢É½¼¨¡¤¤³¤ÎÍøÍÑ¾ò·ï¤ª¤è¤Ó²¼µ­¤ÎÌµÊİ¾Úµ¬Äê¤¬¡¤¤½¤Î¤Ş¤Ş¤Î·Á¤Ç¥½¡¼
- *      ¥¹¥³¡¼¥ÉÃæ¤Ë´Ş¤Ş¤ì¤Æ¤¤¤ë¤³¤È¡¥
- *  (2) ËÜ¥½¥Õ¥È¥¦¥§¥¢¤ò¡¤¥é¥¤¥Ö¥é¥ê·Á¼°¤Ê¤É¡¤Â¾¤Î¥½¥Õ¥È¥¦¥§¥¢³«È¯¤Ë»È
- *      ÍÑ¤Ç¤­¤ë·Á¤ÇºÆÇÛÉÛ¤¹¤ë¾ì¹ç¤Ë¤Ï¡¤ºÆÇÛÉÛ¤ËÈ¼¤¦¥É¥­¥å¥á¥ó¥È¡ÊÍøÍÑ
- *      ¼Ô¥Ş¥Ë¥å¥¢¥ë¤Ê¤É¡Ë¤Ë¡¤¾åµ­¤ÎÃøºî¸¢É½¼¨¡¤¤³¤ÎÍøÍÑ¾ò·ï¤ª¤è¤Ó²¼µ­
- *      ¤ÎÌµÊİ¾Úµ¬Äê¤ò·ÇºÜ¤¹¤ë¤³¤È¡¥
- *  (3) ËÜ¥½¥Õ¥È¥¦¥§¥¢¤ò¡¤µ¡´ï¤ËÁÈ¤ß¹ş¤à¤Ê¤É¡¤Â¾¤Î¥½¥Õ¥È¥¦¥§¥¢³«È¯¤Ë»È
- *      ÍÑ¤Ç¤­¤Ê¤¤·Á¤ÇºÆÇÛÉÛ¤¹¤ë¾ì¹ç¤Ë¤Ï¡¤¼¡¤Î¤¤¤º¤ì¤«¤Î¾ò·ï¤òËş¤¿¤¹¤³
- *      ¤È¡¥
- *    (a) ºÆÇÛÉÛ¤ËÈ¼¤¦¥É¥­¥å¥á¥ó¥È¡ÊÍøÍÑ¼Ô¥Ş¥Ë¥å¥¢¥ë¤Ê¤É¡Ë¤Ë¡¤¾åµ­¤ÎÃø
- *        ºî¸¢É½¼¨¡¤¤³¤ÎÍøÍÑ¾ò·ï¤ª¤è¤Ó²¼µ­¤ÎÌµÊİ¾Úµ¬Äê¤ò·ÇºÜ¤¹¤ë¤³¤È¡¥
- *    (b) ºÆÇÛÉÛ¤Î·ÁÂÖ¤ò¡¤ÊÌ¤ËÄê¤á¤ëÊıË¡¤Ë¤è¤Ã¤Æ¡¤TOPPERS¥×¥í¥¸¥§¥¯¥È¤Ë
- *        Êó¹ğ¤¹¤ë¤³¤È¡¥
- *  (4) ËÜ¥½¥Õ¥È¥¦¥§¥¢¤ÎÍøÍÑ¤Ë¤è¤êÄ¾ÀÜÅª¤Ş¤¿¤Ï´ÖÀÜÅª¤ËÀ¸¤¸¤ë¤¤¤«¤Ê¤ëÂ»
- *      ³²¤«¤é¤â¡¤¾åµ­Ãøºî¸¢¼Ô¤ª¤è¤ÓTOPPERS¥×¥í¥¸¥§¥¯¥È¤òÌÈÀÕ¤¹¤ë¤³¤È¡¥
- *      ¤Ş¤¿¡¤ËÜ¥½¥Õ¥È¥¦¥§¥¢¤Î¥æ¡¼¥¶¤Ş¤¿¤Ï¥¨¥ó¥É¥æ¡¼¥¶¤«¤é¤Î¤¤¤«¤Ê¤ëÍı
- *      Í³¤Ë´ğ¤Å¤¯ÀÁµá¤«¤é¤â¡¤¾åµ­Ãøºî¸¢¼Ô¤ª¤è¤ÓTOPPERS¥×¥í¥¸¥§¥¯¥È¤ò
- *      ÌÈÀÕ¤¹¤ë¤³¤È¡¥
+ *  ä¸Šè¨˜è‘—ä½œæ¨©è€…ã¯ï¼Œä»¥ä¸‹ã®(1)ã€œ(4)ã®æ¡ä»¶ã‚’æº€ãŸã™å ´åˆã«é™ã‚Šï¼Œæœ¬ã‚½ãƒ•ãƒˆã‚¦ã‚§
+ *  ã‚¢ï¼ˆæœ¬ã‚½ãƒ•ãƒˆã‚¦ã‚§ã‚¢ã‚’æ”¹å¤‰ã—ãŸã‚‚ã®ã‚’å«ã‚€ï¼ä»¥ä¸‹åŒã˜ï¼‰ã‚’ä½¿ç”¨ãƒ»è¤‡è£½ãƒ»æ”¹
+ *  å¤‰ãƒ»å†é…å¸ƒï¼ˆä»¥ä¸‹ï¼Œåˆ©ç”¨ã¨å‘¼ã¶ï¼‰ã™ã‚‹ã“ã¨ã‚’ç„¡å„Ÿã§è¨±è«¾ã™ã‚‹ï¼
+ *  (1) æœ¬ã‚½ãƒ•ãƒˆã‚¦ã‚§ã‚¢ã‚’ã‚½ãƒ¼ã‚¹ã‚³ãƒ¼ãƒ‰ã®å½¢ã§åˆ©ç”¨ã™ã‚‹å ´åˆã«ã¯ï¼Œä¸Šè¨˜ã®è‘—ä½œ
+ *      æ¨©è¡¨ç¤ºï¼Œã“ã®åˆ©ç”¨æ¡ä»¶ãŠã‚ˆã³ä¸‹è¨˜ã®ç„¡ä¿è¨¼è¦å®šãŒï¼Œãã®ã¾ã¾ã®å½¢ã§ã‚½ãƒ¼
+ *      ã‚¹ã‚³ãƒ¼ãƒ‰ä¸­ã«å«ã¾ã‚Œã¦ã„ã‚‹ã“ã¨ï¼
+ *  (2) æœ¬ã‚½ãƒ•ãƒˆã‚¦ã‚§ã‚¢ã‚’ï¼Œãƒ©ã‚¤ãƒ–ãƒ©ãƒªå½¢å¼ãªã©ï¼Œä»–ã®ã‚½ãƒ•ãƒˆã‚¦ã‚§ã‚¢é–‹ç™ºã«ä½¿
+ *      ç”¨ã§ãã‚‹å½¢ã§å†é…å¸ƒã™ã‚‹å ´åˆã«ã¯ï¼Œå†é…å¸ƒã«ä¼´ã†ãƒ‰ã‚­ãƒ¥ãƒ¡ãƒ³ãƒˆï¼ˆåˆ©ç”¨
+ *      è€…ãƒãƒ‹ãƒ¥ã‚¢ãƒ«ãªã©ï¼‰ã«ï¼Œä¸Šè¨˜ã®è‘—ä½œæ¨©è¡¨ç¤ºï¼Œã“ã®åˆ©ç”¨æ¡ä»¶ãŠã‚ˆã³ä¸‹è¨˜
+ *      ã®ç„¡ä¿è¨¼è¦å®šã‚’æ²è¼‰ã™ã‚‹ã“ã¨ï¼
+ *  (3) æœ¬ã‚½ãƒ•ãƒˆã‚¦ã‚§ã‚¢ã‚’ï¼Œæ©Ÿå™¨ã«çµ„ã¿è¾¼ã‚€ãªã©ï¼Œä»–ã®ã‚½ãƒ•ãƒˆã‚¦ã‚§ã‚¢é–‹ç™ºã«ä½¿
+ *      ç”¨ã§ããªã„å½¢ã§å†é…å¸ƒã™ã‚‹å ´åˆã«ã¯ï¼Œæ¬¡ã®ã„ãšã‚Œã‹ã®æ¡ä»¶ã‚’æº€ãŸã™ã“
+ *      ã¨ï¼
+ *    (a) å†é…å¸ƒã«ä¼´ã†ãƒ‰ã‚­ãƒ¥ãƒ¡ãƒ³ãƒˆï¼ˆåˆ©ç”¨è€…ãƒãƒ‹ãƒ¥ã‚¢ãƒ«ãªã©ï¼‰ã«ï¼Œä¸Šè¨˜ã®è‘—
+ *        ä½œæ¨©è¡¨ç¤ºï¼Œã“ã®åˆ©ç”¨æ¡ä»¶ãŠã‚ˆã³ä¸‹è¨˜ã®ç„¡ä¿è¨¼è¦å®šã‚’æ²è¼‰ã™ã‚‹ã“ã¨ï¼
+ *    (b) å†é…å¸ƒã®å½¢æ…‹ã‚’ï¼Œåˆ¥ã«å®šã‚ã‚‹æ–¹æ³•ã«ã‚ˆã£ã¦ï¼ŒTOPPERSãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆã«
+ *        å ±å‘Šã™ã‚‹ã“ã¨ï¼
+ *  (4) æœ¬ã‚½ãƒ•ãƒˆã‚¦ã‚§ã‚¢ã®åˆ©ç”¨ã«ã‚ˆã‚Šç›´æ¥çš„ã¾ãŸã¯é–“æ¥çš„ã«ç”Ÿã˜ã‚‹ã„ã‹ãªã‚‹æ
+ *      å®³ã‹ã‚‰ã‚‚ï¼Œä¸Šè¨˜è‘—ä½œæ¨©è€…ãŠã‚ˆã³TOPPERSãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆã‚’å…è²¬ã™ã‚‹ã“ã¨ï¼
+ *      ã¾ãŸï¼Œæœ¬ã‚½ãƒ•ãƒˆã‚¦ã‚§ã‚¢ã®ãƒ¦ãƒ¼ã‚¶ã¾ãŸã¯ã‚¨ãƒ³ãƒ‰ãƒ¦ãƒ¼ã‚¶ã‹ã‚‰ã®ã„ã‹ãªã‚‹ç†
+ *      ç”±ã«åŸºã¥ãè«‹æ±‚ã‹ã‚‰ã‚‚ï¼Œä¸Šè¨˜è‘—ä½œæ¨©è€…ãŠã‚ˆã³TOPPERSãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆã‚’
+ *      å…è²¬ã™ã‚‹ã“ã¨ï¼
  * 
- *  ËÜ¥½¥Õ¥È¥¦¥§¥¢¤Ï¡¤ÌµÊİ¾Ú¤ÇÄó¶¡¤µ¤ì¤Æ¤¤¤ë¤â¤Î¤Ç¤¢¤ë¡¥¾åµ­Ãøºî¸¢¼Ô¤ª
- *  ¤è¤ÓTOPPERS¥×¥í¥¸¥§¥¯¥È¤Ï¡¤ËÜ¥½¥Õ¥È¥¦¥§¥¢¤Ë´Ø¤·¤Æ¡¤ÆÃÄê¤Î»ÈÍÑÌÜÅª
- *  ¤ËÂĞ¤¹¤ëÅ¬¹çÀ­¤â´Ş¤á¤Æ¡¤¤¤¤«¤Ê¤ëÊİ¾Ú¤â¹Ô¤ï¤Ê¤¤¡¥¤Ş¤¿¡¤ËÜ¥½¥Õ¥È¥¦¥§
- *  ¥¢¤ÎÍøÍÑ¤Ë¤è¤êÄ¾ÀÜÅª¤Ş¤¿¤Ï´ÖÀÜÅª¤ËÀ¸¤¸¤¿¤¤¤«¤Ê¤ëÂ»³²¤Ë´Ø¤·¤Æ¤â¡¤¤½
- *  ¤ÎÀÕÇ¤¤òÉé¤ï¤Ê¤¤¡¥
+ *  æœ¬ã‚½ãƒ•ãƒˆã‚¦ã‚§ã‚¢ã¯ï¼Œç„¡ä¿è¨¼ã§æä¾›ã•ã‚Œã¦ã„ã‚‹ã‚‚ã®ã§ã‚ã‚‹ï¼ä¸Šè¨˜è‘—ä½œæ¨©è€…ãŠ
+ *  ã‚ˆã³TOPPERSãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆã¯ï¼Œæœ¬ã‚½ãƒ•ãƒˆã‚¦ã‚§ã‚¢ã«é–¢ã—ã¦ï¼Œç‰¹å®šã®ä½¿ç”¨ç›®çš„
+ *  ã«å¯¾ã™ã‚‹é©åˆæ€§ã‚‚å«ã‚ã¦ï¼Œã„ã‹ãªã‚‹ä¿è¨¼ã‚‚è¡Œã‚ãªã„ï¼ã¾ãŸï¼Œæœ¬ã‚½ãƒ•ãƒˆã‚¦ã‚§
+ *  ã‚¢ã®åˆ©ç”¨ã«ã‚ˆã‚Šç›´æ¥çš„ã¾ãŸã¯é–“æ¥çš„ã«ç”Ÿã˜ãŸã„ã‹ãªã‚‹æå®³ã«é–¢ã—ã¦ã‚‚ï¼Œã
+ *  ã®è²¬ä»»ã‚’è² ã‚ãªã„ï¼
  * 
  */
 #include <cstdlib>
@@ -54,6 +54,7 @@
 #include "toppers/itronx/preprocess.hpp"
 #include <boost/spirit/include/classic.hpp>
 #include <boost/filesystem/path.hpp>
+#include <boost/lexical_cast.hpp>
 
 namespace toppers
 {
@@ -69,7 +70,7 @@ namespace toppers
       };
     }
 
-    //! cfg_out ¥¯¥é¥¹¤Î¼ÂÁõ¾ÜºÙ
+    //! cfg_out ã‚¯ãƒ©ã‚¹ã®å®Ÿè£…è©³ç´°
     struct cfg1_out::implementation
     {
     protected:
@@ -101,33 +102,44 @@ namespace toppers
       }
       virtual void do_generate_cfg1_def() const
       {
-        ofile_ << "const uint32_t TOPPERS_cfg_magic_number = 0x12345678;\n"
-                  "const uint32_t TOPPERS_cfg_sizeof_signed_t = sizeof(signed_t);\n"
-                  "const uint32_t TOPPERS_cfg_sizeof_pointer = sizeof(const volatile void*);\n"
-                  "const unsigned_t TOPPERS_cfg_CHAR_BIT = CHAR_BIT;\n"
-                  "const unsigned_t TOPPERS_cfg_CHAR_MAX = CHAR_MAX;\n"
-                  "const unsigned_t TOPPERS_cfg_CHAR_MIN = CHAR_MIN;\n"
-                  "const unsigned_t TOPPERS_cfg_SCHAR_MAX = SCHAR_MAX;\n"
-                  "const unsigned_t TOPPERS_cfg_SHRT_MAX = SHRT_MAX;\n"
-                  "const unsigned_t TOPPERS_cfg_INT_MAX = INT_MAX;\n"
-                  "const unsigned_t TOPPERS_cfg_LONG_MAX = LONG_MAX;\n"
+        std::string kernel( get_global_string( "kernel" ) );
+        if ( kernel == "atk2_osap" || kernel == "atk2_no_osap" )
+        {
+          ofile_ << "const uint32 TOPPERS_cfg_magic_number = 0x12345678;\n"
+                    "const uint32 TOPPERS_cfg_sizeof_signed_t = sizeof(signed_t);\n"
+                    "const uint32 TOPPERS_cfg_sizeof_pointer = sizeof(const volatile void*);\n";
+        }
+        else
+        {
+          ofile_ << "const uint32_t TOPPERS_cfg_magic_number = 0x12345678;\n"
+                    "const uint32_t TOPPERS_cfg_sizeof_signed_t = sizeof(signed_t);\n"
+                    "const uint32_t TOPPERS_cfg_sizeof_pointer = sizeof(const volatile void*);\n";
+        }
+        ofile_ << "const unsigned_t TOPPERS_cfg_CHAR_BIT = ((unsigned char)~0u == 0xff ? 8 : 16);\n"  // CHAR_BITãŒ8ã¾ãŸã¯16ãƒ“ãƒƒãƒˆã§ã‚ã‚‹ã“ã¨ã‚’ä»®å®š
+                  "const unsigned_t TOPPERS_cfg_CHAR_MAX = ((char)-1 < 0 ? (char)((unsigned char)~0u >> 1) : (unsigned char)~0u);\n"
+                  "const unsigned_t TOPPERS_cfg_CHAR_MIN = (unsigned_t)((char)-1 < 0 ? -((unsigned char)~0u >> 1) - 1 : 0);\n"
+                  "const unsigned_t TOPPERS_cfg_SCHAR_MAX = (signed char)((unsigned char)~0u >> 1);\n"
+                  "const unsigned_t TOPPERS_cfg_SHRT_MAX = (short)((unsigned short)~0u >> 1);\n"
+                  "const unsigned_t TOPPERS_cfg_INT_MAX = (int)(~0u >> 1);\n"
+                  "const unsigned_t TOPPERS_cfg_LONG_MAX = (long)(~0ul >> 1);\n"
                   "\n";
 
-        if ( def_table_ != 0 )	// ¡ÖÃÍ¼èÆÀ¥·¥ó¥Ü¥ë¥Æ¡¼¥Ö¥ë¡×
+        if ( def_table_ != 0 )	// ã€Œå€¤å–å¾—ã‚·ãƒ³ãƒœãƒ«ãƒ†ãƒ¼ãƒ–ãƒ«ã€
         {
           for ( cfg1_def_table::const_iterator iter( def_table_->begin() ), last( def_table_->end() );
                 iter != last;
                 ++iter )
           {
-            // ¼°¤ÎºÇ½é¤Ë # ¤¬¤¢¤ì¤Ğ¡¢¤½¤ì¤Ï¥Ş¥¯¥íÄêµÁ¤ÎÈ½Äê
-            // ¡úÃí°Õ¡ú #@ ¤Ç»Ï¤Ş¤ë½ñ¼°¤ÏÇÑ»ß 2010/07/23
+            // å¼ã®æœ€åˆã« # ãŒã‚ã‚Œã°ã€ãã‚Œã¯ãƒã‚¯ãƒ­å®šç¾©ã®åˆ¤å®š
+            // â˜…æ³¨æ„â˜… #@ ã§å§‹ã¾ã‚‹æ›¸å¼ã¯å»ƒæ­¢ 2010/07/23
             bool is_pp = ( iter->expression[ 0 ] == '#' );
-            if ( !iter->value1.empty() || !iter->value2.empty() ) // ¡ÊCSV¤Î¡Ë4ÈÖÌÜ¤Ş¤¿¤Ï5ÈÖÌÜ¤ÎÃÍ¤¬¤¢¤ì¤Ğ...
+            if ( !iter->value1.empty() || !iter->value2.empty() ) // ï¼ˆCSVã®ï¼‰4ç•ªç›®ã¾ãŸã¯5ç•ªç›®ã®å€¤ãŒã‚ã‚Œã°...
             {
               is_pp = true;
             }
 
-            std::string definition = ( iter->is_signed ? "const signed_t " : "const unsigned_t " );
+            std::string type = ( iter->is_signed ? "signed_t" : "unsigned_t" );
+            std::string definition = "const " + type + " ";
             definition += "TOPPERS_cfg_" + iter->name;
             if ( is_pp )
             {
@@ -142,14 +154,14 @@ namespace toppers
                           "(" + value2 + ");\n"
                           "#endif\n";
             }
-            else if ( iter->expression[ 0 ] == '@' )  // '@'¤Ç»Ï¤Ş¤ì¤Ğ¥¢¥É¥ì¥¹
+            else if ( iter->expression[ 0 ] == '@' )  // '@'ã§å§‹ã¾ã‚Œã°ã‚¢ãƒ‰ãƒ¬ã‚¹
             {
               definition = "const volatile void* const TOPPERS_cfg_" + iter->name + " = (" + ( iter->expression.c_str() + 1 ) + ");\n";
             }
             else
             {
               definition +=
-                          " = " + iter->expression + ";\n";
+                          " = ( " + type + " )" + iter->expression + ";\n";
             }
             ofile_ << definition;
           }
@@ -168,9 +180,9 @@ namespace toppers
 
 
     /*!
-     *  \brief  ¥³¥ó¥¹¥È¥é¥¯¥¿
-     *  \param[in]  filename    cfg1_out.c ¤Ş¤¿¤Ï cfg1_out.srec ¼ã¤·¤¯¤Ï¤½¤ì¤é¤ÎÂåÂØÌ¾
-     *  \param[in]  def_table   cfg1_out.c À¸À®ÍÑ¤ÎÄêµÁ¥Æ¡¼¥Ö¥ë
+     *  \brief  ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+     *  \param[in]  filename    cfg1_out.c ã¾ãŸã¯ cfg1_out.srec è‹¥ã—ãã¯ãã‚Œã‚‰ã®ä»£æ›¿å
+     *  \param[in]  def_table   cfg1_out.c ç”Ÿæˆç”¨ã®å®šç¾©ãƒ†ãƒ¼ãƒ–ãƒ«
      */
     cfg1_out::cfg1_out( std::string const& filename, cfg1_def_table const* def_table )
       : pimpl_( new implementation( filename, std::ios_base::out, def_table ) )
@@ -178,15 +190,15 @@ namespace toppers
     }
 
     /*!
-     *  \brief  ¥³¥Ô¡¼¥³¥ó¥¹¥È¥é¥¯¥¿
-     *  \param[in]  other   ¥³¥Ô¡¼¸µ
+     *  \brief  ã‚³ãƒ”ãƒ¼ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+     *  \param[in]  other   ã‚³ãƒ”ãƒ¼å…ƒ
      */
     cfg1_out::cfg1_out( cfg1_out const& other )
       : pimpl_( other.pimpl_->do_clone() )
     {
     }
 
-    //! ¥Ç¥¹¥È¥é¥¯¥¿
+    //! ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
     cfg1_out::~cfg1_out()
     {
       delete pimpl_;
@@ -194,17 +206,17 @@ namespace toppers
     }
 
     /*!
-     *  \brief  ¥·¥¹¥Æ¥à¥³¥ó¥Õ¥£¥®¥å¥ì¡¼¥·¥ç¥ó¥Õ¥¡¥¤¥ë¤Î¥í¡¼¥É
-     *  \param[in]  input_file  ÆşÎÏ¥Õ¥¡¥¤¥ëÌ¾
-     *  \param[in]  codeset     Ê¸»ú¥³¡¼¥É
-     *  \param[in]  info_map    ÀÅÅªAPI¾ğÊó¤ÎÏ¢ÁÛÇÛÎó
+     *  \brief  ã‚·ã‚¹ãƒ†ãƒ ã‚³ãƒ³ãƒ•ã‚£ã‚®ãƒ¥ãƒ¬ãƒ¼ã‚·ãƒ§ãƒ³ãƒ•ã‚¡ã‚¤ãƒ«ã®ãƒ­ãƒ¼ãƒ‰
+     *  \param[in]  input_file  å…¥åŠ›ãƒ•ã‚¡ã‚¤ãƒ«å
+     *  \param[in]  codeset     æ–‡å­—ã‚³ãƒ¼ãƒ‰
+     *  \param[in]  info_map    é™çš„APIæƒ…å ±ã®é€£æƒ³é…åˆ—
      */
     void cfg1_out::load_cfg( std::string const& input_file, codeset_t codeset, std::map< std::string, static_api::info > const& info_map )
     {
       return pimpl_->do_load_cfg( input_file, codeset, info_map );
     }
 
-    //! Á°½èÍı
+    //! å‰å‡¦ç†
     void cfg1_out::implementation::preprocess( std::string const& input_file, codeset_t codeset, text& txt )
     {
       boost::any print_depend = global( "print-dependencies" );
@@ -213,7 +225,7 @@ namespace toppers
         std::set< std::string > depend, onces;
         itronx::preprocess( input_file, txt, codeset, &depend, &onces );
 
-        // °ÍÂ¸´Ø·¸¤Î½ĞÎÏ¡ÊGNU make¤ËÅ¬¤·¤¿·Á¼°¡Ë
+        // ä¾å­˜é–¢ä¿‚ã®å‡ºåŠ›ï¼ˆGNU makeã«é©ã—ãŸå½¢å¼ï¼‰
         std::string target_file = boost::any_cast< std::string& >( print_depend );
         std::cout << target_file << ": " << input_file << ' ';
         std::copy( depend.begin(), depend.end(), std::ostream_iterator< std::string >( std::cout, " " ) );
@@ -228,17 +240,17 @@ namespace toppers
     }
 
     /*!
-     *  \brief  ¥·¥¹¥Æ¥à¥³¥ó¥Õ¥£¥®¥å¥ì¡¼¥·¥ç¥ó¥Õ¥¡¥¤¥ë¤Î¥í¡¼¥É½èÍı¤Î¼ÂÂÎ
-     *  \param[in]  input_file  ÆşÎÏ¥Õ¥¡¥¤¥ëÌ¾
-     *  \param[in]  codeset     Ê¸»ú¥³¡¼¥É
-     *  \param[in]  info_map    ÀÅÅªAPI¾ğÊó¤ÎÏ¢ÁÛÇÛÎó
+     *  \brief  ã‚·ã‚¹ãƒ†ãƒ ã‚³ãƒ³ãƒ•ã‚£ã‚®ãƒ¥ãƒ¬ãƒ¼ã‚·ãƒ§ãƒ³ãƒ•ã‚¡ã‚¤ãƒ«ã®ãƒ­ãƒ¼ãƒ‰å‡¦ç†ã®å®Ÿä½“
+     *  \param[in]  input_file  å…¥åŠ›ãƒ•ã‚¡ã‚¤ãƒ«å
+     *  \param[in]  codeset     æ–‡å­—ã‚³ãƒ¼ãƒ‰
+     *  \param[in]  info_map    é™çš„APIæƒ…å ±ã®é€£æƒ³é…åˆ—
      */
     void cfg1_out::implementation::do_load_cfg( std::string const& input_file, codeset_t codeset, std::map< std::string, static_api::info > const& info_map )
     {
       text txt;
       preprocess( input_file, codeset, txt );
 
-      // ¥·¥¹¥Æ¥à¥³¥ó¥Õ¥£¥®¥å¥ì¡¼¥·¥ç¥ó¥Õ¥¡¥¤¥ë¤Î²òÀÏ
+      // ã‚·ã‚¹ãƒ†ãƒ ã‚³ãƒ³ãƒ•ã‚£ã‚®ãƒ¥ãƒ¬ãƒ¼ã‚·ãƒ§ãƒ³ãƒ•ã‚¡ã‚¤ãƒ«ã®è§£æ
       std::ostringstream oss, includes_oss;
       std::vector< static_api > api_array;
       long serial = 0;
@@ -255,8 +267,8 @@ namespace toppers
         using namespace boost::spirit::classic;
         parse_info< text::const_iterator > info;
 
-        info = parse( iter, last, ( ch_p( '#' ) >> *( anychar_p - eol_p ) >> eol_p ) ); // Á°½èÍı»ØÎá¤Î¸¡½Ğ
-        if ( info.hit ) // Á°½èÍı»ØÎá¤Ê¤é¤Ğ...
+        info = parse( iter, last, ( ch_p( '#' ) >> *( anychar_p - eol_p ) >> eol_p ) ); // å‰å‡¦ç†æŒ‡ä»¤ã®æ¤œå‡º
+        if ( info.hit ) // å‰å‡¦ç†æŒ‡ä»¤ãªã‚‰ã°...
         {
           if ( std::size_t col = info.stop.get_col() )
           {
@@ -285,7 +297,7 @@ namespace toppers
             {
               oss << '\n' << std::string( iter, stop );
             }
-            else if ( directive != "pragma" ) // ¥³¥ó¥Õ¥£¥®¥å¥ì¡¼¥¿¤¬½èÍı¤¹¤Ù¤­#pragma»ØÎá¤Ï¤³¤Î»şÅÀ¤Ç¤Ï½üµî¤µ¤ì¤Æ¤¤¤ë
+            else if ( directive != "pragma" ) // ã‚³ãƒ³ãƒ•ã‚£ã‚®ãƒ¥ãƒ¬ãƒ¼ã‚¿ãŒå‡¦ç†ã™ã¹ã#pragmaæŒ‡ä»¤ã¯ã“ã®æ™‚ç‚¹ã§ã¯é™¤å»ã•ã‚Œã¦ã„ã‚‹
             {
               error( iter.line(), _( "`#%1%\' is not supported" ), directive );
             }
@@ -296,7 +308,7 @@ namespace toppers
           }
           iter = boost::prior( stop );
         }
-        else // Á°½èÍı»ØÎá¤Ç¤Ï¤Ê¤¯...
+        else // å‰å‡¦ç†æŒ‡ä»¤ã§ã¯ãªã...
           if ( !std::isspace( static_cast< unsigned char >( *iter ) ) )
         {
           while ( iter != last )
@@ -325,29 +337,29 @@ namespace toppers
                           str_p( "KERNEL_DOMAIN" )[ assign_a( block_type ) ] >> '{'
                         ),
                         space_p );
-          if ( info.hit )               // CLASS or DOMAIN¥Ö¥í¥Ã¥¯³«»Ï¤Ê¤é¤Ğ...
+          if ( info.hit )               // CLASS or DOMAINãƒ–ãƒ­ãƒƒã‚¯é–‹å§‹ãªã‚‰ã°...
           {
             block_t b;
             b.type = block_type;
             b.id = id;
             b.line = iter.line();
-            idexp = id; // »úÌÌ¤È¤·¤Æ¤ÎID¤òÊİÂ¸
+            idexp = id; // å­—é¢ã¨ã—ã¦ã®IDã‚’ä¿å­˜
 
             if ( block_type == "CLASS" )
             {
-              if ( !get_global< bool >( "has-class" ) )
+              if ( !get_global_bool( "has-class" ) )
               {
                 error( "cannot use `%1%'", "CLASS" );
               }
             }
             if ( block_type == "DOMAIN" || block_type == "KERNEL_DOMAIN"  )
             {
-              if ( !get_global< bool >( "has-domain" ) )
+              if ( !get_global_bool( "has-domain" ) )
               {
                 error( "cannot use `%1%'", block_type );
               }
             }
-            // ¥«¡¼¥Í¥ë¥É¥á¥¤¥ó¤òÄÌ¾ï¤Î¥É¥á¥¤¥ó¤ÈÆ±¤¸¤è¤¦¤Ë°·¤¨¤ë¤è¤¦¤ËÊÑ·Á
+            // ã‚«ãƒ¼ãƒãƒ«ãƒ‰ãƒ¡ã‚¤ãƒ³ã‚’é€šå¸¸ã®ãƒ‰ãƒ¡ã‚¤ãƒ³ã¨åŒã˜ã‚ˆã†ã«æ‰±ãˆã‚‹ã‚ˆã†ã«å¤‰å½¢
             if ( block_type == "KERNEL_DOMAIN" )
             {
               block_type = "DOMAIN";
@@ -355,7 +367,7 @@ namespace toppers
               b.type = block_type;
               b.id = id;
             }
-            else if ( block_type == "DOMAIN" ) // ¥É¥á¥¤¥óID¤Î²¾ÅĞÏ¿
+            else if ( block_type == "DOMAIN" ) // ãƒ‰ãƒ¡ã‚¤ãƒ³IDã®ä»®ç™»éŒ²
             {
               bool hit = false;
               for ( std::vector< std::pair< std::string, long > >::const_iterator iter( domid_table.begin() ), last( domid_table.end() );
@@ -373,9 +385,9 @@ namespace toppers
                 domid_table.push_back( std::make_pair( id, 0L ) );
               }
             }
-            else if ( block_type == "CLASS" ) // ¥¯¥é¥¹ID¤ÎÅĞÏ¿
+            else if ( block_type == "CLASS" ) // ã‚¯ãƒ©ã‚¹IDã®ç™»éŒ²
             {
-              // ¥¯¥é¥¹ID¤Ë¼°¤ò»È¤¨¤ë¤è¤¦¤Ë¤·¤¿¤¿¤á¡¢¼±ÊÌ»Ò¤Ë»È¤¨¤ë·Á¼°¤ËÊÑ´¹¤¹¤ëÉ¬Í×¤¬¤¢¤ë
+              // ã‚¯ãƒ©ã‚¹IDã«å¼ã‚’ä½¿ãˆã‚‹ã‚ˆã†ã«ã—ãŸãŸã‚ã€è­˜åˆ¥å­ã«ä½¿ãˆã‚‹å½¢å¼ã«å¤‰æ›ã™ã‚‹å¿…è¦ãŒã‚ã‚‹
               std::tr1::uint64_t hash = 0;
               for ( const char* s = id.c_str(); *s != '\0'; ++s )
               {
@@ -401,7 +413,7 @@ namespace toppers
               }
             }
 
-            // Æş¤ì»ÒÈ½Äê
+            // å…¥ã‚Œå­åˆ¤å®š
             if ( block_type == "CLASS" && !current_class.empty()
               || block_type == "DOMAIN" && !current_domain.empty() )
             {
@@ -430,7 +442,7 @@ namespace toppers
               oss << "const unsigned_t TOPPERS_cfg_valueof_" << id << " = ";
               if ( id == "TDOM_KERNEL" )
               {
-                oss << "-1" << ";\n";
+                oss << "( unsigned_t ) (-1)" << ";\n";
               }
               else
               {
@@ -443,7 +455,7 @@ namespace toppers
 
             iter = boost::prior( info.stop );
           }
-          else if ( *info.stop == '}' ) // ¥Ö¥í¥Ã¥¯ËöÈø¤Ê¤é¤Ğ...
+          else if ( *info.stop == '}' ) // ãƒ–ãƒ­ãƒƒã‚¯æœ«å°¾ãªã‚‰ã°...
           {
             if ( block_stack.empty() )
             {
@@ -472,7 +484,7 @@ namespace toppers
           else
           {
             static_api api;
-            if ( api.parse( iter, last, info_map, false, codeset ) )  // ÀÅÅªAPI¤Ê¤é¤Ğ...
+            if ( api.parse( iter, last, info_map, false, codeset ) )  // é™çš„APIãªã‚‰ã°...
             {
               if ( !current_class.empty() )
               {
@@ -482,7 +494,7 @@ namespace toppers
               if ( !current_domain.empty() )
               {
                 api.set_domain( current_domain );
-                oss << "const unsigned_t TOPPERS_cfg_valueof_DOMAIN_" << serial << " = " << current_domain << ";";
+                oss << "const unsigned_t TOPPERS_cfg_valueof_DOMAIN_" << serial << " = ( unsigned_t ) ( " << current_domain << " );";
               }
 
               api_array.push_back( api );
@@ -490,7 +502,7 @@ namespace toppers
               oss << boost::format( "\n#line %1% \"%2%\"\n" ) % api.line().line % dir_delimiter_to_slash( api.line().file );
               oss << "const unsigned_t TOPPERS_cfg_static_api_" << serial << " = " << serial << ";\n";
 
-              if ( !api.params().empty() && api.begin()->symbol[0] == '#' )   // ¥ª¥Ö¥¸¥§¥¯¥È¼±ÊÌÌ¾
+              if ( !api.params().empty() && api.begin()->symbol[0] == '#' )   // ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆè­˜åˆ¥å
               {
                 std::string object_id( api.begin()->text );
                 bool valid_object_id = true;
@@ -516,7 +528,7 @@ namespace toppers
                 }
                 else
                 {
-                  oss << "#define " << object_id << "\t(<>)\n";   // ¤Ç¤¿¤é¤á¤Ê»ú¶ç¡Ê´ğËÜ¥½¡¼¥¹Ê¸»ú½¸¹ç¤Î¤ß¤Ç¹½À®¡Ë¤ËÄêµÁ¤¹¤ë¤³¤È¤Ç¡¢¸í»ÈÍÑ¤ò¸¡½Ğ¤¹¤ë
+                  oss << "#define " << object_id << "\t(<>)\n";   // ã§ãŸã‚‰ã‚ãªå­—å¥ï¼ˆåŸºæœ¬ã‚½ãƒ¼ã‚¹æ–‡å­—é›†åˆã®ã¿ã§æ§‹æˆï¼‰ã«å®šç¾©ã™ã‚‹ã“ã¨ã§ã€èª¤ä½¿ç”¨ã‚’æ¤œå‡ºã™ã‚‹
                   oss << boost::format( "\n#line %1% \"%2%\"\n" ) % ( api.line().line ) % dir_delimiter_to_slash( api.line().file );
                 }
               }
@@ -525,27 +537,35 @@ namespace toppers
                     ++api_iter )
               {
                 if ( ( api_iter->symbol[0] == '.' ) || ( api_iter->symbol[0] == '+' ) )
-                    // À°¿ôÄê¿ô¼°¥Ñ¥é¥á¡¼¥¿¤Î¤ß½ĞÎÏ
+                    // æ•´æ•°å®šæ•°å¼ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã®ã¿å‡ºåŠ›
                 {
+                  char const* type;
                   if ( api_iter->symbol[0] == '.' )
                   {
-                    oss << "const unsigned_t ";
+                    type = "unsigned_t";
                   }
                   else
                   {
-                    oss << "const signed_t ";
+                    type = "signed_t";
                   }
+                  oss << "const " << type << " ";
 
-                  // ¾ÊÎ¬²ÄÇ½¥Ñ¥é¥á¡¼¥¿¾ğÊó¤ÎËöÈø¤Ë¤¢¤ë ? ¤ò½üµî
+                  // çœç•¥å¯èƒ½ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿æƒ…å ±ã®æœ«å°¾ã«ã‚ã‚‹ ? ã‚’é™¤å»
                   std::string parameter_name( api_iter->symbol.c_str() + 1 );
                   if ( *parameter_name.rbegin() == '\?' )
                   {
                     parameter_name.resize( parameter_name.size() - 1 );
                   }
+                  // æœ«å°¾ã® ... ã‚’é™¤å» & order ã‚’ä»˜åŠ 
+                  if ( parameter_name.size() > 3 && parameter_name.substr( parameter_name.size() - 3 ) == "..." )
+                  {
+                    parameter_name.resize( parameter_name.size() - 3 );
+                    parameter_name += boost::lexical_cast< std::string >( api_iter->order );
+                  }
 
-                  oss << "TOPPERS_cfg_valueof_" << parameter_name << "_" << serial << " = ( " << api_iter->text << " ); ";
+                  oss << "TOPPERS_cfg_valueof_" << parameter_name << "_" << serial << " = ( " << type << " )( " << api_iter->text << " ); ";
 
-                  // »ÃÄêÃÍ¤òÀßÄê
+                  // æš«å®šå€¤ã‚’è¨­å®š
                   char* endptr;
                   errno = 0;
                   unsigned long value = std::strtoul( api_iter->text.c_str(), &endptr, 0 );
@@ -554,13 +574,19 @@ namespace toppers
                     api_iter->value = value;
                   }
                 }
-                else if ( api_iter->symbol[0] == '$' )  // Ê¸»úÎóÄê¿ô¼°¥Ñ¥é¥á¡¼¥¿
+                else if ( api_iter->symbol[0] == '$' )  // æ–‡å­—åˆ—å®šæ•°å¼ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿
                 {
-                  // ¾ÊÎ¬²ÄÇ½¥Ñ¥é¥á¡¼¥¿¾ğÊó¤ÎËöÈø¤Ë¤¢¤ë ? ¤ò½üµî
+                  // çœç•¥å¯èƒ½ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿æƒ…å ±ã®æœ«å°¾ã«ã‚ã‚‹ ? ã‚’é™¤å»
                   std::string parameter_name( api_iter->symbol.c_str() + 1 );
                   if ( *parameter_name.rbegin() == '\?' )
                   {
                     parameter_name.resize( parameter_name.size() - 1 );
+                  }
+                  // æœ«å°¾ã® ... ã‚’é™¤å» & order ã‚’ä»˜åŠ 
+                  if ( parameter_name.size() > 3 && parameter_name.substr( parameter_name.size() - 3 ) == "..." )
+                  {
+                    parameter_name.resize( parameter_name.size() - 3 );
+                    parameter_name += boost::lexical_cast< std::string >( api_iter->order );
                   }
 
                   oss << "const char TOPPERS_cfg_valueof_" << parameter_name << "_" << serial << "[] = " << api_iter->text << "; ";
@@ -587,8 +613,8 @@ namespace toppers
                "#endif\n";
       }
 
-      // Åı¹ç»ÅÍÍ½ñ1.1.0¤Ë¤ª¤±¤ë2.14.2 TOPPERS¶¦ÄÌ¥Ç¡¼¥¿·¿¤Îµ¬Äê¤Ë¤è¤ê¡¢ACPTN¤Ï32¥Ó¥Ã¥ÈÉä¹æÌµ¤·À°¿ô·¿¤Ç¤¢¤ë¡£
-      // ¤³¤ì¤Ë¤è¤ê¡¢¥É¥á¥¤¥ó¤ÎºÇÂç¿ô¤Ï32¸Ä¤Ç¤Ê¤±¤ì¤Ğ¤Ê¤é¤Ê¤¤¡£
+      // çµ±åˆä»•æ§˜æ›¸1.1.0ã«ãŠã‘ã‚‹2.14.2 TOPPERSå…±é€šãƒ‡ãƒ¼ã‚¿å‹ã®è¦å®šã«ã‚ˆã‚Šã€ACPTNã¯32ãƒ“ãƒƒãƒˆç¬¦å·ç„¡ã—æ•´æ•°å‹ã§ã‚ã‚‹ã€‚
+      // ã“ã‚Œã«ã‚ˆã‚Šã€ãƒ‰ãƒ¡ã‚¤ãƒ³ã®æœ€å¤§æ•°ã¯32å€‹ã§ãªã‘ã‚Œã°ãªã‚‰ãªã„ã€‚
       const std::size_t domain_max = 32;
       if ( domid_table.size() > domain_max )
       {
@@ -597,13 +623,13 @@ namespace toppers
 
       std::string domid_defs_temp;
 
-      if ( get_global< bool >( "has-domain" ) )
+      if ( get_global_bool( "has-domain" ) )
       {
-        load_id_input_file( id_map ); // --id-input-file¤Ë¤è¤ë¥É¥á¥¤¥óID¤ÎÆÉ¤ß¹ş¤ß
+        load_id_input_file( id_map ); // --id-input-fileã«ã‚ˆã‚‹ãƒ‰ãƒ¡ã‚¤ãƒ³IDã®èª­ã¿è¾¼ã¿
 
         std::string domids[ domain_max ];
 
-        // °ì¼şÌÜ¤Ï¡¢--id-input-file¥ª¥×¥·¥ç¥ó¤òÈ¿±Ç
+        // ä¸€å‘¨ç›®ã¯ã€--id-input-fileã‚ªãƒ—ã‚·ãƒ§ãƒ³ã‚’åæ˜ 
         for ( std::vector< std::pair< std::string, long > >::iterator iter( domid_table.begin() ), last( domid_table.end() );
               iter != last;
               ++iter )
@@ -611,7 +637,7 @@ namespace toppers
           std::map< std::string, std::pair< long, bool > >::iterator hit = id_map.find( iter->first );
           if ( hit != id_map.end() )
           {
-            long domid = hit->second.first; // --id-input-file¥ª¥×¥·¥ç¥ó¤Ç»ØÄê¤µ¤ì¤¿ÃÍ
+            long domid = hit->second.first; // --id-input-fileã‚ªãƒ—ã‚·ãƒ§ãƒ³ã§æŒ‡å®šã•ã‚ŒãŸå€¤
             if ( domid > 32 )
             {
               fatal( _( "%1% id `%2%' is too large" ), "domain", hit->first );
@@ -619,7 +645,7 @@ namespace toppers
             domids[ domid - 1 ] = hit->first;
           }
         }
-        // Æó¼şÌÜ¤Ï¡¢»Ä¤ê¤Î¥É¥á¥¤¥óID¤ò³ä¤êÉÕ¤±¤ë
+        // äºŒå‘¨ç›®ã¯ã€æ®‹ã‚Šã®ãƒ‰ãƒ¡ã‚¤ãƒ³IDã‚’å‰²ã‚Šä»˜ã‘ã‚‹
         for ( std::vector< std::pair< std::string, long > >::iterator iter( domid_table.begin() ), last( domid_table.end() );
               iter != last;
               ++iter )
@@ -642,7 +668,7 @@ namespace toppers
           domid_table.push_back( std::make_pair( domids[ i ], long( i + 1 ) ) );
         }
 
-        // cfg1_out.c½ĞÎÏÍÑ¤Î¥³¡¼¥É¤òÀ¸À®
+        // cfg1_out.cå‡ºåŠ›ç”¨ã®ã‚³ãƒ¼ãƒ‰ã‚’ç”Ÿæˆ
         for ( std::vector< std::pair< std::string, long > >::iterator iter( domid_table.begin() ), last( domid_table.end() );
               iter != last;
               ++iter )
@@ -654,7 +680,7 @@ namespace toppers
         }
       }
 
-      // ¥Ç¡¼¥¿¥á¥ó¥Ğ¤Ø¤ÎÈ¿±Ç
+      // ãƒ‡ãƒ¼ã‚¿ãƒ¡ãƒ³ãƒã¸ã®åæ˜ 
       std::string cfg1_list_temp( oss.str() );
       std::string includes_temp( includes_oss.str() );
 
@@ -668,8 +694,8 @@ namespace toppers
     }
 
     /*!
-     *  \brief  cfg1_out.c ¤ÎÆâÍÆÀ¸À®
-     *  \param[in]  type  ÇÛÎó cfg1_out[] ¤ÎÍ×ÁÇ·¿¡£¶õ¥İ¥¤¥ó¥¿¤Î¾ì¹ç¤Ï uint32_t ¤È¤·¤Æ°·¤ï¤ì¤ë¡£
+     *  \brief  cfg1_out.c ã®å†…å®¹ç”Ÿæˆ
+     *  \param[in]  type  é…åˆ— cfg1_out[] ã®è¦ç´ å‹ã€‚ç©ºãƒã‚¤ãƒ³ã‚¿ã®å ´åˆã¯ uint32_t ã¨ã—ã¦æ‰±ã‚ã‚Œã‚‹ã€‚
      */
     void cfg1_out::generate( char const* type ) const
     {
@@ -683,17 +709,30 @@ namespace toppers
       pimpl_->do_generate_includes();
       pimpl_->ofile_ << pimpl_->includes_ << '\n';
 
-      // int128_t¤Ï¸Î°Õ¤ËÌµ»ë
-      // int128_t¤ËÂ·¤¨¤ë¤È½èÍı¤¬½Å¤¯¤Ê¤ê¤¹¤®¤ë¤¿¤á
-      pimpl_->ofile_ << "\n#ifdef INT64_MAX\n"
-                        "  typedef int64_t signed_t;\n"
-                        "  typedef uint64_t unsigned_t;\n"
-                        "#else\n"
-                        "  typedef int32_t signed_t;\n"
-                        "  typedef uint32_t unsigned_t;\n"
-                        "#endif\n";
+      // int128_tã¯æ•…æ„ã«ç„¡è¦–
+      // int128_tã«æƒãˆã‚‹ã¨å‡¦ç†ãŒé‡ããªã‚Šã™ãã‚‹ãŸã‚
+      if ( get_global< int >( "atk" ) < 2 )
+      {
+        pimpl_->ofile_ << "\n#ifdef INT64_MAX\n"
+                          "  typedef int64_t signed_t;\n"
+                          "  typedef uint64_t unsigned_t;\n"
+                          "#else\n"
+                          "  typedef int32_t signed_t;\n"
+                          "  typedef uint32_t unsigned_t;\n"
+                          "#endif\n";
+      }
+      else
+      {
+        pimpl_->ofile_ << "\n#ifdef INT64_MAX\n"
+                          "  typedef sint64 signed_t;\n"
+                          "  typedef uint64 unsigned_t;\n"
+                          "#else\n"
+                          "  typedef sint32 signed_t;\n"
+                          "  typedef uint32 unsigned_t;\n"
+                          "#endif\n";
+      }
 
-      pimpl_->ofile_ << "\n#include <target_cfg1_out.h>\n\n";
+      pimpl_->ofile_ << "\n#include \"target_cfg1_out.h\"\n\n";
 
       pimpl_->do_generate_cfg1_def();
       pimpl_->ofile_ << '\n' << pimpl_->domid_defs_ << '\n';
@@ -701,8 +740,8 @@ namespace toppers
     }
 
     /*!
-     *  \brief  ÀÅÅªAPIÇÛÎó¤Î»²¾È
-     *  \return ÆâÉô¤ÇÊİ»ı¤·¤Æ¤¤¤ëÀÅÅªAPIÇÛÎó¤Ø¤Î»²¾È
+     *  \brief  é™çš„APIé…åˆ—ã®å‚ç…§
+     *  \return å†…éƒ¨ã§ä¿æŒã—ã¦ã„ã‚‹é™çš„APIé…åˆ—ã¸ã®å‚ç…§
      */
     std::vector< static_api > const& cfg1_out::get_static_api_array() const
     {
@@ -710,8 +749,8 @@ namespace toppers
     }
 
     /*!
-     *  \brief  ¥É¥á¥¤¥óID¥Æ¡¼¥Ö¥ë¤Î»²¾È
-     *  \return ÆâÉô¤ÇÊİ»ı¤·¤Æ¤¤¤ë¥É¥á¥¤¥óID¥Æ¡¼¥Ö¥ë¤Ø¤Î»²¾È
+     *  \brief  ãƒ‰ãƒ¡ã‚¤ãƒ³IDãƒ†ãƒ¼ãƒ–ãƒ«ã®å‚ç…§
+     *  \return å†…éƒ¨ã§ä¿æŒã—ã¦ã„ã‚‹ãƒ‰ãƒ¡ã‚¤ãƒ³IDãƒ†ãƒ¼ãƒ–ãƒ«ã¸ã®å‚ç…§
      */
     std::vector< std::pair< std::string, long > > const& cfg1_out::get_domid_table() const
     {
@@ -719,8 +758,8 @@ namespace toppers
     }
 
     /*!
-     *  \brief  ¥¯¥é¥¹ID¥Æ¡¼¥Ö¥ë¤Î»²¾È
-     *  \return ÆâÉô¤ÇÊİ»ı¤·¤Æ¤¤¤ë¥¯¥é¥¹ID¥Æ¡¼¥Ö¥ë¤Ø¤Î»²¾È
+     *  \brief  ã‚¯ãƒ©ã‚¹IDãƒ†ãƒ¼ãƒ–ãƒ«ã®å‚ç…§
+     *  \return å†…éƒ¨ã§ä¿æŒã—ã¦ã„ã‚‹ã‚¯ãƒ©ã‚¹IDãƒ†ãƒ¼ãƒ–ãƒ«ã¸ã®å‚ç…§
      */
     std::vector< std::pair< std::string, long > > const& cfg1_out::get_clsid_table() const
     {
@@ -728,15 +767,15 @@ namespace toppers
     }
 
     /*!
-     *  \brief  #include»ØÎá¤ÎÊÂ¤Ó¤ò¼èÆÀ¤¹¤ë
-     *  \return #include»ØÎá¤ÎÊÂ¤Ó
+     *  \brief  #includeæŒ‡ä»¤ã®ä¸¦ã³ã‚’å–å¾—ã™ã‚‹
+     *  \return #includeæŒ‡ä»¤ã®ä¸¦ã³
      *
-     *  ¤³¤Î¥á¥ó¥Ğ´Ø¿ô¤Ï¡¢
+     *  ã“ã®ãƒ¡ãƒ³ãƒé–¢æ•°ã¯ã€
      *  \code
      *  #include <...>
      *  #include "..."
      *  \endcode
-     *  ¤È¤¤¤Ã¤¿#include»ØÎá¤ÎÊÂ¤Ó¤òÊ¸»úÎó¤È¤·¤ÆÊÖ¤¹¡£
+     *  ã¨ã„ã£ãŸ#includeæŒ‡ä»¤ã®ä¸¦ã³ã‚’æ–‡å­—åˆ—ã¨ã—ã¦è¿”ã™ã€‚
      */
     std::string const& cfg1_out::get_includes() const
     {
@@ -744,10 +783,16 @@ namespace toppers
     }
 
     /*!
-     *  \brief  S¥ì¥³¡¼¥É¤Î¥í¡¼¥É
+     *  \brief  Sãƒ¬ã‚³ãƒ¼ãƒ‰ã®ãƒ­ãƒ¼ãƒ‰
      */
     void cfg1_out::load_srec()
     {
+      if ( pimpl_->def_table_ == 0 )
+      {
+        pimpl_->little_endian_ = false; // å€¤ãŒä¸å®šã«ãªã‚‹ã“ã¨ã‚’å›é¿
+        return;
+      }
+
       std::ifstream srec_ifs( ( pimpl_->ofile_.file_name() + ".srec" ).c_str() );
       if ( !srec_ifs.is_open() )
       {
@@ -789,7 +834,7 @@ namespace toppers
     }
 
     /*!
-     *  \brief  "cfg1_out.srec" ¤«¤éÆÉ¤ß¼è¤Ã¤¿¾ğÊó¤Î»²¾È
+     *  \brief  "cfg1_out.srec" ã‹ã‚‰èª­ã¿å–ã£ãŸæƒ…å ±ã®å‚ç…§
      */
     std::tr1::shared_ptr< s_record > cfg1_out::get_srec() const
     {
@@ -797,7 +842,7 @@ namespace toppers
     }
 
     /*!
-     *  \brief  "cfg1_out.syms" ¤«¤éÆÉ¤ß¼è¤Ã¤¿¾ğÊó¤Î»²¾È
+     *  \brief  "cfg1_out.syms" ã‹ã‚‰èª­ã¿å–ã£ãŸæƒ…å ±ã®å‚ç…§
      */
     std::tr1::shared_ptr< nm_symbol > cfg1_out::get_syms() const
     {
@@ -810,10 +855,10 @@ namespace toppers
     }
 
     /*!
-     *  \brief  ¥«¡¼¥Í¥ë¥ª¥Ö¥¸¥§¥¯¥È¤´¤È¤ËÀÅÅªAPI¾ğÊó¤ò¤Ş¤È¤á¤ë
-     *  \return ÀÅÅªAPI¾ğÊó
+     *  \brief  ã‚«ãƒ¼ãƒãƒ«ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã”ã¨ã«é™çš„APIæƒ…å ±ã‚’ã¾ã¨ã‚ã‚‹
+     *  \return é™çš„APIæƒ…å ±
      *
-     *  ¤³¤Î´Ø¿ô¤Ï¡¢"tsk"¤ä"sem"¤È¤¤¤Ã¤¿¼ïÊÌ¤ò¥­¡¼¤È¤·¤Æ¡¢¤½¤Î¼ïÊÌ¤ËÊ¬Îà¤µ¤ì¤ëÀÅÅªAPI¾ğÊó¤ÎÏ¢ÁÛÇÛÎó¤òÀ¸À®¤¹¤ë¡£
+     *  ã“ã®é–¢æ•°ã¯ã€"tsk"ã‚„"sem"ã¨ã„ã£ãŸç¨®åˆ¥ã‚’ã‚­ãƒ¼ã¨ã—ã¦ã€ãã®ç¨®åˆ¥ã«åˆ†é¡ã•ã‚Œã‚‹é™çš„APIæƒ…å ±ã®é€£æƒ³é…åˆ—ã‚’ç”Ÿæˆã™ã‚‹ã€‚
      */
     cfg1_out::static_api_map cfg1_out::merge() const
     {
@@ -832,10 +877,10 @@ namespace toppers
     }
 
     /*!
-     *  \brief  ¥ê¥È¥ë¥¨¥ó¥Ç¥£¥¢¥ó¤«¤É¤¦¤«¤ÎÈ½Äê
-     *  \retval     true  ¥ê¥È¥ë¥¨¥ó¥Ç¥£¥¢¥ó
-     *  \retval     false ¥Ó¥Ã¥°¥¨¥ó¥Ç¥£¥¢¥ó
-     *  \attention  load_srec ¸Æ¤Ó½Ğ¤·Á°¤ÏÀµ¤·¤¤·ë²Ì¤òÆÀ¤é¤ì¤Ê¤¤¡£
+     *  \brief  ãƒªãƒˆãƒ«ã‚¨ãƒ³ãƒ‡ã‚£ã‚¢ãƒ³ã‹ã©ã†ã‹ã®åˆ¤å®š
+     *  \retval     true  ãƒªãƒˆãƒ«ã‚¨ãƒ³ãƒ‡ã‚£ã‚¢ãƒ³
+     *  \retval     false ãƒ“ãƒƒã‚°ã‚¨ãƒ³ãƒ‡ã‚£ã‚¢ãƒ³
+     *  \attention  load_srec å‘¼ã³å‡ºã—å‰ã¯æ­£ã—ã„çµæœã‚’å¾—ã‚‰ã‚Œãªã„ã€‚
      */
     bool cfg1_out::is_little_endian() const
     {
@@ -843,7 +888,7 @@ namespace toppers
     }
 
     /*!
-     *  \brief  ÀÅÅªAPI¤Î¥Ñ¥é¥á¡¼¥¿¤ËS¥ì¥³¡¼¥É¤«¤é¼èÆÀ¤·¤¿ÃÍ¤òÂåÆş¤¹¤ë
+     *  \brief  é™çš„APIã®ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã«Sãƒ¬ã‚³ãƒ¼ãƒ‰ã‹ã‚‰å–å¾—ã—ãŸå€¤ã‚’ä»£å…¥ã™ã‚‹
      */
     void cfg1_out::implementation::do_assign_params()
     {
@@ -868,14 +913,21 @@ namespace toppers
               ++api_iter )
         {
           if ( ( api_iter->symbol[0] == '.' ) || ( api_iter->symbol[0] == '+' ) || ( api_iter->symbol[0] == '*' ) )
-            // À°¿ôÄê¿ô¼°¥Ñ¥é¥á¡¼¥¿¤Î¤ßÃÍ¤ò¼èÆÀ
+            // æ•´æ•°å®šæ•°å¼ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã®ã¿å€¤ã‚’å–å¾—
           {
             std::string parameter_name( api_iter->symbol.c_str() + 1 );
 
-            // ¾ÊÎ¬²ÄÇ½¥Ñ¥é¥á¡¼¥¿¾ğÊó¤ÎËöÈø¤Ë¤¢¤ë ? ¤ò½üµî
+            // çœç•¥å¯èƒ½ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿æƒ…å ±ã®æœ«å°¾ã«ã‚ã‚‹ ? ã‚’é™¤å»
             if ( *parameter_name.rbegin() == '\?' )
             {
               parameter_name.resize( parameter_name.size() - 1 );
+            }
+
+            // æœ«å°¾ã® ... ã‚’é™¤å» & order ã‚’ä»˜åŠ 
+            if ( parameter_name.size() > 3 && parameter_name.substr( parameter_name.size() - 3 ) == "..." )
+            {
+              parameter_name.resize( parameter_name.size() - 3 );
+              parameter_name += boost::lexical_cast< std::string >( api_iter->order );
             }
 
             std::string symbol = boost::str( boost::format( "TOPPERS_cfg_valueof_%s_%d" ) % parameter_name % serial );
@@ -893,14 +945,21 @@ namespace toppers
             }
             api_iter->value = value;
           }
-          else if ( api_iter->symbol[0] == '$' )  // Ê¸»úÎóÄê¿ô¼°¥Ñ¥é¥á¡¼¥¿
+          else if ( api_iter->symbol[0] == '$' )  // æ–‡å­—åˆ—å®šæ•°å¼ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿
           {
             std::string parameter_name( api_iter->symbol.c_str() + 1 );
 
-            // ¾ÊÎ¬²ÄÇ½¥Ñ¥é¥á¡¼¥¿¾ğÊó¤ÎËöÈø¤Ë¤¢¤ë ? ¤ò½üµî
+            // çœç•¥å¯èƒ½ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿æƒ…å ±ã®æœ«å°¾ã«ã‚ã‚‹ ? ã‚’é™¤å»
             if ( *parameter_name.rbegin() == '\?' )
             {
               parameter_name.resize( parameter_name.size() - 1 );
+            }
+
+            // æœ«å°¾ã® ... ã‚’é™¤å» & order ã‚’ä»˜åŠ 
+            if ( parameter_name.size() > 3 && parameter_name.substr( parameter_name.size() - 3 ) == "..." )
+            {
+              parameter_name.resize( parameter_name.size() - 3 );
+              parameter_name += boost::lexical_cast< std::string >( api_iter->order );
             }
 
             std::string symbol = boost::str( boost::format( "TOPPERS_cfg_valueof_%s_%d" ) % parameter_name % serial );
@@ -926,8 +985,8 @@ namespace toppers
     }
 
     /*!
-     *  \brief  --id-input-file¥ª¥×¥·¥ç¥ó¤Ç»ØÄê¤·¤¿¥Õ¥¡¥¤¥ë¤ÎÆÉ¤ß¹ş¤ß
-     *  \id_map ÆÉ¤ß¹ş¤ó¤À¥Ç¡¼¥¿¤Î³ÊÇ¼Àè
+     *  \brief  --id-input-fileã‚ªãƒ—ã‚·ãƒ§ãƒ³ã§æŒ‡å®šã—ãŸãƒ•ã‚¡ã‚¤ãƒ«ã®èª­ã¿è¾¼ã¿
+     *  \id_map èª­ã¿è¾¼ã‚“ã ãƒ‡ãƒ¼ã‚¿ã®æ ¼ç´å…ˆ
      */
     void cfg1_out::load_id_input_file( std::map< std::string, std::pair< long, bool > >& id_map )
     {
@@ -968,7 +1027,7 @@ namespace toppers
 
         if ( id_map.find( name ) != id_map.end() )
         {
-          fatal( _( "`%1%\' is duplicated" ), name );
+          fatal( _( "E_OBJ: `%1%\' is duplicated" ), name );
         }
         else
         {

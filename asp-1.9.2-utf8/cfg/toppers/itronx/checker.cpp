@@ -5,34 +5,34 @@
  *
  *  Copyright (C) 2007-2008 by TAKAGI Nobuhisa
  * 
- *  �嵭����Ԥϡ��ʲ���(1)��(4)�ξ������������˸¤ꡤ�ܥ��եȥ���
- *  �����ܥ��եȥ���������Ѥ�����Τ�ޤࡥ�ʲ�Ʊ���ˤ���ѡ�ʣ������
- *  �ѡ������ۡʰʲ������ѤȸƤ֡ˤ��뤳�Ȥ�̵���ǵ������롥
- *  (1) �ܥ��եȥ������򥽡��������ɤη������Ѥ�����ˤϡ��嵭������
- *      ��ɽ�����������Ѿ�浪��Ӳ�����̵�ݾڵ��꤬�����Τޤޤη��ǥ���
- *      ����������˴ޤޤ�Ƥ��뤳�ȡ�
- *  (2) �ܥ��եȥ������򡤥饤�֥������ʤɡ�¾�Υ��եȥ�������ȯ�˻�
- *      �ѤǤ�����Ǻ����ۤ�����ˤϡ������ۤ�ȼ���ɥ�����ȡ�����
- *      �ԥޥ˥奢��ʤɡˤˡ��嵭�����ɽ�����������Ѿ�浪��Ӳ���
- *      ��̵�ݾڵ����Ǻܤ��뤳�ȡ�
- *  (3) �ܥ��եȥ������򡤵�����Ȥ߹���ʤɡ�¾�Υ��եȥ�������ȯ�˻�
- *      �ѤǤ��ʤ����Ǻ����ۤ�����ˤϡ����Τ����줫�ξ�����������
- *      �ȡ�
- *    (a) �����ۤ�ȼ���ɥ�����ȡ����Ѽԥޥ˥奢��ʤɡˤˡ��嵭����
- *        �ɽ�����������Ѿ�浪��Ӳ�����̵�ݾڵ����Ǻܤ��뤳�ȡ�
- *    (b) �����ۤη��֤��̤�������ˡ�ˤ�äơ�TOPPERS�ץ��������Ȥ�
- *        ��𤹤뤳�ȡ�
- *  (4) �ܥ��եȥ����������Ѥˤ��ľ��Ū�ޤ��ϴ���Ū�������뤤���ʤ�»
- *      ������⡤�嵭����Ԥ����TOPPERS�ץ��������Ȥ����դ��뤳�ȡ�
- *      �ޤ����ܥ��եȥ������Υ桼���ޤ��ϥ���ɥ桼������Τ����ʤ���
- *      ͳ�˴�Ť����ᤫ��⡤�嵭����Ԥ����TOPPERS�ץ��������Ȥ�
- *      ���դ��뤳�ȡ�
+ *  上記著作権者は，以下の(1)〜(4)の条件を満たす場合に限り，本ソフトウェ
+ *  ア（本ソフトウェアを改変したものを含む．以下同じ）を使用・複製・改
+ *  変・再配布（以下，利用と呼ぶ）することを無償で許諾する．
+ *  (1) 本ソフトウェアをソースコードの形で利用する場合には，上記の著作
+ *      権表示，この利用条件および下記の無保証規定が，そのままの形でソー
+ *      スコード中に含まれていること．
+ *  (2) 本ソフトウェアを，ライブラリ形式など，他のソフトウェア開発に使
+ *      用できる形で再配布する場合には，再配布に伴うドキュメント（利用
+ *      者マニュアルなど）に，上記の著作権表示，この利用条件および下記
+ *      の無保証規定を掲載すること．
+ *  (3) 本ソフトウェアを，機器に組み込むなど，他のソフトウェア開発に使
+ *      用できない形で再配布する場合には，次のいずれかの条件を満たすこ
+ *      と．
+ *    (a) 再配布に伴うドキュメント（利用者マニュアルなど）に，上記の著
+ *        作権表示，この利用条件および下記の無保証規定を掲載すること．
+ *    (b) 再配布の形態を，別に定める方法によって，TOPPERSプロジェクトに
+ *        報告すること．
+ *  (4) 本ソフトウェアの利用により直接的または間接的に生じるいかなる損
+ *      害からも，上記著作権者およびTOPPERSプロジェクトを免責すること．
+ *      また，本ソフトウェアのユーザまたはエンドユーザからのいかなる理
+ *      由に基づく請求からも，上記著作権者およびTOPPERSプロジェクトを
+ *      免責すること．
  * 
- *  �ܥ��եȥ������ϡ�̵�ݾڤ��󶡤���Ƥ����ΤǤ��롥�嵭����Ԥ�
- *  ���TOPPERS�ץ��������Ȥϡ��ܥ��եȥ������˴ؤ��ơ�����λ�����Ū
- *  ���Ф���Ŭ������ޤ�ơ������ʤ��ݾڤ�Ԥ�ʤ����ޤ����ܥ��եȥ���
- *  �������Ѥˤ��ľ��Ū�ޤ��ϴ���Ū�������������ʤ�»���˴ؤ��Ƥ⡤��
- *  ����Ǥ�����ʤ���
+ *  本ソフトウェアは，無保証で提供されているものである．上記著作権者お
+ *  よびTOPPERSプロジェクトは，本ソフトウェアに関して，特定の使用目的
+ *  に対する適合性も含めて，いかなる保証も行わない．また，本ソフトウェ
+ *  アの利用により直接的または間接的に生じたいかなる損害に関しても，そ
+ *  の責任を負わない．
  * 
  */
 #include <fstream>
@@ -75,15 +75,15 @@ namespace toppers
     }
 
     /*!
-     *  \brief  ���ԡ����󥹥ȥ饯��
-     *  \param[in]  ���ԡ���
+     *  \brief  コピーコンストラクタ
+     *  \param[in]  コピー元
      */
     checker::checker( checker const& other )
       : pimpl_( other.pimpl_->do_clone() )
     {
     }
 
-    //! �ǥ��ȥ饯��
+    //! デストラクタ
     checker::~checker()
     {
       delete pimpl_;
@@ -91,9 +91,9 @@ namespace toppers
     }
 
     /*!
-     *  \brief  ROM���᡼���Υ�����
-     *  \param[in]  srec_file   S�쥳���ɷ����Υե�����̾
-     *  \param[in]  nm_file     nm���ޥ�ɤ����Ϥ�������ܥ�ơ��֥�Υե�����̾
+     *  \brief  ROMイメージのロード
+     *  \param[in]  srec_file   Sレコード形式のファイル名
+     *  \param[in]  nm_file     nmコマンドが出力したシンボルテーブルのファイル名
      */
     void checker::load_rom_image( std::string const& srec_file, std::string const& nm_file )
     {
@@ -116,8 +116,8 @@ namespace toppers
     }
 
     /*!
-     *  \brief  �����å��μ»�
-     *  \param[in]  cfg1_out����
+     *  \brief  チェックの実施
+     *  \param[in]  cfg1_out情報
      */
     bool checker::check( cfg1_out& cfg1out ) const
     {
@@ -145,11 +145,11 @@ namespace toppers
     }
 
     /*!
-     *  \brief  ����ܥ����θ���
-     *  \param[in]  symbol  �������륷��ܥ�̾
-     *  \return     �������
+     *  \brief  シンボル情報の検索
+     *  \param[in]  symbol  検索するシンボル名
+     *  \return     検索結果
      *
-     *  �����˼��Ԥ������ˤϡ��ֵ��ͤ�.type�ե�����ɤ�-1�����ꤵ��롣
+     *  検索に失敗した場合には、返却値の.typeフィールドに-1が設定される。
      */
     nm_symbol::entry checker::find( std::string const& symbol ) const
     {
@@ -157,11 +157,11 @@ namespace toppers
     }
 
     /*!
-     *  \brief  ���ꥢ�ɥ쥹�������ͤ����
-     *  \param[in]  address   ���ɥ쥹
-     *  \param[in]  size      �����ͤ�������Х��ȿ�
-     *  \param[in]  little_endian   �Х��ȥ�����������ȥ륨��ǥ�����ʤ�true����ꤹ��
-     *  \return     �������������ͤ����̵�����֤���
+     *  \brief  指定アドレスの整数値を取得
+     *  \param[in]  address   アドレス
+     *  \param[in]  size      整数値を構成するバイト数
+     *  \param[in]  little_endian   バイトオーダーがリトルエンディアンならtrueを指定する
+     *  \return     取得した整数値を符号無しで返す。
      */
     std::tr1::uintmax_t checker::get( std::size_t address, std::size_t size, bool little_endian ) const
     {

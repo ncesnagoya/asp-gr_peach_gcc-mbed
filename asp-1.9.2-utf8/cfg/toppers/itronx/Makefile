@@ -1,10 +1,9 @@
--include ../Makefile.config
+-include ../../Makefile.config
 
 PROJDIR = ../..
 WORKDIR = $(PROJDIR)/toppers/itronx
 
 CPPFLAGS := $(CPPFLAGS) -I$(BOOST_DIR) -I$(PROJDIR)
-CXXFLAGS := $(CXXFLAGS) -O2 -g
 
 CXXFILES = \
 	cfg1_out.cpp \

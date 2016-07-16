@@ -2,7 +2,7 @@
 
 makefile_config="Makefile.config"
 
-# ƒRƒ}ƒ“ƒhƒ‰ƒCƒ“ˆø”‚Ìˆ—
+# ã‚³ãƒãƒ³ãƒ‰ãƒ©ã‚¤ãƒ³å¼•æ•°ã®å‡¦ç†
 for arg in "$@"
 do
 	name=`echo $arg | cut -d "=" -f 1`
@@ -11,6 +11,7 @@ do
 	case $name in
 		--with-headers)		include_path=$value ;;
 		--with-libraries)	library_path=$value ;;
+		--without-xml)		without_xml=1 ;;
 		--help)				echo "configure options:"
 							echo "--help"
 							echo "	display this information"
@@ -18,12 +19,14 @@ do
 							echo "	specify the directory of Boost headers"
 							echo "--with-libraries=<dir>"
 							echo "	specify the directory of Boost libraries"
+							echo "--without-xml"
+							echo "  omit support for XML"
 							exit
 							;;
 	esac
 done
 
-# Boost C++ Libraries‚Ìƒwƒbƒ_ƒtƒ@ƒCƒ‹‚ª‚ ‚éƒfƒBƒŒƒNƒgƒŠ‚ğƒT[ƒ`
+# Boost C++ Librariesã®ãƒ˜ãƒƒãƒ€ãƒ•ã‚¡ã‚¤ãƒ«ãŒã‚ã‚‹ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã‚’ã‚µãƒ¼ãƒ
 for dir in $include_path "/usr/local/include" "/opt/local/include" "/opt/include" "/usr/include" "/mingw/include"
 do
 	ls $dir/boost* 2> /dev/null > /dev/null
@@ -40,7 +43,7 @@ do
 	fi
 done
 
-# Boost C++ Libraries‚Ìƒ‰ƒCƒuƒ‰ƒŠƒtƒ@ƒCƒ‹‚ª‚ ‚éƒfƒBƒŒƒNƒgƒŠ‚ğƒT[ƒ`
+# Boost C++ Librariesã®ãƒ©ã‚¤ãƒ–ãƒ©ãƒªãƒ•ã‚¡ã‚¤ãƒ«ãŒã‚ã‚‹ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã‚’ã‚µãƒ¼ãƒ
 for dir in $library_path "/usr/local/lib" "/opt/local/lib" "/opt/lib" "/usr/lib" "/lib" "/mingw/lib"
 do
 	ls $dir/libboost* 2> /dev/null > /dev/null
@@ -51,19 +54,19 @@ do
 	fi
 done
 
-##### ˆÈ‰ºAMakefile.config‚ğ¶¬‚·‚é #####
+##### ä»¥ä¸‹ã€Makefile.configã‚’ç”Ÿæˆã™ã‚‹ #####
 
 rm Makefile.config 2> /dev/null
 
-# Boost C++ Libraries‚Ìƒo[ƒWƒ‡ƒ“‚ğ’²‚×‚é
+# Boost C++ Librariesã®ãƒãƒ¼ã‚¸ãƒ§ãƒ³ã‚’èª¿ã¹ã‚‹
 boost_version=`echo "#include <boost/version.hpp>
 echo BOOST_VERSION" | g++ -E -I$include_path -L$library_path - | sh`
 
 boost_lib_version=`echo "#include <boost/version.hpp>
 echo BOOST_LIB_VERSION" | g++ -E -I$include_path -L$library_path - | sh`
 
-# ƒ‰ƒCƒuƒ‰ƒŠƒtƒ@ƒCƒ‹‚Ì“Yš‚ğ’²‚×‚é
-# ŠÂ‹«‚É‚æ‚Á‚ÄA-gcc-mt-s, -mt-s, -gcc42-mt-s‚È‚ÇA“Yš‚ªˆÙ‚È‚é‚½‚ß
+# ãƒ©ã‚¤ãƒ–ãƒ©ãƒªãƒ•ã‚¡ã‚¤ãƒ«ã®æ·»å­—ã‚’èª¿ã¹ã‚‹
+# ç’°å¢ƒã«ã‚ˆã£ã¦ã€-gcc-mt-s, -mt-s, -gcc42-mt-sãªã©ã€æ·»å­—ãŒç•°ãªã‚‹ãŸã‚
 libboost_regex_filename=`ls $library_path/libboost_regex*-s.* 2> /dev/null | head -1`
 if test -z $libboost_regex_filename
 then
@@ -72,13 +75,19 @@ fi
 libboost_suffix=`echo $libboost_regex_filename | sed -e s/.*libboost_regex//g -e s/\.[a-z]*$//g`
 echo "LIBBOOST_SUFFIX=$libboost_suffix" >> $makefile_config
 
-# Šeí•Ï”‚ğo—Í
+# å„ç¨®å¤‰æ•°ã‚’å‡ºåŠ›
 echo BOOST_VERSION=$boost_lib_version >> $makefile_config
 echo BOOST_DIR=$include_path >> $makefile_config
+echo XERCES_DIR=$include_path >> $makefile_config
 echo LIBBOOST_DIR=$library_path >> $makefile_config
+echo LIBXERCES_DIR=$library_path >> $makefile_config
 echo OPTIONS=$options >> $makefile_config
+if test -z $without_xml
+then
+	echo HAS_CFG_XML=1 >> $makefile_config
+fi
 
-# ¶¬Œ‹‰Ê‚ğ•\¦
+# ç”Ÿæˆçµæœã‚’è¡¨ç¤º
 cat Makefile.config
 
-# I‚í‚è
+# çµ‚ã‚ã‚Š

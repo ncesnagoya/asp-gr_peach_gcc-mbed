@@ -1,7 +1,6 @@
 PACKAGE cfg
-VERSION 1.7.0
+VERSION 1.9.3
 
-cfg.sln
 configure
 Makefile
 MANIFEST
@@ -9,7 +8,6 @@ README.txt
 
 cfg/cfg.cpp
 cfg/cfg.hpp
-cfg/cfg.vcproj
 cfg/cfg0.cpp
 cfg/cfg1.cpp
 cfg/cfg2.cpp
@@ -58,7 +56,6 @@ toppers/s_record.cpp
 toppers/s_record.hpp
 toppers/text.hpp
 toppers/text_line.hpp
-toppers/toppers.vcproj
 toppers/ucn_parser.cpp
 toppers/workaround.hpp
 
@@ -71,7 +68,6 @@ toppers/itronx/component.hpp
 toppers/itronx/factory.cpp
 toppers/itronx/factory.hpp
 toppers/itronx/init_helper.hpp
-toppers/itronx/itronx.vcproj
 toppers/itronx/kernel_chk.hpp
 toppers/itronx/Makefile
 toppers/itronx/preprocess.cpp
@@ -79,3 +75,33 @@ toppers/itronx/preprocess.hpp
 toppers/itronx/static_api.cpp
 toppers/itronx/static_api.hpp
 toppers/itronx/static_api_parser.hpp
+
+toppers/oil/cfg1_out.cpp
+toppers/oil/cfg1_out.hpp
+toppers/oil/checker.cpp
+toppers/oil/checker.hpp
+toppers/oil/configuration_manager.cpp
+toppers/oil/configuration_manager.hpp
+toppers/oil/factory.cpp
+toppers/oil/factory.hpp
+toppers/oil/Makefile
+toppers/oil/oil_object.cpp
+toppers/oil/oil_object.hpp
+toppers/oil/oil_parse.cpp
+toppers/oil/oil_parser.hpp
+toppers/oil/preprocess.cpp
+toppers/oil/preprocess.hpp
+
+toppers/xml/cfg1_out.cpp
+toppers/xml/cfg1_out.hpp
+toppers/xml/checker.cpp
+toppers/xml/checker.hpp
+toppers/xml/component.hpp
+toppers/xml/factory.cpp
+toppers/xml/factory.hpp
+toppers/xml/Makefile
+toppers/xml/xml_object.hpp
+toppers/xml/xml_parser.cpp
+toppers/xml/xml_parser.hpp
+toppers/xml/xml_xerces.cpp
+

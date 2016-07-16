@@ -2,40 +2,41 @@
  *  TOPPERS Software
  *      Toyohashi Open Platform for Embedded Real-Time Systems
  *
- *  Copyright (C) 2007-2011 by TAKAGI Nobuhisa
+ *  Copyright (C) 2007-2012 by TAKAGI Nobuhisa
  * 
- *  ¾åµ­Ãøºî¸¢¼Ô¤Ï¡¤°Ê²¼¤Î(1)¡Á(4)¤Î¾ò·ï¤òËş¤¿¤¹¾ì¹ç¤Ë¸Â¤ê¡¤ËÜ¥½¥Õ¥È¥¦¥§
- *  ¥¢¡ÊËÜ¥½¥Õ¥È¥¦¥§¥¢¤ò²şÊÑ¤·¤¿¤â¤Î¤ò´Ş¤à¡¥°Ê²¼Æ±¤¸¡Ë¤ò»ÈÍÑ¡¦Ê£À½¡¦²ş
- *  ÊÑ¡¦ºÆÇÛÉÛ¡Ê°Ê²¼¡¤ÍøÍÑ¤È¸Æ¤Ö¡Ë¤¹¤ë¤³¤È¤òÌµ½ş¤ÇµöÂú¤¹¤ë¡¥
- *  (1) ËÜ¥½¥Õ¥È¥¦¥§¥¢¤ò¥½¡¼¥¹¥³¡¼¥É¤Î·Á¤ÇÍøÍÑ¤¹¤ë¾ì¹ç¤Ë¤Ï¡¤¾åµ­¤ÎÃøºî
- *      ¸¢É½¼¨¡¤¤³¤ÎÍøÍÑ¾ò·ï¤ª¤è¤Ó²¼µ­¤ÎÌµÊİ¾Úµ¬Äê¤¬¡¤¤½¤Î¤Ş¤Ş¤Î·Á¤Ç¥½¡¼
- *      ¥¹¥³¡¼¥ÉÃæ¤Ë´Ş¤Ş¤ì¤Æ¤¤¤ë¤³¤È¡¥
- *  (2) ËÜ¥½¥Õ¥È¥¦¥§¥¢¤ò¡¤¥é¥¤¥Ö¥é¥ê·Á¼°¤Ê¤É¡¤Â¾¤Î¥½¥Õ¥È¥¦¥§¥¢³«È¯¤Ë»È
- *      ÍÑ¤Ç¤­¤ë·Á¤ÇºÆÇÛÉÛ¤¹¤ë¾ì¹ç¤Ë¤Ï¡¤ºÆÇÛÉÛ¤ËÈ¼¤¦¥É¥­¥å¥á¥ó¥È¡ÊÍøÍÑ
- *      ¼Ô¥Ş¥Ë¥å¥¢¥ë¤Ê¤É¡Ë¤Ë¡¤¾åµ­¤ÎÃøºî¸¢É½¼¨¡¤¤³¤ÎÍøÍÑ¾ò·ï¤ª¤è¤Ó²¼µ­
- *      ¤ÎÌµÊİ¾Úµ¬Äê¤ò·ÇºÜ¤¹¤ë¤³¤È¡¥
- *  (3) ËÜ¥½¥Õ¥È¥¦¥§¥¢¤ò¡¤µ¡´ï¤ËÁÈ¤ß¹ş¤à¤Ê¤É¡¤Â¾¤Î¥½¥Õ¥È¥¦¥§¥¢³«È¯¤Ë»È
- *      ÍÑ¤Ç¤­¤Ê¤¤·Á¤ÇºÆÇÛÉÛ¤¹¤ë¾ì¹ç¤Ë¤Ï¡¤¼¡¤Î¤¤¤º¤ì¤«¤Î¾ò·ï¤òËş¤¿¤¹¤³
- *      ¤È¡¥
- *    (a) ºÆÇÛÉÛ¤ËÈ¼¤¦¥É¥­¥å¥á¥ó¥È¡ÊÍøÍÑ¼Ô¥Ş¥Ë¥å¥¢¥ë¤Ê¤É¡Ë¤Ë¡¤¾åµ­¤ÎÃø
- *        ºî¸¢É½¼¨¡¤¤³¤ÎÍøÍÑ¾ò·ï¤ª¤è¤Ó²¼µ­¤ÎÌµÊİ¾Úµ¬Äê¤ò·ÇºÜ¤¹¤ë¤³¤È¡¥
- *    (b) ºÆÇÛÉÛ¤Î·ÁÂÖ¤ò¡¤ÊÌ¤ËÄê¤á¤ëÊıË¡¤Ë¤è¤Ã¤Æ¡¤TOPPERS¥×¥í¥¸¥§¥¯¥È¤Ë
- *        Êó¹ğ¤¹¤ë¤³¤È¡¥
- *  (4) ËÜ¥½¥Õ¥È¥¦¥§¥¢¤ÎÍøÍÑ¤Ë¤è¤êÄ¾ÀÜÅª¤Ş¤¿¤Ï´ÖÀÜÅª¤ËÀ¸¤¸¤ë¤¤¤«¤Ê¤ëÂ»
- *      ³²¤«¤é¤â¡¤¾åµ­Ãøºî¸¢¼Ô¤ª¤è¤ÓTOPPERS¥×¥í¥¸¥§¥¯¥È¤òÌÈÀÕ¤¹¤ë¤³¤È¡¥
- *      ¤Ş¤¿¡¤ËÜ¥½¥Õ¥È¥¦¥§¥¢¤Î¥æ¡¼¥¶¤Ş¤¿¤Ï¥¨¥ó¥É¥æ¡¼¥¶¤«¤é¤Î¤¤¤«¤Ê¤ëÍı
- *      Í³¤Ë´ğ¤Å¤¯ÀÁµá¤«¤é¤â¡¤¾åµ­Ãøºî¸¢¼Ô¤ª¤è¤ÓTOPPERS¥×¥í¥¸¥§¥¯¥È¤ò
- *      ÌÈÀÕ¤¹¤ë¤³¤È¡¥
+ *  ä¸Šè¨˜è‘—ä½œæ¨©è€…ã¯ï¼Œä»¥ä¸‹ã®(1)ã€œ(4)ã®æ¡ä»¶ã‚’æº€ãŸã™å ´åˆã«é™ã‚Šï¼Œæœ¬ã‚½ãƒ•ãƒˆã‚¦ã‚§
+ *  ã‚¢ï¼ˆæœ¬ã‚½ãƒ•ãƒˆã‚¦ã‚§ã‚¢ã‚’æ”¹å¤‰ã—ãŸã‚‚ã®ã‚’å«ã‚€ï¼ä»¥ä¸‹åŒã˜ï¼‰ã‚’ä½¿ç”¨ãƒ»è¤‡è£½ãƒ»æ”¹
+ *  å¤‰ãƒ»å†é…å¸ƒï¼ˆä»¥ä¸‹ï¼Œåˆ©ç”¨ã¨å‘¼ã¶ï¼‰ã™ã‚‹ã“ã¨ã‚’ç„¡å„Ÿã§è¨±è«¾ã™ã‚‹ï¼
+ *  (1) æœ¬ã‚½ãƒ•ãƒˆã‚¦ã‚§ã‚¢ã‚’ã‚½ãƒ¼ã‚¹ã‚³ãƒ¼ãƒ‰ã®å½¢ã§åˆ©ç”¨ã™ã‚‹å ´åˆã«ã¯ï¼Œä¸Šè¨˜ã®è‘—ä½œ
+ *      æ¨©è¡¨ç¤ºï¼Œã“ã®åˆ©ç”¨æ¡ä»¶ãŠã‚ˆã³ä¸‹è¨˜ã®ç„¡ä¿è¨¼è¦å®šãŒï¼Œãã®ã¾ã¾ã®å½¢ã§ã‚½ãƒ¼
+ *      ã‚¹ã‚³ãƒ¼ãƒ‰ä¸­ã«å«ã¾ã‚Œã¦ã„ã‚‹ã“ã¨ï¼
+ *  (2) æœ¬ã‚½ãƒ•ãƒˆã‚¦ã‚§ã‚¢ã‚’ï¼Œãƒ©ã‚¤ãƒ–ãƒ©ãƒªå½¢å¼ãªã©ï¼Œä»–ã®ã‚½ãƒ•ãƒˆã‚¦ã‚§ã‚¢é–‹ç™ºã«ä½¿
+ *      ç”¨ã§ãã‚‹å½¢ã§å†é…å¸ƒã™ã‚‹å ´åˆã«ã¯ï¼Œå†é…å¸ƒã«ä¼´ã†ãƒ‰ã‚­ãƒ¥ãƒ¡ãƒ³ãƒˆï¼ˆåˆ©ç”¨
+ *      è€…ãƒãƒ‹ãƒ¥ã‚¢ãƒ«ãªã©ï¼‰ã«ï¼Œä¸Šè¨˜ã®è‘—ä½œæ¨©è¡¨ç¤ºï¼Œã“ã®åˆ©ç”¨æ¡ä»¶ãŠã‚ˆã³ä¸‹è¨˜
+ *      ã®ç„¡ä¿è¨¼è¦å®šã‚’æ²è¼‰ã™ã‚‹ã“ã¨ï¼
+ *  (3) æœ¬ã‚½ãƒ•ãƒˆã‚¦ã‚§ã‚¢ã‚’ï¼Œæ©Ÿå™¨ã«çµ„ã¿è¾¼ã‚€ãªã©ï¼Œä»–ã®ã‚½ãƒ•ãƒˆã‚¦ã‚§ã‚¢é–‹ç™ºã«ä½¿
+ *      ç”¨ã§ããªã„å½¢ã§å†é…å¸ƒã™ã‚‹å ´åˆã«ã¯ï¼Œæ¬¡ã®ã„ãšã‚Œã‹ã®æ¡ä»¶ã‚’æº€ãŸã™ã“
+ *      ã¨ï¼
+ *    (a) å†é…å¸ƒã«ä¼´ã†ãƒ‰ã‚­ãƒ¥ãƒ¡ãƒ³ãƒˆï¼ˆåˆ©ç”¨è€…ãƒãƒ‹ãƒ¥ã‚¢ãƒ«ãªã©ï¼‰ã«ï¼Œä¸Šè¨˜ã®è‘—
+ *        ä½œæ¨©è¡¨ç¤ºï¼Œã“ã®åˆ©ç”¨æ¡ä»¶ãŠã‚ˆã³ä¸‹è¨˜ã®ç„¡ä¿è¨¼è¦å®šã‚’æ²è¼‰ã™ã‚‹ã“ã¨ï¼
+ *    (b) å†é…å¸ƒã®å½¢æ…‹ã‚’ï¼Œåˆ¥ã«å®šã‚ã‚‹æ–¹æ³•ã«ã‚ˆã£ã¦ï¼ŒTOPPERSãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆã«
+ *        å ±å‘Šã™ã‚‹ã“ã¨ï¼
+ *  (4) æœ¬ã‚½ãƒ•ãƒˆã‚¦ã‚§ã‚¢ã®åˆ©ç”¨ã«ã‚ˆã‚Šç›´æ¥çš„ã¾ãŸã¯é–“æ¥çš„ã«ç”Ÿã˜ã‚‹ã„ã‹ãªã‚‹æ
+ *      å®³ã‹ã‚‰ã‚‚ï¼Œä¸Šè¨˜è‘—ä½œæ¨©è€…ãŠã‚ˆã³TOPPERSãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆã‚’å…è²¬ã™ã‚‹ã“ã¨ï¼
+ *      ã¾ãŸï¼Œæœ¬ã‚½ãƒ•ãƒˆã‚¦ã‚§ã‚¢ã®ãƒ¦ãƒ¼ã‚¶ã¾ãŸã¯ã‚¨ãƒ³ãƒ‰ãƒ¦ãƒ¼ã‚¶ã‹ã‚‰ã®ã„ã‹ãªã‚‹ç†
+ *      ç”±ã«åŸºã¥ãè«‹æ±‚ã‹ã‚‰ã‚‚ï¼Œä¸Šè¨˜è‘—ä½œæ¨©è€…ãŠã‚ˆã³TOPPERSãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆã‚’
+ *      å…è²¬ã™ã‚‹ã“ã¨ï¼
  * 
- *  ËÜ¥½¥Õ¥È¥¦¥§¥¢¤Ï¡¤ÌµÊİ¾Ú¤ÇÄó¶¡¤µ¤ì¤Æ¤¤¤ë¤â¤Î¤Ç¤¢¤ë¡¥¾åµ­Ãøºî¸¢¼Ô¤ª
- *  ¤è¤ÓTOPPERS¥×¥í¥¸¥§¥¯¥È¤Ï¡¤ËÜ¥½¥Õ¥È¥¦¥§¥¢¤Ë´Ø¤·¤Æ¡¤ÆÃÄê¤Î»ÈÍÑÌÜÅª
- *  ¤ËÂĞ¤¹¤ëÅ¬¹çÀ­¤â´Ş¤á¤Æ¡¤¤¤¤«¤Ê¤ëÊİ¾Ú¤â¹Ô¤ï¤Ê¤¤¡¥¤Ş¤¿¡¤ËÜ¥½¥Õ¥È¥¦¥§
- *  ¥¢¤ÎÍøÍÑ¤Ë¤è¤êÄ¾ÀÜÅª¤Ş¤¿¤Ï´ÖÀÜÅª¤ËÀ¸¤¸¤¿¤¤¤«¤Ê¤ëÂ»³²¤Ë´Ø¤·¤Æ¤â¡¤¤½
- *  ¤ÎÀÕÇ¤¤òÉé¤ï¤Ê¤¤¡¥
+ *  æœ¬ã‚½ãƒ•ãƒˆã‚¦ã‚§ã‚¢ã¯ï¼Œç„¡ä¿è¨¼ã§æä¾›ã•ã‚Œã¦ã„ã‚‹ã‚‚ã®ã§ã‚ã‚‹ï¼ä¸Šè¨˜è‘—ä½œæ¨©è€…ãŠ
+ *  ã‚ˆã³TOPPERSãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆã¯ï¼Œæœ¬ã‚½ãƒ•ãƒˆã‚¦ã‚§ã‚¢ã«é–¢ã—ã¦ï¼Œç‰¹å®šã®ä½¿ç”¨ç›®çš„
+ *  ã«å¯¾ã™ã‚‹é©åˆæ€§ã‚‚å«ã‚ã¦ï¼Œã„ã‹ãªã‚‹ä¿è¨¼ã‚‚è¡Œã‚ãªã„ï¼ã¾ãŸï¼Œæœ¬ã‚½ãƒ•ãƒˆã‚¦ã‚§
+ *  ã‚¢ã®åˆ©ç”¨ã«ã‚ˆã‚Šç›´æ¥çš„ã¾ãŸã¯é–“æ¥çš„ã«ç”Ÿã˜ãŸã„ã‹ãªã‚‹æå®³ã«é–¢ã—ã¦ã‚‚ï¼Œã
+ *  ã®è²¬ä»»ã‚’è² ã‚ãªã„ï¼
  * 
  */
 #include <cstdio>
 #include <cstdlib>
+#include <cctype>
 #include <cerrno>
 #include <string>
 #include <vector>
@@ -50,6 +51,7 @@
 #include <boost/utility.hpp>
 #include <boost/lexical_cast.hpp>
 #include <boost/xpressive/xpressive.hpp>
+#include <boost/algorithm/string.hpp> 
 
 namespace toppers
 {
@@ -71,11 +73,11 @@ namespace toppers
   }
 
   /*!
-    *  \brief  °ú¿ô¤Î¸Ä¿ô¥Á¥§¥Ã¥¯
-    *  \param[in]  line    ¹ÔÈÖ¹æ¾ğÊó
-    *  \param[in]  arity   °ú¿ô¤Î¸Ä¿ô
-    *  \param[in]  valid   ´üÂÔ¤·¤Æ¤¤¤ë°ú¿ô¤Î¸Ä¿ô
-    *  \param[in]  function_name ÁÈ¤ß¹ş¤ß´Ø¿ôÌ¾
+    *  \brief  å¼•æ•°ã®å€‹æ•°ãƒã‚§ãƒƒã‚¯
+    *  \param[in]  line    è¡Œç•ªå·æƒ…å ±
+    *  \param[in]  arity   å¼•æ•°ã®å€‹æ•°
+    *  \param[in]  valid   æœŸå¾…ã—ã¦ã„ã‚‹å¼•æ•°ã®å€‹æ•°
+    *  \param[in]  function_name çµ„ã¿è¾¼ã¿é–¢æ•°å
     */
   bool macro_processor::check_arity( text_line const& line, std::size_t arity, std::size_t valid, char const* function_name )
   {
@@ -96,11 +98,11 @@ namespace toppers
   }
 
   /*!
-   *  \brief  ÊÑ¿ô¥À¥ó¥×¤Î¤¿¤á¤Î<<±é»»»Ò
-   *  \param[in,out]  ostr  ½ĞÎÏ¥¹¥È¥ê¡¼¥à
-   *  \param[in]      arg   ÊÑ¿ô¤ò»²¾È¤¹¤ë¤¿¤á¤Î¥Ú¥¢
-   *  \return         ostr¤òÊÖ¤¹
-   *  \note ¸½ºß¤Î¼ÂÁõ¤Ç¤Ï¡¢arg.second ¤Ï»ÈÍÑ¤·¤Æ¤¤¤Ê¤¤¡£
+   *  \brief  å¤‰æ•°ãƒ€ãƒ³ãƒ—ã®ãŸã‚ã®<<æ¼”ç®—å­
+   *  \param[in,out]  ostr  å‡ºåŠ›ã‚¹ãƒˆãƒªãƒ¼ãƒ 
+   *  \param[in]      arg   å¤‰æ•°ã‚’å‚ç…§ã™ã‚‹ãŸã‚ã®ãƒšã‚¢
+   *  \return         ostrã‚’è¿”ã™
+   *  \note ç¾åœ¨ã®å®Ÿè£…ã§ã¯ã€arg.second ã¯ä½¿ç”¨ã—ã¦ã„ãªã„ã€‚
    */
   std::ostream& operator<<( std::ostream& ostr, std::pair< var_t const*, context const* > const& arg )
   {
@@ -123,13 +125,13 @@ namespace toppers
   }
 
   /*!
-   *  \brief  ½ç½ø¥ê¥¹¥È¤ÎÄ¹¤µ
-   *  \param[in]  line      ¹ÔÈÖ¹æ
-   *  \param[in]  arg_list  ¥Ş¥¯¥í¼Â°ú¿ô¥ê¥¹¥È
-   *  \param[in]  p_ctx     ¥Ş¥¯¥í¥³¥ó¥Æ¥­¥¹¥È
-   *  \retval     ¥Ş¥¯¥íÊÖµÑÃÍ
-   *  Âè1¥Ş¥¯¥í¼Â°ú¿ô¤È¤·¤Æ»ØÄê¤·¤¿½ç½øÉÕ¤­¥ê¥¹¥È¤ÎÍ×ÁÇ¿ô¤òÊÖ¤¹¡£
-   *  Âè1¥Ş¥¯¥í¼Â°ú¿ô¤¬½ç½øÉÕ¤­¥ê¥¹¥È¤Ç¤Ê¤¤¾ì¹ç¤Ï1¤òÊÖ¤¹¡£¤Ş¤¿¡¢Âè1¥Ş¥¯¥í¼Â°ú¿ô¤¬Ìµ¸ú¤ÊÊÑ¿ô¤Î¾ì¹ç¤Ï0¤òÊÖ¤¹¡£
+   *  \brief  é †åºãƒªã‚¹ãƒˆã®é•·ã•
+   *  \param[in]  line      è¡Œç•ªå·
+   *  \param[in]  arg_list  ãƒã‚¯ãƒ­å®Ÿå¼•æ•°ãƒªã‚¹ãƒˆ
+   *  \param[in]  p_ctx     ãƒã‚¯ãƒ­ã‚³ãƒ³ãƒ†ã‚­ã‚¹ãƒˆ
+   *  \retval     ãƒã‚¯ãƒ­è¿”å´å€¤
+   *  ç¬¬1ãƒã‚¯ãƒ­å®Ÿå¼•æ•°ã¨ã—ã¦æŒ‡å®šã—ãŸé †åºä»˜ããƒªã‚¹ãƒˆã®è¦ç´ æ•°ã‚’è¿”ã™ã€‚
+   *  ç¬¬1ãƒã‚¯ãƒ­å®Ÿå¼•æ•°ãŒé †åºä»˜ããƒªã‚¹ãƒˆã§ãªã„å ´åˆã¯1ã‚’è¿”ã™ã€‚ã¾ãŸã€ç¬¬1ãƒã‚¯ãƒ­å®Ÿå¼•æ•°ãŒç„¡åŠ¹ãªå¤‰æ•°ã®å ´åˆã¯0ã‚’è¿”ã™ã€‚
    */
   var_t bf_length( text_line const& line, std::vector< var_t > const& arg_list, context* p_ctx )
   {
@@ -143,12 +145,12 @@ namespace toppers
   }
 
   /*!
-   *  \brief  Ê¸»úÎó¤Î°ìÃ×È½Äê
-   *  \param[in]  line      ¹ÔÈÖ¹æ
-   *  \param[in]  arg_list  ¥Ş¥¯¥í¼Â°ú¿ô¥ê¥¹¥È
-   *  \param[in]  p_ctx     ¥Ş¥¯¥í¥³¥ó¥Æ¥­¥¹¥È
-   *  \retval     ¥Ş¥¯¥íÊÖµÑÃÍ
-   *  Âè1¥Ş¥¯¥í¼Â°ú¿ô¤ÈÂè2¥Ş¥¯¥í¼Â°ú¿ô¤òÊ¸»úÎó¤È¤·¤ÆÈæ³Ó¤·¡¢°ìÃ×¤¹¤ë¾ì¹ç¤Ï¿¿¤ò¡¢¤½¤¦¤Ç¤Ê¤±¤ì¤Ğµ¶¤òÊÖ¤¹¡£
+   *  \brief  æ–‡å­—åˆ—ã®ä¸€è‡´åˆ¤å®š
+   *  \param[in]  line      è¡Œç•ªå·
+   *  \param[in]  arg_list  ãƒã‚¯ãƒ­å®Ÿå¼•æ•°ãƒªã‚¹ãƒˆ
+   *  \param[in]  p_ctx     ãƒã‚¯ãƒ­ã‚³ãƒ³ãƒ†ã‚­ã‚¹ãƒˆ
+   *  \retval     ãƒã‚¯ãƒ­è¿”å´å€¤
+   *  ç¬¬1ãƒã‚¯ãƒ­å®Ÿå¼•æ•°ã¨ç¬¬2ãƒã‚¯ãƒ­å®Ÿå¼•æ•°ã‚’æ–‡å­—åˆ—ã¨ã—ã¦æ¯”è¼ƒã—ã€ä¸€è‡´ã™ã‚‹å ´åˆã¯çœŸã‚’ã€ãã†ã§ãªã‘ã‚Œã°å½ã‚’è¿”ã™ã€‚
    */
   var_t bf_eq( text_line const& line, std::vector< var_t > const& arg_list, context* p_ctx )
   {
@@ -161,12 +163,12 @@ namespace toppers
   }
 
   /*!
-   *  \brief  ÂåÂØÃÍ
-   *  \param[in]  line      ¹ÔÈÖ¹æ
-   *  \param[in]  arg_list  ¥Ş¥¯¥í¼Â°ú¿ô¥ê¥¹¥È
-   *  \param[in]  p_ctx     ¥Ş¥¯¥í¥³¥ó¥Æ¥­¥¹¥È
-   *  \retval     ¥Ş¥¯¥íÊÖµÑÃÍ
-   *  Âè1¥Ş¥¯¥í¼Â°ú¿ô¤¬Ìµ¸ú¤ÊÊÑ¿ô¤Î¾ì¹ç¤ÏÂè2¼Â°ú¿ô¤òÊÖ¤¹¡£¤½¤ÎÂ¾¤ÏÂè1¼Â°ú¿ô¤òÊÖ¤¹¡£
+   *  \brief  ä»£æ›¿å€¤
+   *  \param[in]  line      è¡Œç•ªå·
+   *  \param[in]  arg_list  ãƒã‚¯ãƒ­å®Ÿå¼•æ•°ãƒªã‚¹ãƒˆ
+   *  \param[in]  p_ctx     ãƒã‚¯ãƒ­ã‚³ãƒ³ãƒ†ã‚­ã‚¹ãƒˆ
+   *  \retval     ãƒã‚¯ãƒ­è¿”å´å€¤
+   *  ç¬¬1ãƒã‚¯ãƒ­å®Ÿå¼•æ•°ãŒç„¡åŠ¹ãªå¤‰æ•°ã®å ´åˆã¯ç¬¬2å®Ÿå¼•æ•°ã‚’è¿”ã™ã€‚ãã®ä»–ã¯ç¬¬1å®Ÿå¼•æ•°ã‚’è¿”ã™ã€‚
    */
   var_t bf_alt( text_line const& line, std::vector< var_t > const& arg_list, context* p_ctx )
   {
@@ -186,20 +188,20 @@ namespace toppers
   }
 
   /*!
-   *  \brief  ½ç½ø¥ê¥¹¥È¤ÎÀ°Îó
-   *  \param[in]  line      ¹ÔÈÖ¹æ
-   *  \param[in]  arg_list  ¥Ş¥¯¥í¼Â°ú¿ô¥ê¥¹¥È
-   *  \param[in]  p_ctx     ¥Ş¥¯¥í¥³¥ó¥Æ¥­¥¹¥È
-   *  \retval     ¥Ş¥¯¥íÊÖµÑÃÍ
-   *  Âè1¥Ş¥¯¥í¼Â°ú¿ô¤È¤·¤ÆÍ¿¤¨¤¿½ç½øÉÕ¤­¥ê¥¹¥È¤Î³ÆÍ×ÁÇ¤ò¡¢Âè2¥Ş¥¯¥í¼Â°ú¿ô¤ÎÅº¤¨»ú¤È¤·¤¿¾ì¹ç¤ÎÊÑ¿ô¤òÉ¾²Á¤·¡¢
-   *  ¤½¤ÎÉ¾²Á·ë²Ì¤Ë´ğ¤Å¤­¾º½ç¤ËÀ°Îó¤¹¤ë¡£
+   *  \brief  é †åºãƒªã‚¹ãƒˆã®æ•´åˆ—
+   *  \param[in]  line      è¡Œç•ªå·
+   *  \param[in]  arg_list  ãƒã‚¯ãƒ­å®Ÿå¼•æ•°ãƒªã‚¹ãƒˆ
+   *  \param[in]  p_ctx     ãƒã‚¯ãƒ­ã‚³ãƒ³ãƒ†ã‚­ã‚¹ãƒˆ
+   *  \retval     ãƒã‚¯ãƒ­è¿”å´å€¤
+   *  ç¬¬1ãƒã‚¯ãƒ­å®Ÿå¼•æ•°ã¨ã—ã¦ä¸ãˆãŸé †åºä»˜ããƒªã‚¹ãƒˆã®å„è¦ç´ ã‚’ã€ç¬¬2ãƒã‚¯ãƒ­å®Ÿå¼•æ•°ã®æ·»ãˆå­—ã¨ã—ãŸå ´åˆã®å¤‰æ•°ã‚’è©•ä¾¡ã—ã€
+   *  ãã®è©•ä¾¡çµæœã«åŸºã¥ãæ˜‡é †ã«æ•´åˆ—ã™ã‚‹ã€‚
    *
    *  \example
    *  $FOO[1] = 20$
    *  $FOO[2] = 10$
    *  $FOO[3] = 30$
    *  $SORT({ 1,2,3 }, "FOO")$
-   *  ¢ª { 2,1,3 }
+   *  â†’ { 2,1,3 }
    *  \endexample
    */
   var_t bf_sort( text_line const& line, std::vector< var_t > const& arg_list, context* p_ctx )
@@ -241,12 +243,12 @@ namespace toppers
   }
 
   /*!
-   *  \brief  ´Ä¶­ÊÑ¿ô¤Î¼èÆÀ
-   *  \param[in]  line      ¹ÔÈÖ¹æ
-   *  \param[in]  arg_list  ¥Ş¥¯¥í¼Â°ú¿ô¥ê¥¹¥È
-   *  \param[in]  p_ctx     ¥Ş¥¯¥í¥³¥ó¥Æ¥­¥¹¥È
-   *  \retval     ¥Ş¥¯¥íÊÖµÑÃÍ
-   *  Âè1¥Ş¥¯¥í¼Â°ú¿ô¤Ç»ØÄê¤·¤¿´Ä¶­ÊÑ¿ô¤ÎÃÍ¤òÊÖ¤¹¡£
+   *  \brief  ç’°å¢ƒå¤‰æ•°ã®å–å¾—
+   *  \param[in]  line      è¡Œç•ªå·
+   *  \param[in]  arg_list  ãƒã‚¯ãƒ­å®Ÿå¼•æ•°ãƒªã‚¹ãƒˆ
+   *  \param[in]  p_ctx     ãƒã‚¯ãƒ­ã‚³ãƒ³ãƒ†ã‚­ã‚¹ãƒˆ
+   *  \retval     ãƒã‚¯ãƒ­è¿”å´å€¤
+   *  ç¬¬1ãƒã‚¯ãƒ­å®Ÿå¼•æ•°ã§æŒ‡å®šã—ãŸç’°å¢ƒå¤‰æ•°ã®å€¤ã‚’è¿”ã™ã€‚
    */
   var_t bf_environ( text_line const& line, std::vector< var_t > const& arg_list, context* p_ctx )
   {
@@ -274,12 +276,12 @@ namespace toppers
   }
 
   /*!
-   *  \brief  ÃÍ¤ÎÀ¸À®
-   *  \param[in]  line      ¹ÔÈÖ¹æ
-   *  \param[in]  arg_list  ¥Ş¥¯¥í¼Â°ú¿ô¥ê¥¹¥È
-   *  \param[in]  p_ctx     ¥Ş¥¯¥í¥³¥ó¥Æ¥­¥¹¥È
-   *  \retval     ¥Ş¥¯¥íÊÖµÑÃÍ
-   *  Âè1¥Ş¥¯¥í¼Â°ú¿ô¤ò¥Æ¥­¥¹¥È¡¢Âè2¥Ş¥¯¥í¼Â°ú¿ô¤ò¿ôÃÍ¤È¤·¤Æ¡¢ÃÍ¤òÀ¸À®¤¹¤ë¡£
+   *  \brief  å€¤ã®ç”Ÿæˆ
+   *  \param[in]  line      è¡Œç•ªå·
+   *  \param[in]  arg_list  ãƒã‚¯ãƒ­å®Ÿå¼•æ•°ãƒªã‚¹ãƒˆ
+   *  \param[in]  p_ctx     ãƒã‚¯ãƒ­ã‚³ãƒ³ãƒ†ã‚­ã‚¹ãƒˆ
+   *  \retval     ãƒã‚¯ãƒ­è¿”å´å€¤
+   *  ç¬¬1ãƒã‚¯ãƒ­å®Ÿå¼•æ•°ã‚’ãƒ†ã‚­ã‚¹ãƒˆã€ç¬¬2ãƒã‚¯ãƒ­å®Ÿå¼•æ•°ã‚’æ•°å€¤ã¨ã—ã¦ã€å€¤ã‚’ç”Ÿæˆã™ã‚‹ã€‚
    */
   var_t bf_value( text_line const& line, std::vector< var_t > const& arg_list, context* p_ctx )
   {
@@ -299,12 +301,12 @@ namespace toppers
   }
 
   /*!
-   *  \brief  Ê¸»úÎó¤ÎÏ¢·ë
-   *  \param[in]  line      ¹ÔÈÖ¹æ
-   *  \param[in]  arg_list  ¥Ş¥¯¥í¼Â°ú¿ô¥ê¥¹¥È
-   *  \param[in]  p_ctx     ¥Ş¥¯¥í¥³¥ó¥Æ¥­¥¹¥È
-   *  \retval     ¥Ş¥¯¥íÊÖµÑÃÍ
-   *  Âè1¥Ş¥¯¥í¼Â°ú¿ô¤ÈÂè2¥Ş¥¯¥í¼Â°ú¿ô¤òÏ¢·ë¤·¤Æ¿·¤·¤¤Ê¸»úÎó¤òÀ¸À®¤¹¤ë¡£
+   *  \brief  æ–‡å­—åˆ—ã®é€£çµ
+   *  \param[in]  line      è¡Œç•ªå·
+   *  \param[in]  arg_list  ãƒã‚¯ãƒ­å®Ÿå¼•æ•°ãƒªã‚¹ãƒˆ
+   *  \param[in]  p_ctx     ãƒã‚¯ãƒ­ã‚³ãƒ³ãƒ†ã‚­ã‚¹ãƒˆ
+   *  \retval     ãƒã‚¯ãƒ­è¿”å´å€¤
+   *  ç¬¬1ãƒã‚¯ãƒ­å®Ÿå¼•æ•°ã¨ç¬¬2ãƒã‚¯ãƒ­å®Ÿå¼•æ•°ã‚’é€£çµã—ã¦æ–°ã—ã„æ–‡å­—åˆ—ã‚’ç”Ÿæˆã™ã‚‹ã€‚
    */
   var_t bf_concat( text_line const& line, std::vector< var_t > const& arg_list, context* p_ctx )
   {
@@ -317,12 +319,12 @@ namespace toppers
   }
 
   /*!
-   *  \brief  ½ç½ø¥ê¥¹¥È¤Î½ªÃ¼¤ËÍ×ÁÇ¤òÄÉ²Ã
-   *  \param[in]  line      ¹ÔÈÖ¹æ
-   *  \param[in]  arg_list  ¥Ş¥¯¥í¼Â°ú¿ô¥ê¥¹¥È
-   *  \param[in]  p_ctx     ¥Ş¥¯¥í¥³¥ó¥Æ¥­¥¹¥È
-   *  \retval     ¥Ş¥¯¥íÊÖµÑÃÍ
-   *  Âè1¥Ş¥¯¥í¼Â°ú¿ô¤ÈÂè2¥Ş¥¯¥í¼Â°ú¿ô°Ê¹ß¤òÏ¢·ë¤·¤Æ¿·¤·¤¤½ç½øÉÕ¤­¥ê¥¹¥È¤òÀ¸À®¤¹¤ë¡£
+   *  \brief  é †åºãƒªã‚¹ãƒˆã®çµ‚ç«¯ã«è¦ç´ ã‚’è¿½åŠ 
+   *  \param[in]  line      è¡Œç•ªå·
+   *  \param[in]  arg_list  ãƒã‚¯ãƒ­å®Ÿå¼•æ•°ãƒªã‚¹ãƒˆ
+   *  \param[in]  p_ctx     ãƒã‚¯ãƒ­ã‚³ãƒ³ãƒ†ã‚­ã‚¹ãƒˆ
+   *  \retval     ãƒã‚¯ãƒ­è¿”å´å€¤
+   *  ç¬¬1ãƒã‚¯ãƒ­å®Ÿå¼•æ•°ã¨ç¬¬2ãƒã‚¯ãƒ­å®Ÿå¼•æ•°ä»¥é™ã‚’é€£çµã—ã¦æ–°ã—ã„é †åºä»˜ããƒªã‚¹ãƒˆã‚’ç”Ÿæˆã™ã‚‹ã€‚
    */
   var_t bf_append( text_line const& line, std::vector< var_t > const& arg_list, context* p_ctx )
   {
@@ -331,25 +333,25 @@ namespace toppers
     if ( n < 2 )
     {
       error( line, _( "too few arguments for `%1%\'" ), "APPEND" );
-		}
-		else
-		{
-		  result = arg_list[ 0 ];
+        }
+        else
+        {
+          result = arg_list[ 0 ];
       for ( var_t::size_type i = 1; i < n; i++)
-			{
-			  result.insert( result.end(), arg_list[ i ].begin(), arg_list[ i ].end() );
-			}
-		}
+            {
+              result.insert( result.end(), arg_list[ i ].begin(), arg_list[ i ].end() );
+            }
+        }
     return result;
   }
 
   /*!
-   *  \brief  ½ç½ø¥ê¥¹¥È¤Î»ØÄêÍ×ÁÇ¤Î»²¾È
-   *  \param[in]  line      ¹ÔÈÖ¹æ
-   *  \param[in]  arg_list  ¥Ş¥¯¥í¼Â°ú¿ô¥ê¥¹¥È
-   *  \param[in]  p_ctx     ¥Ş¥¯¥í¥³¥ó¥Æ¥­¥¹¥È
-   *  \retval     ¥Ş¥¯¥íÊÖµÑÃÍ
-   *  Âè1¥Ş¥¯¥í¼Â°ú¿ô¤Ç»ØÄê¤·¤¿½ç½ø¥ê¥¹¥È¤Î¡¢Âè2¥Ş¥¯¥í¼Â°ú¿ô¤Ç»ØÄê¤·¤¿Í×ÁÇ¤òÊÖ¤¹¡£
+   *  \brief  é †åºãƒªã‚¹ãƒˆã®æŒ‡å®šè¦ç´ ã®å‚ç…§
+   *  \param[in]  line      è¡Œç•ªå·
+   *  \param[in]  arg_list  ãƒã‚¯ãƒ­å®Ÿå¼•æ•°ãƒªã‚¹ãƒˆ
+   *  \param[in]  p_ctx     ãƒã‚¯ãƒ­ã‚³ãƒ³ãƒ†ã‚­ã‚¹ãƒˆ
+   *  \retval     ãƒã‚¯ãƒ­è¿”å´å€¤
+   *  ç¬¬1ãƒã‚¯ãƒ­å®Ÿå¼•æ•°ã§æŒ‡å®šã—ãŸé †åºãƒªã‚¹ãƒˆã®ã€ç¬¬2ãƒã‚¯ãƒ­å®Ÿå¼•æ•°ã§æŒ‡å®šã—ãŸè¦ç´ ã‚’è¿”ã™ã€‚
    */
   var_t bf_at( text_line const& line, std::vector< var_t > const& arg_list, context* p_ctx )
   {
@@ -362,20 +364,20 @@ namespace toppers
       }
       catch ( std::out_of_range& )
       {
-        // Åº¤¨»ú¤¬ÉÔÀµ
-        // ÆÃ¤Ë²¿¤â¤·¤Ê¤¤ ¢ª ¤³¤Î»şÅÀ¤Ç e ¤¬¶õÃÍ¤Ç¤¢¤ë¤³¤È¤ò´üÂÔ
+        // æ·»ãˆå­—ãŒä¸æ­£
+        // ç‰¹ã«ä½•ã‚‚ã—ãªã„ â†’ ã“ã®æ™‚ç‚¹ã§ e ãŒç©ºå€¤ã§ã‚ã‚‹ã“ã¨ã‚’æœŸå¾…
       }
     }
     return var_t( 1, e );
   }
 
   /*!
-   *  \brief  ¥Æ¥­¥¹¥È¤ÎËİÌõ
-   *  \param[in]  line      ¹ÔÈÖ¹æ
-   *  \param[in]  arg_list  ¥Ş¥¯¥í¼Â°ú¿ô¥ê¥¹¥È
-   *  \param[in]  p_ctx     ¥Ş¥¯¥í¥³¥ó¥Æ¥­¥¹¥È
-   *  \retval     ¥Ş¥¯¥íÊÖµÑÃÍ
-   *  Âè1¥Ş¥¯¥í¼Â°ú¿ô¤Ç»ØÄê¤·¤¿Ê¸»úÎó¤òËİÌõ¤¹¤ë¡£
+   *  \brief  ãƒ†ã‚­ã‚¹ãƒˆã®ç¿»è¨³
+   *  \param[in]  line      è¡Œç•ªå·
+   *  \param[in]  arg_list  ãƒã‚¯ãƒ­å®Ÿå¼•æ•°ãƒªã‚¹ãƒˆ
+   *  \param[in]  p_ctx     ãƒã‚¯ãƒ­ã‚³ãƒ³ãƒ†ã‚­ã‚¹ãƒˆ
+   *  \retval     ãƒã‚¯ãƒ­è¿”å´å€¤
+   *  ç¬¬1ãƒã‚¯ãƒ­å®Ÿå¼•æ•°ã§æŒ‡å®šã—ãŸæ–‡å­—åˆ—ã‚’ç¿»è¨³ã™ã‚‹ã€‚
    */
   var_t bf_gettext( text_line const& line, std::vector< var_t > const& arg_list, context* p_ctx )
   {
@@ -389,14 +391,14 @@ namespace toppers
   }
 
   /*!
-   *  \brief  ¥Ş¥¯¥í¼Â°ú¿ô¤Î½ñ¼°²½
-   *  \param[in]  line      ¹ÔÈÖ¹æ
-   *  \param[in]  arg_list  ¥Ş¥¯¥í¼Â°ú¿ô¥ê¥¹¥È
-   *  \param[in]  p_ctx     ¥Ş¥¯¥í¥³¥ó¥Æ¥­¥¹¥È
-   *  \retval     ¥Ş¥¯¥íÊÖµÑÃÍ
-   *  Âè1¥Ş¥¯¥í¼Â°ú¿ô¤Ç»ØÄê¤·¤¿½é´ü²½Ê¸»úÎó¤Ë¤è¤Ã¤Æ¡¢Âè2¥Ş¥¯¥í¼Â°ú¿ô°Ê¹ß¤ò½ñ¼°²½¤¹¤ë¡£
-   *  ½ñ¼°²½Ê¸»úÎó¤Ï¡¢%n¤¬»È¤¨¤Ê¤¤¤³¤È¤ò½ü¤­¡¢printf´Ø¿ô¤Î¥¹¡¼¥Ñ¡¼¥»¥Ã¥È¤Ç¤¢¤ë¡£
-   *  Àµ³Î¤Ê»ÅÍÍ¤Ï¡¢boost::format¤ò»²¾È¤Î¤³¤È¡£
+   *  \brief  ãƒã‚¯ãƒ­å®Ÿå¼•æ•°ã®æ›¸å¼åŒ–
+   *  \param[in]  line      è¡Œç•ªå·
+   *  \param[in]  arg_list  ãƒã‚¯ãƒ­å®Ÿå¼•æ•°ãƒªã‚¹ãƒˆ
+   *  \param[in]  p_ctx     ãƒã‚¯ãƒ­ã‚³ãƒ³ãƒ†ã‚­ã‚¹ãƒˆ
+   *  \retval     ãƒã‚¯ãƒ­è¿”å´å€¤
+   *  ç¬¬1ãƒã‚¯ãƒ­å®Ÿå¼•æ•°ã§æŒ‡å®šã—ãŸåˆæœŸåŒ–æ–‡å­—åˆ—ã«ã‚ˆã£ã¦ã€ç¬¬2ãƒã‚¯ãƒ­å®Ÿå¼•æ•°ä»¥é™ã‚’æ›¸å¼åŒ–ã™ã‚‹ã€‚
+   *  æ›¸å¼åŒ–æ–‡å­—åˆ—ã¯ã€%nãŒä½¿ãˆãªã„ã“ã¨ã‚’é™¤ãã€printfé–¢æ•°ã®ã‚¹ãƒ¼ãƒ‘ãƒ¼ã‚»ãƒƒãƒˆã§ã‚ã‚‹ã€‚
+   *  æ­£ç¢ºãªä»•æ§˜ã¯ã€boost::formatã‚’å‚ç…§ã®ã“ã¨ã€‚
    */
   var_t bf_format( text_line const& line, std::vector< var_t > const& arg_list, context* p_ctx )
   {
@@ -413,24 +415,31 @@ namespace toppers
       toppers::trace("%s", debug_str.c_str() );
 #endif
     boost::format fmt( format_str );
-    for ( std::size_t i = 1; i < arity; i++ )
+    try
     {
-      std::pair< var_t const*, context const* > arg( &arg_list[i], p_ctx );
-      fmt % arg;
+      for ( std::size_t i = 1; i < arity; i++ )
+      {
+        std::pair< var_t const*, context const* > arg( &arg_list[i], p_ctx );
+        fmt % arg;
+      }
+      e.s = fmt.str();
     }
-  	e.s = fmt.str();
+    catch ( ... )
+    {
+      error( line, _( "illegal argument value in `%1%\'" ), "FORMAT" );
+    }
     return var_t( 1, e );
   }
 
   /*!
-   *  \brief  ½ç½øÉÕ¤­¥ê¥¹¥ÈÆâ¤ÎÃµº÷
-   *  \param[in]  line      ¹ÔÈÖ¹æ
-   *  \param[in]  arg_list  ¥Ş¥¯¥í¼Â°ú¿ô¥ê¥¹¥È
-   *  \param[in]  p_ctx     ¥Ş¥¯¥í¥³¥ó¥Æ¥­¥¹¥È
-   *  \retval     ¥Ş¥¯¥íÊÖµÑÃÍ
-   *  Âè1¥Ş¥¯¥í¼Â°ú¿ô¤Ç»ØÄê¤·¤¿½ç½øÉÕ¤­¥ê¥¹¥È¤Ë´Ş¤Ş¤ì¤ëÂè2¥Ş¥¯¥í¼Â°ú¿ô¤Ç»ØÄê¤·¤¿ÃÍ¤ËÅù¤·¤¤Í×ÁÇ¤ò¡¢
-   *  ÀèÆ¬¤«¤é½ç¤ËÃµº÷¤¹¤ë¡£
-   *  Åù¤·¤¤Í×ÁÇ¤¬¸«¤Ä¤«¤ì¤Ğ¤½¤ÎÍ×ÁÇ¤Ø¤Î¥¤¥ó¥Ç¥Ã¥¯¥¹¤ò¡¢¤½¤¦¤Ç¤Ê¤±¤ì¤Ğ¶õÃÍ¤òÊÖ¤¹¡£
+   *  \brief  é †åºä»˜ããƒªã‚¹ãƒˆå†…ã®æ¢ç´¢
+   *  \param[in]  line      è¡Œç•ªå·
+   *  \param[in]  arg_list  ãƒã‚¯ãƒ­å®Ÿå¼•æ•°ãƒªã‚¹ãƒˆ
+   *  \param[in]  p_ctx     ãƒã‚¯ãƒ­ã‚³ãƒ³ãƒ†ã‚­ã‚¹ãƒˆ
+   *  \retval     ãƒã‚¯ãƒ­è¿”å´å€¤
+   *  ç¬¬1ãƒã‚¯ãƒ­å®Ÿå¼•æ•°ã§æŒ‡å®šã—ãŸé †åºä»˜ããƒªã‚¹ãƒˆã«å«ã¾ã‚Œã‚‹ç¬¬2ãƒã‚¯ãƒ­å®Ÿå¼•æ•°ã§æŒ‡å®šã—ãŸå€¤ã«ç­‰ã—ã„è¦ç´ ã‚’ã€
+   *  å…ˆé ­ã‹ã‚‰é †ã«æ¢ç´¢ã™ã‚‹ã€‚
+   *  ç­‰ã—ã„è¦ç´ ãŒè¦‹ã¤ã‹ã‚Œã°ãã®è¦ç´ ã¸ã®ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ã‚’ã€ãã†ã§ãªã‘ã‚Œã°ç©ºå€¤ã‚’è¿”ã™ã€‚
    */
   var_t bf_find( text_line const& line, std::vector< var_t > const& arg_list, context* p_ctx )
   {
@@ -439,51 +448,51 @@ namespace toppers
     {
       var_t list( arg_list[ 0 ] );
 
-	  if ( !arg_list[ 1 ].empty() )
-	  {
+      if ( !arg_list[ 1 ].empty() )
+      {
         element key( arg_list[ 1 ].front() );
 
-        if ( !key.i )	// À°¿ôÃÍ¤¬ÀßÄê¤µ¤ì¤Æ¤¤¤Ê¤±¤ì¤Ğ...
+        if ( !key.i )   // æ•´æ•°å€¤ãŒè¨­å®šã•ã‚Œã¦ã„ãªã‘ã‚Œã°...
         {
           std::string value( key.s );
 
           for ( var_t::const_iterator iter( list.begin() ), last( list.end() ); iter != last; ++iter )
           {
-            if ( iter->s == value ) // È¯¸«¡ª
+            if ( iter->s == value ) // ç™ºè¦‹ï¼
             {
-              e.i = iter - list.begin();  // iter ¤Ï RandomAccessIterator
+              e.i = iter - list.begin();  // iter ã¯ RandomAccessIterator
               return var_t( 1, e );
             }
           }
         }
-		else
-		{
+        else
+        {
           std::tr1::int64_t value( key.i.get() );
 
           for ( var_t::const_iterator iter( list.begin() ), last( list.end() ); iter != last; ++iter )
           {
-            if ( iter->i && iter->i.get() == value ) // È¯¸«¡ª
+            if ( iter->i && iter->i.get() == value ) // ç™ºè¦‹ï¼
             {
-              e.i = iter - list.begin();  // iter ¤Ï RandomAccessIterator
+              e.i = iter - list.begin();  // iter ã¯ RandomAccessIterator
               return var_t( 1, e );
             }
           }
         }
-	  }
+      }
     }
     return var_t();
   }
 
   /*!
-   *  \brief  ÈÏ°Ï»ØÄê¤Ë¤è¤ë½ç½øÉÕ¤­¥ê¥¹¥È
-   *  \param[in]  line      ¹ÔÈÖ¹æ
-   *  \param[in]  arg_list  ¥Ş¥¯¥í¼Â°ú¿ô¥ê¥¹¥È
-   *  \param[in]  p_ctx     ¥Ş¥¯¥í¥³¥ó¥Æ¥­¥¹¥È
-   *  \retval     ¥Ş¥¯¥íÊÖµÑÃÍ
-   *  Âè1¥Ş¥¯¥í¼Â°ú¿ô¤ÇºÇ½é¤ÎÃÍ¤ò¡¢Âè2¥Ş¥¯¥í¼Â°ú¿ô¤ÇºÇ¸å¤ÎÃÍ¤ò»ØÄê¤¹¤ë¡£
-   *  { ºÇ½é¤ÎÃÍ, ºÇ½é¤ÎÃÍ + 1, ... ºÇ¸å¤ÎÃÍ }
-   *  ¤È¤Ê¤ë½ç½øÉÕ¤­¥ê¥¹¥È¤òÀ¸À®¤¹¤ë¡£
-   *  °ú¿ô¤¬Àµ¤·¤¯¤Ê¤¤¾ì¹ç¤Ï¶õÃÍ¤òÊÖ¤¹¡£
+   *  \brief  ç¯„å›²æŒ‡å®šã«ã‚ˆã‚‹é †åºä»˜ããƒªã‚¹ãƒˆ
+   *  \param[in]  line      è¡Œç•ªå·
+   *  \param[in]  arg_list  ãƒã‚¯ãƒ­å®Ÿå¼•æ•°ãƒªã‚¹ãƒˆ
+   *  \param[in]  p_ctx     ãƒã‚¯ãƒ­ã‚³ãƒ³ãƒ†ã‚­ã‚¹ãƒˆ
+   *  \retval     ãƒã‚¯ãƒ­è¿”å´å€¤
+   *  ç¬¬1ãƒã‚¯ãƒ­å®Ÿå¼•æ•°ã§æœ€åˆã®å€¤ã‚’ã€ç¬¬2ãƒã‚¯ãƒ­å®Ÿå¼•æ•°ã§æœ€å¾Œã®å€¤ã‚’æŒ‡å®šã™ã‚‹ã€‚
+   *  { æœ€åˆã®å€¤, æœ€åˆã®å€¤ + 1, ... æœ€å¾Œã®å€¤ }
+   *  ã¨ãªã‚‹é †åºä»˜ããƒªã‚¹ãƒˆã‚’ç”Ÿæˆã™ã‚‹ã€‚
+   *  å¼•æ•°ãŒæ­£ã—ããªã„å ´åˆã¯ç©ºå€¤ã‚’è¿”ã™ã€‚
    */
   var_t bf_range( text_line const& line, std::vector< var_t > const& arg_list, context* p_ctx )
   {
@@ -504,14 +513,14 @@ namespace toppers
   }
 
   /*!
-   *  \brief  Á´ÊÑ¿ô¤Î¥À¥ó¥×
-   *  \param[in]  line      ¹ÔÈÖ¹æ
-   *  \param[in]  arg_list  ¥Ş¥¯¥í¼Â°ú¿ô¥ê¥¹¥È
-   *  \param[in]  p_ctx     ¥Ş¥¯¥í¥³¥ó¥Æ¥­¥¹¥È
-   *  \retval     ¥Ş¥¯¥íÊÖµÑÃÍ
-   *  ¥Ş¥¯¥í¼Â°ú¿ô¤ò»ØÄê¤·¤¿¾ì¹ç¡¢¤½¤ÎÊ¸»úÎóÂ°À­¤Ç»ØÄê¤·¤¿¥Õ¥¡¥¤¥ë¤Ë¥À¥ó¥×¤·¤¿Ê¸»úÎó¤òÄÉµ­¤¹¤ë¡£
-   *  ¥Õ¥¡¥¤¥ëÌ¾¤È¤·¤Æ¡¢"stdout"¤ò»ØÄê¤·¤¿¾ì¹ç¤ÏÉ¸½à½ĞÎÏ¡¢"stderr"¤ò»ØÄê¤·¤¿¾ì¹ç¤ÏÉ¸½à¥¨¥é¡¼¤Ë½ĞÎÏ¤¹¤ë¡£
-   *  ¥Õ¥¡¥¤¥ëÌ¾¤ò¾ÊÎ¬¤·¤¿¾ì¹ç¤Ï"stderr"¤ò»ØÄê¤·¤¿¤â¤Î¤È¤·¤Æ¿¶Éñ¤¦¡£
+   *  \brief  å…¨å¤‰æ•°ã®ãƒ€ãƒ³ãƒ—
+   *  \param[in]  line      è¡Œç•ªå·
+   *  \param[in]  arg_list  ãƒã‚¯ãƒ­å®Ÿå¼•æ•°ãƒªã‚¹ãƒˆ
+   *  \param[in]  p_ctx     ãƒã‚¯ãƒ­ã‚³ãƒ³ãƒ†ã‚­ã‚¹ãƒˆ
+   *  \retval     ãƒã‚¯ãƒ­è¿”å´å€¤
+   *  ãƒã‚¯ãƒ­å®Ÿå¼•æ•°ã‚’æŒ‡å®šã—ãŸå ´åˆã€ãã®æ–‡å­—åˆ—å±æ€§ã§æŒ‡å®šã—ãŸãƒ•ã‚¡ã‚¤ãƒ«ã«ãƒ€ãƒ³ãƒ—ã—ãŸæ–‡å­—åˆ—ã‚’è¿½è¨˜ã™ã‚‹ã€‚
+   *  ãƒ•ã‚¡ã‚¤ãƒ«åã¨ã—ã¦ã€"stdout"ã‚’æŒ‡å®šã—ãŸå ´åˆã¯æ¨™æº–å‡ºåŠ›ã€"stderr"ã‚’æŒ‡å®šã—ãŸå ´åˆã¯æ¨™æº–ã‚¨ãƒ©ãƒ¼ã«å‡ºåŠ›ã™ã‚‹ã€‚
+   *  ãƒ•ã‚¡ã‚¤ãƒ«åã‚’çœç•¥ã—ãŸå ´åˆã¯"stderr"ã‚’æŒ‡å®šã—ãŸã‚‚ã®ã¨ã—ã¦æŒ¯èˆã†ã€‚
    */
   var_t bf_dump( text_line const& line, std::vector< var_t > const& arg_list, context* p_ctx )
   {
@@ -524,7 +533,7 @@ namespace toppers
 
     std::string dump_str;
 
-    // Á´ÊÑ¿ô¤ò¤Ê¤á¤ë
+    // å…¨å¤‰æ•°ã‚’ãªã‚ã‚‹
     for ( std::map< std::string, var_t >::const_iterator iter( p_ctx->var_map.begin() ), last( p_ctx->var_map.end() );
           iter != last;
           ++iter )
@@ -532,13 +541,13 @@ namespace toppers
       dump_str += "$" + iter->first + "$ = { ";
       if ( !iter->second.empty() )
       {
-        // ³ÆÊÑ¿ô¤ÎÁ´Í×ÁÇ
+        // å„å¤‰æ•°ã®å…¨è¦ç´ 
         for ( var_t::const_iterator iter2( iter->second.begin() ), last2( iter->second.end() );
               iter2 != last2;
               ++iter2 )
         {
           dump_str += "\"" + iter2->s + "\"(";
-          if ( iter2->i ) // ÃÍÂ°À­¤¬¤¢¤ì¤Ğ...
+          if ( iter2->i ) // å€¤å±æ€§ãŒã‚ã‚Œã°...
           {
             dump_str += boost::lexical_cast< std::string >( *iter2->i );
           }
@@ -555,18 +564,20 @@ namespace toppers
     }
     if ( filename == "stdout" )
     {
-      fputs( dump_str.c_str(), stdout );
+      std::fputs( dump_str.c_str(), stdout );
+      std::fflush( stdout );
     }
     else if ( filename == "stderr" )
     {
-      fputs( dump_str.c_str(), stderr );
+      std::fputs( dump_str.c_str(), stderr );
+      std::fflush( stderr );
     }
     else
     {
       std::FILE* stream = std::fopen( filename.c_str(), "a" );
       if ( stream != 0 )
       {
-        fputs( dump_str.c_str(), stream );
+        std::fputs( dump_str.c_str(), stream );
         std::fclose( stream );
       }
     }
@@ -575,15 +586,15 @@ namespace toppers
   }
 
   /*!
-   *  \brief  ÊÑ¿ô¤Î¥È¥ì¡¼¥¹
-   *  \param[in]  line      ¹ÔÈÖ¹æ
-   *  \param[in]  arg_list  ¥Ş¥¯¥í¼Â°ú¿ô¥ê¥¹¥È
-   *  \param[in]  p_ctx     ¥Ş¥¯¥í¥³¥ó¥Æ¥­¥¹¥È
-   *  \retval     ¥Ş¥¯¥íÊÖµÑÃÍ
-   *  Âè1¥Ş¥¯¥í¼Â°ú¿ô¤Ç»ØÄê¤·¤¿ÊÑ¿ô¤ÎÆâÍÆ¤ò¥È¥ì¡¼¥¹¤¹¤ë¡£
-   *  Âè2¥Ş¥¯¥í¼Â°ú¿ô¤ò»ØÄê¤·¤¿¾ì¹ç¡¢¤½¤ÎÊ¸»úÎóÂ°À­¤Ç»ØÄê¤·¤¿¥Õ¥¡¥¤¥ë¤Ë¥È¥ì¡¼¥¹ÆâÍÆ¤òÄÉµ­¤¹¤ë¡£
-   *  ¥Õ¥¡¥¤¥ëÌ¾¤È¤·¤Æ¡¢"stdout"¤ò»ØÄê¤·¤¿¾ì¹ç¤ÏÉ¸½à½ĞÎÏ¡¢"stderr"¤ò»ØÄê¤·¤¿¾ì¹ç¤ÏÉ¸½à¥¨¥é¡¼¤Ë½ĞÎÏ¤¹¤ë¡£
-   *  ¥Õ¥¡¥¤¥ëÌ¾¤ò¾ÊÎ¬¤·¤¿¾ì¹ç¤Ï"stderr"¤ò»ØÄê¤·¤¿¤â¤Î¤È¤·¤Æ¿¶Éñ¤¦¡£
+   *  \brief  å¤‰æ•°ã®ãƒˆãƒ¬ãƒ¼ã‚¹
+   *  \param[in]  line      è¡Œç•ªå·
+   *  \param[in]  arg_list  ãƒã‚¯ãƒ­å®Ÿå¼•æ•°ãƒªã‚¹ãƒˆ
+   *  \param[in]  p_ctx     ãƒã‚¯ãƒ­ã‚³ãƒ³ãƒ†ã‚­ã‚¹ãƒˆ
+   *  \retval     ãƒã‚¯ãƒ­è¿”å´å€¤
+   *  ç¬¬1ãƒã‚¯ãƒ­å®Ÿå¼•æ•°ã§æŒ‡å®šã—ãŸå¤‰æ•°ã®å†…å®¹ã‚’ãƒˆãƒ¬ãƒ¼ã‚¹ã™ã‚‹ã€‚
+   *  ç¬¬2ãƒã‚¯ãƒ­å®Ÿå¼•æ•°ã‚’æŒ‡å®šã—ãŸå ´åˆã€ãã®æ–‡å­—åˆ—å±æ€§ã§æŒ‡å®šã—ãŸãƒ•ã‚¡ã‚¤ãƒ«ã«ãƒˆãƒ¬ãƒ¼ã‚¹å†…å®¹ã‚’è¿½è¨˜ã™ã‚‹ã€‚
+   *  ãƒ•ã‚¡ã‚¤ãƒ«åã¨ã—ã¦ã€"stdout"ã‚’æŒ‡å®šã—ãŸå ´åˆã¯æ¨™æº–å‡ºåŠ›ã€"stderr"ã‚’æŒ‡å®šã—ãŸå ´åˆã¯æ¨™æº–ã‚¨ãƒ©ãƒ¼ã«å‡ºåŠ›ã™ã‚‹ã€‚
+   *  ãƒ•ã‚¡ã‚¤ãƒ«åã‚’çœç•¥ã—ãŸå ´åˆã¯"stderr"ã‚’æŒ‡å®šã—ãŸã‚‚ã®ã¨ã—ã¦æŒ¯èˆã†ã€‚
    */
   var_t bf_trace( text_line const& line, std::vector< var_t > const& arg_list, context* p_ctx )
   {
@@ -606,7 +617,7 @@ namespace toppers
           ++iter )
     {
       trace_str += "\"" + iter->s + "\"(";
-      if ( iter->i ) // ÃÍÂ°À­¤¬¤¢¤ì¤Ğ...
+      if ( iter->i ) // å€¤å±æ€§ãŒã‚ã‚Œã°...
       {
         trace_str += boost::lexical_cast< std::string >( *iter->i ) + " as integer";
       }
@@ -625,18 +636,20 @@ namespace toppers
     }
     if ( filename == "stdout" )
     {
-      fputs( trace_str.c_str(), stdout );
+      std::fputs( trace_str.c_str(), stdout );
+      std::fflush( stdout );
     }
     else if ( filename == "stderr" )
     {
-      fputs( trace_str.c_str(), stderr );
+      std::fputs( trace_str.c_str(), stderr );
+      std::fflush( stderr );
     }
     else
     {
       std::FILE* stream = std::fopen( filename.c_str(), "a" );
       if ( stream != 0 )
       {
-        fputs( trace_str.c_str(), stream );
+        std::fputs( trace_str.c_str(), stream );
         std::fclose( stream );
       }
     }
@@ -646,11 +659,11 @@ namespace toppers
   }
 
   /*!
-   *  \brief  Ê¸»úÎó¤Î¥¨¥¹¥±¡¼¥×
-   *  \param[in]  line      ¹ÔÈÖ¹æ
-   *  \param[in]  arg_list  ¥Ş¥¯¥í¼Â°ú¿ô¥ê¥¹¥È
-   *  \param[in]  p_ctx     ¥Ş¥¯¥í¥³¥ó¥Æ¥­¥¹¥È
-   *  \retval     ¥Ş¥¯¥íÊÖµÑÃÍ
+   *  \brief  æ–‡å­—åˆ—ã®ã‚¨ã‚¹ã‚±ãƒ¼ãƒ—
+   *  \param[in]  line      è¡Œç•ªå·
+   *  \param[in]  arg_list  ãƒã‚¯ãƒ­å®Ÿå¼•æ•°ãƒªã‚¹ãƒˆ
+   *  \param[in]  p_ctx     ãƒã‚¯ãƒ­ã‚³ãƒ³ãƒ†ã‚­ã‚¹ãƒˆ
+   *  \retval     ãƒã‚¯ãƒ­è¿”å´å€¤
    */
   var_t bf_escstr( text_line const& line, std::vector< var_t > const& arg_list, context* p_ctx )
   {
@@ -664,11 +677,11 @@ namespace toppers
   }
 
   /*!
-   *  \brief  Ê¸»úÎó¤Î¥¨¥¹¥±¡¼¥×²ò½ü
-   *  \param[in]  line      ¹ÔÈÖ¹æ
-   *  \param[in]  arg_list  ¥Ş¥¯¥í¼Â°ú¿ô¥ê¥¹¥È
-   *  \param[in]  p_ctx     ¥Ş¥¯¥í¥³¥ó¥Æ¥­¥¹¥È
-   *  \retval     ¥Ş¥¯¥íÊÖµÑÃÍ
+   *  \brief  æ–‡å­—åˆ—ã®ã‚¨ã‚¹ã‚±ãƒ¼ãƒ—è§£é™¤
+   *  \param[in]  line      è¡Œç•ªå·
+   *  \param[in]  arg_list  ãƒã‚¯ãƒ­å®Ÿå¼•æ•°ãƒªã‚¹ãƒˆ
+   *  \param[in]  p_ctx     ãƒã‚¯ãƒ­ã‚³ãƒ³ãƒ†ã‚­ã‚¹ãƒˆ
+   *  \retval     ãƒã‚¯ãƒ­è¿”å´å€¤
    */
   var_t bf_unescstr( text_line const& line, std::vector< var_t > const& arg_list, context* p_ctx )
   {
@@ -685,11 +698,11 @@ namespace toppers
   }
 
   /*!
-   *  \brief  ´Ø¿ô¤Î¸Æ¤Ó½Ğ¤·
-   *  \param[in]  line      ¹ÔÈÖ¹æ
-   *  \param[in]  arg_list  ¥Ş¥¯¥í¼Â°ú¿ô¥ê¥¹¥È
-   *  \param[in]  p_ctx     ¥Ş¥¯¥í¥³¥ó¥Æ¥­¥¹¥È
-   *  \retval     ¥Ş¥¯¥íÊÖµÑÃÍ
+   *  \brief  é–¢æ•°ã®å‘¼ã³å‡ºã—
+   *  \param[in]  line      è¡Œç•ªå·
+   *  \param[in]  arg_list  ãƒã‚¯ãƒ­å®Ÿå¼•æ•°ãƒªã‚¹ãƒˆ
+   *  \param[in]  p_ctx     ãƒã‚¯ãƒ­ã‚³ãƒ³ãƒ†ã‚­ã‚¹ãƒˆ
+   *  \retval     ãƒã‚¯ãƒ­è¿”å´å€¤
    */
   var_t bf_call( text_line const& line, std::vector< var_t > const& arg_list, context* p_ctx )
   {
@@ -735,11 +748,11 @@ namespace toppers
   }
 
   /*!
-   *  \brief  ¥½¡¼¥È
-   *  \param[in]  line      ¹ÔÈÖ¹æ
-   *  \param[in]  arg_list  ¥Ş¥¯¥í¼Â°ú¿ô¥ê¥¹¥È
-   *  \param[in]  p_ctx     ¥Ş¥¯¥í¥³¥ó¥Æ¥­¥¹¥È
-   *  \retval     ¥Ş¥¯¥íÊÖµÑÃÍ
+   *  \brief  ã‚½ãƒ¼ãƒˆ
+   *  \param[in]  line      è¡Œç•ªå·
+   *  \param[in]  arg_list  ãƒã‚¯ãƒ­å®Ÿå¼•æ•°ãƒªã‚¹ãƒˆ
+   *  \param[in]  p_ctx     ãƒã‚¯ãƒ­ã‚³ãƒ³ãƒ†ã‚­ã‚¹ãƒˆ
+   *  \retval     ãƒã‚¯ãƒ­è¿”å´å€¤
    */
   var_t bf_lsort( text_line const& line, std::vector< var_t > const& arg_list, context* p_ctx )
   {
@@ -755,11 +768,11 @@ namespace toppers
   }
 
   /*!
-   *  \brief  ´Ø¿ô¤«¤É¤¦¤«¤ÎÈ½ÊÌ
-   *  \param[in]  line      ¹ÔÈÖ¹æ
-   *  \param[in]  arg_list  ¥Ş¥¯¥í¼Â°ú¿ô¥ê¥¹¥È
-   *  \param[in]  p_ctx     ¥Ş¥¯¥í¥³¥ó¥Æ¥­¥¹¥È
-   *  \retval     ¥Ş¥¯¥íÊÖµÑÃÍ
+   *  \brief  é–¢æ•°ã‹ã©ã†ã‹ã®åˆ¤åˆ¥
+   *  \param[in]  line      è¡Œç•ªå·
+   *  \param[in]  arg_list  ãƒã‚¯ãƒ­å®Ÿå¼•æ•°ãƒªã‚¹ãƒˆ
+   *  \param[in]  p_ctx     ãƒã‚¯ãƒ­ã‚³ãƒ³ãƒ†ã‚­ã‚¹ãƒˆ
+   *  \retval     ãƒã‚¯ãƒ­è¿”å´å€¤
    */
   var_t bf_isfunction( text_line const& line, std::vector< var_t > const& arg_list, context* p_ctx )
   {
@@ -780,11 +793,11 @@ namespace toppers
   }
 
   /*!
-   *  \brief  ½ç½øÉÕ¤­¥ê¥¹¥È¤ÎÊÂ¤Ó¤òµÕ¤Ë¤¹¤ë
-   *  \param[in]  line      ¹ÔÈÖ¹æ
-   *  \param[in]  arg_list  ¥Ş¥¯¥í¼Â°ú¿ô¥ê¥¹¥È
-   *  \param[in]  p_ctx     ¥Ş¥¯¥í¥³¥ó¥Æ¥­¥¹¥È
-   *  \retval     ¥Ş¥¯¥íÊÖµÑÃÍ
+   *  \brief  é †åºä»˜ããƒªã‚¹ãƒˆã®ä¸¦ã³ã‚’é€†ã«ã™ã‚‹
+   *  \param[in]  line      è¡Œç•ªå·
+   *  \param[in]  arg_list  ãƒã‚¯ãƒ­å®Ÿå¼•æ•°ãƒªã‚¹ãƒˆ
+   *  \param[in]  p_ctx     ãƒã‚¯ãƒ­ã‚³ãƒ³ãƒ†ã‚­ã‚¹ãƒˆ
+   *  \retval     ãƒã‚¯ãƒ­è¿”å´å€¤
    */
   var_t bf_reverse( text_line const& line, std::vector< var_t > const& arg_list, context* p_ctx )
   {
@@ -798,13 +811,13 @@ namespace toppers
   }
 
   /*! 
-   *  \brief  Àµµ¬É½¸½¤òÍÑ¤¤¤¿ÃÖ´¹ 
-   *  \param[in]  line      ¹ÔÈÖ¹æ 
-   *  \param[in]  arg_list  ¥Ş¥¯¥í¼Â°ú¿ô¥ê¥¹¥È 
-   *  \param[in]  p_ctx     ¥Ş¥¯¥í¥³¥ó¥Æ¥­¥¹¥È 
-   *  \retval     ¥Ş¥¯¥íÊÖµÑÃÍ 
-   *  Âè1¥Ş¥¯¥í¼Â°ú¿ô¤Ç»ØÄê¤·¤¿Ê¸»úÎó¤Î¤¦¤Á¡¢Âè2¥Ş¥¯¥í¼Â°ú¿ô¤Ç»ØÄê¤·¤¿Àµµ¬É½¸½¤Ë¥Ş¥Ã¥Á¤¹¤ë²Õ½ê¤òÂè3¥Ş¥¯¥í¼Â°ú¿ô¤ÎÆâÍÆ¤ÇÃÖ´¹¤¹¤ë¡£
-   *  Àµµ¬É½¸½¤ÏECMAScript¸ß´¹¤È¤¹¤ë¡£
+   *  \brief  æ­£è¦è¡¨ç¾ã‚’ç”¨ã„ãŸç½®æ› 
+   *  \param[in]  line      è¡Œç•ªå· 
+   *  \param[in]  arg_list  ãƒã‚¯ãƒ­å®Ÿå¼•æ•°ãƒªã‚¹ãƒˆ 
+   *  \param[in]  p_ctx     ãƒã‚¯ãƒ­ã‚³ãƒ³ãƒ†ã‚­ã‚¹ãƒˆ 
+   *  \retval     ãƒã‚¯ãƒ­è¿”å´å€¤ 
+   *  ç¬¬1ãƒã‚¯ãƒ­å®Ÿå¼•æ•°ã§æŒ‡å®šã—ãŸæ–‡å­—åˆ—ã®ã†ã¡ã€ç¬¬2ãƒã‚¯ãƒ­å®Ÿå¼•æ•°ã§æŒ‡å®šã—ãŸæ­£è¦è¡¨ç¾ã«ãƒãƒƒãƒã™ã‚‹ç®‡æ‰€ã‚’ç¬¬3ãƒã‚¯ãƒ­å®Ÿå¼•æ•°ã®å†…å®¹ã§ç½®æ›ã™ã‚‹ã€‚
+   *  æ­£è¦è¡¨ç¾ã¯ECMAScriptäº’æ›ã¨ã™ã‚‹ã€‚
    */ 
    var_t bf_regex_replace( text_line const& line, std::vector< var_t > const& arg_list, context* p_ctx ) 
    { 
@@ -813,18 +826,157 @@ namespace toppers
      {
        e.s = boost::xpressive::regex_replace( get_s( arg_list[ 0 ], p_ctx ), 
                                               boost::xpressive::sregex::compile( get_s( arg_list[ 1 ], p_ctx ) ), 
-                                              get_s( arg_list[ 2 ], p_ctx ) ); 
+                                              get_s( arg_list[ 2 ], p_ctx ));
      } 
      return var_t( 1, e ); 
    }
 
   /*!
-   *  \brief  ÇÛÎó¤ÎÁ´ºï½ü
-   *  \param[in]  line      ¹ÔÈÖ¹æ
-   *  \param[in]  arg_list  ¥Ş¥¯¥í¼Â°ú¿ô¥ê¥¹¥È
-   *  \param[in]  p_ctx     ¥Ş¥¯¥í¥³¥ó¥Æ¥­¥¹¥È
-   *  \retval     ¥Ş¥¯¥íÊÖµÑÃÍ
-	 *  Âè1¥Ş¥¯¥í¼Â°ú¿ô¤Ç»ØÄê¤·¤¿Ì¾Á°¤ÎÇÛÎó¤òÁ´ºï½ü¤¹¤ë¡£
+   *  \brief  æ–‡å­—åˆ—ã‹ã‚‰æ•´æ•°ã¸ã®å¤‰æ›
+   *  \param[in]  line      è¡Œç•ªå·
+   *  \param[in]  arg_list  ãƒã‚¯ãƒ­å®Ÿå¼•æ•°ãƒªã‚¹ãƒˆ
+   *  \param[in]  p_ctx     ãƒã‚¯ãƒ­ã‚³ãƒ³ãƒ†ã‚­ã‚¹ãƒˆ
+   *  \retval     ãƒã‚¯ãƒ­è¿”å´å€¤
+   *  ç¬¬1ãƒã‚¯ãƒ­å®Ÿå¼•æ•°ã§æŒ‡å®šã—ãŸæ–‡å­—åˆ—ã‚’æ•´æ•°å€¤ã«å¤‰æ›ã™ã‚‹ã€‚
+   *  ç¬¬2ãƒã‚¯ãƒ­å®Ÿå¼•æ•°ã‚’æŒ‡å®šã—ãŸå ´åˆã€ãã‚Œã‚’åŸºæ•°ã¨ã¿ãªã—ã¦å¤‰æ›ã‚’è¡Œã†ã€‚
+   *  ç¬¬2ãƒã‚¯ãƒ­å®Ÿå¼•æ•°ã«0ã‚’æŒ‡å®šã—ãŸå ´åˆã€æ¥é ­è¾ã«å¿œã˜ã¦ã€8é€²ã€10é€²ã€16é€²ã‚’åˆ¤åˆ¥ã™ã‚‹ã€‚
+   *  ç¬¬2ãƒã‚¯ãƒ­å®Ÿå¼•æ•°ã«1ã‚’æŒ‡å®šã—ãŸå ´åˆã€æ¥é ­è¾ã«å¿œã˜ã¦ã€8é€²ã€10é€²ã€16é€²ã‚’åˆ¤åˆ¥ã™ã‚‹ã€‚
+   */
+  var_t bf_atoi( text_line const& line, std::vector< var_t > const& arg_list, context* p_ctx )
+  {
+    std::size_t arity = arg_list.size();
+
+    if ( arity < 1 )
+    {
+      error( line, _( "too few arguments for `%1%\'" ), "ATOI" );
+    }
+    else if ( arity > 2 )
+    {
+      error( line, _( "too many arguments for `%1%\'" ), "ATOI" );
+    }
+
+    std::string str( get_s( arg_list[ 0 ], p_ctx ) );
+    int radix = 10;
+
+    if ( arity == 2 )
+    {
+      std::tr1::int64_t t = get_i( arg_list[ 1 ], p_ctx );
+      if ( t < 0 || 36 < t )
+      {
+        error( line, _( "illegal_radix `%1%\' in function `%2%\'" ), radix, "ATOI" );
+      }
+      radix = static_cast< int >( t );
+    }
+    if ( radix == 1 )
+    {
+      std::string::size_type const pos = str.find_first_of( "0123456789" );
+      if ( pos != std::string::npos && str[ pos ] == '0' )
+      {
+        char c = str[ pos + 1 ];
+        if ( c != 'x' && c != 'X' )
+        {
+          radix = 10;
+        }
+      }
+    }
+
+    element e;
+    char* endptr;
+    errno = 0;
+    using namespace std;
+    e.i = strtoll( str.c_str(), &endptr, static_cast< int >( radix ) );
+    if ( errno != 0 || *endptr != '\0')
+    {
+      error( line, _( "conversion error in function `%1%\'" ), "ATOI" );
+    }
+
+    return var_t( 1, e ); 
+  }
+
+  /*!
+   *  \brief  å¤§æ–‡å­—ã¸ã®å¤‰æ›
+   *  \param[in]  line      è¡Œç•ªå·
+   *  \param[in]  arg_list  ãƒã‚¯ãƒ­å®Ÿå¼•æ•°ãƒªã‚¹ãƒˆ
+   *  \param[in]  p_ctx     ãƒã‚¯ãƒ­ã‚³ãƒ³ãƒ†ã‚­ã‚¹ãƒˆ
+   *  \retval     ãƒã‚¯ãƒ­è¿”å´å€¤
+   *  ç¬¬1ãƒã‚¯ãƒ­å®Ÿå¼•æ•°ã§æŒ‡å®šã—ãŸæ–‡å­—åˆ—ä¸­ã®å°æ–‡å­—ã‚’å¤§æ–‡å­—ã«å¤‰æ›ã—ã¾ã™ã€‚
+   */
+  var_t bf_toupper( text_line const& line, std::vector< var_t > const& arg_list, context* p_ctx )
+  {
+    element e;
+    if ( macro_processor::check_arity( line, arg_list.size(), 1, "TOUPPER" ) ) 
+    {
+      std::string str = get_s( arg_list[ 0 ], p_ctx );
+      for ( std::string::iterator first( str.begin() ), last( str.end() ); first != last; ++first )
+      {
+        char c = *first;
+        *first = std::toupper( c );
+      }
+      e.s = str;
+    }
+    return var_t( 1, e );
+  }
+
+  /*!
+   *  \brief  å°æ–‡å­—ã¸ã®å¤‰æ›
+   *  \param[in]  line      è¡Œç•ªå·
+   *  \param[in]  arg_list  ãƒã‚¯ãƒ­å®Ÿå¼•æ•°ãƒªã‚¹ãƒˆ
+   *  \param[in]  p_ctx     ãƒã‚¯ãƒ­ã‚³ãƒ³ãƒ†ã‚­ã‚¹ãƒˆ
+   *  \retval     ãƒã‚¯ãƒ­è¿”å´å€¤
+   *  ç¬¬1ãƒã‚¯ãƒ­å®Ÿå¼•æ•°ã§æŒ‡å®šã—ãŸæ–‡å­—åˆ—ä¸­ã®å¤§æ–‡å­—ã‚’å°æ–‡å­—ã«å¤‰æ›ã—ã¾ã™ã€‚
+   */
+  var_t bf_tolower( text_line const& line, std::vector< var_t > const& arg_list, context* p_ctx )
+  {
+    element e;
+    if ( macro_processor::check_arity( line, arg_list.size(), 1, "TOLOWER" ) ) 
+    {
+      std::string str = get_s( arg_list[ 0 ], p_ctx );
+      for ( std::string::iterator first( str.begin() ), last( str.end() ); first != last; ++first )
+      {
+        char c = *first;
+        *first = std::tolower( c );
+      }
+      e.s = str;
+    }
+    return var_t( 1, e );
+  }
+
+  /*!  
+   *  \brief  æ–‡å­—åˆ—ã®åˆ†å‰² 
+   *  \param[in]  line      è¡Œç•ªå·  
+   *  \param[in]  arg_list  ãƒã‚¯ãƒ­å®Ÿå¼•æ•°ãƒªã‚¹ãƒˆ  
+   *  \param[in]  p_ctx     ãƒã‚¯ãƒ­ã‚³ãƒ³ãƒ†ã‚­ã‚¹ãƒˆ  
+   *  \retval     ãƒã‚¯ãƒ­è¿”å´å€¤  
+   *  ç¬¬1ãƒã‚¯ãƒ­å®Ÿå¼•æ•°ã§æŒ‡å®šã—ãŸæ–‡å­—åˆ—ã®ã†ã¡ã€ç¬¬2ãƒã‚¯ãƒ­å®Ÿå¼•æ•°ã§æŒ‡å®šã—ãŸæ–‡å­—ç¨®separatorã®æ–‡å­—ã§åˆ†å‰²ã—ï¼Œæ–°ã—ã„é †åºä»˜ããƒªã‚¹ãƒˆã‚’ç”Ÿæˆã™ã‚‹ã€‚ 
+   */  
+  var_t bf_split( text_line const& line, std::vector< var_t > const& arg_list, context* p_ctx ) 
+  { 
+    var_t result; 
+    if ( macro_processor::check_arity( line, arg_list.size(), 2, "SPLIT" ) ) 
+    { 
+      std::list<std::string> split_results; 
+      std::string heystack = get_s( arg_list[ 0 ], p_ctx ); 
+      boost::split(split_results, heystack, boost::is_any_of( get_s( arg_list[ 1 ], p_ctx ) ) );  
+
+      std::list<std::string>::iterator it = split_results.begin(); 
+      while ( it != split_results.end() ) 
+      { 
+        element e; 
+        e.s = *it; 
+        result.push_back( e ); 
+        ++it; 
+      } 
+    } 
+    return result; 
+  } 
+
+  /*!
+   *  \brief  é…åˆ—ã®å…¨å‰Šé™¤
+   *  \param[in]  line      è¡Œç•ªå·
+   *  \param[in]  arg_list  ãƒã‚¯ãƒ­å®Ÿå¼•æ•°ãƒªã‚¹ãƒˆ
+   *  \param[in]  p_ctx     ãƒã‚¯ãƒ­ã‚³ãƒ³ãƒ†ã‚­ã‚¹ãƒˆ
+   *  \retval     ãƒã‚¯ãƒ­è¿”å´å€¤
+   *  ç¬¬1ãƒã‚¯ãƒ­å®Ÿå¼•æ•°ã§æŒ‡å®šã—ãŸåå‰ã®é…åˆ—ã‚’å…¨å‰Šé™¤ã™ã‚‹ã€‚
    */
   var_t bf_clean( text_line const& line, std::vector< var_t > const& arg_list, context* p_ctx )
   {
@@ -845,12 +997,12 @@ namespace toppers
   }
 
   /*!
-   *  \brief  ¥Ş¥¯¥í¥×¥í¥»¥Ã¥µ¤Î½ªÎ»
-   *  \param[in]  line      ¹ÔÈÖ¹æ
-   *  \param[in]  arg_list  ¥Ş¥¯¥í¼Â°ú¿ô¥ê¥¹¥È
-   *  \param[in]  p_ctx     ¥Ş¥¯¥í¥³¥ó¥Æ¥­¥¹¥È
-   *  \retval     ¥Ş¥¯¥íÊÖµÑÃÍ
-   *  ¥Ş¥¯¥í¥×¥í¥»¥Ã¥µ¤ò½ªÎ»¤¹¤ë¡£
+   *  \brief  ãƒã‚¯ãƒ­ãƒ—ãƒ­ã‚»ãƒƒã‚µã®çµ‚äº†
+   *  \param[in]  line      è¡Œç•ªå·
+   *  \param[in]  arg_list  ãƒã‚¯ãƒ­å®Ÿå¼•æ•°ãƒªã‚¹ãƒˆ
+   *  \param[in]  p_ctx     ãƒã‚¯ãƒ­ã‚³ãƒ³ãƒ†ã‚­ã‚¹ãƒˆ
+   *  \retval     ãƒã‚¯ãƒ­è¿”å´å€¤
+   *  ãƒã‚¯ãƒ­ãƒ—ãƒ­ã‚»ãƒƒã‚µã‚’çµ‚äº†ã™ã‚‹ã€‚
    */
   var_t bf_die( text_line const& line, std::vector< var_t > const& arg_list, context* p_ctx )
   {
@@ -863,14 +1015,14 @@ namespace toppers
   }
 
   /*!
-   *  \brief  ²¿¤â¤·¤Ê¤¤ÁÈ¤ß¹ş¤ß´Ø¿ô
-   *  \param[in]  line      ¹ÔÈÖ¹æ
-   *  \param[in]  arg_list  ¥Ş¥¯¥í¼Â°ú¿ô¥ê¥¹¥È
-   *  \param[in]  p_ctx     ¥Ş¥¯¥í¥³¥ó¥Æ¥­¥¹¥È
-   *  \retval     ¥Ş¥¯¥íÊÖµÑÃÍ
-   *  ¤³¤ÎÁÈ¤ß¹ş¤ß´Ø¿ô¤Ï²¿¤â¹Ô¤ï¤Ê¤¤¡£¤Ş¤¿¡¢¥Ş¥¯¥í¼Â°ú¿ô¤Î¥Á¥§¥Ã¥¯¤â¹Ô¤ï¤Ê¤¤¡£
-   *  NOOP´Ø¿ô¤Ï¾ï¤Ë "" ¤òÊÖ¤¹¡£
-   *  \note       ¶õÃÍ¤òÊÖ¤µ¤Ê¤¤¤Î¤Ï¡¢$NOOP()$¤Î¤è¤¦¤Ê»È¤¤Êı¤ò¤·¤¿¤È¤­¤Ç¤âÉÔÀµ¤Ê»²¾È¤¬µ¯¤³¤é¤Ê¤¤¤è¤¦¤Ë¤¹¤ë¤¿¤á¡£
+   *  \brief  ä½•ã‚‚ã—ãªã„çµ„ã¿è¾¼ã¿é–¢æ•°
+   *  \param[in]  line      è¡Œç•ªå·
+   *  \param[in]  arg_list  ãƒã‚¯ãƒ­å®Ÿå¼•æ•°ãƒªã‚¹ãƒˆ
+   *  \param[in]  p_ctx     ãƒã‚¯ãƒ­ã‚³ãƒ³ãƒ†ã‚­ã‚¹ãƒˆ
+   *  \retval     ãƒã‚¯ãƒ­è¿”å´å€¤
+   *  ã“ã®çµ„ã¿è¾¼ã¿é–¢æ•°ã¯ä½•ã‚‚è¡Œã‚ãªã„ã€‚ã¾ãŸã€ãƒã‚¯ãƒ­å®Ÿå¼•æ•°ã®ãƒã‚§ãƒƒã‚¯ã‚‚è¡Œã‚ãªã„ã€‚
+   *  NOOPé–¢æ•°ã¯å¸¸ã« "" ã‚’è¿”ã™ã€‚
+   *  \note       ç©ºå€¤ã‚’è¿”ã•ãªã„ã®ã¯ã€$NOOP()$ã®ã‚ˆã†ãªä½¿ã„æ–¹ã‚’ã—ãŸã¨ãã§ã‚‚ä¸æ­£ãªå‚ç…§ãŒèµ·ã“ã‚‰ãªã„ã‚ˆã†ã«ã™ã‚‹ãŸã‚ã€‚
    */
   var_t bf_noop( text_line const& line, std::vector< var_t > const& arg_list, context* p_ctx )
   {
@@ -890,7 +1042,7 @@ namespace toppers
     { "APPEND", bf_append },
     { "AT", bf_at },
     { "GETTEXT", bf_gettext },
-    { "_", bf_gettext },  // GETTEXT¤Î¥·¥Î¥Ë¥à
+    { "_", bf_gettext },  // GETTEXTã®ã‚·ãƒãƒ‹ãƒ 
     { "FORMAT", bf_format },
     { "FIND", bf_find },
     { "RANGE", bf_range },
@@ -903,6 +1055,10 @@ namespace toppers
     { "ISFUNCTION", bf_isfunction },
     { "REVERSE", bf_reverse },
     { "REGEX_REPLACE", bf_regex_replace }, 
+    { "ATOI", bf_atoi },
+    { "TOLOWER", bf_tolower },
+    { "TOUPPER", bf_toupper },
+    { "SPLIT", bf_split },
     { "CLEAN", bf_clean },
     { "DIE", bf_die },
     { "NOOP", bf_noop },
