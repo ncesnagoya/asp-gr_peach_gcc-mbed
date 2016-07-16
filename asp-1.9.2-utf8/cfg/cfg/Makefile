@@ -1,52 +1,40 @@
--include Makefile.config
+-include ../Makefile.config
 
-ifndef BOOST_DIR
-	ifndef BOOST_VERSION
-		BOOST_VERSION = 1_42_0
-	endif
-	ifeq ($(OSTYPE), msys)
-		BOOST_DIR = /mingw/include/boost-$(BOOST_VERSION)
-	else
-		ifeq ($(shell echo $$OSTYPE), cygwin)
-			BOOST_DIR = /usr/include/boost-$(BOOST_VERSION)
-		else
-			BOOST_DIR = /usr/local/include/boost-$(BOOST_VERSION)
-		endif
-	endif
+PROJDIR = ..
+WORKDIR = $(PROJDIR)/cfg
+
+CPPFLAGS := $(CPPFLAGS) -I$(BOOST_DIR) -I$(PROJDIR)
+CXXFLAGS := $(CXXFLAGS) -O2 -g
+
+CXXFILES = \
+	cfg.cpp \
+	cfg0.cpp \
+	cfg1.cpp \
+	cfg2.cpp \
+	cfg3.cpp \
+	cfg4.cpp \
+	cfg_version.cpp
+
+OBJFILES := $(CXXFILES:%.cpp=%.o)
+
+ifeq ($(OSTYPE),msys)
+BOOST_LIBFILES = /mingw/lib/libboost_system-mgw-mt-s.lib /mingw/lib/libboost_filesystem-mgw-mt-s.lib /mingw/lib/libboost_program_options-mgw-mt-s.lib
+else
+BOOST_LIBFILES := $(BOOST_LIBFILES) -lboost_system$(LIBBOOST_SUFFIX) -lboost_filesystem$(LIBBOOST_SUFFIX) -lboost_program_options$(LIBBOOST_SUFFIX)
 endif
 
-# 非力なマシンなどでコンパイルに非常に長い時間がかかる、もしくはコンパイル時に
-# ハングアップする場合には、-O0に変更してみてください。
-OPTIMIZE = -O2
+LIBFILES = $(PROJDIR)/toppers/itronx/libitronx.a \
+	$(PROJDIR)/toppers/libtoppers.a \
 
-SUBDIRS  = toppers \
-	toppers/itronx \
-	cfg
+all: cfg
 
-all: $(SUBDIRS)
-
-$(SUBDIRS)::
-	make BOOST_DIR="$(BOOST_DIR)" LIBBOOST_SUFFIX="$(LIBBOOST_SUFFIX)" CXXFLAGS="$(OPTIMIZE) $(OPTIONS)" -C $@
+cfg: $(OBJFILES) $(LIBFILES)
+	$(CXX) $(CXXFLAGS) -o cfg $(OBJFILES) -L$(LIBBOOST_DIR) $(LIBFILES) $(BOOST_LIBFILES)
 
 depend:
-	for subdir in $(SUBDIRS) ; do \
-		if test -d $$subdir ; then \
-			make BOOST_DIR="$(BOOST_DIR)" LIBBOOST_SUFFIX="$(LIBBOOST_SUFFIX)" depend -C $$subdir; \
-		fi ; \
-	done \
+	$(CXX) $(CPPFLAGS) -M $(CXXFILES) > Makefile.depend
 
 clean:
-	for subdir in $(SUBDIRS) ; do \
-		if test -d $$subdir ; then \
-			make clean -C $$subdir ; \
-		fi ; \
-	done \
+	-rm -f *.o cfg *.exe
 
-realclean: clean
-	for subdir in $(SUBDIRS) ; do \
-		if test -d $$subdir ; then \
-			rm -f $$subdir/Makefile.depend ; \
-		fi ; \
-	done
-	rm -f Makefile.config
-
+-include Makefile.depend
