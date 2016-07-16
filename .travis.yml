@@ -15,7 +15,7 @@ before_script:
  - tar zxvf cfg-linux-static-1_9_5.gz
  - pwd
  - ls -l
- - ./cfg -v
+ - $(CURDIR)/cfg -v
  - cd ../../../examples/multitask_arduino
  - ls -l ../../asp-1.9.2-utf8/cfg/cfg/
 
