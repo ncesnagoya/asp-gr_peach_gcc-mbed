@@ -15,7 +15,7 @@ install:
  - tar zxvf cfg-linux-static-1_9_5.gz
  - pwd
  - ls -l
- - ./cfg -v
+ - /home/travis/build/ncesnagoya/asp-gr_peach_gcc-mbed/asp-1.9.2-utf8/cfg/cfg/cfg -v
  - popd
  - pushd examples/multitask_arduino
  - ls -l ../../asp-1.9.2-utf8/cfg/cfg/
