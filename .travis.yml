@@ -7,11 +7,12 @@ compiler: gcc
 before_install:
  - sudo add-apt-repository ppa:team-gcc-arm-embedded/ppa -y # -qq is for travis CI
  - sudo apt-get update
- - sudo apt-get install gcc-arm-embedded libboost1.55-all-dev -y
+ - sudo apt-get install gcc-arm-embedded -y
 
 before_script:
  - cd asp-1.9.2-utf8/cfg/cfg
- - make
+ - wget http://toppers.jp/download.cgi/cfg-linux-static-1_9_5.gz
+ - gunzip cfg-linux-static-1_9_5.gz
  - cd ../../../
  - cd examples/multitask_arduino
 
