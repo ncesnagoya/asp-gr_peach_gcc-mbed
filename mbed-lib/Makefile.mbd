@@ -3,7 +3,7 @@
 
 GCC_BIN =
 LIB = libmbed
-PROJECT = GR-PEACH_blinky
+PROJECT = GR-PEACH_mbed
 
 LINKER_SCRIPT = $(MBED_LIB_DIR)/mbed-src/targets/cmsis/TARGET_RENESAS/TARGET_RZ_A1H/TOOLCHAIN_GCC_ARM/RZA1H.ld
 
@@ -65,7 +65,23 @@ $(LIB).a: $(ALL_OBJ)
 	$(AR) -rcs $(LIB).a $(ALL_OBJ)
 	$(RANLIB) $(LIB).a
 
+#
+#  ASPカーネルのビルドに関するその他のオプション
+#
 CLEAN_FILES += $(PROJECT).map $(APPLNAME).d
-
 DEPS = $(ALL_OBJ:.o=.d)
 -include $(DEPS)
+
+APPL_CFLAGS =
+APPL_LIBS = libmbed.a
+APPL_DIR = .
+
+INCLUDES += $(INCLUDE_PATHS) # MBEDライブラリのヘッダファイルをアプリで使う
+COPTS += -mfpu=vfpv3 -mfloat-abi=hard
+CDEFS += -DTOPPERS_OMIT_BSS_INIT -DTOPPERS_OMIT_DATA_INIT # ASPのスタートアップルーチンでは初期化処理は不要
+CDEFS += -DGRPEACH
+
+APPL_CXXFLAGS += $(CC_FLAGS) $(CC_SYMBOLS) -std=gnu++98 -fno-rtti
+CXXLIBS += $(LD_SYS_LIBS)
+LDFLAGS += $(LD_FLAGS)
+LDSCRIPT = $(LINKER_SCRIPT)

@@ -8,8 +8,6 @@ all:
 #
 APPLNAME = httpsample
 USE_CXX = true
-#APPL_CXXOBJS += $(APPLNAME).o
-#APPL_COBJS   += 
 APPL_CFG = $(APPLNAME).cfg
 
 DEBUG = true
@@ -36,22 +34,6 @@ include $(MBED_LIB_DIR)/HttpServer_snapshot/Makefile.hss
 include $(MBED_LIB_DIR)/FATFileSystem/Makefile.ffs
 include $(MBED_LIB_DIR)/i2c/Makefile.i2c
 include $(MBED_LIB_DIR)/Makefile.mbd
-
-#
-#  その他のオプション
-#
-APPL_CFLAGS =
-APPL_LIBS = -lmbed
-APPL_DIR = .
-
-INCLUDES += $(INCLUDE_PATHS) # MBEDライブラリのヘッダファイルをアプリで使う
-COPTS += -mfpu=vfpv3 -mfloat-abi=hard
-CDEFS += -DTOPPERS_OMIT_BSS_INIT -DTOPPERS_OMIT_DATA_INIT # ASPのスタートアップルーチンでは初期化処理は不要
-
-APPL_CXXFLAGS += $(CC_FLAGS) $(CC_SYMBOLS) -std=gnu++98 -fno-rtti
-CXXLIBS += $(LD_SYS_LIBS)
-LDFLAGS += $(LD_FLAGS)
-LDSCRIPT = $(LINKER_SCRIPT)
 
 #
 #  ASPカーネルライブラリ

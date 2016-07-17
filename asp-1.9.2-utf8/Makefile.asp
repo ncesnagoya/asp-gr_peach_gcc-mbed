@@ -82,7 +82,7 @@ DBGENV :=
 #  カーネルライブラリ（libkernel.a）のディレクトリ名
 #  （カーネルライブラリもmake対象にする時は，空に定義する）
 #
-# KERNEL_LIB = 
+# KERNEL_LIB =
 
 #
 #  カーネルを関数単位でコンパイルするかどうかの定義
@@ -310,7 +310,7 @@ kernel_cfg.timestamp: $(APPL_CFG) \
 	$(CFG) --pass 2 --kernel asp $(INCLUDES) \
 				-T $(TARGETDIR)/target.tf $(CFG_TABS) $<
 	touch -r kernel_cfg.c kernel_cfg.timestamp
-
+	
 #
 #  カーネルライブラリファイルの生成
 #
@@ -428,13 +428,19 @@ makeoffset.d: makeoffset.c
 gendepend:
 	@echo "Generating Makefile.depend."
 
+.PHONY: deparduino
+deparduino:
+	if [ -f arduino_app.h ]; then \
+		touch arduino_app.h; \
+	fi
+
 .PHONY: depend
 ifdef KERNEL_LIB
-depend: cleandep kernel_cfg.timestamp gendepend \
+depend: cleandep kernel_cfg.timestamp gendepend deparduino\
 		cfg1_out.depend cfg1_out.d \
 		$(ALL_OBJS:.o=.d)
 else
-depend: cleandep $(OFFSET_H) kernel_cfg.timestamp gendepend \
+depend: cleandep $(OFFSET_H) kernel_cfg.timestamp gendepend deparduino\
 		cfg1_out.depend cfg1_out.d \
 		$(KERNEL_AUX_COBJS:.o=.d) $(KERNEL_ASMOBJS:.o=.d) \
 		$(KERNEL_COBJS:.o=.d) $(KERNEL_LCSRCS:.c=.d) $(ALL_OBJS:.o=.d)
