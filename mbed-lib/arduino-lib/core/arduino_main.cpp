@@ -41,7 +41,7 @@ void arduino_main_task(intptr_t exinf)
 
 	chg_pri(TSK_SELF, LOOP_PRI);
 
-	syslog(LOG_NOTICE, "Arduino Main Loop start!");	\	
+	syslog(LOG_NOTICE, "Arduino Main Loop start!");
 	while(1){
 		loop();
 	}	
