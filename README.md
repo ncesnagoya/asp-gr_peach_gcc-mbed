@@ -32,7 +32,17 @@ Application developers can use the following useful libraries.
  - RPC(Remote Procedure Call) (mbed-rpc)
  - I2C (i2c)
  - Softwere PWM (SoftPRM)
+
 - Arduino libaray based on MBED library (arduino-lib) [GPLv2]
+ - Digital I/O
+ - Analog I/O
+ - External Interrupts
+ - Ethernet Client
+ - LiquidCrystal
+ - SD
+ - Wire
+ - RTC
+ - Not supported: EEPROM, Ethernet Server, Firmata, GSM, Servo, SoftwareSerial, Stepper, USB host
 
 # Software Development Enviroment
 
@@ -69,6 +79,11 @@ Application developers can use the following useful libraries.
 - [TOPPERS/ASP Kernel Specification](https://github.com/ncesnagoya/asp-gr_peach_gcc-mbed/blob/master/docs/TOPPERS_ASP_Kernel_Specification.pdf)
 - [TOPPERS Next Generaton Specification](http://toppers.jp/documents.html) (Original, but Japanese only)
 - [µITRON4.0 Specification](http://www.ertl.jp/ITRON/SPEC/mitron4-e.html)
+
+### Library
+
+- [Arduino Reference](https://www.arduino.cc/en/Reference/HomePage)
+- [MBED Handbook](https://developer.mbed.org/handbook/Homepage)
 
 ### GR-PEACH
 
