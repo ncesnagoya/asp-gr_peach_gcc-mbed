@@ -54,7 +54,7 @@ Application developers can use the following useful libraries.
  - Please read Installation Guide for more details.
 - IDE
  - TrueStudio or Eclipse can be used to perform high functional debugging.
- - Install manuals will be provied here in near future.
+ - Install manuals will be provided here in near future.
  
 # Documents
 
