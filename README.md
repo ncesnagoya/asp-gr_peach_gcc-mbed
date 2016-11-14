@@ -50,12 +50,13 @@ Application developers can use the following useful libraries.
  - You can get started programming without installing software in your computer.
  - No high functional debugging such like breakpoints, step-by-step execution, etc. 
 - Command Line
- - Install development tools including arm cross-compilers and source code in your computer.
+ - Install development tools including ARM cross-compilers and source code in your computer.
  - Please read Installation Guide for more details.
 - IDE
- - TrueStudio or Eclipse can be used to perform high functional debugging.
- - Install manuals will be provided here in near future.
- 
+ - TrueStudio or Eclipse can be used for high functional debugging.
+ - You can find the installation manual provided by attolic and A.I.Corporaiton [here](https://github.com/ncesnagoya/asp-gr_peach_gcc-mbed/blob/master/docs/TrueSTUDIO_GR-PEACH-With_mbed_Arduino.pdf). 
+   - Many thanks to [A.I.Corporation](http://www.aicp.co.jp/en/index.html) for their supports.
+
 # Documents
 
 ## For web compiler-based development
@@ -65,6 +66,10 @@ Application developers can use the following useful libraries.
 ## For command Line-based development
 
 - [Installation and Building Guide](https://github.com/ncesnagoya/asp-gr_peach_gcc-mbed/wiki/InstallationAndBuilding)
+
+## For IDE development
+
+- [Using the TOPPERS/ASP (RTOS) with the mbed/Arduino library on GR-PEACH (Cortex-A9) With Atollic TrueSTUDIO] (https://github.com/ncesnagoya/asp-gr_peach_gcc-mbed/blob/master/docs/TrueSTUDIO_GR-PEACH-With_mbed_Arduino.pdf)
 
 ## For all developpers
 
@@ -96,9 +101,10 @@ Application developers can use the following useful libraries.
 
 - [TOPPERS Project](http://toppers.jp/en)
 - [Gadget RENESAS](http://gadget.renesas.com/en/)
+- [TrueSTUDIO](http://atollic.com/truestudio/)
 - [GNU ARM Eclipse](http://gnuarmeclipse.github.io/toolchain/install/)
 
 # Contacts
 
 Please feel free to ask me or send pull requests if you have any questions or requests.
-Pull requests and contributions to this project are welcome anytime!
+Pull requests and contributions to this project are welcome everytime!
