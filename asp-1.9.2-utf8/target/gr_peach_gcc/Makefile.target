@@ -68,10 +68,12 @@ endif
 #
 #  GNU開発環境のターゲットアーキテクチャの定義
 #
+ifneq ($(USE_TRUESTUDIO),true)
 GCC_TARGET = arm-none-eabi
+else
 # use GCC bundled in TrueSTUDIO
-#GCC_TARGET = arm-atollic-eabi
-
+GCC_TARGET = arm-atollic-eabi
+endif
 
 #
 #  各セグメントの開始アドレスの定義（それぞれ1MByte）
