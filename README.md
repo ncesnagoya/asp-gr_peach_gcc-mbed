@@ -47,16 +47,15 @@ Application developers can use the following useful libraries.
 
 - Web compiler provided by RENESAS (Highly recommended for beginners)
  - You can get started programming without installing software in your computer.
- - [Get Started for beginners](https://github.com/ncesnagoya/asp-gr_peach_gcc-mbed/wiki/GetStarted)
- - No high functional debugging such like breakpoints, step-by-step execution, etc. 
+   - [Get Started for beginners](https://github.com/ncesnagoya/asp-gr_peach_gcc-mbed/wiki/GetStarted)
+ - No high functional debugging such like breakpoints, step-by-step execution, etc. are provided. If you want to use them, command line or IDE should be helpful for you.
 - Command Line
  - Install development tools including ARM cross-compilers and source code in your computer.
  - Please read the [Installation Guide](https://github.com/ncesnagoya/asp-gr_peach_gcc-mbed/wiki/InstallationAndBuilding) for more details.
 - IDE
  - TrueStudio or Eclipse can be used for high functional debugging.
  - You can find the installation manual provided by attolic and A.I.Corporaiton.
-   - [Using the TOPPERS/ASP (RTOS) with the mbed/Arduino library on GR-PEACH (Cortex-A9) With Atollic TrueSTUDIO] (https://github.com/ncesnagoya/asp-gr_peach_gcc-mbed/blob/master/docs/TrueSTUDIO_GR-PEACH-With_mbed_Arduino.pdf)
-   - Many thanks to [A.I.Corporation](http://www.aicp.co.jp/en/index.html) for the great manual and their supports!
+   - [Using the TOPPERS/ASP (RTOS) with the mbed/Arduino library on GR-PEACH (Cortex-A9) With Atollic TrueSTUDIO](https://github.com/ncesnagoya/asp-gr_peach_gcc-mbed/blob/master/docs/TrueSTUDIO_GR-PEACH-With_mbed_Arduino.pdf) (Many thanks to [A.I.Corporation](http://www.aicp.co.jp/en/index.html) for the great manual and their supports!)
 
 # Other Documents
 
