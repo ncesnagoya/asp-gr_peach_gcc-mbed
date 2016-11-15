@@ -5,7 +5,6 @@
 ![Stack](https://raw.github.com/wiki/ncesnagoya/asp-gr_peach_gcc-mbed/images/stack.png)
 
 
-
 Build Environment in Travis | Status
 ------------ | -------------
 Ubuntu 14.04.3 LTS | [![Build Status](https://travis-ci.org/ncesnagoya/asp-gr_peach_gcc-mbed.svg?branch=master)](https://travis-ci.org/ncesnagoya/asp-gr_peach_gcc-mbed)
@@ -46,32 +45,20 @@ Application developers can use the following useful libraries.
 
 # Software Development Enviroment
 
-- Web compiler provided by RENESAS (Recommended for beginners)
+- Web compiler provided by RENESAS (Highly recommended for beginners)
  - You can get started programming without installing software in your computer.
+ - [Get Started for beginners](https://github.com/ncesnagoya/asp-gr_peach_gcc-mbed/wiki/GetStarted)
  - No high functional debugging such like breakpoints, step-by-step execution, etc. 
 - Command Line
  - Install development tools including ARM cross-compilers and source code in your computer.
- - Please read Installation Guide for more details.
+ - Please read the [Installation Guide](https://github.com/ncesnagoya/asp-gr_peach_gcc-mbed/wiki/InstallationAndBuilding) for more details.
 - IDE
  - TrueStudio or Eclipse can be used for high functional debugging.
- - You can find the installation manual provided by attolic and A.I.Corporaiton [here](https://github.com/ncesnagoya/asp-gr_peach_gcc-mbed/blob/master/docs/TrueSTUDIO_GR-PEACH-With_mbed_Arduino.pdf). 
-   - Many thanks to [A.I.Corporation](http://www.aicp.co.jp/en/index.html) for their supports.
+ - You can find the installation manual provided by attolic and A.I.Corporaiton.
+   - [Using the TOPPERS/ASP (RTOS) with the mbed/Arduino library on GR-PEACH (Cortex-A9) With Atollic TrueSTUDIO] (https://github.com/ncesnagoya/asp-gr_peach_gcc-mbed/blob/master/docs/TrueSTUDIO_GR-PEACH-With_mbed_Arduino.pdf)
+   - Many thanks to [A.I.Corporation](http://www.aicp.co.jp/en/index.html) for the great manual and their supports!
 
-# Documents
-
-## For web compiler-based development
-
-- [Get Started for beginners](https://github.com/ncesnagoya/asp-gr_peach_gcc-mbed/wiki/GetStarted)
-
-## For command Line-based development
-
-- [Installation and Building Guide](https://github.com/ncesnagoya/asp-gr_peach_gcc-mbed/wiki/InstallationAndBuilding)
-
-## For IDE development
-
-- [Using the TOPPERS/ASP (RTOS) with the mbed/Arduino library on GR-PEACH (Cortex-A9) With Atollic TrueSTUDIO] (https://github.com/ncesnagoya/asp-gr_peach_gcc-mbed/blob/master/docs/TrueSTUDIO_GR-PEACH-With_mbed_Arduino.pdf)
-
-## For all developpers
+# Other Documents
 
 - [Example programs](https://github.com/ncesnagoya/asp-gr_peach_gcc-mbed/wiki/ExamplePrograms) 
 
@@ -97,7 +84,7 @@ Application developers can use the following useful libraries.
 - [MBED site](https://developer.mbed.org/platforms/Renesas-GR-PEACH/)
   - The original MBED library for GR-PEACH can be downloaded here.
 
-## Other Links
+## Links
 
 - [TOPPERS Project](http://toppers.jp/en)
 - [Gadget RENESAS](http://gadget.renesas.com/en/)
