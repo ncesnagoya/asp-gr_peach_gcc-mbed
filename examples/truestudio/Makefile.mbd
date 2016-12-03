@@ -56,7 +56,7 @@ LD_FLAGS = $(CPU) -Wl,--gc-sections -nostartfiles --specs=nano.specs -u _printf_
 # LD_SYS_LIBS = -lstdc++ -lsupc++ -lm -lc -lgcc -lnosys
 LD_SYS_LIBS = -lstdc++ -lsupc++ -lm -lc -lc -lgcc -lnosys
 
-ifeq ($(DEBUG), 1)
+ifeq ($(DEBUG), true)
   CC_FLAGS += -DDEBUG -O0
   ASM_FLAGS += -DDEBUG -O0 
 else
