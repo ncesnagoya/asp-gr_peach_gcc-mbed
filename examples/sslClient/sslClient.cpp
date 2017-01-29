@@ -13,9 +13,6 @@
 #include "RomRamFileSystem.h"
 #include "syssvc/logtask.h"
 
-#include "wolfmqtt/mqtt_client.h"
-#include "examples/mqttclient/mqttclient.h"
-
 #include    <wolfssl/ssl.h>          /* wolfSSL security library */
 #include    <wolfssl/wolfcrypt/error-crypt.h>
 #include    <user_settings.h>
@@ -57,7 +54,7 @@ static void initDistance(void)
 {
 	DistTrig = 0;
 	wait(0.3);
-	
+
 }
 
 static int SocketReceive(WOLFSSL* ssl, char *buf, int sz, void *sock)
@@ -70,7 +67,7 @@ static int SocketSend(WOLFSSL* ssl, char *buf, int sz, void *sock)
     return ((TCPSocketConnection *)sock)->send(buf, sz);
 }
 
-#define SERVER "www.wolfssl.com" 
+#define SERVER "www.wolfssl.com"
 #define HTTP_REQ "GET /wolfSSL/Home.html HTTP/1.0\r\nhost: www.wolfssl.com\r\n\r\n"
 #define HTTPS_PORT 443
 
@@ -130,7 +127,7 @@ int Security(TCPSocketConnection *socket)
     }
 #else
     if ((ctx = wolfSSL_CTX_new(wolfTLSv1_2_client_method())) == NULL) {
-        printf("wolfSSL_new error.\n"); 
+        printf("wolfSSL_new error.\n");
         return EXIT_FAILURE;
     }
 #endif
@@ -140,13 +137,13 @@ int Security(TCPSocketConnection *socket)
     wolfSSL_CTX_set_verify(ctx, SSL_VERIFY_NONE, 0);
     printf("wolfSSL_new\n");
     if ((ssl = wolfSSL_new(ctx)) == NULL) {
-        printf("wolfSSL_new error.\n"); 
+        printf("wolfSSL_new error.\n");
         return EXIT_FAILURE;
     }
-    
+
     wolfSSL_SetIOReadCtx(ssl, (void *)socket) ;
     wolfSSL_SetIOWriteCtx(ssl, (void *)socket) ;
-    
+
     ret = wolfSSL_connect(ssl);
     if (ret == SSL_SUCCESS) {
         printf("TLS Connected\n") ;
@@ -154,7 +151,7 @@ int Security(TCPSocketConnection *socket)
     } else {
         ret = wolfSSL_get_error(ssl, 0);
         printf("TLS Connect error[%d], %s\n", ret, wc_GetErrorString(ret));
-        return EXIT_FAILURE;        
+        return EXIT_FAILURE;
     }
     /* frees all data before client termination */
     wolfSSL_free(ssl);
@@ -169,14 +166,14 @@ void
 sslClient_main(intptr_t exinf) {
     EthernetInterface network;
 	TCPSocketConnection socket;
-	
+
 	/* syslogの設定 */
-	SVC_PERROR(syslog_msk_log(LOG_UPTO(LOG_INFO), LOG_UPTO(LOG_EMERG)));	
+	SVC_PERROR(syslog_msk_log(LOG_UPTO(LOG_INFO), LOG_UPTO(LOG_EMERG)));
 
 	syslog(LOG_NOTICE, "Sample program starts (exinf = %d).", (int_t) exinf);
     printf("Network Setting up...\r\n");
 	syslog(LOG_NOTICE, "LOG_NOTICE: Network Setting up...");
-	
+
     initDistance();
 
 #if (USE_DHCP == 1)
@@ -185,13 +182,13 @@ sslClient_main(intptr_t exinf) {
     if (network.init(IP_ADDRESS, SUBNET_MASK, DEFAULT_GATEWAY) != 0) { //for Static IP Address (IPAddress, NetMasks, Gateway)
 #endif
 		syslog(LOG_NOTICE, "Network Initialize Error");
-        return;		
+        return;
     }
 	syslog(LOG_NOTICE, "Network was initialized successfully");
 	while (network.connect(5000) != 0) {
 		syslog(LOG_NOTICE, "LOG_NOTICE: Network Connect Error");
     }
-			
+
 	printf("MAC Address is %s\r\n", network.getMACAddress());
 	printf("IP Address is %s\r\n", network.getIPAddress());
 	printf("NetMask is %s\r\n", network.getNetworkMask());
