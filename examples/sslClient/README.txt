@@ -11,7 +11,7 @@ GR-PEACH, mbed + TOPPERS環境で動作します。
 GR-PEACH, 有線ネットワーク接続、ダウンロード、デバッグメッセージ用COMポート
 
 プログラミング環境：
-ガジェットルネサスWebコンパイラー
+ガジェットルネサスWebコンパイラー http://gadget.renesas.com/ja/
 
 インストール方法：
 １）基本部のダウンロード
@@ -19,17 +19,20 @@ GITHUBからGR-PEACH, mbed＋TOPPERSのプロジェクト一式をPC上にダウ
 https://github.com/ncesnagoya/asp-gr_peach_gcc-mbed
 
 ２）wolfSSLの組み込み
-wolfSSLダウンロードページで wolfssl-3.xx.xx.zip　をダウンロードします。
+wolfSSLダウンロードページで wolfssl-3.xx.xx.zip をダウンロードします。
 https://wolfssl.com/wolfSSL/download/downloadForm.php
 wolfSSLは実験、社内評価などの目的で無償GPLv2ライセンスで利用できます。商用利用の場合は
 別途商用ライセンスを取得していください。
-unzipし、ルートディレクトリ直下のsrc, wolfssl, wolfcryptの三つのディレクトリ下の
-全 *.[ch]ファイルをサブディレクトリも含めてそのまま wolfSSL-lib ディレクトリ下にコピー
-してください。
+unzipし、ルートディレクトリ直下のsrc, wolfssl, wolfcryptの三つのディレクトリを（ディレクトリ内の
+全 *.[ch]ファイル及びサブディレクトリも含めて）， wolfSSL-lib ディレクトリ下にコピーしてください。
 
 ３）プロジェクトファイルのアップロード
-２）で準備したファイルをzip化してガジェットルネサスwebコンパイラーのアップロード機能を使って
-適当なプロジェクトにアップロードします。
+3-1) ２）で準備したファイルをzip化
+3-2) ガジェットルネサスwebコンパイラーを起動
+3-3) プロジェクト欄の「+」をクリック
+3-4) GR-PEACH用TOPPERS リアルタイムOSテンプレート（Ver V1.03)を選択し，好きなプロジェクト名を入力して，「プロジェクト作成」ボタンをクリック
+3-5) エクスプローラ欄のトップディレクトリを右クリックして，「アップロード」を選択
+3-6) 3-1)で作成したzipファイルをドラッグ＆ドロップ
 
 ４）ビルド、ダウンロード、実行
 build_targetファイルの内容に ./examples/sslClient を指定して、通常のビルドを実行します。
