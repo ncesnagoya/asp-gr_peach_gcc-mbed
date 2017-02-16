@@ -7,17 +7,14 @@
 #include "sil.h"
 #include "scif.h"
 
-#include "ssl_Client.h"
 #include "mbed.h"
 #include "EthernetInterface.h"
-#include "RomRamFileSystem.h"
 #include "syssvc/logtask.h"
 
 #include    <wolfssl/ssl.h>          /* wolfSSL security library */
 #include    <wolfssl/wolfcrypt/error-crypt.h>
 #include    <user_settings.h>
-
-#define MAXDATASIZE (1024*4)
+#include    <ssl_Client.h>
 
 /*
  *  サービスコールのエラーのログ出力
@@ -41,22 +38,6 @@ svc_perror(const char *file, int_t line, const char *expr, ER ercd)
   #define DEFAULT_GATEWAY      ("192.168.0.3")     /* Default gateway */
 #endif
 
-//EthernetInterface network;
-RomRamFileSystem romramfs("romram");
-#define Pbin(c) printf("%d%d%d%d%d%d%d%d\n", (c>>7)&0x01,(c>>6)&0x01,(c>>5)&0x01,(c>>4)&0x01,(c>>3)&0x01,(c>>2)&0x01,(c>>1)&0x01,(c>>0)&0x1); ;
-
-
-static DigitalOut DistTrig(D1);
-static DigitalIn  DistEcho(D0);
-static Timer      DistTime;
-
-static void initDistance(void)
-{
-	DistTrig = 0;
-	wait(0.3);
-
-}
-
 static int SocketReceive(WOLFSSL* ssl, char *buf, int sz, void *sock)
 {
     return ((TCPSocketConnection *)sock)->receive(buf, sz) ;
@@ -76,6 +57,7 @@ static int SocketSend(WOLFSSL* ssl, char *buf, int sz, void *sock)
  */
 int ClientGreet(WOLFSSL *ssl)
 {
+   	#define MAXDATASIZE (1024*4)
     char       rcvBuff[MAXDATASIZE] = {0};
     int        ret ;
 
@@ -98,8 +80,11 @@ int ClientGreet(WOLFSSL *ssl)
 /*
  * applies TLS 1.2 security layer to data being sent.
  */
+#define STATIC_BUFFER
+#ifdef  STATIC_BUFFER
 static byte memory[1024*256];
 static byte memoryIO[1024*72];
+#endif
 
 int Security(TCPSocketConnection *socket)
 {
@@ -107,7 +92,6 @@ int Security(TCPSocketConnection *socket)
     WOLFSSL*     ssl;    /* create WOLFSSL object */
     int          ret = 0;
 
-#define STATIC_BUFFER
 #ifdef  STATIC_BUFFER
     printf("wolfSSL_CTX_load_static_memory\n");
     /* set up static memory */
@@ -131,11 +115,11 @@ int Security(TCPSocketConnection *socket)
         return EXIT_FAILURE;
     }
 #endif
-    printf("setting IO Callback\n");
+
     wolfSSL_SetIORecv(ctx, SocketReceive) ;
     wolfSSL_SetIOSend(ctx, SocketSend) ;
     wolfSSL_CTX_set_verify(ctx, SSL_VERIFY_NONE, 0);
-    printf("wolfSSL_new\n");
+
     if ((ssl = wolfSSL_new(ctx)) == NULL) {
         printf("wolfSSL_new error.\n");
         return EXIT_FAILURE;
@@ -165,16 +149,14 @@ int Security(TCPSocketConnection *socket)
 void
 sslClient_main(intptr_t exinf) {
     EthernetInterface network;
-	TCPSocketConnection socket;
+    TCPSocketConnection socket;
 
-	/* syslogの設定 */
-	SVC_PERROR(syslog_msk_log(LOG_UPTO(LOG_INFO), LOG_UPTO(LOG_EMERG)));
+	  /* syslogの設定 */
+    SVC_PERROR(syslog_msk_log(LOG_UPTO(LOG_INFO), LOG_UPTO(LOG_EMERG)));
 
-	syslog(LOG_NOTICE, "Sample program starts (exinf = %d).", (int_t) exinf);
+    syslog(LOG_NOTICE, "Sample program starts (exinf = %d).", (int_t) exinf);
     printf("Network Setting up...\r\n");
-	syslog(LOG_NOTICE, "LOG_NOTICE: Network Setting up...");
-
-    initDistance();
+    syslog(LOG_NOTICE, "LOG_NOTICE: Network Setting up...");
 
 #if (USE_DHCP == 1)
     if (network.init() != 0) {                             //for DHCP Server
@@ -184,16 +166,16 @@ sslClient_main(intptr_t exinf) {
 		syslog(LOG_NOTICE, "Network Initialize Error");
         return;
     }
-	syslog(LOG_NOTICE, "Network was initialized successfully");
-	while (network.connect(5000) != 0) {
-		syslog(LOG_NOTICE, "LOG_NOTICE: Network Connect Error");
+    syslog(LOG_NOTICE, "Network was initialized successfully");
+    while (network.connect(5000) != 0) {
+        syslog(LOG_NOTICE, "LOG_NOTICE: Network Connect Error");
     }
 
-	printf("MAC Address is %s\r\n", network.getMACAddress());
-	printf("IP Address is %s\r\n", network.getIPAddress());
-	printf("NetMask is %s\r\n", network.getNetworkMask());
-	printf("Gateway Address is %s\r\n", network.getGateway());
-	printf("Network Setup OK...\r\n");
+    printf("MAC Address is %s\r\n", network.getMACAddress());
+    printf("IP Address is %s\r\n", network.getIPAddress());
+    printf("NetMask is %s\r\n", network.getNetworkMask());
+    printf("Gateway Address is %s\r\n", network.getGateway());
+    printf("Network Setup OK...\r\n");
 
     while (socket.connect(SERVER, HTTPS_PORT) < 0) {
         printf("Unable to connect to (%s) on port (%d)\n", SERVER, HTTPS_PORT);
