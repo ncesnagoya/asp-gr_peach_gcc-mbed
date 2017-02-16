@@ -14,7 +14,7 @@
 #include    <wolfssl/ssl.h>          /* wolfSSL security library */
 #include    <wolfssl/wolfcrypt/error-crypt.h>
 #include    <user_settings.h>
-#include    <ssl_Client.h>
+#include    <sslClient.h>
 
 /*
  *  サービスコールのエラーのログ出力
