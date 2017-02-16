@@ -61,7 +61,8 @@ CXX_OBJ += $(MBED_LIB_DIR)/EthernetInterface/EthernetInterface.o \
 	   $(MBED_LIB_DIR)/EthernetInterface/Socket/Socket.o \
 	   $(MBED_LIB_DIR)/EthernetInterface/Socket/TCPSocketConnection.o \
 	   $(MBED_LIB_DIR)/EthernetInterface/Socket/TCPSocketServer.o \
-	   $(MBED_LIB_DIR)/EthernetInterface/Socket/UDPSocket.o
+	   $(MBED_LIB_DIR)/EthernetInterface/Socket/UDPSocket.o \
+	   $(MBED_LIB_DIR)/EthernetInterface/cmsis-rtos/rt_CMSIS.o
 
 INCLUDE_PATHS += -I$(MBED_LIB_DIR)/EthernetInterface \
 		 -I$(MBED_LIB_DIR)/EthernetInterface/Socket \
