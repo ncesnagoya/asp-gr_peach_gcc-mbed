@@ -487,7 +487,10 @@ loc_mtx(ID mtxid)
 	p_mtxcb = get_mtxcb(mtxid);
 
 	t_lock_cpu();
-	if (MTX_CEILING(p_mtxcb)
+	if (p_mtxcb->p_mtxinib->mtxatr == TA_NOEXS) {
+		ercd = E_NOEXS;
+	}
+	else if (MTX_CEILING(p_mtxcb)
 				&& p_runtsk->bpriority < p_mtxcb->p_mtxinib->ceilpri) {
 		ercd = E_ILUSE;
 	}
@@ -535,7 +538,10 @@ ploc_mtx(ID mtxid)
 	p_mtxcb = get_mtxcb(mtxid);
 
 	t_lock_cpu();
-	if (MTX_CEILING(p_mtxcb)
+	if (p_mtxcb->p_mtxinib->mtxatr == TA_NOEXS) {
+		ercd = E_NOEXS;
+	}
+	else if (MTX_CEILING(p_mtxcb)
 				&& p_runtsk->bpriority < p_mtxcb->p_mtxinib->ceilpri) {
 		ercd = E_ILUSE;
 	}
@@ -583,7 +589,10 @@ tloc_mtx(ID mtxid, TMO tmout)
 	p_mtxcb = get_mtxcb(mtxid);
 
 	t_lock_cpu();
-	if (MTX_CEILING(p_mtxcb)
+	if (p_mtxcb->p_mtxinib->mtxatr == TA_NOEXS) {
+		ercd = E_NOEXS;
+	}
+	else if (MTX_CEILING(p_mtxcb)
 				&& p_runtsk->bpriority < p_mtxcb->p_mtxinib->ceilpri) {
 		ercd = E_ILUSE;
 	}
@@ -636,7 +645,10 @@ unl_mtx(ID mtxid)
 	p_mtxcb = get_mtxcb(mtxid);
 
 	t_lock_cpu();
-	if (p_mtxcb->p_loctsk != p_runtsk) {
+	if (p_mtxcb->p_mtxinib->mtxatr == TA_NOEXS) {
+		ercd = E_NOEXS;
+	}
+	else if (p_mtxcb->p_loctsk != p_runtsk) {
 		ercd = E_OBJ;
 	}
 	else {
@@ -723,10 +735,15 @@ ref_mtx(ID mtxid, T_RMTX *pk_rmtx)
 	p_mtxcb = get_mtxcb(mtxid);
 
 	t_lock_cpu();
-	pk_rmtx->htskid = (p_mtxcb->p_loctsk != NULL) ? TSKID(p_mtxcb->p_loctsk)
-													: TSK_NONE;
-	pk_rmtx->wtskid = wait_tskid(&(p_mtxcb->wait_queue));
-	ercd = E_OK;
+	if (p_mtxcb->p_mtxinib->mtxatr == TA_NOEXS) {
+		ercd = E_NOEXS;
+	}
+	else {	
+		pk_rmtx->htskid = (p_mtxcb->p_loctsk != NULL) ? TSKID(p_mtxcb->p_loctsk)
+			: TSK_NONE;
+		pk_rmtx->wtskid = wait_tskid(&(p_mtxcb->wait_queue));
+		ercd = E_OK;
+	}
 	t_unlock_cpu();
 
   error_exit:
