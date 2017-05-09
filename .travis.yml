@@ -14,8 +14,10 @@ before_install:
  - popd
 
 script:
- - pushd examples/sample1; make depend; make; popd
  - pushd examples/blinky; make depend; make; popd
- - pushd examples/httpsample; make depend; make; popd
  - pushd examples/blinky_arduino; make depend; make; popd
+ - pushd examples/httpsample; make depend; make; popd
  - pushd examples/multitask_arduino; make depend; make; popd
+ - pushd examples/sample1; make depend; make; popd
+ - pushd examples/sslClient; make depend; make; popd
+ 
