@@ -58,12 +58,12 @@ $(WOLFSSL_LIB_DIR)/wolfcrypt/src/srp.o \
 $(WOLFSSL_LIB_DIR)/wolfcrypt/src/tfm.o \
 $(WOLFSSL_LIB_DIR)/wolfcrypt/src/wc_encrypt.o \
 $(WOLFSSL_LIB_DIR)/wolfcrypt/src/wc_port.o \
-$(WOLFSSL_LIB_DIR)/wolfcrypt/src/wolfevent.o \
-$(WOLFSSL_LIB_DIR)/wolfcrypt/src/wolfmath.o 
+$(WOLFSSL_LIB_DIR)/wolfcrypt/src/wolfevent.o 
+#$(WOLFSSL_LIB_DIR)/wolfcrypt/src/wolfmath.o 
 
-TLS_CLASS_OBJ = $(WOLFSSL_LIB_DIR)/TLSSocketConnection.o
+TLS_CLASS_OBJ = $(WOLFSSL_ROOT_DIR)/TLSSocketConnection.o
 
-INCLUDE_PATHS += -I$(WOLFSSL_LIB_DIR)/
+INCLUDE_PATHS += -I$(WOLFSSL_ROOT_DIR)/ -I$(WOLFSSL_LIB_DIR)/
 
 #CC_SYMBOLS += -DWOLFSSL_USER_SETTINGS
 
