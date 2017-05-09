@@ -7,6 +7,9 @@
 /* storage control modules to the FatFs module with a defined API.       */
 /*-----------------------------------------------------------------------*/
 
+#include <kernel.h>
+#include "kernel_cfg.h"
+
 #include "diskio.h"
 #include "mbed_debug.h"
 #include "FATFileSystem.h"
@@ -21,8 +24,12 @@ DSTATUS disk_status (
     BYTE pdrv        /* Physical drive nmuber to identify the drive */
 )
 {
+	DSTATUS res;
+	wai_sem(SEMID_FATFILESYSTEM);
     debug_if(FFS_DBG, "disk_status on pdrv [%d]\n", pdrv);
-    return (DSTATUS)FATFileSystem::_ffs[pdrv]->disk_status();
+	res = (DSTATUS)FATFileSystem::_ffs[pdrv]->disk_initialize();
+	sig_sem(SEMID_FATFILESYSTEM);
+    return res;
 }
 
 /*-----------------------------------------------------------------------*/
@@ -33,8 +40,12 @@ DSTATUS disk_initialize (
     BYTE pdrv        /* Physical drive nmuber to identify the drive */
 )
 {
+	DSTATUS res;
+	wai_sem(SEMID_FATFILESYSTEM);
     debug_if(FFS_DBG, "disk_initialize on pdrv [%d]\n", pdrv);
-    return (DSTATUS)FATFileSystem::_ffs[pdrv]->disk_initialize();
+	res = (DSTATUS)FATFileSystem::_ffs[pdrv]->disk_initialize();
+	sig_sem(SEMID_FATFILESYSTEM);
+    return res;
 }
 
 /*-----------------------------------------------------------------------*/
@@ -48,11 +59,15 @@ DRESULT disk_read (
     UINT count       /* Number of sectors to read */
 )
 {
+	wai_sem(SEMID_FATFILESYSTEM);
     debug_if(FFS_DBG, "disk_read(sector %d, count %d) on pdrv [%d]\n", sector, count, pdrv);
-    if (FATFileSystem::_ffs[pdrv]->disk_read((uint8_t*)buff, sector, count))
+    if (FATFileSystem::_ffs[pdrv]->disk_read((uint8_t*)buff, sector, count)) {
+		sig_sem(SEMID_FATFILESYSTEM);
         return RES_PARERR;
-    else
+	} else {
+		sig_sem(SEMID_FATFILESYSTEM);
         return RES_OK;
+	}
 }
 
 /*-----------------------------------------------------------------------*/
@@ -67,11 +82,15 @@ DRESULT disk_write (
     UINT count           /* Number of sectors to write */
 )
 {
+	wai_sem(SEMID_FATFILESYSTEM);
     debug_if(FFS_DBG, "disk_write(sector %d, count %d) on pdrv [%d]\n", sector, count, pdrv);
-    if (FATFileSystem::_ffs[pdrv]->disk_write((uint8_t*)buff, sector, count))
+    if (FATFileSystem::_ffs[pdrv]->disk_write((uint8_t*)buff, sector, count)) {
+		sig_sem(SEMID_FATFILESYSTEM);
         return RES_PARERR;
-    else
+	} else {
+		sig_sem(SEMID_FATFILESYSTEM);
         return RES_OK;
+	}
 }
 #endif
 
@@ -86,32 +105,41 @@ DRESULT disk_ioctl (
     void* buff        /* Buffer to send/receive control data */
 )
 {
+	wai_sem(SEMID_FATFILESYSTEM);
     debug_if(FFS_DBG, "disk_ioctl(%d)\n", cmd);
     switch(cmd) {
         case CTRL_SYNC:
             if(FATFileSystem::_ffs[pdrv] == NULL) {
+				sig_sem(SEMID_FATFILESYSTEM);
                 return RES_NOTRDY;
             } else if(FATFileSystem::_ffs[pdrv]->disk_sync()) {
+				sig_sem(SEMID_FATFILESYSTEM);
                 return RES_ERROR;
             }
+			sig_sem(SEMID_FATFILESYSTEM);
             return RES_OK;
         case GET_SECTOR_COUNT:
             if(FATFileSystem::_ffs[pdrv] == NULL) {
+				sig_sem(SEMID_FATFILESYSTEM);
                 return RES_NOTRDY;
             } else {
                 DWORD res = FATFileSystem::_ffs[pdrv]->disk_sectors();
                 if(res > 0) {
                     *((DWORD*)buff) = res; // minimum allowed
+					sig_sem(SEMID_FATFILESYSTEM);
                     return RES_OK;
                 } else {
+					sig_sem(SEMID_FATFILESYSTEM);
                     return RES_ERROR;
                 }
             }
         case GET_BLOCK_SIZE:
             *((DWORD*)buff) = 1; // default when not known
+			sig_sem(SEMID_FATFILESYSTEM);
             return RES_OK;
 
     }
+	sig_sem(SEMID_FATFILESYSTEM);
     return RES_PARERR;
 }
 #endif
