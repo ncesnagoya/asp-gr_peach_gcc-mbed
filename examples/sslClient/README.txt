@@ -19,12 +19,17 @@ GITHUBからGR-PEACH, mbed＋TOPPERSのプロジェクト一式をPC上にダウ
 https://github.com/ncesnagoya/asp-gr_peach_gcc-mbed
 
 ２）wolfSSLの組み込み
+以下のGitHubサイトからダウンロードして， wolfSSL-lib/wolfsslディレクトリ下に全ファイルとディレクトリをコピーしてください。
+https://github.com/ncesnagoya/wolfssl/tree/minor-change
+
+別の方法：
 wolfSSLダウンロードページで wolfssl-3.xx.xx.zip をダウンロードします。
 https://wolfssl.com/wolfSSL/download/downloadForm.php
-wolfSSLは実験、社内評価などの目的で無償GPLv2ライセンスで利用できます。商用利用の場合は
-別途商用ライセンスを取得していください。
 unzipし、ルートディレクトリ直下のsrc, wolfssl, wolfcryptの三つのディレクトリを（ディレクトリ内の
 全 *.[ch]ファイル及びサブディレクトリも含めて）， wolfSSL-lib ディレクトリ下にコピーしてください。
+
+wolfSSLは実験、社内評価などの目的で無償GPLv2ライセンスで利用できます。商用利用の場合は
+別途商用ライセンスを取得していください。
 
 ３）プロジェクトファイルのアップロード
 3-1) ２）で準備したファイルをzip化
