@@ -19,5 +19,6 @@ script:
  - pushd examples/httpsample; make depend; make; popd
  - pushd examples/multitask_arduino; make depend; make; popd
  - pushd examples/sample1; make depend; make; popd
+ - git submodule init; git submodule update
  - pushd examples/sslClient; make depend; make; popd
  
