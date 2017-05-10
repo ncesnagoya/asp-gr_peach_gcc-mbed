@@ -52,8 +52,14 @@ Application developers can use the following useful libraries.
     - [Get Started for beginners](https://github.com/ncesnagoya/asp-gr_peach_gcc-mbed/wiki/GetStarted)
   - No high functional debugging such like breakpoints, step-by-step execution, etc. are provided. If you want to use them, command line or IDE should be helpful for you.
 - Command Line
-  - Install development tools including ARM cross-compilers and source code in your computer.
-  - Please read the [Installation Guide](https://github.com/ncesnagoya/asp-gr_peach_gcc-mbed/wiki/InstallationAndBuilding) for more details.
+  + Install development tools including ARM cross-compilers and source code in your computer.
+    + Please read the [Installation Guide](https://github.com/ncesnagoya/asp-gr_peach_gcc-mbed/wiki/InstallationAndBuilding) for more details.
+  + Download source code from GitHub as follows
+```
+    $ git clone https://github.com/ncesnagoya/asp-gr_peach_gcc-mbed.git
+    $ cd asp-gr_peach_gcc-mbed
+    $ git submodule update -i 
+```
 - IDE
   - TrueStudio or Eclipse can be used for high functional debugging.
   - You can find the installation manual provided by attolic and A.I.Corporaiton.
