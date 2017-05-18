@@ -26,6 +26,11 @@
 	</natures>
 	<linkedResources>
 		<link>
+			<name>arduino_app.h</name>
+			<type>1</type>
+			<locationURI>PARENT-2-PROJECT_LOC/multitask_arduino/arduino_app.h</locationURI>
+		</link>
+		<link>
 			<name>asp-1.9.2-utf8</name>
 			<type>2</type>
 			<locationURI>virtual:/virtual</locationURI>
@@ -34,6 +39,16 @@
 			<name>mbed-lib</name>
 			<type>2</type>
 			<locationURI>virtual:/virtual</locationURI>
+		</link>
+		<link>
+			<name>multitask_arduino.cfg</name>
+			<type>1</type>
+			<locationURI>PARENT-2-PROJECT_LOC/multitask_arduino/multitask_arduino.cfg</locationURI>
+		</link>
+		<link>
+			<name>multitask_arduino.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-2-PROJECT_LOC/multitask_arduino/multitask_arduino.cpp</locationURI>
 		</link>
 		<link>
 			<name>asp-1.9.2-utf8/MANIFEST</name>

@@ -177,6 +177,7 @@ APPL_COBJS := $(APPL_COBJS) log_output.o vasyslog.o t_perror.o strerror.o
 # APPL_LIBS =
 ifdef APPLDIR
   INCLUDES := $(INCLUDES) $(foreach dir,$(APPLDIR),-I$(dir))
+  INCLUDE_PATHS :=  $(INCLUDE_PATHS)  $(foreach dir,$(APPLDIR),-I$(dir))
 endif
 
 #
@@ -251,6 +252,7 @@ endif
 #  ソースファイルのあるディレクトリに関する定義
 #
 vpath %.c $(KERNEL_DIR) $(SYSSVC_DIR) $(APPL_DIR)
+vpath %.cpp $(KERNEL_DIR) $(SYSSVC_DIR) $(APPL_DIR)
 vpath %.S $(KERNEL_DIR) $(SYSSVC_DIR) $(APPL_DIR)
 vpath %.cfg $(APPL_DIR)
 
@@ -375,7 +377,7 @@ endif
 	rm -f makeoffset.s offset.h
 else
 	-rm -f $(LIB).a $(ALL_OBJ) $(DEPS)
-	-rm -f *.o $(CLEAN_FILES)
+	-rm -f *.o *.a $(CLEAN_FILES)
 	-rm -f $(OBJFILE) $(OBJNAME).syms $(OBJNAME).srec $(OBJNAME).bin
 	-rm -f kernel_cfg.timestamp $(CFG2_OUT_SRCS)
 	-rm -f cfg1_out.c $(CFG1_OUT) cfg1_out.syms cfg1_out.srec

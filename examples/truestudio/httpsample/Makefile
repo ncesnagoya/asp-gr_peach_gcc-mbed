@@ -6,6 +6,7 @@ all:
 #
 #  アプリケーションファイル
 #
+APPLDIR = ../../httpsample
 APPLNAME = httpsample
 USE_CXX = true
 APPL_CFG = $(APPLNAME).cfg
@@ -41,3 +42,6 @@ include ../Makefile.mbd
 #
 KERNEL_LIB = .
 include ../Makefile.asp
+
+$(ALL_OBJ): kernel_cfg.h
+
