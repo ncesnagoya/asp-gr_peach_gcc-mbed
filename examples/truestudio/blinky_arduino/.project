@@ -26,9 +26,24 @@
 	</natures>
 	<linkedResources>
 		<link>
+			<name>arduino_app.h</name>
+			<type>1</type>
+			<locationURI>PARENT-2-PROJECT_LOC/blinky_arduino/arduino_app.h</locationURI>
+		</link>
+		<link>
 			<name>asp-1.9.2-utf8</name>
 			<type>2</type>
 			<locationURI>virtual:/virtual</locationURI>
+		</link>
+		<link>
+			<name>blinky_arduino.cfg</name>
+			<type>1</type>
+			<locationURI>PARENT-2-PROJECT_LOC/blinky_arduino/blinky_arduino.cfg</locationURI>
+		</link>
+		<link>
+			<name>blinky_arduino.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-2-PROJECT_LOC/blinky_arduino/blinky_arduino.cpp</locationURI>
 		</link>
 		<link>
 			<name>mbed-lib</name>

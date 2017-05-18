@@ -31,6 +31,21 @@
 			<locationURI>virtual:/virtual</locationURI>
 		</link>
 		<link>
+			<name>blinky.cfg</name>
+			<type>1</type>
+			<locationURI>PARENT-2-PROJECT_LOC/blinky/blinky.cfg</locationURI>
+		</link>
+		<link>
+			<name>blinky.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-2-PROJECT_LOC/blinky/blinky.cpp</locationURI>
+		</link>
+		<link>
+			<name>blinky.h</name>
+			<type>1</type>
+			<locationURI>PARENT-2-PROJECT_LOC/blinky/blinky.h</locationURI>
+		</link>
+		<link>
 			<name>mbed-lib</name>
 			<type>2</type>
 			<locationURI>virtual:/virtual</locationURI>

@@ -6,6 +6,7 @@ all:
 #
 #  アプリケーションファイル
 #
+APPLDIR = ../../blinky_arduino
 APPLNAME = blinky_arduino
 USE_CXX = true
 APPL_CFG = $(APPLNAME).cfg
@@ -28,8 +29,10 @@ SRCDIR = ../../../asp-1.9.2-utf8
 #  MBEDライブラリのビルド
 #
 include $(MBED_LIB_DIR)/common/Makefile.cmn
-include $(MBED_LIB_DIR)/arduino-lib/Makefile.ard # 同名のヘッダファイルがあるのでmbed-srcよりも前で読み込む
-include $(MBED_LIB_DIR)/mbed-src/Makefile-Arduino.src # Makefile.src の代わりにこちらを使用
+include $(MBED_LIB_DIR)/arduino-lib/Makefile.ard 
+# 同名のヘッダファイルがあるのでmbed-srcよりも前で読み込む
+include $(MBED_LIB_DIR)/mbed-src/Makefile-Arduino.src 
+# Makefile.src の代わりにこちらを使用
 include $(MBED_LIB_DIR)/EthernetInterface/Makefile.eif
 include ../Makefile.mbd
 
@@ -38,3 +41,6 @@ include ../Makefile.mbd
 #
 KERNEL_LIB = .
 include ../Makefile.asp
+
+$(ALL_OBJ): kernel_cfg.h
+
