@@ -4,7 +4,6 @@
 
 ![Stack](https://raw.github.com/wiki/ncesnagoya/asp-gr_peach_gcc-mbed/images/stack.png)
 
-
 Build Environment in Travis | Status
 ------------ | -------------
 Ubuntu 14.04.3 LTS | [![Build Status](https://travis-ci.org/ncesnagoya/asp-gr_peach_gcc-mbed.svg?branch=master)](https://travis-ci.org/ncesnagoya/asp-gr_peach_gcc-mbed)
@@ -47,23 +46,29 @@ Application developers can use the following useful libraries.
 
 # Software Development Enviroment
 
-- Web compiler provided by RENESAS (Highly recommended for beginners)
-  - You can get started programming without installing software in your computer.
+- Web compiler provided by RENESAS (Highly recommended for all beginners)
+  - You can get started programming WITHOUT installing software in your computer.
     - [Get Started for beginners](https://github.com/ncesnagoya/asp-gr_peach_gcc-mbed/wiki/GetStarted)
   - No high functional debugging such like breakpoints, step-by-step execution, etc. are provided. If you want to use them, command line or IDE should be helpful for you.
+- IDE (Recommended for beginners who want to build the development environment in their local computer)
+  - TrueSTUDIO or Eclipse can be used for high functional debugging.
+  - The All-in-One package including all source code and the kernel configurator (i.e. cfg) is newly provided for TrueSTUDIO.
+  - Only the following 4 steps are needed to build examples.
+    1. Download the installer of TrueSTUDIO v7.1.2 [here](https://atollic.com/resources/download/) and install it.
+    2. Download a zip file (e.x. [asp-gr_peach_gcc-mbed-1.0.0-AllinOne.zip](https://github.com/ncesnagoya/asp-gr_peach_gcc-mbed/tree/v1.0.0-AllinOne) of the All-in-One package and Unzip it.
+    3. Launch TrueSTUDIO and specify ROOTDIR(e.x. asp-gr_peach_gcc-mbed-1.0.0-AllinOne)/examples/truestudio as workspace.
+    4. Choose an example project in Project Explorer and Push build (hammer) icon. That's all!
+  - You can find the detailed installation manual provided by attolic and A.I.Corporaiton.
+    - [Using the TOPPERS/ASP (RTOS) with the mbed/Arduino library on GR-PEACH (Cortex-A9) With Atollic TrueSTUDIO](https://github.com/ncesnagoya/asp-gr_peach_gcc-mbed/blob/master/docs/TrueSTUDIO_GR-PEACH-With_mbed_Arduino.pdf) (Many thanks to [A.I.Corporation](http://www.aicp.co.jp/en/index.html) for the great manual and their supports!)
 - Command Line
-  + Install development tools including ARM cross-compilers and source code in your computer.
+  1. Install development tools including ARM cross-compilers and source code in your computer.
     + Please read the [Installation Guide](https://github.com/ncesnagoya/asp-gr_peach_gcc-mbed/wiki/InstallationAndBuilding) for more details.
-  + Download source code from GitHub as follows
+  2. Download source code from GitHub as follows
 ```
     $ git clone https://github.com/ncesnagoya/asp-gr_peach_gcc-mbed.git
     $ cd asp-gr_peach_gcc-mbed
     $ git submodule update -i 
 ```
-- IDE
-  - TrueStudio or Eclipse can be used for high functional debugging.
-  - You can find the installation manual provided by attolic and A.I.Corporaiton.
-    - [Using the TOPPERS/ASP (RTOS) with the mbed/Arduino library on GR-PEACH (Cortex-A9) With Atollic TrueSTUDIO](https://github.com/ncesnagoya/asp-gr_peach_gcc-mbed/blob/master/docs/TrueSTUDIO_GR-PEACH-With_mbed_Arduino.pdf) (Many thanks to [A.I.Corporation](http://www.aicp.co.jp/en/index.html) for the great manual and their supports!)
 
 # Other Documents
 
