@@ -57,8 +57,8 @@ Application developers can use the following useful libraries.
 - The All-in-One package including all source code and the kernel configurator (i.e. cfg) is newly provided for TrueSTUDIO.
 - Only the following **4 steps** are needed to build examples.
   1. Download the installer of TrueSTUDIO v7.1.2 [here](https://atollic.com/resources/download/) and install it.
-  2. Download a zip file (e.x. [asp-gr_peach_gcc-mbed-1.0.0-AllinOne.zip](https://github.com/ncesnagoya/asp-gr_peach_gcc-mbed/tree/v1.0.0-AllinOne)) of the All-in-One package and Unzip it.
-  3. Launch TrueSTUDIO and specify ROOTDIR(e.x. asp-gr_peach_gcc-mbed-1.0.0-AllinOne)/examples/truestudio as workspace.
+  2. Download a zip file (e.x. [asp-gr_peach_gcc-mbed-1.0.0-AllinOne.zip](https://github.com/ncesnagoya/asp-gr_peach_gcc-mbed/tree/v1.0.0-AllinOne)) of the All-in-One package and Unzip it. If you use Linux or MacOS machine, rename ROOTDIR(e.x. asp-gr_peach_gcc-mbed-1.0.0-AllinOne)/asp-1.9.2-utf8/cfg/cfg/[cfg.linux|cfg.macos] to cfg (delete its extension).
+  3. Launch TrueSTUDIO and specify ROOTDIR/examples/truestudio as your workspace.
   4. Choose an example project in Project Explorer and Push build (hammer) icon. That's all!
 - You can find the detailed installation manual provided by attolic and A.I.Corporaiton.
   - [Using the TOPPERS/ASP (RTOS) with the mbed/Arduino library on GR-PEACH (Cortex-A9) With Atollic TrueSTUDIO](https://github.com/ncesnagoya/asp-gr_peach_gcc-mbed/blob/master/docs/TrueSTUDIO_GR-PEACH-With_mbed_Arduino.pdf) (Many thanks to [A.I.Corporation](http://www.aicp.co.jp/en/index.html) for the great manual and their supports!)
