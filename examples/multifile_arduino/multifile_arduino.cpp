@@ -13,8 +13,6 @@
 
 #define INTERVAL       100
 #define INTERVAL_RED   100
-#define INTERVAL_BLUE  150
-#define INTERVAL_GREEN 200
 
 void setup()
 {
@@ -24,12 +22,6 @@ void setup()
     pinMode(PIN_LED_USER  , OUTPUT);
 	pinMode(PIN_SW        , INPUT);
 
-	while(digitalRead(PIN_SW) == 0){
-		digitalWrite(PIN_LED_USER, 1);
-        delay(INTERVAL);
-        digitalWrite(PIN_LED_USER, 0);
-        delay(INTERVAL);
-	}	
 }
 
 void loop()
@@ -38,20 +30,6 @@ void loop()
 	delay(INTERVAL_RED);
 	digitalWrite(PIN_LED_RED, 0);
 	delay(INTERVAL_RED);
-}
-
-void loop1(){
-    digitalWrite(PIN_LED_GREEN, 1);
-    delay(INTERVAL_GREEN);
-    digitalWrite(PIN_LED_GREEN, 0);
-	delay(INTERVAL_GREEN);
-}
-
-void loop2(){
-    digitalWrite(PIN_LED_BLUE, 1);
-    delay(INTERVAL_BLUE);
-	digitalWrite(PIN_LED_BLUE, 0);
-	delay(INTERVAL_BLUE);
 }
 
 /*

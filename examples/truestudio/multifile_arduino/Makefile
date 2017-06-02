@@ -16,6 +16,18 @@ DEBUG = true
 OMIT_OPTIMIZATION = true
 
 #
+#  アプリケーションファイルに関する定義
+#  メインファイル以外のソースファイルを記述する
+#
+APPL_ASMOBJS =
+ifdef USE_CXX
+  APPL_CXXOBJS = loop1.o loop2.o loop3.o
+  APPL_COBJS =
+else
+  APPL_COBJS =
+endif
+
+#
 #  MBEDライブラリのディレクトリの定義
 #
 MBED_LIB_DIR = ../../../mbed-lib

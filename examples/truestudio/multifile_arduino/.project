@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>multitask_arduino</name>
+	<name>multifile_arduino</name>
 	<comment></comment>
 	<projects>
 	</projects>
@@ -28,7 +28,7 @@
 		<link>
 			<name>arduino_app.h</name>
 			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/multitask_arduino/arduino_app.h</locationURI>
+			<locationURI>PARENT-2-PROJECT_LOC/multifile_arduino/arduino_app.h</locationURI>
 		</link>
 		<link>
 			<name>asp-1.9.2-utf8</name>
@@ -36,19 +36,34 @@
 			<locationURI>virtual:/virtual</locationURI>
 		</link>
 		<link>
+			<name>loop1.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-2-PROJECT_LOC/multifile_arduino/loop1.cpp</locationURI>
+		</link>
+		<link>
+			<name>loop2.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-2-PROJECT_LOC/multifile_arduino/loop2.cpp</locationURI>
+		</link>
+		<link>
+			<name>loop3.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-2-PROJECT_LOC/multifile_arduino/loop3.cpp</locationURI>
+		</link>
+		<link>
 			<name>mbed-lib</name>
 			<type>2</type>
 			<locationURI>virtual:/virtual</locationURI>
 		</link>
 		<link>
-			<name>multitask_arduino.cfg</name>
+			<name>multifile_arduino.cfg</name>
 			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/multitask_arduino/multitask_arduino.cfg</locationURI>
+			<locationURI>PARENT-2-PROJECT_LOC/multifile_arduino/multifile_arduino.cfg</locationURI>
 		</link>
 		<link>
-			<name>multitask_arduino.cpp</name>
+			<name>multifile_arduino.cpp</name>
 			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/multitask_arduino/multitask_arduino.cpp</locationURI>
+			<locationURI>PARENT-2-PROJECT_LOC/multifile_arduino/multifile_arduino.cpp</locationURI>
 		</link>
 		<link>
 			<name>asp-1.9.2-utf8/MANIFEST</name>

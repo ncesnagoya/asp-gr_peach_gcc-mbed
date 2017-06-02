@@ -54,7 +54,7 @@
 		</cconfiguration>
 	</storageModule>
 	<storageModule moduleId="cdtBuildSystem" version="4.0.0">
-		<project id="multitask_arduino.null.513168384" name="multitask_arduino"/>
+		<project id="multifile_arduino.null.513168384" name="multifile_arduino"/>
 	</storageModule>
 	<storageModule moduleId="scannerConfiguration">
 		<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
@@ -62,10 +62,10 @@
 	<storageModule moduleId="org.eclipse.cdt.core.LanguageSettingsProviders"/>
 	<storageModule moduleId="refreshScope" versionNumber="2">
 		<configuration configurationName="Debug">
-			<resource resourceType="PROJECT" workspacePath="/multitask_arduino"/>
+			<resource resourceType="PROJECT" workspacePath="/multifile_arduino"/>
 		</configuration>
 		<configuration configurationName="SPI-FLASH BOOT">
-			<resource resourceType="PROJECT" workspacePath="/multitask_arduino"/>
+			<resource resourceType="PROJECT" workspacePath="/multifile_arduino"/>
 		</configuration>
 	</storageModule>
 </cproject>
