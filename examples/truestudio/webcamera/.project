@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>httpsample</name>
+	<name>webcamera</name>
 	<comment></comment>
 	<projects>
 	</projects>
@@ -28,7 +28,7 @@
 		<link>
 			<name>RomRamFileSystem.h</name>
 			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/httpsample/RomRamFileSystem.h</locationURI>
+			<locationURI>PARENT-2-PROJECT_LOC/webcamera/RomRamFileSystem.h</locationURI>
 		</link>
 		<link>
 			<name>asp-1.9.2-utf8</name>
@@ -38,22 +38,22 @@
 		<link>
 			<name>file_table.h</name>
 			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/httpsample/file_table.h</locationURI>
+			<locationURI>PARENT-2-PROJECT_LOC/webcamera/file_table.h</locationURI>
 		</link>
 		<link>
-			<name>httpsample.cfg</name>
+			<name>webcamera.cfg</name>
 			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/httpsample/httpsample.cfg</locationURI>
+			<locationURI>PARENT-2-PROJECT_LOC/webcamera/webcamera.cfg</locationURI>
 		</link>
 		<link>
-			<name>httpsample.cpp</name>
+			<name>webcamera.cpp</name>
 			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/httpsample/httpsample.cpp</locationURI>
+			<locationURI>PARENT-2-PROJECT_LOC/webcamera/webcamera.cpp</locationURI>
 		</link>
 		<link>
-			<name>httpsample.h</name>
+			<name>webcamera.h</name>
 			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/httpsample/httpsample.h</locationURI>
+			<locationURI>PARENT-2-PROJECT_LOC/webcamera/webcamera.h</locationURI>
 		</link>
 		<link>
 			<name>mbed-lib</name>
