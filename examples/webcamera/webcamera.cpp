@@ -5,7 +5,7 @@
 #include "syssvc/syslog.h"
 #include "kernel_cfg.h"
 
-#include "httpsample.h"
+#include "webcamera.h"
 #include "mbed.h"
 //#include "DisplayBace.h"
 //#include "rtos.h"

@@ -1,5 +1,5 @@
-#ifndef _HTTPSAMPLE_H_
-#define _HTTPSAMPLE_H_
+#ifndef _WEBCAMERA_H_
+#define _WEBCAMERA_H_
 
 #ifndef HTTP_MAIN_TASK_PRI
 #define HTTP_MAIN_TASK_PRI  4
@@ -24,4 +24,4 @@ extern void http_main_task(intptr_t exinf);
 }
 #endif
 
-#endif /* _HTTPSAMPLE_H_ */
+#endif /* _WEBCAMERA_H_ */
