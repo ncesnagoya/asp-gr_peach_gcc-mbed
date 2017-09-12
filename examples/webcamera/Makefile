@@ -6,7 +6,7 @@ all:
 #
 #  アプリケーションファイル
 #
-APPLNAME = httpsample
+APPLNAME = webcamera
 USE_CXX = true
 APPL_CFG = $(APPLNAME).cfg
 
