@@ -20,7 +20,7 @@
 <stringAttribute key="com.atollic.hardwaredebug.launch.jtagDevice" value="OpenOCD"/>
 <intAttribute key="com.atollic.hardwaredebug.launch.portNumber" value="3333"/>
 <stringAttribute key="com.atollic.hardwaredebug.launch.remoteCommand" value="target remote"/>
-<stringAttribute key="com.atollic.hardwaredebug.launch.runCommands" value="monitor init&#13;&#10;monitor reset&#13;&#10;monitor halt&#13;&#10;tbreak http_main_task&#13;&#10;continue"/>
+<stringAttribute key="com.atollic.hardwaredebug.launch.runCommands" value="monitor init&#13;&#10;monitor reset&#13;&#10;monitor halt&#13;&#10;tbreak webcamera_main_task&#13;&#10;continue"/>
 <stringAttribute key="com.atollic.hardwaredebug.launch.serverParam" value="-f ./scripts/interface/cmsis-dap.cfg -f ./scripts/target/renesas_rza1h_swd.cfg "/>
 <booleanAttribute key="com.atollic.hardwaredebug.launch.startServer" value="true"/>
 <booleanAttribute key="com.atollic.hardwaredebug.launch.swd_mode" value="false"/>
@@ -40,11 +40,11 @@
 <stringAttribute key="org.eclipse.cdt.launch.COREFILE_PATH" value=""/>
 <stringAttribute key="org.eclipse.cdt.launch.DEBUGGER_REGISTER_GROUPS" value=""/>
 <stringAttribute key="org.eclipse.cdt.launch.PROGRAM_NAME" value="asp.elf"/>
-<stringAttribute key="org.eclipse.cdt.launch.PROJECT_ATTR" value="httpsample"/>
+<stringAttribute key="org.eclipse.cdt.launch.PROJECT_ATTR" value="webcamera"/>
 <booleanAttribute key="org.eclipse.cdt.launch.PROJECT_BUILD_CONFIG_AUTO_ATTR" value="false"/>
 <stringAttribute key="org.eclipse.cdt.launch.PROJECT_BUILD_CONFIG_ID_ATTR" value=""/>
 <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_PATHS">
-<listEntry value="/httpsample"/>
+<listEntry value="/webcamera"/>
 </listAttribute>
 <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_TYPES">
 <listEntry value="4"/>

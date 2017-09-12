@@ -6,8 +6,8 @@ all:
 #
 #  アプリケーションファイル
 #
-APPLDIR = ../../httpsample
-APPLNAME = httpsample
+APPLDIR = ../../webcamera
+APPLNAME = webcamera
 USE_CXX = true
 APPL_CFG = $(APPLNAME).cfg
 USE_TRUESTUDIO = true
