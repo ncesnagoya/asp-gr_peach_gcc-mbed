@@ -397,7 +397,7 @@ static void SetI2CfromWeb(Arguments* arg, Reply* r) {
 }
 
 void
-http_main_task(intptr_t exinf) {
+webcamera_main_task(intptr_t exinf) {
 	/* syslogの設定 */
 	SVC_PERROR(syslog_msk_log(LOG_UPTO(LOG_INFO), LOG_UPTO(LOG_EMERG)));	
 
