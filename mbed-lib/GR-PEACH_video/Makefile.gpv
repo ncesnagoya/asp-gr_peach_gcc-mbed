@@ -1,0 +1,5 @@
+CXX_OBJ += $(MBED_LIB_DIR)/GR-PEACH_video/DisplayBase.o 
+
+INCLUDE_PATHS += -I$(MBED_LIB_DIR)/GR-PEACH_video \
+	      	 -I$(MBED_LIB_DIR)/GR-PEACH_video/drivers/vdc5/include 
+
