@@ -35,6 +35,8 @@ include $(MBED_LIB_DIR)/mbed-rpc/Makefile.rpc
 include $(MBED_LIB_DIR)/HttpServer_snapshot/Makefile.hss
 include $(MBED_LIB_DIR)/FATFileSystem/Makefile.ffs
 include $(MBED_LIB_DIR)/i2c/Makefile.i2c
+include $(MBED_LIB_DIR)/GR-PEACH_video/Makefile.gpv
+include $(MBED_LIB_DIR)/GraphicsFramework/Makefile.gfw
 include ../Makefile.mbd
 
 #

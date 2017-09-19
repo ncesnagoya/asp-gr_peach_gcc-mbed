@@ -34,11 +34,14 @@ Includes   <System Includes> , "Project Includes"
 ******************************************************************************/
 #include  <string.h>
 #include  <stdio.h>
-#include  "rtos.h"
+//#include  "rtos.h"
 #include  "r_typedefs.h"
 #include  "r_jcu_api.h"
 #include  "JPEG_Converter.h"
 #include  "converter_wrapper.h"
+
+#include  <kernel.h>
+#include  "kernel_cfg.h"
 
 /******************************************************************************
 Typedef definitions
@@ -137,7 +140,7 @@ typedef void (JPEG_CallbackFunc_t)(JPEG_Converter::jpeg_conv_error_t err_code);
 static uint32_t             driver_ac_count = 0;
 static bool                 jcu_error_flag;
 static JPEG_CallbackFunc_t* pJPEG_ConverterCallback;
-Semaphore                   jpeg_converter_semaphore(1);
+//Semaphore                   jpeg_converter_semaphore(1);
 
 
 /**************************************************************************//**
@@ -152,7 +155,8 @@ void JPEG_CallbackFunction(mbed_jcu_err_t err_code) {
     if (err_code != MBED_JCU_E_OK) {
         jcu_error_flag = true;
     }
-    jpeg_converter_semaphore.release(); // RELEASE
+    //jpeg_converter_semaphore.release(); // RELEASE
+    sig_sem(JCV_SEM);
 } /* End of callback function method () */
 
 /**************************************************************************//**
@@ -246,9 +250,11 @@ JPEG_Converter::decode(void* pJpegBuff, bitmap_buff_info_t* psOutputBuff, decode
         }
         // Get mutex
         if (pOptions->p_DecodeCallBackFunc == NULL) {
-            jpeg_converter_semaphore.wait(0xFFFFFFFFuL); // WAIT
+            //jpeg_converter_semaphore.wait(0xFFFFFFFFuL); // WAIT
+            twai_sem(JCV_SEM, 0xFFFFFFFFuL);
         } else {
-            if (!jpeg_converter_semaphore.wait(0)) {
+            //if (!jpeg_converter_semaphore.wait(0)) {
+            if (!wai_sem(JCV_SEM)) {
                 e = JPEG_CONV_BUSY;  // Busy
                 goto  fin;
             }
@@ -354,7 +360,8 @@ JPEG_Converter::decode(void* pJpegBuff, bitmap_buff_info_t* psOutputBuff, decode
     }
 fin:
     if (mutex_release == true) {
-        jpeg_converter_semaphore.release(); // RELEASE
+        //jpeg_converter_semaphore.release(); // RELEASE
+        sig_sem(JCV_SEM);
     }
 
     return  e;
@@ -414,9 +421,11 @@ JPEG_Converter::encode(bitmap_buff_info_t* psInputBuff, void* pJpegBuff, size_t*
         }
         // Get mutex
         if ( pOptions->p_EncodeCallBackFunc == NULL ) {
-            jpeg_converter_semaphore.wait(0xFFFFFFFFuL); // WAIT
+            //jpeg_converter_semaphore.wait(0xFFFFFFFFuL); // WAIT
+            twai_sem(JCV_SEM, 0xFFFFFFFFuL);
         } else {
-            if (!jpeg_converter_semaphore.wait(0)) {
+            //if (!jpeg_converter_semaphore.wait(0)) {
+            if (!wai_sem(JCV_SEM)) {
                 e = JPEG_CONV_BUSY;  // Busy
                 goto  fin;
             }
@@ -602,7 +611,8 @@ JPEG_Converter::encode(bitmap_buff_info_t* psInputBuff, void* pJpegBuff, size_t*
     }
 fin:
     if (mutex_release == true) {
-        jpeg_converter_semaphore.release(); // RELEASE
+        //jpeg_converter_semaphore.release(); // RELEASE
+        sig_sem(JCV_SEM);
     }
 
     return  e;

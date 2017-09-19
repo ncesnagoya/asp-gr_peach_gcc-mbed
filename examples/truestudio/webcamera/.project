@@ -41,6 +41,11 @@
 			<locationURI>PARENT-2-PROJECT_LOC/webcamera/file_table.h</locationURI>
 		</link>
 		<link>
+			<name>mbed-lib</name>
+			<type>2</type>
+			<locationURI>virtual:/virtual</locationURI>
+		</link>
+		<link>
 			<name>webcamera.cfg</name>
 			<type>1</type>
 			<locationURI>PARENT-2-PROJECT_LOC/webcamera/webcamera.cfg</locationURI>
@@ -54,11 +59,6 @@
 			<name>webcamera.h</name>
 			<type>1</type>
 			<locationURI>PARENT-2-PROJECT_LOC/webcamera/webcamera.h</locationURI>
-		</link>
-		<link>
-			<name>mbed-lib</name>
-			<type>2</type>
-			<locationURI>virtual:/virtual</locationURI>
 		</link>
 		<link>
 			<name>asp-1.9.2-utf8/MANIFEST</name>
@@ -134,6 +134,16 @@
 			<name>mbed-lib/FATFileSystem</name>
 			<type>2</type>
 			<locationURI>virtual:/virtual</locationURI>
+		</link>
+		<link>
+			<name>mbed-lib/GR-PEACH_video</name>
+			<type>2</type>
+			<locationURI>PARENT-3-PROJECT_LOC/mbed-lib/GR-PEACH_video</locationURI>
+		</link>
+		<link>
+			<name>mbed-lib/GraphicsFramework</name>
+			<type>2</type>
+			<locationURI>PARENT-3-PROJECT_LOC/mbed-lib/GraphicsFramework</locationURI>
 		</link>
 		<link>
 			<name>mbed-lib/HttpServer_snapshot</name>

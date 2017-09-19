@@ -7,9 +7,9 @@
 
 #include "webcamera.h"
 #include "mbed.h"
-//#include "DisplayBace.h"
+#include "DisplayBace.h"
 //#include "rtos.h"
-//#include "JPEG_Converter.h"
+#include "JPEG_Converter.h"
 #include "EthernetInterface.h"
 #include "HTTPServer.h"
 #include "mbed_rpc.h"
@@ -80,39 +80,36 @@ RomRamFileSystem romramfs("romram");
 
 #if defined(__ICCARM__)
 #pragma data_alignment=16
-//static uint8_t FrameBuffer_Video[VIDEO_BUFFER_STRIDE * VIDEO_BUFFER_HEIGHT]@ ".mirrorram";  //16 bytes aligned!;
+static uint8_t FrameBuffer_Video[VIDEO_BUFFER_STRIDE * VIDEO_BUFFER_HEIGHT]@ ".mirrorram";  //16 bytes aligned!;
 #pragma data_alignment=4
 #else
-//static uint8_t FrameBuffer_Video[VIDEO_BUFFER_STRIDE * VIDEO_BUFFER_HEIGHT]__attribute((section("NC_BSS"),aligned(16)));  //16 bytes aligned!;
+static uint8_t FrameBuffer_Video[VIDEO_BUFFER_STRIDE * VIDEO_BUFFER_HEIGHT]__attribute((section("NC_BSS"),aligned(16)));  //16 bytes aligned!;
 #endif
 static volatile int32_t vsync_count = 0;
 static volatile int32_t vfield_count = 1;
 
 #if defined(__ICCARM__)
 #pragma data_alignment=8
-//static uint8_t JpegBuffer[2][1024 * 50]@ ".mirrorram";  //8 bytes aligned!;
+static uint8_t JpegBuffer[2][1024 * 50]@ ".mirrorram";  //8 bytes aligned!;
 #pragma data_alignment=4
 #else
-//static uint8_t JpegBuffer[2][1024 * 50]__attribute((section("NC_BSS"),aligned(8)));  //8 bytes aligned!;
+static uint8_t JpegBuffer[2][1024 * 50]__attribute((section("NC_BSS"),aligned(8)));  //8 bytes aligned!;
 #endif
 static size_t jcu_encode_size[2];
 static int image_change = 0;
-//JPEG_Converter Jcu;
+JPEG_Converter Jcu;
 static int jcu_buf_index_write = 0;
 static int jcu_buf_index_write_done = 0;
 static int jcu_buf_index_read = 0;
 static int jcu_encoding = 0;
 static char i2c_setting_str_buf[I2C_SETTING_STR_BUF_SIZE];
 
-/*
 static void JcuEncodeCallBackFunc(JPEG_Converter::jpeg_conv_error_t err_code) {
     jcu_buf_index_write_done = jcu_buf_index_write;
     image_change = 1;
     jcu_encoding = 0;
 }
-*/
 
-/*
 static void IntCallbackFunc_Vfield(DisplayBase::int_type_t int_type) {
     //Interrupt callback function
     if (vfield_count != 0) {
@@ -146,18 +143,15 @@ static void IntCallbackFunc_Vfield(DisplayBase::int_type_t int_type) {
         }
     }
 }
-*/
 
-/*
 static void IntCallbackFunc_Vsync(DisplayBase::int_type_t int_type) {
     //Interrupt callback function for Vsync interruption
     if (vsync_count > 0) {
         vsync_count--;
     }
 }
-*/
 
-#if 0 /* WaitVsync(const int32_t wait_count) */
+#if 1 /* WaitVsync(const int32_t wait_count) */
 static void WaitVsync(const int32_t wait_count) {
     //Wait for the specified number of times Vsync occurs
     vsync_count = wait_count;
@@ -167,7 +161,7 @@ static void WaitVsync(const int32_t wait_count) {
 }
 #endif /* WaitVsync */
 
-#if 0 /* camera_start(void) */
+#if 1 /* camera_start(void) */
 static void camera_start(void) {
     DisplayBase::graphics_error_t error;
 
@@ -300,9 +294,10 @@ static void camera_start(void) {
 
 static int snapshot_req(const char ** pp_data) {
     int encode_size = 0;
-#if 0
+#if 1
     while ((jcu_encoding == 1) || (image_change == 0)) {
-        Thread::wait(1);
+        //Thread::wait(1);
+    	dly_tsk(1);
     }
     jcu_buf_index_read = jcu_buf_index_write_done;
     image_change = 0;
@@ -411,7 +406,8 @@ webcamera_main_task(intptr_t exinf) {
     mount_romramfs();   //RomRamFileSystem Mount
 	syslog(LOG_NOTICE, "LOG_NOTICE: RomRamFile System Mounted.");	
 
-	//    camera_start();     //Camera Start
+	camera_start();     //Camera Start
+	syslog(LOG_NOTICE, "LOG_NOTICE: Camera Started.");
 	
     RPC::add_rpc_class<RpcDigitalOut>();
     RPC::construct<RpcDigitalOut, PinName, const char*>(LED1, "led1");
