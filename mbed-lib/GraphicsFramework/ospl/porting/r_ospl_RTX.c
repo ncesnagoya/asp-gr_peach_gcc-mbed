@@ -38,7 +38,6 @@ Includes   <System Includes> , "Project Includes"
 #include  "r_ospl_private.h"
 #include  "pl310.h"  /* 2nd cache */
 #if R_OSPL_IS_PREEMPTION
-// TODO: modify by TOPPERS API?
 #include  "cmsis_os.h"
 //#include  "gic.h"	// Comment out due to include path error
 #include  "r_ospl_RTX_private.h"
@@ -119,7 +118,7 @@ void  R_OSPL_EVENT_Set( r_ospl_thread_id_t const  ThreadId,  bit_flags32_t const
         R_D_AddToIntLog( (uintptr_t) ThreadId );
 #endif
 
-        // TODO: modify by TOPPERS API?
+        // Comment out to the following line since ThreadId is always NULL
         //ret = osSignalSet( (osThreadId) ThreadId, (int32_t) SetFlags );
         ASSERT_D( (ret & OS_ERROR_SIGNAL) == 0,  R_NOOP() );
         R_UNREFERENCED_VARIABLE( ret );  /* for Release configuration */
@@ -145,7 +144,7 @@ void  R_OSPL_EVENT_Clear( r_ospl_thread_id_t const  ThreadId,  bit_flags32_t con
         R_D_AddToIntLog( (uintptr_t) ThreadId );
 #endif
 
-        // TODO: modify by TOPPERS API?
+        // Comment out to the following line since ThreadId is always NULL
         //ret = osSignalClear( (osThreadId) ThreadId, (int32_t) ClearFlags1 );
         /* "& 0xFFFF" is for avoiding error in osSignalClear */
         ASSERT_D( (ret & OS_ERROR_SIGNAL) == 0,  R_NOOP() );
@@ -198,7 +197,7 @@ errnum_t  R_OSPL_EVENT_Wait( bit_flags32_t const  WaigingFlags,  bit_flags32_t *
 #endif
 
 
-    // TODO: modify by TOPPERS API?
+    // Comment out to the following line since this function is not called
     //event = osSignalWait( (int32_t) WaigingFlags, Timeout_msec );
 
 
