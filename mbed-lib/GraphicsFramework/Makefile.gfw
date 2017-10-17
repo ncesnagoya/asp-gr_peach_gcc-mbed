@@ -1,0 +1,20 @@
+CXX_OBJ += $(MBED_LIB_DIR)/GraphicsFramework/jcu/jcu_driver/JPEG_Coverter.o 
+
+C_OBJ += $(MBED_LIB_DIR)/GraphicsFramework/jcu/jcu_driver/jcu_api.o \
+		$(MBED_LIB_DIR)/GraphicsFramework/jcu/jcu_driver/converter_wrapper.o \
+		$(MBED_LIB_DIR)/GraphicsFramework/jcu/jcu_driver/jcu_reg.o \
+		$(MBED_LIB_DIR)/GraphicsFramework/jcu/jcu_driver/jcu_para.o \
+		$(MBED_LIB_DIR)/GraphicsFramework/jcu/porting/jcu_pl.o \
+		$(MBED_LIB_DIR)/GraphicsFramework/ospl/src/r_ospl.o \
+		$(MBED_LIB_DIR)/GraphicsFramework/ospl/porting/locking.o \
+		$(MBED_LIB_DIR)/GraphicsFramework/ospl/porting/DebugBreak.o \
+		$(MBED_LIB_DIR)/GraphicsFramework/ospl/porting/mcu_interrupts.o \
+		$(MBED_LIB_DIR)/GraphicsFramework/ospl/porting/r_ospl_unrecoverable.o \
+		$(MBED_LIB_DIR)/GraphicsFramework/ospl/porting/r_ospl_RTX.o 
+
+INCLUDE_PATHS += -I$(MBED_LIB_DIR)/GraphicsFramework \
+		-I$(MBED_LIB_DIR)/GraphicsFramework/jcu/inc \
+		-I$(MBED_LIB_DIR)/GraphicsFramework/ospl/inc \
+		-I$(MBED_LIB_DIR)/GraphicsFramework/config \
+		-I$(MBED_LIB_DIR)/GraphicsFramework/RenesasBSP/drv_inc 
+		

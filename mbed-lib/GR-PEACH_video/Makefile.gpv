@@ -1,0 +1,23 @@
+CXX_OBJ += $(MBED_LIB_DIR)/GR-PEACH_video/DisplayBase.o 
+
+C_OBJ += $(MBED_LIB_DIR)/GR-PEACH_video/gr_peach_vdc5.o \
+		$(MBED_LIB_DIR)/GR-PEACH_video/drivers/vdc5/src/r_vdc5_interrupt.o \
+		$(MBED_LIB_DIR)/GR-PEACH_video/drivers/vdc5/src/r_vdc5.o \
+		$(MBED_LIB_DIR)/GR-PEACH_video/drivers/vdc5/src/r_vdc5_register.o \
+		$(MBED_LIB_DIR)/GR-PEACH_video/drivers/vdc5/src/r_vdc5_register_address.o \
+		$(MBED_LIB_DIR)/GR-PEACH_video/drivers/vdc5/src/r_vdc5_check_parameter.o \
+		$(MBED_LIB_DIR)/GR-PEACH_video/drivers/vdc5/src/r_vdc5_shared_param.o \
+		$(MBED_LIB_DIR)/GR-PEACH_video/drivers/vdec/src/r_vdec.o \
+		$(MBED_LIB_DIR)/GR-PEACH_video/drivers/vdec/src/r_vdec_register.o \
+		$(MBED_LIB_DIR)/GR-PEACH_video/drivers/vdec/src/r_vdec_register_address.o \
+		$(MBED_LIB_DIR)/GR-PEACH_video/drivers/vdec/src/r_vdec_check_parameter.o \
+		$(MBED_LIB_DIR)/GR-PEACH_video/lvds/lvds_pll_main.o \
+		$(MBED_LIB_DIR)/GR-PEACH_video/lvds/lvds_pll_data.o \
+		$(MBED_LIB_DIR)/GR-PEACH_video/video_decoder/video_decoder.o \
+
+
+INCLUDE_PATHS += -I$(MBED_LIB_DIR)/GR-PEACH_video \
+		-I$(MBED_LIB_DIR)/GR-PEACH_video/drivers/vdc5/include \
+		-I$(MBED_LIB_DIR)/GR-PEACH_video/drivers/vdc5/src \
+		-I$(MBED_LIB_DIR)/GR-PEACH_video/drivers/vdec/include \
+		-I$(MBED_LIB_DIR)/GR-PEACH_video/inc \

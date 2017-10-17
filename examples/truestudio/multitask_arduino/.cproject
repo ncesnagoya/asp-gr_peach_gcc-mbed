@@ -68,4 +68,5 @@
 			<resource resourceType="PROJECT" workspacePath="/multitask_arduino"/>
 		</configuration>
 	</storageModule>
+	<storageModule moduleId="org.eclipse.cdt.make.core.buildtargets"/>
 </cproject>
