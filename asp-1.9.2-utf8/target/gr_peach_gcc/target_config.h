@@ -98,6 +98,14 @@ extern void target_exit(void) NoReturn;
 #endif /* TOPPERS_MACRO_ONLY */
 
 /*
+ *  カーネルの割り付けるメモリ領域の管理
+ *
+ *  target_config.cに，TLSF（オープンソースのメモリ管理ライブラリ）を用
+ *  いたメモリ管理ルーチンを含めている．
+ */
+#define OMIT_KMM_ALLOCONLY
+
+/*
  *  チップ依存モジュール（RZ/A1用）
  */
 #include "arm_gcc/rza1/chip_config.h"
