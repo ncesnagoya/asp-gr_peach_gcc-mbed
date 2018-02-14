@@ -5,7 +5,7 @@
  * 
  *  Copyright (C) 2000-2003 by Embedded and Real-Time Systems Laboratory
  *                              Toyohashi Univ. of Technology, JAPAN
- *  Copyright (C) 2005-2014 by Embedded and Real-Time Systems Laboratory
+ *  Copyright (C) 2005-2017 by Embedded and Real-Time Systems Laboratory
  *              Graduate School of Information Science, Nagoya Univ., JAPAN
  * 
  *  上記著作権者は，以下の(1)～(4)の条件を満たす場合に限り，本ソフトウェ
@@ -148,6 +148,7 @@ acre_tsk(const T_CTSK *pk_ctsk)
 	TCB		*p_tcb;
 	TINIB	*p_tinib;
 	ATR		tskatr;
+	SIZE    stksz;
 	void	*stk;
 	ER		ercd;
 
@@ -164,6 +165,7 @@ acre_tsk(const T_CTSK *pk_ctsk)
 		CHECK_ALIGN_STACK(pk_ctsk->stk);
 	}
 	tskatr = pk_ctsk->tskatr;
+	stksz = pk_ctsk->stksz;
 	stk = pk_ctsk->stk;
 
 	t_lock_cpu();
@@ -173,7 +175,8 @@ acre_tsk(const T_CTSK *pk_ctsk)
 	}
 	else {
 		if (stk == NULL) {
-			stk = kernel_malloc(ROUND_STK_T(pk_ctsk->stksz));
+			stksz = ROUND_STK_T(stksz);
+			stk = kernel_malloc(stksz);
 			tskatr |= TA_MEMALLOC;
 		}
 		if (stk == NULL) {
@@ -189,7 +192,7 @@ acre_tsk(const T_CTSK *pk_ctsk)
 #ifdef USE_TSKINICTXB
 			init_tskinictxb(&(p_tinib->tskinictxb), stk, pk_ctsk);
 #else /* USE_TSKINICTXB */
-			p_tinib->stksz = pk_ctsk->stksz;
+			p_tinib->stksz = stksz;
 			p_tinib->stk = stk;
 #endif /* USE_TSKINICTXB */
 			p_tinib->texatr = TA_NULL;
@@ -199,7 +202,9 @@ acre_tsk(const T_CTSK *pk_ctsk)
 			make_dormant(p_tcb);
 			queue_initialize(&(p_tcb->mutex_queue));
 			if ((p_tcb->p_tinib->tskatr & TA_ACT) != 0U) {
-				make_active(p_tcb);
+				if (make_active(p_tcb)) {
+					dispatch();
+				}
 			}
 			ercd = TSKID(p_tcb);
 		}

@@ -22,7 +22,7 @@ endif
 #
 #  コンパイルオプション
 #
-INCLUDES := $(INCLUDES) -I$(TARGETDIR)
+INCLUDES := $(INCLUDES) -I$(TARGETDIR) -I$(TARGETDIR)/TLSF-2.4.6/include
 COPTS := $(COPTS) -mlittle-endian
 # LDFLAGS := $(LDFLAGS) -mlittle-endian -nostartfiles --specs=nano.specs -e start
 CDEFS := $(CDEFS) -DTOPPERS_RZA1H
@@ -31,8 +31,8 @@ CFG1_OUT_LDFLAGS := -nostdlib $(CFG1_OUT_LDFLAGS)
 #
 #  カーネルに関する定義
 #
-KERNEL_DIR := $(KERNEL_DIR) $(TARGETDIR)
-KERNEL_COBJS := $(KERNEL_COBJS) target_config.o pl310.o
+KERNEL_DIR := $(KERNEL_DIR) $(TARGETDIR) $(TARGETDIR)/TLSF-2.4.6/src
+KERNEL_COBJS := $(KERNEL_COBJS) target_config.o pl310.o tlsf.o
 KERNEL_ASMOBJS := $(KERNEL_ASMOBJS) target_support.o 
 
 #
@@ -68,10 +68,12 @@ endif
 #
 #  GNU開発環境のターゲットアーキテクチャの定義
 #
+ifneq ($(USE_TRUESTUDIO),true)
 GCC_TARGET = arm-none-eabi
+else
 # use GCC bundled in TrueSTUDIO
-#GCC_TARGET = arm-atollic-eabi
-
+GCC_TARGET = arm-atollic-eabi
+endif
 
 #
 #  各セグメントの開始アドレスの定義（それぞれ1MByte）

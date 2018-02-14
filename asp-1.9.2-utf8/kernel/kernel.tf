@@ -1171,7 +1171,7 @@ $ 割込みサービスルーチン初期化ブロックの生成
 $IF LENGTH(ISR.ORDER_LIST)$
 	const ISRINIB _kernel_sisrinib_table[TNUM_SISR] = {$NL$
 	$JOINEACH order ISR.ORDER_LIST ",\n"$
-		$TAB${ ($ISR.ISRATR[order]$), ($ISR.EXINF[order]$), ($ISR.INTNO[order]$), ($ISR_QUEUE_HEADER[ISR.INTNO[order]]$), ($ISR.ISR[order]$), ($ISR.ISRPRI[order]$) }
+		$TAB${ ($ISR.ISRATR[order]$), (intptr_t)($ISR.EXINF[order]$), ($ISR.INTNO[order]$), ($ISR_QUEUE_HEADER[ISR.INTNO[order]]$), ($ISR.ISR[order]$), ($ISR.ISRPRI[order]$) }
 	$END$$NL$
 	};$NL$
 $ELSE$

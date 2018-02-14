@@ -5,7 +5,7 @@
  * 
  *  Copyright (C) 2000-2003 by Embedded and Real-Time Systems Laboratory
  *                              Toyohashi Univ. of Technology, JAPAN
- *  Copyright (C) 2005-2014 by Embedded and Real-Time Systems Laboratory
+ *  Copyright (C) 2005-2017 by Embedded and Real-Time Systems Laboratory
  *              Graduate School of Information Science, Nagoya Univ., JAPAN
  * 
  *  上記著作権者は，以下の(1)～(4)の条件を満たす場合に限り，本ソフトウェ
@@ -658,10 +658,12 @@ fsnd_dtq(ID dtqid, intptr_t data)
 	else if (!(p_dtqcb->p_dtqinib->dtqcnt > 0U)) {
 		ercd = E_ILUSE;
 	}
-	else if (force_send_data(p_dtqcb, data)) {
-		dispatch();
+	else {
+		if (force_send_data(p_dtqcb, data)) {
+			dispatch();
+		}
+		ercd = E_OK;
 	}
-	ercd = E_OK;
 	t_unlock_cpu();
 
   error_exit:
@@ -694,10 +696,12 @@ ifsnd_dtq(ID dtqid, intptr_t data)
 	else if (!(p_dtqcb->p_dtqinib->dtqcnt > 0U)) {
 		ercd = E_ILUSE;
 	}
-	else if (force_send_data(p_dtqcb, data)) {
-		reqflg = true;
+	else {
+		if (force_send_data(p_dtqcb, data)) {
+			reqflg = true;
+		}
+		ercd = E_OK;
 	}
-	ercd = E_OK;
 	i_unlock_cpu();
 
   error_exit:

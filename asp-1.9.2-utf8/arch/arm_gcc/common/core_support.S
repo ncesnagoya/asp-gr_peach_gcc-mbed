@@ -74,8 +74,8 @@ ALABEL(vector_table)
 	AGLOBAL(vector_ref_tbl)
 ALABEL(vector_ref_tbl)
 	ALABEL(reset_vector)
-	ALONG  Reset_Handler
-//	ALONG  start
+//	ALONG  Reset_Handler
+	ALONG  _start
 ALABEL(undef_vector)
 	ALONG  undef_handler
 ALABEL(svc_vector)

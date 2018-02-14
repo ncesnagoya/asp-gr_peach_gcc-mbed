@@ -47,7 +47,7 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-
+#include <test_lib.h>
 /*
  *  実行時間分布計測の初期化
  */

@@ -93,7 +93,7 @@ typedef uint32_t    CLOCK;
  *  タイマ値の内部表現とミリ秒・μ秒単位との変換
  */
 #define TO_CLOCK(nume, deno) (OSTM_CLK / 1000U * (nume) / (deno))
-#define TO_USEC(clock)       (((SYSUTM) clock) * 1000000U / OSTM_CLK)
+#define TO_USEC(clock)       (((SYSUTM) clock) * 1000U / (OSTM_CLK / 1000U))
 
 
 /*
