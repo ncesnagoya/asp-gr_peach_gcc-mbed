@@ -1,0 +1,4 @@
+[submodule "wolfSSL-lib/wolfssl"]
+	path = wolfSSL-lib/wolfssl
+	url = https://github.com/ncesnagoya/wolfssl.git
+	branch = minor-change
