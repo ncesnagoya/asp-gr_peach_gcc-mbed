@@ -96,7 +96,7 @@ err_t sys_mbox_new(sys_mbox_t *mbox, int queue_sz) {
 	cdtq.dtqmb = NULL;
 	mbox->id = acre_dtq(&cdtq);
 
-	syslog(LOG_NOTICE, "A new data queue (ID=%d) was created now.", mbox->id);
+	syslog(LOG_NOTICE, "A new data queue (ID=%x) was created now.", mbox->id);
 	
 	//    return (mbox->id == NULL) ? (ERR_MEM) : (ERR_OK);
 	return (mbox->id == E_ID) ? (ERR_MEM) : (ERR_OK);

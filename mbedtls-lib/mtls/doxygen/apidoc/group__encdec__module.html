@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.13"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>mbed TLS v2.6.0: Encryption/decryption module</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">mbed TLS v2.6.0
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 構築: Doxygen 1.8.13 -->
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+$(function() {
+  initMenu('',false,false,'search.php','検索');
+});
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div class="header">
+  <div class="headertitle">
+<div class="title">Encryption/decryption module</div>  </div>
+</div><!--header-->
+<div class="contents">
+
+<p>The Encryption/decryption module provides encryption/decryption functions.  
+<a href="#details">[詳解]</a></p>
+<p>The Encryption/decryption module provides encryption/decryption functions. </p>
+<p>One can differentiate between symmetric and asymmetric algorithms; the symmetric ones are mostly used for message confidentiality and the asymmetric ones for key exchange and message integrity. Some symmetric algorithms provide different block cipher modes, mainly Electronic Code Book (ECB) which is used for short (64-bit) messages and Cipher Block Chaining (CBC) which provides the structure needed for longer messages. In addition the Cipher Feedback Mode (CFB-128) stream cipher mode, Counter mode (CTR) and Galois Counter Mode (GCM) are implemented for specific algorithms.</p>
+<p>All symmetric encryption algorithms are accessible via the generic cipher layer (see <code>mbedtls_cipher_setup()</code>).</p>
+<p>The asymmetric encryptrion algorithms are accessible via the generic public key layer (see <code>mbedtls_pk_init()</code>).</p>
+<p>The following algorithms are provided:</p><ul>
+<li>Symmetric:<ul>
+<li>AES (see <code>mbedtls_aes_crypt_ecb()</code>, <code>mbedtls_aes_crypt_cbc()</code>, <code>mbedtls_aes_crypt_cfb128()</code> and <code>mbedtls_aes_crypt_ctr()</code>).</li>
+<li>ARCFOUR (see <code>mbedtls_arc4_crypt()</code>).</li>
+<li>Blowfish / BF (see <code>mbedtls_blowfish_crypt_ecb()</code>, <code>mbedtls_blowfish_crypt_cbc()</code>, <code>mbedtls_blowfish_crypt_cfb64()</code> and <code>mbedtls_blowfish_crypt_ctr()</code>)</li>
+<li>Camellia (see <code>mbedtls_camellia_crypt_ecb()</code>, <code>mbedtls_camellia_crypt_cbc()</code>, <code>mbedtls_camellia_crypt_cfb128()</code> and <code>mbedtls_camellia_crypt_ctr()</code>).</li>
+<li>DES/3DES (see <code>mbedtls_des_crypt_ecb()</code>, <code>mbedtls_des_crypt_cbc()</code>, <code>mbedtls_des3_crypt_ecb()</code> and <code>mbedtls_des3_crypt_cbc()</code>).</li>
+<li>GCM (AES-GCM and CAMELLIA-GCM) (see <code>mbedtls_gcm_init()</code>)</li>
+<li>XTEA (see <code>mbedtls_xtea_crypt_ecb()</code>).</li>
+</ul>
+</li>
+<li>Asymmetric:<ul>
+<li>Diffie-Hellman-Merkle (see <code>mbedtls_dhm_read_public()</code>, <code>mbedtls_dhm_make_public()</code> and <code>mbedtls_dhm_calc_secret()</code>).</li>
+<li>RSA (see <code>mbedtls_rsa_public()</code> and <code>mbedtls_rsa_private()</code>).</li>
+<li>Elliptic Curves over GF(p) (see <code>mbedtls_ecp_point_init()</code>).</li>
+<li>Elliptic Curve Digital Signature Algorithm (ECDSA) (see <code>mbedtls_ecdsa_init()</code>).</li>
+<li>Elliptic Curve Diffie Hellman (ECDH) (see <code>mbedtls_ecdh_init()</code>).</li>
+</ul>
+</li>
+</ul>
+<p>This module provides encryption/decryption which can be used to provide secrecy.</p>
+<p>It also provides asymmetric key functions which can be used for confidentiality, integrity, authentication and non-repudiation. </p>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+2017年11月13日(月) 10時36分23秒作成 - mbed TLS v2.6.0 / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.13
+</small></address>
+</body>
+</html>

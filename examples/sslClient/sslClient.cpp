@@ -12,22 +12,23 @@
 #include "syssvc/logtask.h"
 
 #include    <wolfssl/ssl.h>          /* wolfSSL security library */
+#include	<wolfssl\wolfcrypt\logging.h> /* wolfSSL logging library */
 #include    <wolfssl/wolfcrypt/error-crypt.h>
 #include    <user_settings.h>
 #include    <sslClient.h>
-
+#include	<histogram.h>
 /*
  *  サービスコールのエラーのログ出力
  */
 Inline void
 svc_perror(const char *file, int_t line, const char *expr, ER ercd)
 {
-	if (ercd < 0) {
-		t_perror(LOG_ERROR, file, line, expr, ercd);
-	}
+    if (ercd < 0) {
+        t_perror(LOG_ERROR, file, line, expr, ercd);
+    }
 }
 
-#define	SVC_PERROR(expr)	svc_perror(__FILE__, __LINE__, #expr, (expr))
+#define SVC_PERROR(expr)    svc_perror(__FILE__, __LINE__, #expr, (expr))
 
 /**** User Selection *********/
 /** Network setting **/
@@ -48,29 +49,39 @@ static int SocketSend(WOLFSSL* ssl, char *buf, int sz, void *sock)
     return ((TCPSocketConnection *)sock)->send(buf, sz);
 }
 
-#define SERVER "www.wolfssl.com"
-#define HTTP_REQ "GET /wolfSSL/Home.html HTTP/1.0\r\nhost: www.wolfssl.com\r\n\r\n"
+//#define SERVER "www.wolfssl.com"
+//#define HTTP_REQ "GET /wolfSSL/Home.html HTTP/1.0\r\nhost: www.wolfssl.com\r\n\r\n"
+//#define SERVER "www.google.com"
+//#define HTTP_REQ "GET / HTTP/1.0\r\nhost: www.google.com\r\n\r\n"
+#define SERVER "os.mbed.com"
+#define HTTP_REQ "GET /media/uploads/mbed_official/hello.txt HTTP/1.0\r\nhost: os.mbed.com\r\n\r\n"
 #define HTTPS_PORT 443
+
+//uint_t histarea1[600001];
+uint_t histarea2[500001];
 
 /*
  *  clients initial contact with server. Socket to connect to: sock
  */
 int ClientGreet(WOLFSSL *ssl)
 {
-   	#define MAXDATASIZE (1024*4)
+    #define MAXDATASIZE (1024*4)
     char       rcvBuff[MAXDATASIZE] = {0};
     int        ret ;
 
+    //begin_measure(2);
     if (wolfSSL_write(ssl, HTTP_REQ, strlen(HTTP_REQ)) < 0) {
         /* the message is not able to send, or error trying */
         ret = wolfSSL_get_error(ssl, 0);
-        printf("Write error[%d]:%s\n", ret, wc_GetErrorString(ret));
+        syslog(LOG_NOTICE, "Write error[%d]:%s\n", ret, wc_GetErrorString(ret));
         return EXIT_FAILURE;
     }
-    printf("Recieved:\n");
+    //end_measure(2);
+    syslog(LOG_NOTICE, "Recieved:\n");
     while ((ret = wolfSSL_read(ssl, rcvBuff, sizeof(rcvBuff)-1)) > 0) {
         rcvBuff[ret] = '\0' ;
-        printf("%s", rcvBuff);
+        syslog(LOG_NOTICE, "%s", rcvBuff);
+        //printf("%s", rcvBuff);
     }
 
     return ret;
@@ -93,25 +104,25 @@ int Security(TCPSocketConnection *socket)
     int          ret = 0;
 
 #ifdef  STATIC_BUFFER
-    printf("wolfSSL_CTX_load_static_memory\n");
+    //syslog(LOG_NOTICE, "wolfSSL_CTX_load_static_memory\n");
     /* set up static memory */
     if (wolfSSL_CTX_load_static_memory(&ctx, wolfTLSv1_2_client_method_ex, memory, sizeof(memory),0,1)
             != SSL_SUCCESS){
-        printf("unable to load static memory and create ctx");
+        syslog(LOG_NOTICE, "unable to load static memory and create ctx");
         return  EXIT_FAILURE;
     }
 
     /* load in a buffer for IO */
-    printf("wolfSSL_CTX_load_static_memory\n");
+    //syslog(LOG_NOTICE, "wolfSSL_CTX_load_static_memory\n");
     if (wolfSSL_CTX_load_static_memory(&ctx, NULL, memoryIO, sizeof(memoryIO),
                                  WOLFMEM_IO_POOL_FIXED | WOLFMEM_TRACK_STATS, 1)
             != SSL_SUCCESS){
-        printf("unable to load static memory and create ctx");
-	    return  EXIT_FAILURE;
+        syslog(LOG_NOTICE, "unable to load static memory and create ctx");
+        return  EXIT_FAILURE;
     }
 #else
     if ((ctx = wolfSSL_CTX_new(wolfTLSv1_2_client_method())) == NULL) {
-        printf("wolfSSL_new error.\n");
+        syslog(LOG_NOTICE, "wolfSSL_new error.\n");
         return EXIT_FAILURE;
     }
 #endif
@@ -121,20 +132,21 @@ int Security(TCPSocketConnection *socket)
     wolfSSL_CTX_set_verify(ctx, SSL_VERIFY_NONE, 0);
 
     if ((ssl = wolfSSL_new(ctx)) == NULL) {
-        printf("wolfSSL_new error.\n");
+        syslog(LOG_NOTICE, "wolfSSL_new error.\n");
         return EXIT_FAILURE;
     }
 
     wolfSSL_SetIOReadCtx(ssl, (void *)socket) ;
     wolfSSL_SetIOWriteCtx(ssl, (void *)socket) ;
-
+    //begin_measure(2);
     ret = wolfSSL_connect(ssl);
+    //end_measure(2);
     if (ret == SSL_SUCCESS) {
-        printf("TLS Connected\n") ;
+        syslog(LOG_NOTICE, "TLS Connected\n") ;
         ret = ClientGreet(ssl);
     } else {
         ret = wolfSSL_get_error(ssl, 0);
-        printf("TLS Connect error[%d], %s\n", ret, wc_GetErrorString(ret));
+        syslog(LOG_NOTICE, "TLS Connect error[%d], %s\n", ret, wc_GetErrorString(ret));
         return EXIT_FAILURE;
     }
     /* frees all data before client termination */
@@ -148,14 +160,19 @@ int Security(TCPSocketConnection *socket)
 
 void
 sslClient_main(intptr_t exinf) {
+
     EthernetInterface network;
     TCPSocketConnection socket;
 
-	  /* syslogの設定 */
+    int i = 0;
+    //init_hist(1, 60000,histarea1);
+   	init_hist(2, 500000,histarea2);
+
+      /* syslogの設定 */
     SVC_PERROR(syslog_msk_log(LOG_UPTO(LOG_INFO), LOG_UPTO(LOG_EMERG)));
 
     syslog(LOG_NOTICE, "Sample program starts (exinf = %d).", (int_t) exinf);
-    printf("Network Setting up...\r\n");
+    //printf( "Network Setting up...\r\n");
     syslog(LOG_NOTICE, "LOG_NOTICE: Network Setting up...");
 
 #if (USE_DHCP == 1)
@@ -163,7 +180,7 @@ sslClient_main(intptr_t exinf) {
 #else
     if (network.init(IP_ADDRESS, SUBNET_MASK, DEFAULT_GATEWAY) != 0) { //for Static IP Address (IPAddress, NetMasks, Gateway)
 #endif
-		syslog(LOG_NOTICE, "Network Initialize Error");
+        syslog(LOG_NOTICE, "Network Initialize Error");
         return;
     }
     syslog(LOG_NOTICE, "Network was initialized successfully");
@@ -171,23 +188,41 @@ sslClient_main(intptr_t exinf) {
         syslog(LOG_NOTICE, "LOG_NOTICE: Network Connect Error");
     }
 
-    printf("MAC Address is %s\r\n", network.getMACAddress());
-    printf("IP Address is %s\r\n", network.getIPAddress());
-    printf("NetMask is %s\r\n", network.getNetworkMask());
-    printf("Gateway Address is %s\r\n", network.getGateway());
-    printf("Network Setup OK...\r\n");
+    //syslog(LOG_NOTICE, "MAC Address is %s\r\n", network.getMACAddress());
+    //syslog(LOG_NOTICE, "IP Address is %s\r\n", network.getIPAddress());
+    //syslog(LOG_NOTICE, "NetMask is %s\r\n", network.getNetworkMask());
+    //syslog(LOG_NOTICE, "Gateway Address is %s\r\n", network.getGateway());
+    //syslog(LOG_NOTICE, "Network Setup OK...\r\n");
+    //wolfSSL_Debugging_ON();
+    //wolfSSL_Logging_cb p = syslog;
+    //wolfSSL_SetLoggingCb(syslog);
 
+    while(i < 1){
+
+    	i++;
     while (socket.connect(SERVER, HTTPS_PORT) < 0) {
-        printf("Unable to connect to (%s) on port (%d)\n", SERVER, HTTPS_PORT);
+        syslog(LOG_NOTICE, "Unable to connect to (%s) on port (%d)\n", SERVER, HTTPS_PORT);
         wait(1.0);
     }
+
+
     Security(&socket);
+
+    syslog(LOG_NOTICE, "end%d:\n",i);
     socket.close();
+    }
+
+    /*時間稼ぎ*/
+	wait(5.0);
+	//print_hist(1);
+	syslog(LOG_NOTICE, "------------------------------------");
+	print_hist(2);
+	syslog(LOG_NOTICE, "program end\n");
 }
 
 // set mac address
 void mbed_mac_address(char *mac) {
-	// PEACH1
+    // PEACH1
     mac[0] = 0x00;
     mac[1] = 0x02;
     mac[2] = 0xF7;
@@ -205,10 +240,10 @@ void mbed_mac_address(char *mac) {
 bool_t led_state = true;
 void cyclic_handler(intptr_t exinf)
 {
-	if (led_state == true) {
-		led_state = false;
-	} else {
-		led_state = true;
-	}
-	set_led(BLUE_LED, led_state);
+    if (led_state == true) {
+        led_state = false;
+    } else {
+        led_state = true;
+    }
+    set_led(BLUE_LED, led_state);
 }

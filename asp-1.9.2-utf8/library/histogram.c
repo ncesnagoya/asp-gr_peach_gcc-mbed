@@ -45,6 +45,7 @@
 #include <t_syslog.h>
 #include <test_lib.h>
 #include <histogram.h>
+#include <sys/time.h>
 #include "target_test.h"
 
 /*
@@ -149,15 +150,28 @@ end_measure(ID histid)
 	assert(TMIN_HISTID <= histid && histid <= TMAX_HISTID);
 	p_histcb = &(histcb_table[histid - TMIN_HISTID]);
 
-	val = HIST_CONV_TIM(end_time - p_histcb->begin_time);
+	val = HIST_CONV_TIM(end_time - p_histcb->begin_time) - 3;//over head
 	if (val <= p_histcb->maxval) {
+		
+		//p_histcb->histarea[0]++;
+		/*comment out */
+		val += 5;
+		val = val / 10;
+		val= val * 10;
+		/*comment out*/
 		p_histcb->histarea[val]++;
 	}
+	/*comment out*/
+	else if(val >= 10000){
+			val += 500;
+			val = val /1000;
+			p_histcb->histarea[val]++;
+	}/*comment out*/
 	else if (val <= ((uint_t) INT_MAX)) {
-		p_histcb->over++;
+		 	p_histcb->over++;
 	}
 	else {
-		p_histcb->under++;
+			p_histcb->under++;
 	}
 }
 

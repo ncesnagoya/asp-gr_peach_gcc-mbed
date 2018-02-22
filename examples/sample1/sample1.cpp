@@ -97,7 +97,7 @@
  *  'C' : 周期ハンドラを動作停止させる．
  *  'b' : アラームハンドラを5秒後に起動するよう動作開始させる．
  *  'B' : アラームハンドラを動作停止させる．
- *  'z' : 対象タスクにCPU例外を発生させる（タスクを終了させる）．
+ *  'z' : 対象タスクにCPU例外を発生させる（タスクを終了させる）．ｘ
  *  'Z' : 対象タスクにCPUロック状態でCPU例外を発生させる（プログラムを
  *        終了する）．
  *  '@' : タスク3をacre_tskにより生成し，def_texによりタスク例外処理
@@ -111,7 +111,7 @@
  */
 
 #include <kernel.h>
-#include <t_syslog.h>
+#include <t_syslog.h>ｚ
 #include <t_stdlib.h>
 #include "syssvc/serial.h"
 #include "syssvc/syslog.h"
