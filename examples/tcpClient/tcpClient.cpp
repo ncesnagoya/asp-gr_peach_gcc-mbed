@@ -15,7 +15,6 @@
 #include    <wolfssl/wolfcrypt/error-crypt.h>
 #include    <user_settings.h>
 #include    <tcpClient.h>
-#include	<histogram.h>
 
 /*
  *  サービスコールのエラーのログ出力
@@ -55,9 +54,6 @@ static int SocketSend(WOLFSSL* ssl, char *buf, int sz, void *sock)
 #define HTTP_REQ "GET / HTTP/1.0\r\nhost: www.google.com\r\n\r\n"
 #define HTTP_PORT 80
 
-//uint_t histarea1[600001];
-uint_t histarea2[500001];
-
 /*
  *  clients initial contact with server. Socket to connect to: sock
  */
@@ -66,14 +62,13 @@ int ClientGreet(TCPSocketConnection *sock)
    	#define MAXDATASIZE (1024*4)
     char       rcvBuff[MAXDATASIZE] = {0};
     int        ret ;
-    begin_measure(2);
+
     if (sock->send((char *)HTTP_REQ, strlen(HTTP_REQ)) < 0)  {
         /* the message is not able to send, or error trying */
         //ret = wolfSSL_get_error(sock, 0);
         syslog(LOG_NOTICE, "Write error\n");
         return EXIT_FAILURE;
     }
-   	end_measure(2);
     syslog(LOG_NOTICE, "Recieved:\n");
     while ((ret = sock->receive(rcvBuff, sizeof(rcvBuff)-1)) > 0)  {
         rcvBuff[ret] = '\0';
@@ -99,11 +94,7 @@ tcpClient_main(intptr_t exinf) {
 	EthernetInterface network;
 	TCPSocketConnection socket;
 
-	int i = 0;
-	//init_hist(1, 600000,histarea1);
-	init_hist(2, 500000,histarea2);
-
-    	/* syslogの設定 */
+	/* syslogの設定 */
     SVC_PERROR(syslog_msk_log(LOG_UPTO(LOG_INFO), LOG_UPTO(LOG_EMERG)));
 
     syslog(LOG_NOTICE, "Sample program starts (exinf = %d).", (int_t) exinf);
@@ -123,32 +114,13 @@ tcpClient_main(intptr_t exinf) {
         syslog(LOG_NOTICE, "LOG_NOTICE: Network Connect Error");
     }
 
-    //syslog(LOG_NOTICE, "MAC Address is %s\r\n", network.getMACAddress());
-    //syslog(LOG_NOTICE, "IP Address is %s\r\n", network.getIPAddress());
-    //syslog(LOG_NOTICE, "NetMask is %s\r\n", network.getNetworkMask());
-    //syslog(LOG_NOTICE, "Gateway Address is %s\r\n", network.getGateway());
-    //syslog(LOG_NOTICE, "Network Setup OK...\r\n");
-
-    while(i < 5000){
-
-    	i++;
     while (socket.connect(SERVER, HTTP_PORT) < 0) {
         syslog(LOG_NOTICE, "Unable to connect to (%s) on port (%d)\n", SERVER, HTTP_PORT);
         wait(1.0);
     }
 
-    //begin_measure(2);
     ClientGreet(&socket);
-
-    syslog(LOG_NOTICE, "end%d:\n",i);
     socket.close();
-    }
-
-    /*時間稼ぎ*/
-    wait(2.0);
-    //print_hist(1);
-    syslog(LOG_NOTICE, "1-------------------------------------------2");
-    print_hist(2);
     syslog(LOG_NOTICE, "program end\n");
 }
 
