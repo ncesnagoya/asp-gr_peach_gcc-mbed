@@ -31,11 +31,11 @@ svc_perror(const char *file, int_t line, const char *expr, ER ercd)
 
 /**** User Selection *********/
 /** Network setting **/
-#define USE_DHCP               (1)                 /* Select  0(static configuration) or 1(use DHCP) */
+#define USE_DHCP               (0)                 /* Select  0(static configuration) or 1(use DHCP) */
 #if (USE_DHCP == 0)
   #define IP_ADDRESS           ("192.168.0.2")     /* IP address      */
   #define SUBNET_MASK          ("255.255.255.0")   /* Subnet mask     */
-  #define DEFAULT_GATEWAY      ("192.168.0.3")     /* Default gateway */
+  #define DEFAULT_GATEWAY      ("192.168.0.1")     /* Default gateway */
 #endif
 
 static int SocketReceive(WOLFSSL* ssl, char *buf, int sz, void *sock)
@@ -48,9 +48,14 @@ static int SocketSend(WOLFSSL* ssl, char *buf, int sz, void *sock)
     return ((TCPSocketConnection *)sock)->send(buf, sz);
 }
 
-#define SERVER "www.wolfssl.com"
-#define HTTP_REQ "GET /wolfSSL/Home.html HTTP/1.0\r\nhost: www.wolfssl.com\r\n\r\n"
+//#define SERVER "www.wolfssl.com"
+//#define HTTP_REQ "GET /wolfSSL/Home.html HTTP/1.0\r\nhost: www.wolfssl.com\r\n\r\n"
+//#define HTTPS_PORT 443
+
+#define SERVER "192.168.0.3"
+#define HTTP_REQ "GET / HTTP/1.0\r\nhost: 192.168.0.3\r\n\r\n"
 #define HTTPS_PORT 443
+
 
 /*
  *  clients initial contact with server. Socket to connect to: sock
@@ -64,13 +69,13 @@ int ClientGreet(WOLFSSL *ssl)
     if (wolfSSL_write(ssl, HTTP_REQ, strlen(HTTP_REQ)) < 0) {
         /* the message is not able to send, or error trying */
         ret = wolfSSL_get_error(ssl, 0);
-        printf("Write error[%d]:%s\n", ret, wc_GetErrorString(ret));
+        syslog(LOG_NOTICE, "Write error[%d]:%s\n", ret, wc_GetErrorString(ret));
         return EXIT_FAILURE;
     }
-    printf("Recieved:\n");
+    syslog(LOG_NOTICE, "Recieved:\n");
     while ((ret = wolfSSL_read(ssl, rcvBuff, sizeof(rcvBuff)-1)) > 0) {
         rcvBuff[ret] = '\0' ;
-        printf("%s", rcvBuff);
+        syslog(LOG_NOTICE, "%s", rcvBuff);
     }
 
     return ret;
@@ -130,11 +135,11 @@ int Security(TCPSocketConnection *socket)
 
     ret = wolfSSL_connect(ssl);
     if (ret == SSL_SUCCESS) {
-        printf("TLS Connected\n") ;
+        syslog(LOG_NOTICE, "TLS Connected\n") ;
         ret = ClientGreet(ssl);
     } else {
         ret = wolfSSL_get_error(ssl, 0);
-        printf("TLS Connect error[%d], %s\n", ret, wc_GetErrorString(ret));
+        syslog(LOG_NOTICE, "TLS Connect error[%d], %s\n", ret, wc_GetErrorString(ret));
         return EXIT_FAILURE;
     }
     /* frees all data before client termination */
@@ -154,8 +159,8 @@ sslClient_main(intptr_t exinf) {
 	  /* syslogの設定 */
     SVC_PERROR(syslog_msk_log(LOG_UPTO(LOG_INFO), LOG_UPTO(LOG_EMERG)));
 
+    syslog(LOG_NOTICE, "sslClient:");
     syslog(LOG_NOTICE, "Sample program starts (exinf = %d).", (int_t) exinf);
-    printf("Network Setting up...\r\n");
     syslog(LOG_NOTICE, "LOG_NOTICE: Network Setting up...");
 
 #if (USE_DHCP == 1)
@@ -171,14 +176,14 @@ sslClient_main(intptr_t exinf) {
         syslog(LOG_NOTICE, "LOG_NOTICE: Network Connect Error");
     }
 
-    printf("MAC Address is %s\r\n", network.getMACAddress());
-    printf("IP Address is %s\r\n", network.getIPAddress());
-    printf("NetMask is %s\r\n", network.getNetworkMask());
-    printf("Gateway Address is %s\r\n", network.getGateway());
-    printf("Network Setup OK...\r\n");
+    syslog(LOG_NOTICE, "MAC Address is %s", network.getMACAddress());
+    syslog(LOG_NOTICE, "IP Address is %s", network.getIPAddress());
+    syslog(LOG_NOTICE, "NetMask is %s", network.getNetworkMask());
+    syslog(LOG_NOTICE, "Gateway Address is %s", network.getGateway());
+    syslog(LOG_NOTICE, "Network Setup OK...");
 
     while (socket.connect(SERVER, HTTPS_PORT) < 0) {
-        printf("Unable to connect to (%s) on port (%d)\n", SERVER, HTTPS_PORT);
+        syslog(LOG_NOTICE, "Unable to connect to (%s) on port (%d)\n", SERVER, HTTPS_PORT);
         wait(1.0);
     }
     Security(&socket);
