@@ -96,7 +96,7 @@ err_t sys_mbox_new(sys_mbox_t *mbox, int queue_sz) {
 	cdtq.dtqmb = NULL;
 	mbox->id = acre_dtq(&cdtq);
 
-	syslog(LOG_NOTICE, "A new data queue (ID=%x) was created now.", mbox->id);
+	syslog(LOG_DEBUG, "A new data queue (ID=%d) was created now.", mbox->id);
 	
 	//    return (mbox->id == NULL) ? (ERR_MEM) : (ERR_OK);
 	return (mbox->id == E_ID) ? (ERR_MEM) : (ERR_OK);
@@ -122,7 +122,7 @@ void sys_mbox_free(sys_mbox_t *mbox) {
 	if (ercd != E_OK) {
 		error("Error with ercd=%d in sys_mbox_free.\n", ercd);
 	}
-	syslog(LOG_NOTICE, "The data queue (ID=%d) was deleted.", mbox->id);
+	syslog(LOG_DEBUG, "The data queue (ID=%d) was deleted.", mbox->id);
 }
 
 /*---------------------------------------------------------------------------*
@@ -272,7 +272,7 @@ err_t sys_sem_new(sys_sem_t *sem, u8_t count) {
 	}
 
 	sem->id = ercd;
-	syslog(LOG_NOTICE, "A new semaphore (ID=%d) was created.", sem->id);
+	syslog(LOG_DEBUG, "A new semaphore (ID=%d) was created.", sem->id);
 	
     return ERR_OK;
 }
@@ -357,7 +357,7 @@ void sys_sem_free(sys_sem_t *sem) {
 	if (ercd != E_OK) {
 		error("Error with ercd=%d in sys_sem_free.\n", ercd);
 	}
-	syslog(LOG_NOTICE, "The semaphore (ID=%d) was deleted.", sem->id);
+	syslog(LOG_DEBUG, "The semaphore (ID=%d) was deleted.", sem->id);
 }
 
 /** Create a new mutex
@@ -380,7 +380,7 @@ err_t sys_mutex_new(sys_mutex_t *mutex) {
 	cmtx.ceilpri = osPriorityHigh; /* TODO: to be changed to appropriate priority.*/
 	ercd = acre_mtx(&cmtx);
 
-	syslog(LOG_NOTICE, "A new mutex (ID=%d) was created now.", mutex->id);
+	syslog(LOG_DEBUG, "A new mutex (ID=%d) was created now.", mutex->id);
 	
     if (ercd < 0) {
         return ERR_MEM;
@@ -420,7 +420,7 @@ void sys_mutex_free(sys_mutex_t *mutex) {
 	if (ercd != E_OK) {
 		error("Error with ercd=%d in sys_mutex_free.\n", ercd);
 	}
-	syslog(LOG_NOTICE, "The mutex (ID=%d) was deleted.", mutex->id);
+	syslog(LOG_DEBUG, "The mutex (ID=%d) was deleted.", mutex->id);
 }
 
 /*---------------------------------------------------------------------------*
@@ -572,7 +572,7 @@ sys_thread_t sys_thread_new(const char *pcName,
 	}
 
 	t->id = ercd;
-	syslog(LOG_NOTICE, "A new task %s(ID=%d) with Pri=%d was created now.", pcName, t->id, priority);
+	syslog(LOG_DEBUG, "A new task %s(ID=%d) with Pri=%d was created now.", pcName, t->id, priority);
 	
     return t;
 }

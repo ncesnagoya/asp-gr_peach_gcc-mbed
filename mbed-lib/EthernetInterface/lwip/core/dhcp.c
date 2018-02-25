@@ -676,7 +676,7 @@ dhcp_start(struct netif *netif)
   dhcp->pcb = udp_new();
   if (dhcp->pcb == NULL) {
 	  LWIP_DEBUGF(DHCP_DEBUG  | LWIP_DBG_TRACE, ("dhcp_start(): could not obtain pcb\n"));
-	  syslog(LOG_NOTICE, "dhcp_start(): could not obtain pcb");
+	  syslog(LOG_EMERG, "dhcp_start(): could not obtain pcb");
 	  return ERR_MEM;
   }
   dhcp->pcb->so_options |= SOF_BROADCAST;
@@ -1234,14 +1234,14 @@ dhcp_stop(struct netif *netif)
 {
   struct dhcp *dhcp;
   LWIP_ERROR("dhcp_stop: netif != NULL", (netif != NULL), return;);
-  syslog(LOG_NOTICE, "dhcp_stop: netif != NULL");  
+  syslog(LOG_DEBUG, "dhcp_stop: netif != NULL");
 
   dhcp = netif->dhcp;
   /* Remove the flag that says this netif is handled by DHCP. */
   netif->flags &= ~NETIF_FLAG_DHCP;
 
   LWIP_DEBUGF(DHCP_DEBUG | LWIP_DBG_TRACE, ("dhcp_stop()\n"));
-  syslog(LOG_NOTICE, "dhcp_stop()");    
+  syslog(LOG_DEBUG, "dhcp_stop()");
   /* netif is DHCP configured? */
   if (dhcp != NULL) {
 #if LWIP_DHCP_AUTOIP_COOP

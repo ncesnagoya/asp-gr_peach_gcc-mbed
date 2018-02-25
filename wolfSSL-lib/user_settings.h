@@ -7,6 +7,10 @@
     #define NO_DEV_RANDOM
     #define NO_DH
     #define HAVE_ECC
+	#define HAVE_ALL_CURVES
+	#define HAVE_CURVE25519
+	#define HAVE_TLS_EXTENSIONS
+	#define HAVE_SUPPORTED_CURVES
     #define NO_SESSION_CACHE // For Small RAM
     //#define IGNORE_KEY_EXTENSIONS
     #define NO_WOLFSSL_DIR  
