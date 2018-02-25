@@ -56,7 +56,6 @@ static int SocketSend(WOLFSSL* ssl, char *buf, int sz, void *sock)
 #define HTTP_REQ "GET / HTTP/1.0\r\nhost: 192.168.0.3\r\n\r\n"
 #define HTTPS_PORT 443
 
-
 /*
  *  clients initial contact with server. Socket to connect to: sock
  */
@@ -98,25 +97,25 @@ int Security(TCPSocketConnection *socket)
     int          ret = 0;
 
 #ifdef  STATIC_BUFFER
-    printf("wolfSSL_CTX_load_static_memory\n");
+    syslog(LOG_NOTICE, "wolfSSL_CTX_load_static_memory\n");
     /* set up static memory */
     if (wolfSSL_CTX_load_static_memory(&ctx, wolfTLSv1_2_client_method_ex, memory, sizeof(memory),0,1)
             != SSL_SUCCESS){
-        printf("unable to load static memory and create ctx");
+        syslog(LOG_NOTICE, "unable to load static memory and create ctx");
         return  EXIT_FAILURE;
     }
 
     /* load in a buffer for IO */
-    printf("wolfSSL_CTX_load_static_memory\n");
+    syslog(LOG_NOTICE, "wolfSSL_CTX_load_static_memory\n");
     if (wolfSSL_CTX_load_static_memory(&ctx, NULL, memoryIO, sizeof(memoryIO),
                                  WOLFMEM_IO_POOL_FIXED | WOLFMEM_TRACK_STATS, 1)
             != SSL_SUCCESS){
-        printf("unable to load static memory and create ctx");
+        syslog(LOG_NOTICE, "unable to load static memory and create ctx");
 	    return  EXIT_FAILURE;
     }
 #else
     if ((ctx = wolfSSL_CTX_new(wolfTLSv1_2_client_method())) == NULL) {
-        printf("wolfSSL_new error.\n");
+        syslog(LOG_NOTICE, "wolfSSL_new error.\n");
         return EXIT_FAILURE;
     }
 #endif
@@ -126,7 +125,7 @@ int Security(TCPSocketConnection *socket)
     wolfSSL_CTX_set_verify(ctx, SSL_VERIFY_NONE, 0);
 
     if ((ssl = wolfSSL_new(ctx)) == NULL) {
-        printf("wolfSSL_new error.\n");
+        syslog(LOG_NOTICE, "wolfSSL_new error.\n");
         return EXIT_FAILURE;
     }
 
@@ -188,6 +187,7 @@ sslClient_main(intptr_t exinf) {
     }
     Security(&socket);
     socket.close();
+    syslog(LOG_NOTICE, "program end\n");	
 }
 
 // set mac address

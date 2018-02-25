@@ -31,7 +31,7 @@ svc_perror(const char *file, int_t line, const char *expr, ER ercd)
 
 /**** User Selection *********/
 /** Network setting **/
-#define USE_DHCP               (1)                 /* Select  0(static configuration) or 1(use DHCP) */
+#define USE_DHCP               (0)                 /* Select  0(static configuration) or 1(use DHCP) */
 #if (USE_DHCP == 0)
   #define IP_ADDRESS           ("192.168.0.2")     /* IP address      */
   #define SUBNET_MASK          ("255.255.255.0")   /* Subnet mask     */
@@ -50,9 +50,14 @@ static int SocketSend(WOLFSSL* ssl, char *buf, int sz, void *sock)
 
 //#define SERVER "www.wolfssl.com"
 //#define HTTP_REQ "GET /wolfSSL/Home.html HTTP/1.0\r\nhost: www.wolfssl.com\r\n\r\n"
-#define SERVER "www.google.com"
-#define HTTP_REQ "GET / HTTP/1.0\r\nhost: www.google.com\r\n\r\n"
-#define HTTP_PORT 80
+//#define SERVER "www.google.com"
+//#define HTTP_REQ "GET / HTTP/1.0\r\nhost: www.google.com\r\n\r\n"
+//#define HTTP_PORT 80
+
+#define SERVER "192.168.0.3"
+#define HTTP_REQ "GET / HTTP/1.0\r\nhost: 192.168.0.3\r\n\r\n"
+#define HTTPS_PORT 443
+
 
 /*
  *  clients initial contact with server. Socket to connect to: sock
@@ -64,15 +69,14 @@ int ClientGreet(TCPSocketConnection *sock)
     int        ret ;
 
     if (sock->send((char *)HTTP_REQ, strlen(HTTP_REQ)) < 0)  {
-        /* the message is not able to send, or error trying */
-        //ret = wolfSSL_get_error(sock, 0);
-        syslog(LOG_NOTICE, "Write error\n");
-        return EXIT_FAILURE;
+        ret = wolfSSL_get_error(ssl, 0);
+        syslog(LOG_NOTICE, "Write error[%d]:%s\n", ret, wc_GetErrorString(ret));
+        return EXIT_FAILURE;		
     }
     syslog(LOG_NOTICE, "Recieved:\n");
     while ((ret = sock->receive(rcvBuff, sizeof(rcvBuff)-1)) > 0)  {
         rcvBuff[ret] = '\0';
-        printf("%s", rcvBuff);
+        syslog(LOG_NOTICE, "%s", rcvBuff);
     }
 
     return ret;
@@ -97,8 +101,8 @@ tcpClient_main(intptr_t exinf) {
 	/* syslogの設定 */
     SVC_PERROR(syslog_msk_log(LOG_UPTO(LOG_INFO), LOG_UPTO(LOG_EMERG)));
 
+	syslog(LOG_NOTICE, "tcpClient:");
     syslog(LOG_NOTICE, "Sample program starts (exinf = %d).", (int_t) exinf);
-    //printf( "Network Setting up...\r\n");
     syslog(LOG_NOTICE, "LOG_NOTICE: Network Setting up...");
 
 #if (USE_DHCP == 1)
@@ -114,6 +118,12 @@ tcpClient_main(intptr_t exinf) {
         syslog(LOG_NOTICE, "LOG_NOTICE: Network Connect Error");
     }
 
+    syslog(LOG_NOTICE, "MAC Address is %s", network.getMACAddress());
+    syslog(LOG_NOTICE, "IP Address is %s", network.getIPAddress());
+    syslog(LOG_NOTICE, "NetMask is %s", network.getNetworkMask());
+    syslog(LOG_NOTICE, "Gateway Address is %s", network.getGateway());
+    syslog(LOG_NOTICE, "Network Setup OK...");
+	
     while (socket.connect(SERVER, HTTP_PORT) < 0) {
         syslog(LOG_NOTICE, "Unable to connect to (%s) on port (%d)\n", SERVER, HTTP_PORT);
         wait(1.0);
