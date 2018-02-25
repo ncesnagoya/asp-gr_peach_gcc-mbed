@@ -43,7 +43,9 @@ $(WOLFSSL_LIB_DIR)/wolfcrypt/src/md2.o \
 $(WOLFSSL_LIB_DIR)/wolfcrypt/src/md4.o \
 $(WOLFSSL_LIB_DIR)/wolfcrypt/src/md5.o \
 $(WOLFSSL_LIB_DIR)/wolfcrypt/src/memory.o \
+$(WOLFSSL_LIB_DIR)/wolfcrypt/src/misc.o \
 $(WOLFSSL_LIB_DIR)/wolfcrypt/src/pkcs7.o \
+$(WOLFSSL_LIB_DIR)/wolfcrypt/src/pkcs12.o \
 $(WOLFSSL_LIB_DIR)/wolfcrypt/src/poly1305.o \
 $(WOLFSSL_LIB_DIR)/wolfcrypt/src/pwdbased.o \
 $(WOLFSSL_LIB_DIR)/wolfcrypt/src/rabbit.o \
@@ -58,8 +60,8 @@ $(WOLFSSL_LIB_DIR)/wolfcrypt/src/srp.o \
 $(WOLFSSL_LIB_DIR)/wolfcrypt/src/tfm.o \
 $(WOLFSSL_LIB_DIR)/wolfcrypt/src/wc_encrypt.o \
 $(WOLFSSL_LIB_DIR)/wolfcrypt/src/wc_port.o \
-$(WOLFSSL_LIB_DIR)/wolfcrypt/src/wolfevent.o 
-#$(WOLFSSL_LIB_DIR)/wolfcrypt/src/wolfmath.o 
+$(WOLFSSL_LIB_DIR)/wolfcrypt/src/wolfevent.o \
+$(WOLFSSL_LIB_DIR)/wolfcrypt/src/wolfmath.o 
 
 TLS_CLASS_OBJ = $(WOLFSSL_ROOT_DIR)/TLSSocketConnection.o
 
