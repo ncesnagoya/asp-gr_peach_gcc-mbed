@@ -53,7 +53,7 @@ static int SocketSend(WOLFSSL* ssl, char *buf, int sz, void *sock)
 //#define HTTPS_PORT 443
 
 #define SERVER "192.168.0.3"
-#define HTTP_REQ "GET / HTTP/1.0\r\nhost: 192.168.0.3\r\n\r\n"
+#define HTTP_REQ "GET /iisstart.htm HTTP/1.0\r\nhost: 192.168.0.3\r\n\r\n"
 #define HTTPS_PORT 443
 
 /*
@@ -97,25 +97,25 @@ int Security(TCPSocketConnection *socket)
     int          ret = 0;
 
 #ifdef  STATIC_BUFFER
-    syslog(LOG_NOTICE, "wolfSSL_CTX_load_static_memory\n");
+    syslog(LOG_DEBUG, "wolfSSL_CTX_load_static_memory\n");
     /* set up static memory */
     if (wolfSSL_CTX_load_static_memory(&ctx, wolfTLSv1_2_client_method_ex, memory, sizeof(memory),0,1)
             != SSL_SUCCESS){
-        syslog(LOG_NOTICE, "unable to load static memory and create ctx");
+        syslog(LOG_EMERG, "unable to load static memory and create ctx");
         return  EXIT_FAILURE;
     }
 
     /* load in a buffer for IO */
-    syslog(LOG_NOTICE, "wolfSSL_CTX_load_static_memory\n");
+    syslog(LOG_DEBUG, "wolfSSL_CTX_load_static_memory\n");
     if (wolfSSL_CTX_load_static_memory(&ctx, NULL, memoryIO, sizeof(memoryIO),
                                  WOLFMEM_IO_POOL_FIXED | WOLFMEM_TRACK_STATS, 1)
             != SSL_SUCCESS){
-        syslog(LOG_NOTICE, "unable to load static memory and create ctx");
+        syslog(LOG_EMERG, "unable to load static memory and create ctx");
 	    return  EXIT_FAILURE;
     }
 #else
     if ((ctx = wolfSSL_CTX_new(wolfTLSv1_2_client_method())) == NULL) {
-        syslog(LOG_NOTICE, "wolfSSL_new error.\n");
+        syslog(LOG_EMERG, "wolfSSL_new error.\n");
         return EXIT_FAILURE;
     }
 #endif
@@ -125,7 +125,7 @@ int Security(TCPSocketConnection *socket)
     wolfSSL_CTX_set_verify(ctx, SSL_VERIFY_NONE, 0);
 
     if ((ssl = wolfSSL_new(ctx)) == NULL) {
-        syslog(LOG_NOTICE, "wolfSSL_new error.\n");
+        syslog(LOG_EMERG, "wolfSSL_new error.\n");
         return EXIT_FAILURE;
     }
 
@@ -138,7 +138,7 @@ int Security(TCPSocketConnection *socket)
         ret = ClientGreet(ssl);
     } else {
         ret = wolfSSL_get_error(ssl, 0);
-        syslog(LOG_NOTICE, "TLS Connect error[%d], %s\n", ret, wc_GetErrorString(ret));
+        syslog(LOG_EMERG, "TLS Connect error[%d], %s\n", ret, wc_GetErrorString(ret));
         return EXIT_FAILURE;
     }
     /* frees all data before client termination */
