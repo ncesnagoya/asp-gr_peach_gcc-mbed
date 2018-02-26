@@ -11,8 +11,11 @@
 #include "EthernetInterface.h"
 #include "syssvc/logtask.h"
 
+#include "RomRamFileSystem.h"
+
 #include    <wolfssl/ssl.h>          /* wolfSSL security library */
 #include    <wolfssl/wolfcrypt/error-crypt.h>
+#include    <wolfssl/wolfcrypt/logging.h>
 #include    <user_settings.h>
 #include    <sslClient.h>
 
@@ -31,7 +34,7 @@ svc_perror(const char *file, int_t line, const char *expr, ER ercd)
 
 /**** User Selection *********/
 /** Network setting **/
-#define USE_DHCP               (0)                 /* Select  0(static configuration) or 1(use DHCP) */
+#define USE_DHCP               (1)                 /* Select  0(static configuration) or 1(use DHCP) */
 #if (USE_DHCP == 0)
   #define IP_ADDRESS           ("192.168.0.2")     /* IP address      */
   #define SUBNET_MASK          ("255.255.255.0")   /* Subnet mask     */
@@ -50,10 +53,11 @@ static int SocketSend(WOLFSSL* ssl, char *buf, int sz, void *sock)
 
 //#define SERVER "www.wolfssl.com"
 //#define HTTP_REQ "GET /wolfSSL/Home.html HTTP/1.0\r\nhost: www.wolfssl.com\r\n\r\n"
-//#define HTTPS_PORT 443
+//#define SERVER "192.168.0.3"
+//#define HTTP_REQ "GET /iisstart.htm HTTP/1.0\r\nhost: 192.168.0.3\r\n\r\n"
+#define SERVER "os.mbed.com"
+#define HTTP_REQ "GET /media/uploads/mbed_official/hello.txt HTTP/1.0\r\nhost: os.mbed.com\r\n\r\n"
 
-#define SERVER "192.168.0.3"
-#define HTTP_REQ "GET /iisstart.htm HTTP/1.0\r\nhost: 192.168.0.3\r\n\r\n"
 #define HTTPS_PORT 443
 
 /*
@@ -64,22 +68,21 @@ int ClientGreet(WOLFSSL *ssl)
    	#define MAXDATASIZE (1024*4)
     char       rcvBuff[MAXDATASIZE] = {0};
     int        ret ;
-
+#if 1
     if (wolfSSL_write(ssl, HTTP_REQ, strlen(HTTP_REQ)) < 0) {
         /* the message is not able to send, or error trying */
         ret = wolfSSL_get_error(ssl, 0);
-        syslog(LOG_NOTICE, "Write error[%d]:%s\n", ret, wc_GetErrorString(ret));
+        syslog(LOG_EMERG, "Write error[%d]:%s", ret, wc_GetErrorString(ret));
         return EXIT_FAILURE;
     }
-    syslog(LOG_NOTICE, "Recieved:\n");
+#endif
+    syslog(LOG_NOTICE, "Received:");
     while ((ret = wolfSSL_read(ssl, rcvBuff, sizeof(rcvBuff)-1)) > 0) {
-        rcvBuff[ret] = '\0' ;
+        rcvBuff[ret] = '\0';
         syslog(LOG_NOTICE, "%s", rcvBuff);
     }
-
     return ret;
 }
-
 
 /*
  * applies TLS 1.2 security layer to data being sent.
@@ -97,7 +100,7 @@ int Security(TCPSocketConnection *socket)
     int          ret = 0;
 
 #ifdef  STATIC_BUFFER
-    syslog(LOG_DEBUG, "wolfSSL_CTX_load_static_memory\n");
+    syslog(LOG_DEBUG, "wolfSSL_CTX_load_static_memory");
     /* set up static memory */
     if (wolfSSL_CTX_load_static_memory(&ctx, wolfTLSv1_2_client_method_ex, memory, sizeof(memory),0,1)
             != SSL_SUCCESS){
@@ -106,7 +109,7 @@ int Security(TCPSocketConnection *socket)
     }
 
     /* load in a buffer for IO */
-    syslog(LOG_DEBUG, "wolfSSL_CTX_load_static_memory\n");
+    syslog(LOG_DEBUG, "wolfSSL_CTX_load_static_memory");
     if (wolfSSL_CTX_load_static_memory(&ctx, NULL, memoryIO, sizeof(memoryIO),
                                  WOLFMEM_IO_POOL_FIXED | WOLFMEM_TRACK_STATS, 1)
             != SSL_SUCCESS){
@@ -115,7 +118,7 @@ int Security(TCPSocketConnection *socket)
     }
 #else
     if ((ctx = wolfSSL_CTX_new(wolfTLSv1_2_client_method())) == NULL) {
-        syslog(LOG_EMERG, "wolfSSL_new error.\n");
+        syslog(LOG_EMERG, "wolfSSL_new error.");
         return EXIT_FAILURE;
     }
 #endif
@@ -125,7 +128,7 @@ int Security(TCPSocketConnection *socket)
     wolfSSL_CTX_set_verify(ctx, SSL_VERIFY_NONE, 0);
 
     if ((ssl = wolfSSL_new(ctx)) == NULL) {
-        syslog(LOG_EMERG, "wolfSSL_new error.\n");
+        syslog(LOG_EMERG, "wolfSSL_new error.");
         return EXIT_FAILURE;
     }
 
@@ -134,11 +137,11 @@ int Security(TCPSocketConnection *socket)
 
     ret = wolfSSL_connect(ssl);
     if (ret == SSL_SUCCESS) {
-        syslog(LOG_NOTICE, "TLS Connected\n") ;
+        syslog(LOG_NOTICE, "TLS Connected") ;
         ret = ClientGreet(ssl);
     } else {
         ret = wolfSSL_get_error(ssl, 0);
-        syslog(LOG_EMERG, "TLS Connect error[%d], %s\n", ret, wc_GetErrorString(ret));
+        syslog(LOG_EMERG, "TLS Connect error[%d], %s", ret, wc_GetErrorString(ret));
         return EXIT_FAILURE;
     }
     /* frees all data before client termination */
@@ -149,13 +152,12 @@ int Security(TCPSocketConnection *socket)
     return ret;
 }
 
-
 void
 sslClient_main(intptr_t exinf) {
     EthernetInterface network;
     TCPSocketConnection socket;
 
-	  /* syslogの設定 */
+	/* syslogの設定 */
     SVC_PERROR(syslog_msk_log(LOG_UPTO(LOG_INFO), LOG_UPTO(LOG_EMERG)));
 
     syslog(LOG_NOTICE, "sslClient:");
@@ -182,12 +184,12 @@ sslClient_main(intptr_t exinf) {
     syslog(LOG_NOTICE, "Network Setup OK...");
 
     while (socket.connect(SERVER, HTTPS_PORT) < 0) {
-        syslog(LOG_NOTICE, "Unable to connect to (%s) on port (%d)\n", SERVER, HTTPS_PORT);
+        syslog(LOG_EMERG, "Unable to connect to (%s) on port (%d)", SERVER, HTTPS_PORT);
         wait(1.0);
     }
     Security(&socket);
     socket.close();
-    syslog(LOG_NOTICE, "program end\n");	
+    syslog(LOG_NOTICE, "program end");	
 }
 
 // set mac address
