@@ -50,14 +50,13 @@ static int SocketSend(WOLFSSL* ssl, char *buf, int sz, void *sock)
 
 //#define SERVER "www.wolfssl.com"
 //#define HTTP_REQ "GET /wolfSSL/Home.html HTTP/1.0\r\nhost: www.wolfssl.com\r\n\r\n"
-//#define SERVER "www.google.com"
-//#define HTTP_REQ "GET / HTTP/1.0\r\nhost: www.google.com\r\n\r\n"
-//#define HTTP_PORT 80
+
+//#define SERVER "os.mbed.com"
+//#define HTTP_REQ "GET /media/uploads/mbed_official/hello.txt HTTP/1.0\r\nhost: os.mbed.com\r\n\r\n"
 
 #define SERVER "192.168.0.3"
-#define HTTP_REQ "GET / HTTP/1.0\r\nhost: 192.168.0.3\r\n\r\n"
-#define HTTPS_PORT 443
-
+#define HTTP_REQ "GET /iisstart.htm HTTP/1.0\r\nhost: 192.168.0.3\r\n\r\n"
+#define HTTP_PORT 80
 
 /*
  *  clients initial contact with server. Socket to connect to: sock
@@ -69,11 +68,10 @@ int ClientGreet(TCPSocketConnection *sock)
     int        ret ;
 
     if (sock->send((char *)HTTP_REQ, strlen(HTTP_REQ)) < 0)  {
-        ret = wolfSSL_get_error(ssl, 0);
-        syslog(LOG_NOTICE, "Write error[%d]:%s\n", ret, wc_GetErrorString(ret));
+        syslog(LOG_EMERG, "Write error");
         return EXIT_FAILURE;		
     }
-    syslog(LOG_NOTICE, "Recieved:\n");
+    syslog(LOG_NOTICE, "Received:");
     while ((ret = sock->receive(rcvBuff, sizeof(rcvBuff)-1)) > 0)  {
         rcvBuff[ret] = '\0';
         syslog(LOG_NOTICE, "%s", rcvBuff);
@@ -125,13 +123,12 @@ tcpClient_main(intptr_t exinf) {
     syslog(LOG_NOTICE, "Network Setup OK...");
 	
     while (socket.connect(SERVER, HTTP_PORT) < 0) {
-        syslog(LOG_NOTICE, "Unable to connect to (%s) on port (%d)\n", SERVER, HTTP_PORT);
+        syslog(LOG_EMERG, "Unable to connect to (%s) on port (%d)", SERVER, HTTP_PORT);
         wait(1.0);
     }
-
     ClientGreet(&socket);
     socket.close();
-    syslog(LOG_NOTICE, "program end\n");
+    syslog(LOG_NOTICE, "program end");
 }
 
 // set mac address
@@ -162,28 +159,3 @@ void cyclic_handler(intptr_t exinf)
 	}
 	set_led(BLUE_LED, led_state);
 }
-
-#if 0
-
-void cyclic_time(intptr_t exinf)
-{
-        //get_utm(times);
-        //syslog(LOG_NOTICE, "time=%d\n", *times);
-	syslog(LOG_NOTICE, "time task\n");
-	iwup_tsk(TIMTSK);
-
-}
-
-SYSUTM *times;
-void tsk_time(intptr_t exinf)
-{
-
-	for(;;){
-	syslog(LOG_NOTICE, "time\n");
-	slp_tsk();
-	get_utm(times);
-	syslog(LOG_NOTICE, "time2\n");
-	//syslog(LOG_NOTICE, "time=%d\n", *times);
-	}
-}
-#endif
