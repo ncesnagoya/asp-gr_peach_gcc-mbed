@@ -14,11 +14,11 @@
     #define NO_SESSION_CACHE // For Small RAM
     //#define IGNORE_KEY_EXTENSIONS
     #define NO_WOLFSSL_DIR  
-    //#define DEBUG_WOLFSSL
+//#define DEBUG_WOLFSSL
     #define WOLFSSL_STATIC_MEMORY /* use wolf memory pool management */
     #define USE_FAST_MATH
     /* Options for Sample program */
-    //#define WOLFSSL_NO_VERIFYSERVER
+    #define WOLFSSL_NO_VERIFYSERVER
     //#define NO_FILESYSTEM
     #ifndef WOLFSSL_NO_VERIFYSERVER
         #define TIME_OVERRIDES

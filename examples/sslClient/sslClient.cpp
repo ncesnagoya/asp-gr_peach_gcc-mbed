@@ -11,8 +11,6 @@
 #include "EthernetInterface.h"
 #include "syssvc/logtask.h"
 
-#include "RomRamFileSystem.h"
-
 #include    <wolfssl/ssl.h>          /* wolfSSL security library */
 #include    <wolfssl/wolfcrypt/error-crypt.h>
 #include    <wolfssl/wolfcrypt/logging.h>
