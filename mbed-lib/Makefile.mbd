@@ -48,8 +48,8 @@ endif
 
 all: $(LIB).a
 
-#clean:
-#	rm -f $(LIB).lib $(ALL_OBJ) $(DEPS)
+clean:
+	rm -f $(LIB).lib $(ALL_OBJ) $(DEPS)
 
 $(ASM_OBJ): %.o: %.S
 	$(CC) $(CPU) $(ASM_FLAGS) -c -x assembler-with-cpp -o $@ $<

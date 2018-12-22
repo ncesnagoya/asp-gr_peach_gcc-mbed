@@ -2,59 +2,121 @@ C_OBJ += $(MBED_LIB_DIR)/EthernetInterface/lwip-eth/arch/TARGET_RZ_A1H/rza1_emac
       	 $(MBED_LIB_DIR)/EthernetInterface/lwip-sys/arch/checksum.o \
 	 $(MBED_LIB_DIR)/EthernetInterface/lwip-sys/arch/memcpy.o \
 	 $(MBED_LIB_DIR)/EthernetInterface/lwip-sys/arch/sys_arch.o \
-	 $(MBED_LIB_DIR)/EthernetInterface/lwip/netif/etharp.o \
-	 $(MBED_LIB_DIR)/EthernetInterface/lwip/netif/ethernetif.o \
-	 $(MBED_LIB_DIR)/EthernetInterface/lwip/netif/slipif.o \
-	 $(MBED_LIB_DIR)/EthernetInterface/lwip/netif/ppp/auth.o \
-	 $(MBED_LIB_DIR)/EthernetInterface/lwip/netif/ppp/chap.o \
-	 $(MBED_LIB_DIR)/EthernetInterface/lwip/netif/ppp/chpms.o \
-	 $(MBED_LIB_DIR)/EthernetInterface/lwip/netif/ppp/fsm.o \
-	 $(MBED_LIB_DIR)/EthernetInterface/lwip/netif/ppp/ipcp.o \
-	 $(MBED_LIB_DIR)/EthernetInterface/lwip/netif/ppp/lcp.o \
-	 $(MBED_LIB_DIR)/EthernetInterface/lwip/netif/ppp/magic.o \
-	 $(MBED_LIB_DIR)/EthernetInterface/lwip/netif/ppp/md5.o \
-	 $(MBED_LIB_DIR)/EthernetInterface/lwip/netif/ppp/pap.o \
-	 $(MBED_LIB_DIR)/EthernetInterface/lwip/netif/ppp/ppp.o \
-	 $(MBED_LIB_DIR)/EthernetInterface/lwip/netif/ppp/ppp_oe.o \
-	 $(MBED_LIB_DIR)/EthernetInterface/lwip/netif/ppp/randm.o \
-	 $(MBED_LIB_DIR)/EthernetInterface/lwip/netif/ppp/vj.o \
 	 $(MBED_LIB_DIR)/EthernetInterface/lwip/api/api_lib.o \
 	 $(MBED_LIB_DIR)/EthernetInterface/lwip/api/api_msg.o \
  	 $(MBED_LIB_DIR)/EthernetInterface/lwip/api/err.o \
+ 	 $(MBED_LIB_DIR)/EthernetInterface/lwip/api/if_api.o \
 	 $(MBED_LIB_DIR)/EthernetInterface/lwip/api/netbuf.o \
 	 $(MBED_LIB_DIR)/EthernetInterface/lwip/api/netdb.o \
 	 $(MBED_LIB_DIR)/EthernetInterface/lwip/api/netifapi.o \
 	 $(MBED_LIB_DIR)/EthernetInterface/lwip/api/sockets.o \
 	 $(MBED_LIB_DIR)/EthernetInterface/lwip/api/tcpip.o \
+	 $(MBED_LIB_DIR)/EthernetInterface/lwip/apps/altcp_tls/altcp_tls_mbedtls.o \
+	 $(MBED_LIB_DIR)/EthernetInterface/lwip/apps/altcp_tls/altcp_tls_mbedtls_mem.o \
+	 $(MBED_LIB_DIR)/EthernetInterface/lwip/apps/lwiperf/lwiperf.o \
+	 $(MBED_LIB_DIR)/EthernetInterface/lwip/apps/mdns/mdns.o \
+	 $(MBED_LIB_DIR)/EthernetInterface/lwip/apps/mqtt/mqtt.o \
+	 $(MBED_LIB_DIR)/EthernetInterface/lwip/apps/netbiosns/netbiosns.o \
+	 $(MBED_LIB_DIR)/EthernetInterface/lwip/apps/smtp/smtp.o \
+	 $(MBED_LIB_DIR)/EthernetInterface/lwip/apps/snmp/snmp_asn1.o \
+	 $(MBED_LIB_DIR)/EthernetInterface/lwip/apps/snmp/snmp_core.o \
+	 $(MBED_LIB_DIR)/EthernetInterface/lwip/apps/snmp/snmp_mib2.o \
+	 $(MBED_LIB_DIR)/EthernetInterface/lwip/apps/snmp/snmp_mib2_icmp.o \
+	 $(MBED_LIB_DIR)/EthernetInterface/lwip/apps/snmp/snmp_mib2_interfaces.o \
+	 $(MBED_LIB_DIR)/EthernetInterface/lwip/apps/snmp/snmp_mib2_ip.o \
+	 $(MBED_LIB_DIR)/EthernetInterface/lwip/apps/snmp/snmp_mib2_snmp.o \
+	 $(MBED_LIB_DIR)/EthernetInterface/lwip/apps/snmp/snmp_mib2_system.o \
+	 $(MBED_LIB_DIR)/EthernetInterface/lwip/apps/snmp/snmp_mib2_tcp.o \
+	 $(MBED_LIB_DIR)/EthernetInterface/lwip/apps/snmp/snmp_mib2_udp.o \
+	 $(MBED_LIB_DIR)/EthernetInterface/lwip/apps/snmp/snmp_msg.o \
+	 $(MBED_LIB_DIR)/EthernetInterface/lwip/apps/snmp/snmp_netconn.o \
+	 $(MBED_LIB_DIR)/EthernetInterface/lwip/apps/snmp/snmp_pbuf_stream.o \
+	 $(MBED_LIB_DIR)/EthernetInterface/lwip/apps/snmp/snmp_raw.o \
+	 $(MBED_LIB_DIR)/EthernetInterface/lwip/apps/snmp/snmp_scalar.o \
+	 $(MBED_LIB_DIR)/EthernetInterface/lwip/apps/snmp/snmp_snmpv2_framework.o \
+	 $(MBED_LIB_DIR)/EthernetInterface/lwip/apps/snmp/snmp_snmpv2_usm.o \
+	 $(MBED_LIB_DIR)/EthernetInterface/lwip/apps/snmp/snmp_table.o \
+	 $(MBED_LIB_DIR)/EthernetInterface/lwip/apps/snmp/snmp_threadsync.o \
+	 $(MBED_LIB_DIR)/EthernetInterface/lwip/apps/snmp/snmp_traps.o \
+	 $(MBED_LIB_DIR)/EthernetInterface/lwip/apps/snmp/snmpv3.o \
+	 $(MBED_LIB_DIR)/EthernetInterface/lwip/apps/snmp/snmpv3_mbedtls.o \
+	 $(MBED_LIB_DIR)/EthernetInterface/lwip/apps/sntp/sntp.o \
+	 $(MBED_LIB_DIR)/EthernetInterface/lwip/apps/tftp/tftp_server.o \
+	 $(MBED_LIB_DIR)/EthernetInterface/lwip/netif/bridgeif.o \
+	 $(MBED_LIB_DIR)/EthernetInterface/lwip/netif/bridgeif_fdb.o \
+	 $(MBED_LIB_DIR)/EthernetInterface/lwip/netif/ethernet.o \
+	 $(MBED_LIB_DIR)/EthernetInterface/lwip/netif/lowpan6.o \
+	 $(MBED_LIB_DIR)/EthernetInterface/lwip/netif/lowpan6_ble.o \
+	 $(MBED_LIB_DIR)/EthernetInterface/lwip/netif/lowpan6_common.o \
+	 $(MBED_LIB_DIR)/EthernetInterface/lwip/netif/ppp/auth.o \
+	 $(MBED_LIB_DIR)/EthernetInterface/lwip/netif/ppp/ccp.o \
+	 $(MBED_LIB_DIR)/EthernetInterface/lwip/netif/ppp/chap-md5.o \
+	 $(MBED_LIB_DIR)/EthernetInterface/lwip/netif/ppp/chap-new.o \
+	 $(MBED_LIB_DIR)/EthernetInterface/lwip/netif/ppp/chap_ms.o \
+	 $(MBED_LIB_DIR)/EthernetInterface/lwip/netif/ppp/demand.o \
+	 $(MBED_LIB_DIR)/EthernetInterface/lwip/netif/ppp/eap.o \
+	 $(MBED_LIB_DIR)/EthernetInterface/lwip/netif/ppp/ecp.o \
+	 $(MBED_LIB_DIR)/EthernetInterface/lwip/netif/ppp/eui64.o \
+	 $(MBED_LIB_DIR)/EthernetInterface/lwip/netif/ppp/fsm.o \
+	 $(MBED_LIB_DIR)/EthernetInterface/lwip/netif/ppp/ipcp.o \
+	 $(MBED_LIB_DIR)/EthernetInterface/lwip/netif/ppp/ipv6cp.o \
+	 $(MBED_LIB_DIR)/EthernetInterface/lwip/netif/ppp/lcp.o \
+	 $(MBED_LIB_DIR)/EthernetInterface/lwip/netif/ppp/magic.o \
+	 $(MBED_LIB_DIR)/EthernetInterface/lwip/netif/ppp/mppe.o \
+	 $(MBED_LIB_DIR)/EthernetInterface/lwip/netif/ppp/multilink.o \
+	 $(MBED_LIB_DIR)/EthernetInterface/lwip/netif/ppp/polarssl/arc4.o \
+	 $(MBED_LIB_DIR)/EthernetInterface/lwip/netif/ppp/polarssl/des.o \
+	 $(MBED_LIB_DIR)/EthernetInterface/lwip/netif/ppp/polarssl/md4.o \
+	 $(MBED_LIB_DIR)/EthernetInterface/lwip/netif/ppp/polarssl/md5.o \
+	 $(MBED_LIB_DIR)/EthernetInterface/lwip/netif/ppp/polarssl/sha1.o \
+	 $(MBED_LIB_DIR)/EthernetInterface/lwip/netif/ppp/ppp.o \
+	 $(MBED_LIB_DIR)/EthernetInterface/lwip/netif/ppp/pppapi.o \
+	 $(MBED_LIB_DIR)/EthernetInterface/lwip/netif/ppp/pppcrypt.o \
+	 $(MBED_LIB_DIR)/EthernetInterface/lwip/netif/ppp/pppoe.o \
+	 $(MBED_LIB_DIR)/EthernetInterface/lwip/netif/ppp/pppol2tp.o \
+	 $(MBED_LIB_DIR)/EthernetInterface/lwip/netif/ppp/pppos.o \
+	 $(MBED_LIB_DIR)/EthernetInterface/lwip/netif/ppp/upap.o \
+	 $(MBED_LIB_DIR)/EthernetInterface/lwip/netif/ppp/utils.o \
+	 $(MBED_LIB_DIR)/EthernetInterface/lwip/netif/ppp/vj.o \
+	 $(MBED_LIB_DIR)/EthernetInterface/lwip/netif/slipif.o \
+	 $(MBED_LIB_DIR)/EthernetInterface/lwip/netif/zepif.o \
+	 $(MBED_LIB_DIR)/EthernetInterface/lwip/core/altcp.o \
+	 $(MBED_LIB_DIR)/EthernetInterface/lwip/core/altcp_alloc.o \
+	 $(MBED_LIB_DIR)/EthernetInterface/lwip/core/altcp_tcp.o \
 	 $(MBED_LIB_DIR)/EthernetInterface/lwip/core/def.o \
-	 $(MBED_LIB_DIR)/EthernetInterface/lwip/core/dhcp.o \
 	 $(MBED_LIB_DIR)/EthernetInterface/lwip/core/dns.o \
+	 $(MBED_LIB_DIR)/EthernetInterface/lwip/core/inet_chksum.o \
 	 $(MBED_LIB_DIR)/EthernetInterface/lwip/core/init.o \
+	 $(MBED_LIB_DIR)/EthernetInterface/lwip/core/ip.o \
 	 $(MBED_LIB_DIR)/EthernetInterface/lwip/core/mem.o \
 	 $(MBED_LIB_DIR)/EthernetInterface/lwip/core/memp.o \
 	 $(MBED_LIB_DIR)/EthernetInterface/lwip/core/netif.o \
 	 $(MBED_LIB_DIR)/EthernetInterface/lwip/core/pbuf.o \
 	 $(MBED_LIB_DIR)/EthernetInterface/lwip/core/raw.o \
 	 $(MBED_LIB_DIR)/EthernetInterface/lwip/core/stats.o \
+	 $(MBED_LIB_DIR)/EthernetInterface/lwip/core/sys.o \
 	 $(MBED_LIB_DIR)/EthernetInterface/lwip/core/tcp.o \
 	 $(MBED_LIB_DIR)/EthernetInterface/lwip/core/tcp_in.o \
 	 $(MBED_LIB_DIR)/EthernetInterface/lwip/core/tcp_out.o \
-	 $(MBED_LIB_DIR)/EthernetInterface/lwip/core/timers.o \
+	 $(MBED_LIB_DIR)/EthernetInterface/lwip/core/timeouts.o \
 	 $(MBED_LIB_DIR)/EthernetInterface/lwip/core/udp.o \
 	 $(MBED_LIB_DIR)/EthernetInterface/lwip/core/ipv4/autoip.o \
+	 $(MBED_LIB_DIR)/EthernetInterface/lwip/core/ipv4/dhcp.o \
+	 $(MBED_LIB_DIR)/EthernetInterface/lwip/core/ipv4/etharp.o \
 	 $(MBED_LIB_DIR)/EthernetInterface/lwip/core/ipv4/icmp.o \
 	 $(MBED_LIB_DIR)/EthernetInterface/lwip/core/ipv4/igmp.o \
-	 $(MBED_LIB_DIR)/EthernetInterface/lwip/core/ipv4/inet.o \
-	 $(MBED_LIB_DIR)/EthernetInterface/lwip/core/ipv4/inet_chksum.o \
-	 $(MBED_LIB_DIR)/EthernetInterface/lwip/core/ipv4/ip.o \
-	 $(MBED_LIB_DIR)/EthernetInterface/lwip/core/ipv4/ip_addr.o \
-	 $(MBED_LIB_DIR)/EthernetInterface/lwip/core/ipv4/ip_frag.o \
-	 $(MBED_LIB_DIR)/EthernetInterface/lwip/core/snmp/asn1_dec.o \
-	 $(MBED_LIB_DIR)/EthernetInterface/lwip/core/snmp/asn1_enc.o \
-	 $(MBED_LIB_DIR)/EthernetInterface/lwip/core/snmp/mib2.o \
-	 $(MBED_LIB_DIR)/EthernetInterface/lwip/core/snmp/mib_structs.o \
-	 $(MBED_LIB_DIR)/EthernetInterface/lwip/core/snmp/msg_in.o \
-	 $(MBED_LIB_DIR)/EthernetInterface/lwip/core/snmp/msg_out.o
+	 $(MBED_LIB_DIR)/EthernetInterface/lwip/core/ipv4/ip4.o \
+	 $(MBED_LIB_DIR)/EthernetInterface/lwip/core/ipv4/ip4_addr.o \
+	 $(MBED_LIB_DIR)/EthernetInterface/lwip/core/ipv4/ip4_frag.o \
+	 $(MBED_LIB_DIR)/EthernetInterface/lwip/core/ipv6/dhcp6.o \
+	 $(MBED_LIB_DIR)/EthernetInterface/lwip/core/ipv6/ethip6.o \
+	 $(MBED_LIB_DIR)/EthernetInterface/lwip/core/ipv6/icmp6.o \
+	 $(MBED_LIB_DIR)/EthernetInterface/lwip/core/ipv6/inet6.o \
+	 $(MBED_LIB_DIR)/EthernetInterface/lwip/core/ipv6/ip6.o \
+	 $(MBED_LIB_DIR)/EthernetInterface/lwip/core/ipv6/ip6_addr.o \
+	 $(MBED_LIB_DIR)/EthernetInterface/lwip/core/ipv6/ip6_frag.o \
+	 $(MBED_LIB_DIR)/EthernetInterface/lwip/core/ipv6/mld6.o \
+	 $(MBED_LIB_DIR)/EthernetInterface/lwip/core/ipv6/nd6.o \
 
 CXX_OBJ += $(MBED_LIB_DIR)/EthernetInterface/EthernetInterface.o \
 	   $(MBED_LIB_DIR)/EthernetInterface/Socket/Endpoint.o \
@@ -62,23 +124,31 @@ CXX_OBJ += $(MBED_LIB_DIR)/EthernetInterface/EthernetInterface.o \
 	   $(MBED_LIB_DIR)/EthernetInterface/Socket/TCPSocketConnection.o \
 	   $(MBED_LIB_DIR)/EthernetInterface/Socket/TCPSocketServer.o \
 	   $(MBED_LIB_DIR)/EthernetInterface/Socket/UDPSocket.o \
-	   $(MBED_LIB_DIR)/EthernetInterface/cmsis-rtos/rt_CMSIS.o
+	   $(MBED_LIB_DIR)/EthernetInterface/cmsis-rtos/rt_CMSIS.o 
+
 
 INCLUDE_PATHS += -I$(MBED_LIB_DIR)/EthernetInterface \
 		 -I$(MBED_LIB_DIR)/EthernetInterface/Socket \
-  		 -I$(MBED_LIB_DIR)/EthernetInterface/lwip \
- 		 -I$(MBED_LIB_DIR)/EthernetInterface/lwip/include \
- 		 -I$(MBED_LIB_DIR)/EthernetInterface/lwip/include/ipv4 \
-		 -I$(MBED_LIB_DIR)/EthernetInterface/lwip/core \
-		 -I$(MBED_LIB_DIR)/EthernetInterface/lwip/core/ipv4 \
-		 -I$(MBED_LIB_DIR)/EthernetInterface/lwip/core/snmp \
-		 -I$(MBED_LIB_DIR)/EthernetInterface/lwip/api \
-		 -I$(MBED_LIB_DIR)/EthernetInterface/lwip/netif \
-		 -I$(MBED_LIB_DIR)/EthernetInterface/lwip/netif/ppp \
  		 -I$(MBED_LIB_DIR)/EthernetInterface/lwip-sys \
 		 -I$(MBED_LIB_DIR)/EthernetInterface/lwip-eth/arch/TARGET_RZ_A1H \
 		 -I$(MBED_LIB_DIR)/EthernetInterface/cmsis-rtos \
- 		 -I$(SRCDIR) \
+		 -I$(MBED_LIB_DIR)/EthernetInterface/lwip \
+  		 -I$(MBED_LIB_DIR)/EthernetInterface/lwip/apps/altcp_tls \
+  		 -I$(MBED_LIB_DIR)/EthernetInterface/lwip/apps/snmp \
+		 -I$(MBED_LIB_DIR)/EthernetInterface/lwip/include \
+		 -I$(MBED_LIB_DIR)/EthernetInterface/lwip/include/compat/posix \
+ 		 -I$(MBED_LIB_DIR)/EthernetInterface/lwip/include/compat/posix/arpa \
+ 		 -I$(MBED_LIB_DIR)/EthernetInterface/lwip/include/compat/posix/net \
+ 		 -I$(MBED_LIB_DIR)/EthernetInterface/lwip/include/compat/posix/sys \
+ 		 -I$(MBED_LIB_DIR)/EthernetInterface/lwip/include/compat/stdc \
+		 -I$(MBED_LIB_DIR)/EthernetInterface/lwip/include/lwip \
+		 -I$(MBED_LIB_DIR)/EthernetInterface/lwip/include/lwip/apps \
+		 -I$(MBED_LIB_DIR)/EthernetInterface/lwip/include/lwip/priv \
+		 -I$(MBED_LIB_DIR)/EthernetInterface/lwip/include/lwip/prot \
+		 -I$(MBED_LIB_DIR)/EthernetInterface/lwip/include/netif \
+		 -I$(MBED_LIB_DIR)/EthernetInterface/lwip/include/netif/ppp \
+		 -I$(MBED_LIB_DIR)/EthernetInterface/lwip/include/netif/polarssl \
+		 -I$(SRCDIR) \
  		 -I$(SRCDIR)/include \
 		 -I$(SRCDIR)/target/gr_peach_gcc \
  		 -I$(SRCDIR)/arch \
