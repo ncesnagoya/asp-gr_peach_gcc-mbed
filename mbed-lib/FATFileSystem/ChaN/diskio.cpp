@@ -61,13 +61,17 @@ DRESULT disk_read (
 {
 	wai_sem(SEMID_FATFILESYSTEM);
     debug_if(FFS_DBG, "disk_read(sector %d, count %d) on pdrv [%d]\n", sector, count, pdrv);
-    if (FATFileSystem::_ffs[pdrv]->disk_read((uint8_t*)buff, sector, count)) {
-		sig_sem(SEMID_FATFILESYSTEM);
-        return RES_PARERR;
-	} else {
-		sig_sem(SEMID_FATFILESYSTEM);
-        return RES_OK;
-	}
+    for(DWORD s=sector; s<sector+count; s++) {
+        debug_if(FFS_DBG, " disk_read(sector %d)\n", s);
+        int res = FATFileSystem::_ffs[pdrv]->disk_read((uint8_t*)buff, s);
+        if(res) {
+			sig_sem(SEMID_FATFILESYSTEM);			
+            return RES_PARERR;
+        }
+        buff += 512;
+    }
+	sig_sem(SEMID_FATFILESYSTEM);	
+    return RES_OK;
 }
 
 /*-----------------------------------------------------------------------*/
@@ -84,13 +88,24 @@ DRESULT disk_write (
 {
 	wai_sem(SEMID_FATFILESYSTEM);
     debug_if(FFS_DBG, "disk_write(sector %d, count %d) on pdrv [%d]\n", sector, count, pdrv);
+
+    for(DWORD s = sector; s < sector + count; s++) {
+        debug_if(FFS_DBG, " disk_write(sector %d)\n", s);
+        int res = FATFileSystem::_ffs[pdrv]->disk_write((uint8_t*)buff, s);
+        if(res) {
+			sig_sem(SEMID_FATFILESYSTEM);
+			return RES_PARERR;
+        }
+        buff += 512;
+    }
+	sig_sem(SEMID_FATFILESYSTEM);
+	return RES_OK;
+
+	/*	
     if (FATFileSystem::_ffs[pdrv]->disk_write((uint8_t*)buff, sector, count)) {
-		sig_sem(SEMID_FATFILESYSTEM);
-        return RES_PARERR;
 	} else {
-		sig_sem(SEMID_FATFILESYSTEM);
-        return RES_OK;
 	}
+	*/
 }
 #endif
 

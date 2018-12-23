@@ -628,3 +628,66 @@ os_InRegs osEvent osMessageGet (osMessageQId queue_id, uint32_t millisec) {
 	}	
     return ret;
 }
+
+#define USE_FLG
+
+int32_t osSignalSet (osThreadId thread_id, int32_t signals) {
+#ifdef USE_FLG
+	T_RTSK rtsk;
+
+	ref_tsk(C2T_ID(thread_id), &rtsk);
+	if((rtsk.tskstat == TTS_WAI)
+	&& (rtsk.tskwait == TTW_FLG)) {
+		set_flg(rtsk.wobjid, signals);
+		return 0;
+	}
+#else
+	wup_tsk(C2T_ID(thread_id));
+#endif
+	return 0;
+}
+
+int32_t osSignalClear (osThreadId thread_id, int32_t signals) {
+#ifdef USE_FLG
+	T_RTSK rtsk;
+
+	ref_tsk(C2T_ID(thread_id), &rtsk);
+	if((rtsk.tskstat == TTS_WAI)
+	&& (rtsk.tskwait == TTW_FLG)) {
+		clr_flg(rtsk.wobjid, signals);
+	}
+#else
+#endif
+	return 0;
+}
+
+os_InRegs osEvent osSignalWait (int32_t signals, uint32_t millisec) {
+	osEvent ret;
+	assert(millisec < (1UL << (sizeof(TMO) * 8 - 1)) || millisec == osWaitForever); // FIXME: TMO is not unsigned!, TMO in Gen3 kernel is microseconds
+
+#ifdef USE_FLG
+	ER ercd;
+	ER_ID flgid;
+	T_CFLG cflg = {TA_CLR, 0};
+	FLGPTN flgptn;
+	T_RFLG rflg;
+
+	flgid = acre_flg(&cflg);
+	ercd = twai_flg(flgid, signals, TWF_ORW, &flgptn, C2T_TMO(millisec));
+	ref_flg(flgid, &rflg);
+
+	if(0 == rflg.flgptn) {
+		del_flg(flgid);
+	}
+
+	if (ercd == E_TMOUT) {
+		ret.status = millisec ? osEventTimeout : osOK;
+	} else {
+		ret.status = osEventMessage;
+	}
+#else
+	slp_tsk();
+#endif
+	return ret;
+}
+
