@@ -23,4 +23,5 @@ script:
  - git submodule init; git submodule update
  - pushd examples/tcpClient; make depend; make; popd
  - pushd examples/sslClient; make depend; make; popd
+ - pushd examples/camtank; make depend; make; popd
  
