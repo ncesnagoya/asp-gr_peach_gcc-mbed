@@ -120,7 +120,7 @@ class RomRamFileSystem : public FATFileSystem {
     }
 
     // return the number of sectors
-    virtual uint32_t disk_sectors() {
+    virtual uint64_t disk_sectors() {
         return NUM_OF_SECTORS;
     }
 
