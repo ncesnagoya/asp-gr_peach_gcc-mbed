@@ -4,9 +4,11 @@
 
 ![Stack](https://raw.github.com/wiki/ncesnagoya/asp-gr_peach_gcc-mbed/images/stack.png)
 
-Build Environment in Travis | Status
------------- | -------------
-Ubuntu 14.04.3 LTS | [![Build Status](https://travis-ci.org/ncesnagoya/asp-gr_peach_gcc-mbed.svg?branch=master)](https://travis-ci.org/ncesnagoya/asp-gr_peach_gcc-mbed)
+## Build Environment in Travis
+
+OS | Cross compiler | Status
+------------ | ------------- | -------------
+Ubuntu 14.04.3 LTS (trusty) | gcc-arm-none-eabi-6-2017-q1 | [![Build Status](https://travis-ci.org/ncesnagoya/asp-gr_peach_gcc-mbed.svg?branch=master)](https://travis-ci.org/ncesnagoya/asp-gr_peach_gcc-mbed)
 
 ## TOPPERS/ASP Kernel
 
