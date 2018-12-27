@@ -341,13 +341,20 @@ $(OBJFILE): $(APPL_CFG) kernel_cfg.timestamp $(ALL_OBJS) $(LIBS_DEP)
 #
 $(OBJNAME).bin: $(OBJFILE)
 	$(OBJCOPY) -O binary -S $(OBJFILE) $(OBJNAME).bin
-	cp -X $(OBJNAME).bin /Volumes/MBED # for MacOSX
+
 	
 #
 #  Sレコードファイルの生成
 #
 $(OBJNAME).srec: $(OBJFILE)
 	$(OBJCOPY) -O srec -S $(OBJFILE) $(OBJNAME).srec
+
+#
+#  バイナリファイルのアップロード
+#
+.PHONY: up
+up:
+	cp -X $(OBJNAME).bin /Volumes/MBED # for MacOSX
 
 #
 #  コンパイル結果の消去
