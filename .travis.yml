@@ -5,13 +5,13 @@ language: cpp
 compiler: gcc
 
 before_install:
- - sudo apt-get update
- - sudo apt-get install libboost1.55-all-dev -y
- - wget https://developer.arm.com/-/media/Files/downloads/gnu-rm/6_1-2017q1/gcc-arm-none-eabi-6-2017-q1-update-linux.tar.bz2
- - tar -xvvf `basename https://developer.arm.com/-/media/Files/downloads/gnu-rm/6_1-2017q1/gcc-arm-none-eabi-6-2017-q1-update-linux.tar.bz2` -C /opt
+ - sudo apt-get update >/dev/null
+ - sudo apt-get install libboost1.55-all-dev -y >/dev/null
+ - wget https://developer.arm.com/-/media/Files/downloads/gnu-rm/6_1-2017q1/gcc-arm-none-eabi-6-2017-q1-update-linux.tar.bz2 >/dev/null
+ - tar -xvvf `basename https://developer.arm.com/-/media/Files/downloads/gnu-rm/6_1-2017q1/gcc-arm-none-eabi-6-2017-q1-update-linux.tar.bz2` -C /opt >/dev/null
  - export PATH=/opt/gcc-arm-none-eabi-6-2017-q1-update/bin:$PATH
  - pushd asp-1.9.2-utf8/cfg
- - make
+ - make >/dev/null
  - /home/travis/build/ncesnagoya/asp-gr_peach_gcc-mbed/asp-1.9.2-utf8/cfg/cfg/cfg -v
  - popd
 
