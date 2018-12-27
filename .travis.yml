@@ -1,13 +1,12 @@
 sudo: required
-dist: trusty
+dist: xenial
 language: cpp
 
 compiler: gcc
 
 before_install:
- - sudo add-apt-repository ppa:team-gcc-arm-embedded/ppa -y
- - sudo apt-get update
- - sudo apt-get install gcc-arm-embedded libboost1.55-all-dev -y
+ - wget http://ev3rt-git.github.io/public/ev3rt-prepare-ubuntu.sh
+ - sudo bash ev3rt-prepare-ubuntu.sh
  - pushd asp-1.9.2-utf8/cfg
  - make
  - /home/travis/build/ncesnagoya/asp-gr_peach_gcc-mbed/asp-1.9.2-utf8/cfg/cfg/cfg -v
