@@ -11,9 +11,6 @@
 #include "EthernetInterface.h"
 #include "syssvc/logtask.h"
 
-#include    <wolfssl/ssl.h>          /* wolfSSL security library */
-#include    <wolfssl/wolfcrypt/error-crypt.h>
-#include    <user_settings.h>
 #include    <tcpClient.h>
 
 /*
@@ -37,16 +34,6 @@ svc_perror(const char *file, int_t line, const char *expr, ER ercd)
   #define SUBNET_MASK          ("255.255.255.0")   /* Subnet mask     */
   #define DEFAULT_GATEWAY      ("192.168.0.3")     /* Default gateway */
 #endif
-
-static int SocketReceive(WOLFSSL* ssl, char *buf, int sz, void *sock)
-{
-    return ((TCPSocketConnection *)sock)->receive(buf, sz) ;
-}
-
-static int SocketSend(WOLFSSL* ssl, char *buf, int sz, void *sock)
-{
-    return ((TCPSocketConnection *)sock)->send(buf, sz);
-}
 
 //#define SERVER "www.wolfssl.com"
 //#define HTTP_REQ "GET /wolfSSL/Home.html HTTP/1.0\r\nhost: www.wolfssl.com\r\n\r\n"
@@ -79,16 +66,6 @@ int ClientGreet(TCPSocketConnection *sock)
 
     return ret;
 }
-
-
-/*
- * applies TLS 1.2 security layer to data being sent.
- */
-#define STATIC_BUFFER
-#ifdef  STATIC_BUFFER
-static byte memory[1024*256];
-static byte memoryIO[1024*72];
-#endif
 
 void
 tcpClient_main(intptr_t exinf) {

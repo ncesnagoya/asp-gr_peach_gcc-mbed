@@ -17,18 +17,11 @@ OMIT_OPTIMIZATION = true
 #  ライブラリのディレクトリの定義
 #
 MBED_LIB_DIR = ../../mbed-lib
-WOLFSSL_ROOT_DIR = ../../wolfSSL-lib
-WOLFSSL_LIB_DIR = $(WOLFSSL_ROOT_DIR)/wolfssl
 
 #
 #  ASPソースファイルのディレクトリの定義
 #
 SRCDIR = ../../asp-1.9.2-utf8
-
-#
-#  wolfSSLライブラリ
-#
-include $(WOLFSSL_ROOT_DIR)/Makefile
 
 #
 #  MBEDライブラリのビルド
