@@ -66,61 +66,55 @@ class RomRamFileSystem : public FATFileSystem {
     }
 
     // read a sector in to the buffer, return 0 if ok
-    virtual int disk_read(uint8_t *buffer, uint32_t sector, uint32_t count) {
-        for (uint64_t sec_no = sector; sec_no < (sector + count); sec_no++) {
-            if (sectors[sec_no] == NULL) {
-                // nothing allocated means sector is empty
-                memset(buffer, 0, SECTOR_SIZE);
-            } else {
-                memcpy(buffer, sectors[sec_no], SECTOR_SIZE);
-            }
-            buffer += SECTOR_SIZE;
-        }
-        return 0;
-    }
+    virtual int disk_read(uint8_t *buffer, uint64_t sector) {
+		if (sectors[sector] == NULL) {
+			// nothing allocated means sector is empty
+			memset(buffer, 0, SECTOR_SIZE);
+		} else {
+			memcpy(buffer, sectors[sector], SECTOR_SIZE);
+		}
+		return 0;
+	}
 
     // write a sector from the buffer, return 0 if ok
-    virtual int disk_write(const uint8_t *buffer, uint32_t sector, uint32_t count) {
-        for (uint64_t sec_no = sector; sec_no < (sector + count); sec_no++) {
-            bool all_zero = true;
-            for (int i = 0; i < SECTOR_SIZE; i++) {
-                if (buffer[i] != NULL) {
-                    all_zero = false;
-                    break;
-                }
-            }
-            if (all_zero != false) {
-                if (sectors[sec_no] != NULL) {
-                    if (isRomAddress(sectors[sec_no]) == false) {
-                        free(sectors[sec_no]);
-                    }
-                    sectors[sec_no] = NULL;
-                }
-                return 0;
-            }
-            // allocate a sector if needed, and write
-            if (isRomAddress((char *)buffer) == false) {
-                if ((sectors[sec_no] == NULL) || (isRomAddress(sectors[sec_no]) != false)) {
-                    char *sec = (char*)malloc(SECTOR_SIZE);
-                    if (sec == NULL) {
-                        return 1; // out of memory
-                    }
-                    sectors[sec_no] = sec;
-                }
-                memcpy(sectors[sec_no], buffer, SECTOR_SIZE);
-            } else {
-                if (isRomAddress(sectors[sec_no]) == false) {
-                    free(sectors[sec_no]);
-                }
-                sectors[sec_no] = (char *)buffer;
-            }
-            buffer += SECTOR_SIZE;
-        }
+    virtual int disk_write(const uint8_t *buffer, uint64_t sector) {
+		bool all_zero = true;
+		for (int i = 0; i < SECTOR_SIZE; i++) {
+			if (buffer[i] != NULL) {
+				all_zero = false;
+				break;
+			}
+		}
+		if (all_zero != false) {
+			if (sectors[sector] != NULL) {
+				if (isRomAddress(sectors[sector]) == false) {
+					free(sectors[sector]);
+				}
+				sectors[sector] = NULL;
+			}
+			return 0;
+		}
+		// allocate a sector if needed, and write
+		if (isRomAddress((char *)buffer) == false) {
+			if ((sectors[sector] == NULL) || (isRomAddress(sectors[sector]) != false)) {
+				char *sec = (char*)malloc(SECTOR_SIZE);
+				if (sec == NULL) {
+					return 1; // out of memory
+				}
+				sectors[sector] = sec;
+			}
+			memcpy(sectors[sector], buffer, SECTOR_SIZE);
+		} else {
+			if (isRomAddress(sectors[sector]) == false) {
+				free(sectors[sector]);
+			}
+			sectors[sector] = (char *)buffer;
+		}
         return 0;
     }
 
     // return the number of sectors
-    virtual uint32_t disk_sectors() {
+    virtual uint64_t disk_sectors() {
         return NUM_OF_SECTORS;
     }
 
