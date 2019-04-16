@@ -4,12 +4,13 @@
 
 WOLFSSL_OBJ += $(WOLFSSL_LIB_DIR)/src/crl.o \
 $(WOLFSSL_LIB_DIR)/src/internal.o \
-$(WOLFSSL_LIB_DIR)/src/io.o \
 $(WOLFSSL_LIB_DIR)/src/keys.o \
 $(WOLFSSL_LIB_DIR)/src/ocsp.o \
 $(WOLFSSL_LIB_DIR)/src/sniffer.o \
 $(WOLFSSL_LIB_DIR)/src/ssl.o \
 $(WOLFSSL_LIB_DIR)/src/tls.o \
+$(WOLFSSL_LIB_DIR)/src/tls13.o \
+$(WOLFSSL_LIB_DIR)/src/wolfio.o \
 $(WOLFSSL_LIB_DIR)/wolfcrypt/src/aes.o \
 $(WOLFSSL_LIB_DIR)/wolfcrypt/src/arc4.o \
 $(WOLFSSL_LIB_DIR)/wolfcrypt/src/asm.o \
@@ -21,6 +22,7 @@ $(WOLFSSL_LIB_DIR)/wolfcrypt/src/chacha20_poly1305.o \
 $(WOLFSSL_LIB_DIR)/wolfcrypt/src/cmac.o \
 $(WOLFSSL_LIB_DIR)/wolfcrypt/src/coding.o \
 $(WOLFSSL_LIB_DIR)/wolfcrypt/src/compress.o \
+$(WOLFSSL_LIB_DIR)/wolfcrypt/src/cpuid.o \
 $(WOLFSSL_LIB_DIR)/wolfcrypt/src/curve25519.o \
 $(WOLFSSL_LIB_DIR)/wolfcrypt/src/des3.o \
 $(WOLFSSL_LIB_DIR)/wolfcrypt/src/dh.o \
@@ -29,6 +31,7 @@ $(WOLFSSL_LIB_DIR)/wolfcrypt/src/ecc.o \
 $(WOLFSSL_LIB_DIR)/wolfcrypt/src/ecc_fp.o \
 $(WOLFSSL_LIB_DIR)/wolfcrypt/src/ed25519.o \
 $(WOLFSSL_LIB_DIR)/wolfcrypt/src/error.o \
+$(WOLFSSL_LIB_DIR)/wolfcrypt/src/evp.o \
 $(WOLFSSL_LIB_DIR)/wolfcrypt/src/fe_low_mem.o \
 $(WOLFSSL_LIB_DIR)/wolfcrypt/src/fe_operations.o \
 $(WOLFSSL_LIB_DIR)/wolfcrypt/src/ge_low_mem.o \
@@ -53,14 +56,17 @@ $(WOLFSSL_LIB_DIR)/wolfcrypt/src/random.o \
 $(WOLFSSL_LIB_DIR)/wolfcrypt/src/ripemd.o \
 $(WOLFSSL_LIB_DIR)/wolfcrypt/src/rsa.o \
 $(WOLFSSL_LIB_DIR)/wolfcrypt/src/sha.o \
+$(WOLFSSL_LIB_DIR)/wolfcrypt/src/sha3.o \
 $(WOLFSSL_LIB_DIR)/wolfcrypt/src/sha256.o \
 $(WOLFSSL_LIB_DIR)/wolfcrypt/src/sha512.o \
 $(WOLFSSL_LIB_DIR)/wolfcrypt/src/signature.o \
+$(WOLFSSL_LIB_DIR)/wolfcrypt/src/sp.o \
 $(WOLFSSL_LIB_DIR)/wolfcrypt/src/srp.o \
 $(WOLFSSL_LIB_DIR)/wolfcrypt/src/tfm.o \
 $(WOLFSSL_LIB_DIR)/wolfcrypt/src/wc_encrypt.o \
 $(WOLFSSL_LIB_DIR)/wolfcrypt/src/wc_port.o \
-$(WOLFSSL_LIB_DIR)/wolfcrypt/src/wolfevent.o 
+$(WOLFSSL_LIB_DIR)/wolfcrypt/src/wolfevent.o \
+$(WOLFSSL_LIB_DIR)/wolfcrypt/src/wolfmath.o 
 
 TLS_CLASS_OBJ = $(WOLFSSL_ROOT_DIR)/TLSSocketConnection.o
 
