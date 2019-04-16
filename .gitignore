@@ -1,0 +1,10 @@
+asp-1.9.2-utf8/cfg/cfg/*
+*.o
+*.d
+*.a
+examples/truestudio/.metadata/
+examples/truestudio/*/GR-PEACH_mbed.map
+examples/truestudio/*/asp.*
+examples/truestudio/*/cfg1_out.*
+examples/truestudio/*/kernel_cfg.*
+examples/truestudio/*/offset.h
