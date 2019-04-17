@@ -24,6 +24,8 @@
         #define TIME_OVERRIDES
         #define XTIME time
         #define XGMTIME localtime
+        //#define HAVE_TM_TYPE /*TODO*/
+        #define NO_ASN_TIME
     #endif
 
     #define NO_FILESYSTEM
@@ -35,3 +37,8 @@
     #define USE_WOLFSSL_MEMORY
     #define IGNORE_KEY_EXTENSIONS
     //#define WOLFSSL_MALLOC_CHECK
+
+    #define WOLFSSL_TLS13
+    #define WC_RSA_PSS
+    #define HAVE_HKDF
+    #define HAVE_AEAD
