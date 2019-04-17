@@ -2,9 +2,16 @@ asp-1.9.2-utf8/cfg/cfg/*
 *.o
 *.d
 *.a
+.DS_Store
 examples/truestudio/.metadata/
 examples/truestudio/*/GR-PEACH_mbed.map
 examples/truestudio/*/asp.*
 examples/truestudio/*/cfg1_out.*
 examples/truestudio/*/kernel_cfg.*
 examples/truestudio/*/offset.h
+examples/*/GR-PEACH_mbed.map
+examples/*/asp*
+examples/*/cfg1_out*
+examples/*/kernel_cfg.*
+examples/*/offset.h
+examples/*/Makefile.depend

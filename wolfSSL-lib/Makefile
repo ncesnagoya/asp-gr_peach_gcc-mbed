@@ -60,7 +60,6 @@ $(WOLFSSL_LIB_DIR)/wolfcrypt/src/sha3.o \
 $(WOLFSSL_LIB_DIR)/wolfcrypt/src/sha256.o \
 $(WOLFSSL_LIB_DIR)/wolfcrypt/src/sha512.o \
 $(WOLFSSL_LIB_DIR)/wolfcrypt/src/signature.o \
-$(WOLFSSL_LIB_DIR)/wolfcrypt/src/sp.o \
 $(WOLFSSL_LIB_DIR)/wolfcrypt/src/srp.o \
 $(WOLFSSL_LIB_DIR)/wolfcrypt/src/tfm.o \
 $(WOLFSSL_LIB_DIR)/wolfcrypt/src/wc_encrypt.o \
