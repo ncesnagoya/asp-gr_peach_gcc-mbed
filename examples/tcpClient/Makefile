@@ -24,6 +24,11 @@ MBED_LIB_DIR = ../../mbed-lib
 SRCDIR = ../../asp-1.9.2-utf8
 
 #
+#	実行形式
+#
+EXECUTE_ON = ROM
+
+#
 #  MBEDライブラリのビルド
 #
 include $(MBED_LIB_DIR)/common/Makefile.cmn
