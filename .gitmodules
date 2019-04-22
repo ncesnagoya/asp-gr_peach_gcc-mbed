@@ -2,3 +2,9 @@
 	path = wolfSSL-lib/wolfssl
 	url = https://github.com/ertlnagoya/wolfssl
 	ignore = dirty
+[submodule "picotls-lib/picotls"]
+	path = picotls-lib/picotls
+	url = https://github.com/ertlnagoya/picotls
+[submodule "picoquic-lib/picoquic"]
+	path = picoquic-lib/picoquic
+	url = https://github.com/ertlnagoya/picoquic
