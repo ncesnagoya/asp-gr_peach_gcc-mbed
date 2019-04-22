@@ -34,11 +34,11 @@ svc_perror(const char *file, int_t line, const char *expr, ER ercd)
 
 /**** User Selection *********/
 /** Network setting **/
-#define USE_DHCP               (1)                 /* Select  0(static configuration) or 1(use DHCP) */
+#define USE_DHCP               (0)                 /* Select  0(static configuration) or 1(use DHCP) */
 #if (USE_DHCP == 0)
-  #define IP_ADDRESS           ("192.168.0.2")     /* IP address      */
+  #define IP_ADDRESS           ("10.0.0.2")     /* IP address      */
   #define SUBNET_MASK          ("255.255.255.0")   /* Subnet mask     */
-  #define DEFAULT_GATEWAY      ("192.168.0.1")     /* Default gateway */
+  #define DEFAULT_GATEWAY      ("10.0.0.1")     /* Default gateway */
 #endif
 
 static int SocketReceive(WOLFSSL* ssl, char *buf, int sz, void *sock)
@@ -53,12 +53,27 @@ static int SocketSend(WOLFSSL* ssl, char *buf, int sz, void *sock)
 
 //#define SERVER "www.wolfssl.com"
 //#define HTTP_REQ "GET /wolfSSL/Home.html HTTP/1.0\r\nhost: www.wolfssl.com\r\n\r\n"
-//#define SERVER "192.168.0.3"
-//#define HTTP_REQ "GET /iisstart.htm HTTP/1.0\r\nhost: 192.168.0.3\r\n\r\n"
-#define SERVER "os.mbed.com"
-#define HTTP_REQ "GET /media/uploads/mbed_official/hello.txt HTTP/1.0\r\nhost: os.mbed.com\r\n\r\n"
+#define SERVER "10.0.0.1"
+#define HTTP_REQ "GET /iisstart.htm HTTP/1.0\r\nhost: 192.168.0.3\r\n\r\n"
 
-#define HTTPS_PORT 443
+#define HTTPS_PORT 8443
+
+const char SSL_CA_PEM[] = "-----BEGIN CERTIFICATE-----\n"
+    "MIICizCCAjCgAwIBAgIJAP0OKSFmy0ijMAoGCCqGSM49BAMCMIGXMQswCQYDVQQG\n"
+    "EwJVUzETMBEGA1UECAwKV2FzaGluZ3RvbjEQMA4GA1UEBwwHU2VhdHRsZTEQMA4G\n"
+    "A1UECgwHd29sZlNTTDEUMBIGA1UECwwLRGV2ZWxvcG1lbnQxGDAWBgNVBAMMD3d3\n"
+    "dy53b2xmc3NsLmNvbTEfMB0GCSqGSIb3DQEJARYQaW5mb0B3b2xmc3NsLmNvbTAe\n"
+    "Fw0xODA0MTMxNTIzMTBaFw0yMTAxMDcxNTIzMTBaMIGXMQswCQYDVQQGEwJVUzET\n"
+    "MBEGA1UECAwKV2FzaGluZ3RvbjEQMA4GA1UEBwwHU2VhdHRsZTEQMA4GA1UECgwH\n"
+    "d29sZlNTTDEUMBIGA1UECwwLRGV2ZWxvcG1lbnQxGDAWBgNVBAMMD3d3dy53b2xm\n"
+    "c3NsLmNvbTEfMB0GCSqGSIb3DQEJARYQaW5mb0B3b2xmc3NsLmNvbTBZMBMGByqG\n"
+    "SM49AgEGCCqGSM49AwEHA0IABALT2W7WAY5FyLmQMeXATOOerSk4mLoQ1ukJKoCp\n"
+    "LhcquYq/M4NG45UL5HdAtTtDRTMPYVN8N0TBy/yAyuhD6qejYzBhMB0GA1UdDgQW\n"
+    "BBRWjprD8ELeGLlFVW75k8/qw/OlITAfBgNVHSMEGDAWgBRWjprD8ELeGLlFVW75\n"
+    "k8/qw/OlITAPBgNVHRMBAf8EBTADAQH/MA4GA1UdDwEB/wQEAwIBhjAKBggqhkjO\n"
+    "PQQDAgNJADBGAiEA8HvMJHMZP2Fo7cgKVEq4rHnvEDKRUiw+v1CqXxjBl/UCIQDZ\n"
+    "S2Nnb5spqddrY5uYnzKCNtrwqfdRtJeq+vrd7+9Krg==\n"
+    "-----END CERTIFICATE-----\n"; /*ca-ecc-cert.pem*/
 
 /*
  *  clients initial contact with server. Socket to connect to: sock
@@ -122,6 +137,12 @@ int Security(TCPSocketConnection *socket)
         return EXIT_FAILURE;
     }
 #endif
+
+    if((ret = wolfSSL_CTX_load_verify_buffer(ctx, (const unsigned char *) SSL_CA_PEM, 
+                                sizeof(SSL_CA_PEM), SSL_FILETYPE_PEM)) != SSL_SUCCESS) {
+        syslog(LOG_NOTICE, "load_CA error");
+        return EXIT_FAILURE;
+    }
 
     wolfSSL_SetIORecv(ctx, SocketReceive) ;
     wolfSSL_SetIOSend(ctx, SocketSend) ;
