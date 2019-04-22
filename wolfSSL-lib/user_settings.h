@@ -42,3 +42,6 @@
     #define WC_RSA_PSS
     #define HAVE_HKDF
     #define HAVE_AEAD
+    #define HAVE_AESGCM
+    #define NO_DES3
+    #define NO_RC4

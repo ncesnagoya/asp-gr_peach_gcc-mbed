@@ -38,7 +38,7 @@ svc_perror(const char *file, int_t line, const char *expr, ER ercd)
 #if (USE_DHCP == 0)
   #define IP_ADDRESS           ("10.0.0.2")     /* IP address      */
   #define SUBNET_MASK          ("255.255.255.0")   /* Subnet mask     */
-  #define DEFAULT_GATEWAY      ("10.0.0.1")     /* Default gateway */
+  #define DEFAULT_GATEWAY      ("10.0.0.3")     /* Default gateway */
 #endif
 
 static int SocketReceive(WOLFSSL* ssl, char *buf, int sz, void *sock)
@@ -117,12 +117,21 @@ int Security(TCPSocketConnection *socket)
 #ifdef  STATIC_BUFFER
     syslog(LOG_DEBUG, "wolfSSL_CTX_load_static_memory");
     /* set up static memory */
+#ifdef  WOLFSSL_TLS13
+    syslog(LOG_NOTICE, "use TLS1.3");
+    if (wolfSSL_CTX_load_static_memory(&ctx, wolfTLSv1_3_client_method_ex, memory, sizeof(memory),0,1)
+            != SSL_SUCCESS){
+        syslog(LOG_EMERG, "unable to load static memory and create ctx");
+        return  EXIT_FAILURE;
+    }
+#else
+        syslog(LOG_NOTICE, "use TLS1.2");
     if (wolfSSL_CTX_load_static_memory(&ctx, wolfTLSv1_2_client_method_ex, memory, sizeof(memory),0,1)
             != SSL_SUCCESS){
         syslog(LOG_EMERG, "unable to load static memory and create ctx");
         return  EXIT_FAILURE;
     }
-
+#endif
     /* load in a buffer for IO */
     syslog(LOG_DEBUG, "wolfSSL_CTX_load_static_memory");
     if (wolfSSL_CTX_load_static_memory(&ctx, NULL, memoryIO, sizeof(memoryIO),
@@ -156,9 +165,10 @@ int Security(TCPSocketConnection *socket)
     wolfSSL_SetIOReadCtx(ssl, (void *)socket) ;
     wolfSSL_SetIOWriteCtx(ssl, (void *)socket) ;
 
-    ret = wolfSSL_connect(ssl);
+    ret = wolfSSL_connect_TLSv13(ssl);
+    //ret = wolfSSL_connect(ssl);
     if (ret == SSL_SUCCESS) {
-        syslog(LOG_NOTICE, "TLS Connected") ;
+        syslog(LOG_NOTICE, "TLS13 Connected") ;
         ret = ClientGreet(ssl);
     } else {
         ret = wolfSSL_get_error(ssl, 0);
@@ -203,10 +213,11 @@ sslClient_main(intptr_t exinf) {
     syslog(LOG_NOTICE, "NetMask is %s", network.getNetworkMask());
     syslog(LOG_NOTICE, "Gateway Address is %s", network.getGateway());
     syslog(LOG_NOTICE, "Network Setup OK...");
+    syslog(LOG_NOTICE, "Connect to (%s) on port (%d)", SERVER, HTTPS_PORT);
 
     while (socket.connect(SERVER, HTTPS_PORT) < 0) {
         syslog(LOG_EMERG, "Unable to connect to (%s) on port (%d)", SERVER, HTTPS_PORT);
-        wait(1.0);
+        wait(2.0);
     }
     Security(&socket);
     socket.close();
