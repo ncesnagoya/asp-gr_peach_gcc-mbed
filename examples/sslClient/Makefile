@@ -36,11 +36,6 @@ include $(WOLFSSL_ROOT_DIR)/Makefile
 EXECUTE_ON = ROM
 
 #
-#  mbedTLSライブラリ
-#
-#include $(MBEDTLS_ROOT_DIR)/Makefile
-
-#
 #  MBEDライブラリのビルド
 #
 include $(MBED_LIB_DIR)/common/Makefile.cmn

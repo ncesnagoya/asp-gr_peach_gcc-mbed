@@ -153,8 +153,8 @@ int Security(TCPSocketConnection *socket)
         return EXIT_FAILURE;
     }
 
-    wolfSSL_SetIORecv(ctx, SocketReceive) ;
-    wolfSSL_SetIOSend(ctx, SocketSend) ;
+    wolfSSL_SetIORecv(ctx, SocketReceive);
+    wolfSSL_SetIOSend(ctx, SocketSend);
     wolfSSL_CTX_set_verify(ctx, SSL_VERIFY_NONE, 0);
 
     if ((ssl = wolfSSL_new(ctx)) == NULL) {
@@ -162,8 +162,8 @@ int Security(TCPSocketConnection *socket)
         return EXIT_FAILURE;
     }
 
-    wolfSSL_SetIOReadCtx(ssl, (void *)socket) ;
-    wolfSSL_SetIOWriteCtx(ssl, (void *)socket) ;
+    wolfSSL_SetIOReadCtx(ssl, (void *)socket);
+    wolfSSL_SetIOWriteCtx(ssl, (void *)socket);
 
     ret = wolfSSL_connect_TLSv13(ssl);
     //ret = wolfSSL_connect(ssl);
