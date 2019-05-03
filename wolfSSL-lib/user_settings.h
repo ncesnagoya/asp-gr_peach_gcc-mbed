@@ -38,10 +38,10 @@
     #define IGNORE_KEY_EXTENSIONS
     //#define WOLFSSL_MALLOC_CHECK
 
-    #define WOLFSSL_TLS13
-    #define WC_RSA_PSS
-    #define HAVE_HKDF
-    #define HAVE_AEAD
-    #define HAVE_AESGCM
-    #define NO_DES3
-    #define NO_RC4
+    /*for picoquic*/
+    #define OPENSSL_EXTRA
+    #define OPENSSL_ALL
+    #define WOLFSSL_SHA512
+    #define WOLFSSL_SHA384
+    /*for picoquic*/
+
