@@ -6,6 +6,7 @@
 #include "kernel_cfg.h"
 #include "sil.h"
 #include "scif.h"
+#include "test_lib.h"
 
 #include "mbed.h"
 #include "EthernetInterface.h"
@@ -313,7 +314,7 @@ int q_client(const char* ip_address_text, int server_port, const char * sni, con
             &if_index_to, &received_ecn, buffer, sizeof(buffer), delta_t, &current_time);
 
         if (bytes_recv != 0) {
-            syslog(LOG_NOTICE, "Select returns %d, from length %d\n", bytes_recv, from_length);
+            syslog(LOG_NOTICE, "\nSelect returns %d, from length %d\n", bytes_recv, from_length);
         }
 
         if (bytes_recv != 0 && to_length != 0) {
@@ -385,10 +386,11 @@ int q_client(const char* ip_address_text, int server_port, const char * sni, con
                 if (ret == 0 && (picoquic_get_cnx_state(cnx_client) == picoquic_state_ready || 
                     picoquic_get_cnx_state(cnx_client) == picoquic_state_client_ready_start)) {
                     if (established == 0) {
-                        picoquic_log_transport_extension(F_log, cnx_client, 0);
-                        syslog(LOG_NOTICE, "Connection established. Version = %x, I-CID: %llx\n",
+                        picoquic_log_transport_extension(cnx_client, 0);
+                        syslog(LOG_NOTICE, "Connection established. Version = %x, I-CID: %lx%lx\n",
                             picoquic_supported_versions[cnx_client->version_index].version,
-                            (unsigned long long)picoquic_val64_connection_id(picoquic_get_logging_cnxid(cnx_client)));
+                            (uint32_t)(picoquic_val64_connection_id(picoquic_get_logging_cnxid(cnx_client)) >> 32),
+                            (uint32_t)(picoquic_val64_connection_id(picoquic_get_logging_cnxid(cnx_client))));
                         established = 1;
 
                         if (zero_rtt_available == 0) {
@@ -440,8 +442,9 @@ int q_client(const char* ip_address_text, int server_port, const char * sni, con
 
                                 if (duration_usec > 0) {
                                     double receive_rate_mbps = 8.0*((double)picoquic_get_data_received(cnx_client)) / duration_usec;
-                                    syslog(LOG_NOTICE, "Received %llu bytes in %f seconds, %f Mbps.\n",
-                                        (unsigned long long)picoquic_get_data_received(cnx_client),
+                                    syslog(LOG_NOTICE, "Received %lu%lu bytes in %f micro seconds, %f Mbps.\n",
+                                        (uint32_t)(picoquic_get_data_received(cnx_client) >> 32),
+                                        (uint32_t)picoquic_get_data_received(cnx_client),
                                         duration_usec/1000000.0, receive_rate_mbps);
                                 }
                             }
@@ -504,7 +507,7 @@ int q_client(const char* ip_address_text, int server_port, const char * sni, con
         uint16_t ticket_length;
 
         if (sni != NULL && 0 == picoquic_get_ticket(qclient->p_first_ticket, current_time, sni, (uint16_t)strlen(sni), alpn, (uint16_t)strlen(alpn), &ticket, &ticket_length, 0)) {
-            picoquic_log_picotls_ticket(F_log, picoquic_null_connection_id, ticket, ticket_length);
+            picoquic_log_picotls_ticket(picoquic_null_connection_id, ticket, ticket_length);
         }
 
         if (picoquic_save_tickets(qclient->p_first_ticket, current_time, ticket_store_filename) != 0) {
@@ -519,14 +522,17 @@ int q_client(const char* ip_address_text, int server_port, const char * sni, con
         picoquic_free(qclient);
     }
 
+    wolfSSL_RAND_Cleanup();
     if (fd != INVALID_SOCKET) {
         SOCKET_CLOSE(fd);
+        syslog(LOG_NOTICE, "Socket Close");
     }
 
 
     if (client_scenario_text != NULL && client_sc != NULL) {
         demo_client_delete_scenario_desc(client_sc_nb, client_sc);
         client_sc = NULL;
+        syslog(LOG_NOTICE, "Delete Client scenario");
     }
     return ret;
 }
@@ -543,7 +549,6 @@ quicClient_main(intptr_t exinf) {
     int force_migration = 0;
     int nb_packets_before_update = 0;
     int client_cnx_id_length = 8;
-    picoquic_connection_id_callback_ctx_t * cnx_id_cbdata = NULL;
     int mtu_max = 0;
     char * client_scenario = NULL;
     int ret = 0;
@@ -553,36 +558,38 @@ quicClient_main(intptr_t exinf) {
 
     syslog(LOG_NOTICE, "quicClient:");
     syslog(LOG_NOTICE, "Sample program starts (exinf = %d).", (int_t) exinf);
-    syslog(LOG_NOTICE, "LOG_NOTICE: Network Setting up...");
+    syslog(LOG_NOTICE, "LOG_NOTICE: Network Setting up...\n");
 
 #if (USE_DHCP == 1)
     if (network.init() != 0) {                             //for DHCP Server
-        syslog(LOG_NOTICE, "Network Initialize Error");
+        syslog(LOG_NOTICE, "Network Initialize Error\n");
         return;
     }
 #else
     if (network.init(IP_ADDRESS, SUBNET_MASK, DEFAULT_GATEWAY) != 0) { //for Static IP Address (IPAddress, NetMasks, Gateway)
-#endif
-		syslog(LOG_NOTICE, "Network Initialize Error");
+		syslog(LOG_NOTICE, "Network Initialize Error\n");
         return;
     }
-    syslog(LOG_NOTICE, "Network was initialized successfully");
-    //while (network.connect(5000) != 0) {
-       // syslog(LOG_NOTICE, "LOG_NOTICE: Network Connect Error");
-    //}
+#endif
 
-    syslog(LOG_NOTICE, "MAC Address is %s", network.getMACAddress());
-    syslog(LOG_NOTICE, "IP Address is %s", network.getIPAddress());
-    syslog(LOG_NOTICE, "NetMask is %s", network.getNetworkMask());
-    syslog(LOG_NOTICE, "Gateway Address is %s", network.getGateway());
-    syslog(LOG_NOTICE, "Network Setup OK...");
-    syslog(LOG_NOTICE, "Starting PicoQUIC connection to (%s) on port (%d)", SERVER, HTTPS_PORT);
+    syslog(LOG_NOTICE, "Network was initialized successfully\n");
+    while (network.connect(5000) != 0) {
+        syslog(LOG_NOTICE, "LOG_NOTICE: Network Connect Error\n");
+    }
+    wait(2.5);
+
+    syslog(LOG_NOTICE, "MAC Address is %s\n", network.getMACAddress());
+    syslog(LOG_NOTICE, "IP Address is %s\n", network.getIPAddress());
+    syslog(LOG_NOTICE, "NetMask is %s\n", network.getNetworkMask());
+    syslog(LOG_NOTICE, "Gateway Address is %s\n", network.getGateway());
+    syslog(LOG_NOTICE, "Network Setup OK...\n");
+    syslog(LOG_NOTICE, "Starting PicoQUIC connection to (%s) on port (%d)\n\n", SERVER, HTTPS_PORT);
+    syslog_flush();
 
     ret = q_client(SERVER, HTTPS_PORT, sni, root_trust_file, proposed_version, force_zero_share, 
-            force_migration, nb_packets_before_update, mtu_max, NULL, client_cnx_id_length, client_scenario);
+            force_migration, nb_packets_before_update, mtu_max, client_cnx_id_length, client_scenario);
 
     syslog(LOG_NOTICE, "Client exit with code = %d\n", ret);
-    //socket.close();
 }
 
 // set mac address
