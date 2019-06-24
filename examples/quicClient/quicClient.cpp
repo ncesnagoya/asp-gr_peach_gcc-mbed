@@ -24,6 +24,7 @@
 #include <h3zero.h>
 #include <democlient.h>
 #include <picoquic_logger.h>
+#include <uECC.h>
 
 #include <quicClient.h>
 
@@ -78,6 +79,9 @@ static const char* ticket_store_filename = "demo_ticket_store.bin";
 static const char* token_store_filename = "demo_token_store.bin";
 #define PICOQUIC_DEMO_CLIENT_MAX_RECEIVE_BATCH 4
 
+int sample_rand(uint8_t *buf, unsigned size){
+    return RAND_bytes(buf, int (size));
+}
 
 /* Client client migration to a new port number: 
  *  - close the current socket.
@@ -143,9 +147,8 @@ int quic_client_migrate(picoquic_cnx_t * cnx, SOCKET_TYPE * fd, struct sockaddr 
 }
 
 int q_client(const char* ip_address_text, int server_port, const char * sni, const char * root_crt,
-    uint32_t proposed_version, int force_zero_share, int force_migration,
-    int nb_packets_before_key_update, int mtu_max, FILE* F_log,
-    int client_cnx_id_length, char * client_scenario_text)
+    uint32_t proposed_version, int force_zero_share, int force_migration, int nb_packets_before_key_update, 
+    int mtu_max, int client_cnx_id_length, char * client_scenario_text)
 {
     /* Start: start the QUIC process with cert and key files */
     int ret = 0;
@@ -181,6 +184,13 @@ int q_client(const char* ip_address_text, int server_port, const char * sni, con
     size_t client_sc_nb = 0;
     picoquic_demo_stream_desc_t * client_sc = NULL;
     const char * alpn = "hq-17";
+
+    void *seed;
+    int len;
+    wolfSSL_RAND_seed(seed, len);
+#ifndef default_RNG_defined
+    uECC_set_rng(sample_rand);
+#endif
 
     ret = picoquic_demo_client_initialize_context(&callback_ctx, test_scenario, test_scenario_nb, alpn);
     if (ret != 0){
@@ -227,10 +237,6 @@ int q_client(const char* ip_address_text, int server_port, const char * sni, con
         qclient->mtu_max = mtu_max;
 
         (void)picoquic_set_default_connection_id_length(qclient, (uint8_t)client_cnx_id_length);
-
-#ifndef NO_FILESYSTEM
-        picoquic_set_key_log_file_from_env(qclient);
-#endif
 
         if (sni == NULL) {
             /* Standard verifier would crash */
@@ -286,7 +292,7 @@ int q_client(const char* ip_address_text, int server_port, const char * sni, con
             return EXIT_FAILURE;
         }
 
-        if (ret == send_length > 0) {
+        if (send_length > 0) {
             bytes_sent = lwip_sendto(fd, send_buffer, (int)send_length, 0,
                 (struct sockaddr*)&server_address, server_addr_length);
 
@@ -325,12 +331,6 @@ int q_client(const char* ip_address_text, int server_port, const char * sni, con
                     ((struct sockaddr_in *)&client_address)->sin_port =
                         ((struct sockaddr_in *)&local_address)->sin_port;
                 }
-#ifdef QUICIPV6
-                else {
-                    ((struct sockaddr_in6 *)&client_address)->sin6_port =
-                        ((struct sockaddr_in6 *)&local_address)->sin6_port;
-                }
-#endif
                 syslog(LOG_NOTICE, "Local address updated\n");
             }
 
@@ -339,12 +339,6 @@ int q_client(const char* ip_address_text, int server_port, const char * sni, con
                 ((struct sockaddr_in *)&packet_to)->sin_port =
                     ((struct sockaddr_in *)&client_address)->sin_port;
             }
-#ifdef QUICIPV6
-            else {
-                ((struct sockaddr_in6 *)&packet_to)->sin6_port =
-                    ((struct sockaddr_in6 *)&client_address)->sin6_port;
-            }
-#endif
         }
 
         if (bytes_recv < 0) {
@@ -352,28 +346,27 @@ int q_client(const char* ip_address_text, int server_port, const char * sni, con
         } else {
             if (bytes_recv > 0) {
                 /* Submit the packet to the client */
-                ret = picoquic_incoming_packet(qclient, buffer,
-                    (size_t)bytes_recv, (struct sockaddr*)&packet_from,
-                    (struct sockaddr*)&packet_to, if_index_to, received_ecn,
-                    current_time);
+                ret = picoquic_incoming_packet(qclient, buffer, (size_t)bytes_recv, (struct sockaddr*)&packet_from,
+                    (struct sockaddr*)&packet_to, if_index_to, received_ecn, current_time);
                 client_receive_loop++;
 
-                picoquic_log_processing(F_log, cnx_client, bytes_recv, ret);
-
+                picoquic_log_processing(cnx_client, bytes_recv, ret);
+                syslog_flush();
+                
                 if (picoquic_get_cnx_state(cnx_client) == picoquic_state_client_almost_ready && notified_ready == 0) {
                     if (picoquic_tls_is_psk_handshake(cnx_client)) {
-                        syslog(LOG_NOTICE, "The session was properly resumed!\n");
+                        syslog(LOG_NOTICE, "The session was properly resumed!");
                     }
 
                     if (cnx_client->zero_rtt_data_accepted) {
                         syslog(LOG_NOTICE, "Zero RTT data is accepted!\n");
                     }
-                    syslog(LOG_NOTICE, "Almost ready!\n\n");
+                    syslog(LOG_NOTICE, "Almost ready!\n");
                     notified_ready = 1;
                 }
 
                 if (ret != 0) {
-                    picoquic_log_error_packet(F_log, buffer, (size_t)bytes_recv, ret);
+                    picoquic_log_error_packet(buffer, (size_t)bytes_recv, ret);
                 }
 
                 delta_t = 0;
@@ -541,10 +534,8 @@ int q_client(const char* ip_address_text, int server_port, const char * sni, con
 void
 quicClient_main(intptr_t exinf) {
     EthernetInterface network;
-    UDPSocket socket;
+    //UDPSocket socket;
 
-    const char* server_cert_file = NULL;
-    const char* server_key_file = NULL;
     const char * sni = NULL;
     const char* root_trust_file = NULL;
     uint32_t proposed_version = 0;
@@ -591,11 +582,7 @@ quicClient_main(intptr_t exinf) {
             force_migration, nb_packets_before_update, mtu_max, NULL, client_cnx_id_length, client_scenario);
 
     syslog(LOG_NOTICE, "Client exit with code = %d\n", ret);
-
-    if (cnx_id_cbdata != NULL) {
-        picoquic_connection_id_callback_free_ctx(cnx_id_cbdata);
-    }
-    socket.close();
+    //socket.close();
 }
 
 // set mac address
