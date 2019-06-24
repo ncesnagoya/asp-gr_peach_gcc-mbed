@@ -1198,7 +1198,7 @@
  * LWIP_NETBUF_RECVINFO==1: append destination addr and port to every netbuf.
  */
 #if !defined LWIP_NETBUF_RECVINFO || defined __DOXYGEN__
-#define LWIP_NETBUF_RECVINFO            0
+#define LWIP_NETBUF_RECVINFO            1
 #endif
 /**
  * @}
@@ -1218,7 +1218,7 @@
  * LWIP_TCP==1: Turn on TCP.
  */
 #if !defined LWIP_TCP || defined __DOXYGEN__
-#define LWIP_TCP                        1
+#define LWIP_TCP                        0
 #endif
 
 /**
@@ -2649,7 +2649,7 @@
  * unicast neighbor solicitation messages.
  */
 #if !defined LWIP_ND6_TCP_REACHABILITY_HINTS || defined __DOXYGEN__
-#define LWIP_ND6_TCP_REACHABILITY_HINTS 1
+#define LWIP_ND6_TCP_REACHABILITY_HINTS 0
 #endif
 
 /**
