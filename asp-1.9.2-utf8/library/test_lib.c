@@ -97,7 +97,7 @@ syslog_flush(void)
 		}
 		if (logbuf.logtype >= LOG_TYPE_COMMENT) {
 			syslog_print(&logbuf, target_fput_log);
-			target_fput_log('\n');
+			//target_fput_log('\n');
 		}
 	}
 }
