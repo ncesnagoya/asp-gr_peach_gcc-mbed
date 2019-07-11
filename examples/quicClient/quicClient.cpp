@@ -185,10 +185,8 @@ int q_client(const char* ip_address_text, int server_port, const char * sni, con
     size_t client_sc_nb = 0;
     picoquic_demo_stream_desc_t * client_sc = NULL;
     const char * alpn = "hq-17";
-
-    void *seed;
-    int len;
-    wolfSSL_RAND_seed(seed, len);
+    
+    wolfSSL_RAND_seed(NULL, 0);
 #ifndef default_RNG_defined
     uECC_set_rng(sample_rand);
 #endif
@@ -301,6 +299,8 @@ int q_client(const char* ip_address_text, int server_port, const char * sni, con
             {
                 syslog(LOG_NOTICE, "Cannot send first packet to server, returns %d\n", bytes_sent);
                 ret = -1;
+            } else {
+                //syslog(LOG_NOTICE, "Send %d bytes, T=%d\n", bytes_sent, (uint32_t)current_time);
             }
         }
     }
@@ -314,7 +314,7 @@ int q_client(const char* ip_address_text, int server_port, const char * sni, con
             &if_index_to, &received_ecn, buffer, sizeof(buffer), delta_t, &current_time);
 
         if (bytes_recv != 0) {
-            syslog(LOG_NOTICE, "\nSelect returns %d, from length %d\n", bytes_recv, from_length);
+            syslog(LOG_NOTICE, "\nSelect returns %d, T=%d\n", bytes_recv, (uint32_t)current_time);
         }
 
         if (bytes_recv != 0 && to_length != 0) {
@@ -352,7 +352,6 @@ int q_client(const char* ip_address_text, int server_port, const char * sni, con
                 client_receive_loop++;
 
                 picoquic_log_processing(cnx_client, bytes_recv, ret);
-                syslog_flush();
                 
                 if (picoquic_get_cnx_state(cnx_client) == picoquic_state_client_almost_ready && notified_ready == 0) {
                     if (picoquic_tls_is_psk_handshake(cnx_client)) {
@@ -362,7 +361,7 @@ int q_client(const char* ip_address_text, int server_port, const char * sni, con
                     if (cnx_client->zero_rtt_data_accepted) {
                         syslog(LOG_NOTICE, "Zero RTT data is accepted!\n");
                     }
-                    syslog(LOG_NOTICE, "Almost ready!\n");
+                    syslog(LOG_NOTICE, "Almost ready!\n\n");
                     notified_ready = 1;
                 }
 
@@ -438,14 +437,14 @@ int q_client(const char* ip_address_text, int server_port, const char * sni, con
                             }
                             syslog(LOG_NOTICE, "All done, Closing the connection.\n");
                             if (picoquic_get_data_received(cnx_client) > 0) {
-                                double duration_usec = (double)(current_time - picoquic_get_cnx_start_time(cnx_client));
+                                uint64_t duration_usec = current_time - picoquic_get_cnx_start_time(cnx_client);
 
                                 if (duration_usec > 0) {
                                     double receive_rate_mbps = 8.0*((double)picoquic_get_data_received(cnx_client)) / duration_usec;
-                                    syslog(LOG_NOTICE, "Received %lu%lu bytes in %f micro seconds, %f Mbps.\n",
+                                    syslog(LOG_NOTICE, "Received %lu%lu bytes in %d micro seconds, %d Mbps.\n",
                                         (uint32_t)(picoquic_get_data_received(cnx_client) >> 32),
                                         (uint32_t)picoquic_get_data_received(cnx_client),
-                                        duration_usec/1000000.0, receive_rate_mbps);
+                                        (uint32_t)duration_usec, (uint32_t)receive_rate_mbps);
                                 }
                             }
 
@@ -485,6 +484,8 @@ int q_client(const char* ip_address_text, int server_port, const char * sni, con
                         if (bytes_sent <= 0)
                         {
                             syslog(LOG_NOTICE, "Cannot send packet to server, returns %d\n", bytes_sent);
+                        } else {
+                            //syslog(LOG_NOTICE, "\nSend %d bytes, T=%d\n", bytes_sent, (uint32_t)current_time);
                         }
                     }
                 }
@@ -511,12 +512,12 @@ int q_client(const char* ip_address_text, int server_port, const char * sni, con
         }
 
         if (picoquic_save_tickets(qclient->p_first_ticket, current_time, ticket_store_filename) != 0) {
-            syslog(LOG_NOTICE, "Could not store the saved session tickets.\n");
+            syslog(LOG_NOTICE, "Could not store the saved session tickets.");
         }
 
 
         if (picoquic_save_tokens(qclient->p_first_token, current_time, token_store_filename) != 0) {
-            syslog(LOG_NOTICE, "Could not save tokens to <%s>.\n", token_store_filename);
+            syslog(LOG_NOTICE, "Could not save tokens to <%s>.", token_store_filename);
         }
 
         picoquic_free(qclient);
@@ -576,7 +577,7 @@ quicClient_main(intptr_t exinf) {
     while (network.connect(5000) != 0) {
         syslog(LOG_NOTICE, "LOG_NOTICE: Network Connect Error\n");
     }
-    wait(2.5);
+    wait(2.6);
 
     syslog(LOG_NOTICE, "MAC Address is %s\n", network.getMACAddress());
     syslog(LOG_NOTICE, "IP Address is %s\n", network.getIPAddress());
