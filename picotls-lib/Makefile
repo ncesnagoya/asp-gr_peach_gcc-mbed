@@ -6,6 +6,7 @@ PICOTLS_OBJ += $(PICOTLS_LIB_DIR)/lib/openssl.o \
 $(PICOTLS_LIB_DIR)/lib/picotls.o \
 $(PICOTLS_LIB_DIR)/lib/minicrypto-pem.o \
 $(PICOTLS_LIB_DIR)/lib/cifra.o \
+$(PICOTLS_LIB_DIR)/lib/wolfcrypt.o \
 $(PICOTLS_LIB_DIR)/lib/pembase64.o \
 $(PICOTLS_LIB_DIR)/lib/uecc.o \
 $(MINICRYPTO_LIB_DIR)/cifra/src/aes.o \

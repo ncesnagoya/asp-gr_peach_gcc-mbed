@@ -6,6 +6,10 @@
     #define NO_WRITEV
     #define NO_DEV_RANDOM
     #define NO_DH
+    #define HAVE_AEAD
+    #define HAVE_AESGCM
+    #define WOLFSSL_AES_DIRECT  //For QUIC
+    #define WOLFSSL_AES_COUNTER //For QUIC
     #define HAVE_ECC
 	#define HAVE_ALL_CURVES
 	#define HAVE_CURVE25519
