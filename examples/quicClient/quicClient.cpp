@@ -27,6 +27,8 @@
 #include <picoquic_logger.h>
 #include <uECC.h>
 
+#include <userq_settings.h>
+
 #include <quicClient.h>
 
 /*
@@ -53,25 +55,9 @@ svc_perror(const char *file, int_t line, const char *expr, ER ercd)
 
 #define SERVER "10.0.0.1"
 #define HTTP_REQ "GET /iisstart.htm HTTP/1.0\r\nhost: 192.168.0.3\r\n\r\n"
+#define DEFAULT_SNI "www.test.com"
 
 #define HTTPS_PORT 8443
-
-const char SSL_CA_PEM[] = "-----BEGIN CERTIFICATE-----\n"
-    "MIICizCCAjCgAwIBAgIJAP0OKSFmy0ijMAoGCCqGSM49BAMCMIGXMQswCQYDVQQG\n"
-    "EwJVUzETMBEGA1UECAwKV2FzaGluZ3RvbjEQMA4GA1UEBwwHU2VhdHRsZTEQMA4G\n"
-    "A1UECgwHd29sZlNTTDEUMBIGA1UECwwLRGV2ZWxvcG1lbnQxGDAWBgNVBAMMD3d3\n"
-    "dy53b2xmc3NsLmNvbTEfMB0GCSqGSIb3DQEJARYQaW5mb0B3b2xmc3NsLmNvbTAe\n"
-    "Fw0xODA0MTMxNTIzMTBaFw0yMTAxMDcxNTIzMTBaMIGXMQswCQYDVQQGEwJVUzET\n"
-    "MBEGA1UECAwKV2FzaGluZ3RvbjEQMA4GA1UEBwwHU2VhdHRsZTEQMA4GA1UECgwH\n"
-    "d29sZlNTTDEUMBIGA1UECwwLRGV2ZWxvcG1lbnQxGDAWBgNVBAMMD3d3dy53b2xm\n"
-    "c3NsLmNvbTEfMB0GCSqGSIb3DQEJARYQaW5mb0B3b2xmc3NsLmNvbTBZMBMGByqG\n"
-    "SM49AgEGCCqGSM49AwEHA0IABALT2W7WAY5FyLmQMeXATOOerSk4mLoQ1ukJKoCp\n"
-    "LhcquYq/M4NG45UL5HdAtTtDRTMPYVN8N0TBy/yAyuhD6qejYzBhMB0GA1UdDgQW\n"
-    "BBRWjprD8ELeGLlFVW75k8/qw/OlITAfBgNVHSMEGDAWgBRWjprD8ELeGLlFVW75\n"
-    "k8/qw/OlITAPBgNVHRMBAf8EBTADAQH/MA4GA1UdDwEB/wQEAwIBhjAKBggqhkjO\n"
-    "PQQDAgNJADBGAiEA8HvMJHMZP2Fo7cgKVEq4rHnvEDKRUiw+v1CqXxjBl/UCIQDZ\n"
-    "S2Nnb5spqddrY5uYnzKCNtrwqfdRtJeq+vrd7+9Krg==\n"
-    "-----END CERTIFICATE-----\n"; /*ca-ecc-cert.pem*/
 
 static const picoquic_demo_stream_desc_t test_scenario[] = 
     {{ 0, PICOQUIC_DEMO_STREAM_ID_INITIAL, "index.html", "index.html", 0 }};
@@ -242,11 +228,13 @@ int q_client(const char* ip_address_text, int server_port, const char * sni, con
             syslog(LOG_NOTICE, "No server name specified, certificate will not be verified.\n");
             picoquic_set_null_verifier(qclient);
         }
+#ifndef NO_CERTFILE
         else if (root_crt == NULL) {
             /* Standard verifier would crash */
-            syslog(LOG_NOTICE, "No root crt list specified, certificate will not be verified.\n");
+            syslog(LOG_NOTICE, "No root crt list specified, but certificate will be verified.\n");
             picoquic_set_null_verifier(qclient);
         }
+#endif
     }
     
 
@@ -485,7 +473,7 @@ int q_client(const char* ip_address_text, int server_port, const char * sni, con
                         {
                             syslog(LOG_NOTICE, "Cannot send packet to server, returns %d\n", bytes_sent);
                         } else {
-                            //syslog(LOG_NOTICE, "\nSend %d bytes, T=%d\n", bytes_sent, (uint32_t)current_time);
+                            syslog(LOG_NOTICE, "Send %d bytes, T=%d\n", bytes_sent, (uint32_t)current_time);
                         }
                     }
                 }
@@ -543,7 +531,7 @@ quicClient_main(intptr_t exinf) {
     EthernetInterface network;
     //UDPSocket socket;
 
-    const char * sni = NULL;
+    const char * sni = DEFAULT_SNI;
     const char* root_trust_file = NULL;
     uint32_t proposed_version = 0;
     int force_zero_share = 0;
