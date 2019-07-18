@@ -8,8 +8,6 @@
     #define NO_DH
     #define HAVE_AEAD
     #define HAVE_AESGCM
-    #define WOLFSSL_AES_DIRECT  //For QUIC
-    #define WOLFSSL_AES_COUNTER //For QUIC
     #define HAVE_ECC
 	#define HAVE_ALL_CURVES
 	#define HAVE_CURVE25519
@@ -47,5 +45,8 @@
     #define OPENSSL_ALL
     #define WOLFSSL_SHA512
     #define WOLFSSL_SHA384
+    #define WOLFSSL_SHA224
+    #define WOLFSSL_AES_DIRECT
+    #define WOLFSSL_AES_COUNTER
     /*for picoquic*/
 
