@@ -58,7 +58,7 @@ Application developers can use the following useful libraries.
 - This tool can be used for high functional debugging and is recommended for beginners who want to build the development environment in their local computer.
 - The All-in-One package including all source code and the kernel configurator (i.e. cfg) is newly provided for TrueSTUDIO.
 - Only the following **4 steps** are needed to build examples.
-  1. Download the installer of TrueSTUDIO v7.1.2 [here](https://atollic.com/resources/download/) and install it.
+  1. Download the installer of TrueSTUDIO v8.1.0 for ARM [here](https://atollic.com/resources/download/) or older and install it. Please do NOT use v9.0.0 or newer because they are for STM32, not for ARM.
   2. Download a zip file (e.x. [asp-gr_peach_gcc-mbed-1.0.0-AllinOne.zip](https://github.com/ncesnagoya/asp-gr_peach_gcc-mbed/tree/v1.0.0-AllinOne)) of the All-in-One package and Unzip it. If you use Linux or MacOS machine, rename ROOTDIR(e.x. asp-gr_peach_gcc-mbed-1.0.0-AllinOne)/asp-1.9.2-utf8/cfg/cfg/[cfg.linux|cfg.macos] to cfg (delete its extension).
   3. Launch TrueSTUDIO and specify ROOTDIR/examples/truestudio as your workspace.
   4. Choose an example project in Project Explorer and Push build (hammer) icon. That's all!
