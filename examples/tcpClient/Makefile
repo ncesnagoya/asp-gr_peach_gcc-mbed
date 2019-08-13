@@ -10,6 +10,9 @@ APPLNAME = tcpClient
 USE_CXX = true
 APPL_CFG = $(APPLNAME).cfg
 
+# EXECUTE_ON = RAM
+EXECUTE_ON = ROM
+
 DEBUG = true
 OMIT_OPTIMIZATION = true
 
@@ -29,6 +32,7 @@ SRCDIR = ../../asp-1.9.2-utf8
 include $(MBED_LIB_DIR)/common/Makefile.cmn
 include $(MBED_LIB_DIR)/mbed-src/Makefile.src
 include $(MBED_LIB_DIR)/EthernetInterface/Makefile.eif
+include $(MBED_LIB_DIR)/GR-PEACH_WlanBP3595STA/Makefile.lan
 include $(MBED_LIB_DIR)/mbed-rpc/Makefile.rpc
 include $(MBED_LIB_DIR)/HttpServer_snapshot/Makefile.hss
 include $(MBED_LIB_DIR)/FATFileSystem/Makefile.ffs

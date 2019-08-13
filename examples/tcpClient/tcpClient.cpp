@@ -30,10 +30,29 @@ svc_perror(const char *file, int_t line, const char *expr, ER ercd)
 /** Network setting **/
 #define USE_DHCP               (0)                 /* Select  0(static configuration) or 1(use DHCP) */
 #if (USE_DHCP == 0)
-  #define IP_ADDRESS           ("192.168.0.2")     /* IP address      */
+  #define IP_ADDRESS           ("192.168.3.2")     /* IP address      */
   #define SUBNET_MASK          ("255.255.255.0")   /* Subnet mask     */
-  #define DEFAULT_GATEWAY      ("192.168.0.3")     /* Default gateway */
+  #define DEFAULT_GATEWAY      ("192.168.3.1")     /* Default gateway */
 #endif
+
+#define NETWORK_TYPE			(0)					/* Select  0(EthernetInterface) or 1(GR_PEACH_WlanBP3595) */
+#if (NETWORK_TYPE == 1)
+	#define WLAN_SSID			("ssid")	/* SSID */
+	#define WLAN_PSK			("pass")		/* PSK(Pre-Shared Key) */
+
+	#define WLAN_SECURITY		NSAPI_SECURITY_WPA2	/* NSAPI_SECURITY_NONE, NSAPI_SECURITY_WEP, NSAPI_SECURITY_WPA or NSAPI_SECURITY_WPA2 */
+#endif
+
+#if (NETWORK_TYPE == 0)
+  #include "EthernetInterface.h"
+  EthernetInterface network;
+#elif (NETWORK_TYPE == 1)
+  #include "GR_PEACH_WlanBP3595.h"
+  GR_PEACH_WlanBP3595 network;
+  DigitalOut usb1en(P3_8);
+#else
+  #error NETWORK_TYPE error
+#endif /* NETWORK_TYPE */
 
 //#define SERVER "www.wolfssl.com"
 //#define HTTP_REQ "GET /wolfSSL/Home.html HTTP/1.0\r\nhost: www.wolfssl.com\r\n\r\n"
@@ -41,7 +60,7 @@ svc_perror(const char *file, int_t line, const char *expr, ER ercd)
 //#define SERVER "os.mbed.com"
 //#define HTTP_REQ "GET /media/uploads/mbed_official/hello.txt HTTP/1.0\r\nhost: os.mbed.com\r\n\r\n"
 
-#define SERVER "192.168.0.3"
+#define SERVER "192.168.3.1"
 #define HTTP_REQ "GET /iisstart.htm HTTP/1.0\r\nhost: 192.168.0.3\r\n\r\n"
 #define HTTP_PORT 80
 
@@ -93,6 +112,8 @@ tcpClient_main(intptr_t exinf) {
         syslog(LOG_NOTICE, "LOG_NOTICE: Network Connect Error");
     }
 
+	dly_tsk(1000);
+	
     syslog(LOG_NOTICE, "MAC Address is %s", network.getMACAddress());
     syslog(LOG_NOTICE, "IP Address is %s", network.getIPAddress());
     syslog(LOG_NOTICE, "NetMask is %s", network.getNetworkMask());
@@ -101,7 +122,7 @@ tcpClient_main(intptr_t exinf) {
 	
     while (socket.connect(SERVER, HTTP_PORT) < 0) {
         syslog(LOG_EMERG, "Unable to connect to (%s) on port (%d)", SERVER, HTTP_PORT);
-        wait(1.0);
+        dly_tsk(1000);
     }
     ClientGreet(&socket);
     socket.close();

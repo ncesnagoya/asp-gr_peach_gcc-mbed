@@ -74,7 +74,7 @@ static void init_netif(ip_addr_t *ipaddr, ip_addr_t *netmask, ip_addr_t *gw) {
     memset((void*) &netif, 0, sizeof(netif));
     netif_add(&netif, ipaddr, netmask, gw, NULL, eth_arch_enetif_init, tcpip_input);
     netif_set_default(&netif);
-    
+
     netif_set_link_callback  (&netif, netif_link_callback);
     netif_set_status_callback(&netif, netif_status_callback);
 }
@@ -113,21 +113,16 @@ int EthernetInterface::init(const char* ip, const char* mask, const char* gatewa
 }
 
 int EthernetInterface::connect(unsigned int timeout_ms) {
-    eth_arch_enable_interrupts();
-
     int inited;
+
+    eth_arch_enable_interrupts();
+	netif_set_up(&netif);	
     if (use_dhcp) {
-        dhcp_start(&netif);
-        // Wait for an IP Address
-        // -1: error, 0: timeout
-		// inited = netif_up.wait(timeout_ms);
+		dhcp_start(&netif);
 		inited = twai_sem(NETIF_UP, timeout_ms);
-    } else {
-        netif_set_up(&netif);        
-        // Wait for the link up
-        // inited = netif_linked.wait(timeout_ms);
-		inited = twai_sem(NETIF_LINKED, timeout_ms);
+		if (inited != E_OK) return (-1);
     }
+	inited = twai_sem(NETIF_LINKED, timeout_ms);
 	return (inited == E_OK) ? (0) : (-1);
 	//    return (inited > 0) ? (0) : (-1);
 }
