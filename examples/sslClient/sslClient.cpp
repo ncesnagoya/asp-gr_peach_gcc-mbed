@@ -34,12 +34,31 @@ svc_perror(const char *file, int_t line, const char *expr, ER ercd)
 
 /**** User Selection *********/
 /** Network setting **/
-#define USE_DHCP               (1)                 /* Select  0(static configuration) or 1(use DHCP) */
+#define USE_DHCP               (0)                 /* Select  0(static configuration) or 1(use DHCP) */
 #if (USE_DHCP == 0)
   #define IP_ADDRESS           ("192.168.0.2")     /* IP address      */
   #define SUBNET_MASK          ("255.255.255.0")   /* Subnet mask     */
-  #define DEFAULT_GATEWAY      ("192.168.0.1")     /* Default gateway */
+  #define DEFAULT_GATEWAY      ("192.168.0.3")     /* Default gateway */
 #endif
+
+#define NETWORK_TYPE			(0)					/* Select  0(EthernetInterface) or 1(GR_PEACH_WlanBP3595) */
+#if (NETWORK_TYPE == 1)
+	#define WLAN_SSID			("ssid")	/* SSID */
+	#define WLAN_PSK			("pass")		/* PSK(Pre-Shared Key) */
+
+	#define WLAN_SECURITY		NSAPI_SECURITY_WPA2	/* NSAPI_SECURITY_NONE, NSAPI_SECURITY_WEP, NSAPI_SECURITY_WPA or NSAPI_SECURITY_WPA2 */
+#endif
+
+#if (NETWORK_TYPE == 0)
+  #include "EthernetInterface.h"
+  EthernetInterface network;
+#elif (NETWORK_TYPE == 1)
+  #include "GR_PEACH_WlanBP3595.h"
+  GR_PEACH_WlanBP3595 network;
+  DigitalOut usb1en(P3_8);
+#else
+  #error NETWORK_TYPE error
+#endif /* NETWORK_TYPE */
 
 static int SocketReceive(WOLFSSL* ssl, char *buf, int sz, void *sock)
 {
@@ -185,7 +204,7 @@ sslClient_main(intptr_t exinf) {
 
     while (socket.connect(SERVER, HTTPS_PORT) < 0) {
         syslog(LOG_EMERG, "Unable to connect to (%s) on port (%d)", SERVER, HTTPS_PORT);
-        wait(1.0);
+		dly_tsk(1000);
     }
     Security(&socket);
     socket.close();
