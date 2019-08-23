@@ -22,12 +22,19 @@ GR_PEACH_Camera camera;
 	#define DEFAULT_GATEWAY		("192.168.0.3")		/* Default gateway */
 #endif
 
-#define NETWORK_TYPE			(1)					/* Select  0(EthernetInterface) or 1(GR_PEACH_WlanBP3595) */
+#define NETWORK_TYPE			(0)					/* Select  0(EthernetInterface) or 1(GR_PEACH_WlanBP3595) */
 #if (NETWORK_TYPE == 1)
-	#define WLAN_SSID			("SSIDofYourAP")	/* SSID */
-	#define WLAN_PSK			("PSKofYourAP")		/* PSK(Pre-Shared Key) */
+//	#define WLAN_SSID			("SSIDofYourAP")	/* SSID */
+//	#define WLAN_PSK			("PSKofYourAP")		/* PSK(Pre-Shared Key) */
 
+	#define WLAN_SSID			("aterm-f6f5c2-g")	/* SSID */
+	#define WLAN_PSK			("2647054ff1f45")	/* PSK(Pre-Shared Key) */
 	#define WLAN_SECURITY		NSAPI_SECURITY_WPA2	/* NSAPI_SECURITY_NONE, NSAPI_SECURITY_WEP, NSAPI_SECURITY_WPA or NSAPI_SECURITY_WPA2 */
+
+//	#define WLAN_SSID			("aterm-bbc67e-g")	/* SSID */
+//	#define WLAN_PSK			("yutaka__chie")		/* PSK(Pre-Shared Key) */
+//	#define WLAN_SECURITY		NSAPI_SECURITY_WPA	/* NSAPI_SECURITY_NONvE, NSAPI_SECURITY_WEP, NSAPI_SECURITY_WPA or NSAPI_SECURITY_WPA2 */
+
 #endif
 
 /** Camera setting **/
@@ -199,7 +206,8 @@ void task_main(intptr_t exinf) {
 	led_yellow = 1;
 
 	dly_tsk(200);
-	printf("********* PROGRAM START ***********\r\n");
+	syslog(LOG_NOTICE, "********* PROGRAM START ***********");
+	//	printf("********* PROGRAM START ***********\r\n");
 
 	pwm_left.period_us(50);
 	pwm_left.write(0.0f);
@@ -240,26 +248,42 @@ void task_main(intptr_t exinf) {
 	dly_tsk(5);
 #endif
 
-	printf("Network Setting up...\r\n");
+	syslog(LOG_NOTICE, "Network Setting up...");
+	//	printf("Network Setting up...\r\n");
 #if (USE_DHCP == 1)
 	while (network.init() != 0) {							//for DHCP Server
 #else
 	while (network.init(IP_ADDRESS, SUBNET_MASK, DEFAULT_GATEWAY) != 0) { //for Static IP Address (IPAddress, NetMasks, Gateway)
 #endif
-		printf("Network Initialize Error \r\n");
+		syslog(LOG_NOTICE, "Network Initialize Error");
+		//		printf("Network Initialize Error \r\n");
+		dly_tsk(1000);		
 	}
+
+	dly_tsk(1000);
+	
 #if (NETWORK_TYPE == 0)
-	while (network.connect() != 0) {
+	while (network.connect(5000) != 0) {
 #else
 	while (network.connect(WLAN_SSID, WLAN_PSK, WLAN_SECURITY) != 0) {
 #endif
-		printf("Network Connect Error \r\n");
+		syslog(LOG_NOTICE, "Network Connect Error");
+		//		printf("Network Connect Error \r\n");
 	}
-	printf("MAC Address is %s\r\n", network.getMACAddress());
-	printf("IP Address is %s\r\n", network.getIPAddress());
-	printf("NetMask is %s\r\n", network.getNetworkMask());
-	printf("Gateway Address is %s\r\n", network.getGateway());
-	printf("Network Setup OK\r\n");
+
+	dly_tsk(1000);
+
+    syslog(LOG_NOTICE, "MAC Address is %s", network.getMACAddress());
+    syslog(LOG_NOTICE, "IP Address is %s", network.getIPAddress());
+    syslog(LOG_NOTICE, "NetMask is %s", network.getNetworkMask());
+    syslog(LOG_NOTICE, "Gateway Address is %s", network.getGateway());
+    syslog(LOG_NOTICE, "Network Setup OK...");
+	
+	//	printf("MAC Address is %s\r\n", network.getMACAddress());
+	//	printf("IP Address is %s\r\n", network.getIPAddress());
+	//	printf("NetMask is %s\r\n", network.getNetworkMask());
+//	printf("Gateway Address is %s\r\n", network.getGateway());
+//	printf("Network Setup OK\r\n");
 
 	led_yellow = 0;
 
