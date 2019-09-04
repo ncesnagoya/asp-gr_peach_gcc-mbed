@@ -2,10 +2,14 @@
  
 //    #define PICOQUIC_TOPPERS    
 
+#ifndef USER_SETTINGS_H
+#define USER_SETTINGS_H
+
     #define USE_LWIP
-	#define USE_WOLFSSL
-	#define NO_CERTFILE
-	#ifdef NO_CERTFILE
+    #define USE_WOLFSSL_KX
+    #define USE_WOLFSSL_AEAD
+	#define NO_FILESYSTEM
+	#ifdef NO_FILESYSTEM
 	#define SSL_CA_ECC_PEM                                                                                                   \
 	"-----BEGIN CERTIFICATE-----\n"                                                                                      \
     "MIICizCCAjCgAwIBAgIJAP0OKSFmy0ijMAoGCCqGSM49BAMCMIGXMQswCQYDVQQG\n"                                                 \
@@ -23,10 +27,19 @@
     "PQQDAgNJADBGAiEA8HvMJHMZP2Fo7cgKVEq4rHnvEDKRUiw+v1CqXxjBl/UCIQDZ\n"                                                 \
     "S2Nnb5spqddrY5uYnzKCNtrwqfdRtJeq+vrd7+9Krg==\n"                                                                     \
     "-----END CERTIFICATE-----\n" /*ca-ecc-cert.pem*/
-	#endif /*NO_CERTFILE*/
+	#endif /*NO_FILESYSTEM*/
 	//#define PTLS_DBG 1
 	#define DISABLE_DEBUG_PRINTF
     // #define QUICIPV6
     // #define QUIC_SERVER
     // #define QUIC_CLIENT
-	// #define ENABLE_FILESYSTEM
+    // #define ENABLE_FILESYSTEM
+
+    typedef struct st_q_stored_ticket_t {
+        unsigned char ticket[2048];
+        unsigned int stored;
+    } q_stored_ticket_t;
+    
+    extern q_stored_ticket_t SESSION_TICKET;
+
+#endif /* USER_SETTINGS_H */

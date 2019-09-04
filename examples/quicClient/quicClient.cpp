@@ -25,11 +25,12 @@
 #include <h3zero.h>
 #include <democlient.h>
 #include <picoquic_logger.h>
-#include <uECC.h>
 
 #include <userq_settings.h>
 
 #include <quicClient.h>
+
+q_stored_ticket_t SESSION_TICKET = {{0}, 0};
 
 /*
  *  サービスコールのエラーのログ出力
@@ -499,7 +500,7 @@ int q_client(const char* ip_address_text, int server_port, const char * sni, con
             picoquic_log_picotls_ticket(picoquic_null_connection_id, ticket, ticket_length);
         }
 
-        if (picoquic_save_tickets(qclient->p_first_ticket, current_time, ticket_store_filename) != 0) {
+        if (picoquic_save_tickets_buffer(qclient->p_first_ticket, current_time, &SESSION_TICKET) != 0) {
             syslog(LOG_NOTICE, "Could not store the saved session tickets.");
         }
 
