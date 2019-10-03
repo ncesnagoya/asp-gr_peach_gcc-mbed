@@ -174,9 +174,6 @@ int q_client(const char* ip_address_text, int server_port, const char * sni, con
     const char * alpn = "hq-17";
     
     wolfSSL_RAND_seed(NULL, 0);
-#ifndef default_RNG_defined
-    uECC_set_rng(sample_rand);
-#endif
 
     ret = picoquic_demo_client_initialize_context(&callback_ctx, test_scenario, test_scenario_nb, alpn);
     if (ret != 0){
