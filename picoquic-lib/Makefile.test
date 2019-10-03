@@ -1,0 +1,32 @@
+#
+#
+#
+
+PICOQUICTEST_OBJ += $(PICOQUIC_LIB_DIR)/picoquictest/ack_of_ack_test.o \
+    $(PICOQUIC_LIB_DIR)/picoquictest/cleartext_aead_test.o \
+    $(PICOQUIC_LIB_DIR)/picoquictest/cnx_creation_test.o \
+    $(PICOQUIC_LIB_DIR)/picoquictest/float16test.o \
+    $(PICOQUIC_LIB_DIR)/picoquictest/fnv1atest.o \
+    $(PICOQUIC_LIB_DIR)/picoquictest/h3zerotest.o \
+    $(PICOQUIC_LIB_DIR)/picoquictest/hashtest.o \
+    $(PICOQUIC_LIB_DIR)/picoquictest/http0dot9test.o \
+    $(PICOQUIC_LIB_DIR)/picoquictest/intformattest.o \
+    $(PICOQUIC_LIB_DIR)/picoquictest/parseheadertest.o \
+    $(PICOQUIC_LIB_DIR)/picoquictest/pn2pn64test.o \
+    $(PICOQUIC_LIB_DIR)/picoquictest/sacktest.o \
+    $(PICOQUIC_LIB_DIR)/picoquictest/sim_link.o \
+    $(PICOQUIC_LIB_DIR)/picoquictest/skip_frame_test.o \
+    $(PICOQUIC_LIB_DIR)/picoquictest/socket_test.o \
+    $(PICOQUIC_LIB_DIR)/picoquictest/splay_test.o \
+    $(PICOQUIC_LIB_DIR)/picoquictest/stream0_frame_test.o \
+    $(PICOQUIC_LIB_DIR)/picoquictest/stresstest.o \
+    $(PICOQUIC_LIB_DIR)/picoquictest/ticket_store_test.o \
+    $(PICOQUIC_LIB_DIR)/picoquictest/tls_api_test.o \
+    $(PICOQUIC_LIB_DIR)/picoquictest/transport_param_test.o
+
+INCLUDE_PATHS += -I$(PICOQUIC_ROOT_DIR)/ -I$(PICOQUIC_LIB_DIR)/picoquictest/
+
+#CC_SYMBOLS += -DPICOQUIC_USER_SETTINGS
+
+C_OBJ += $(PICOQUICTEST_OBJ)
+

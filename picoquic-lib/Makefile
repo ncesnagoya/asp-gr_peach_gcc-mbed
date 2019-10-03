@@ -4,6 +4,7 @@
 
 PICOQUIC_OBJ += $(PICOQUIC_LIB_DIR)/lib/cubic.o \
 	$(PICOQUIC_LIB_DIR)/lib/democlient.o \
+    $(PICOQUIC_LIB_DIR)/lib/demoserver.o \
     $(PICOQUIC_LIB_DIR)/lib/fnv1a.o \
     $(PICOQUIC_LIB_DIR)/lib/frames.o \
     $(PICOQUIC_LIB_DIR)/lib/h3zero.o \
