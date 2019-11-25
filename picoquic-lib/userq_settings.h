@@ -39,11 +39,4 @@
     // #define QUIC_CLIENT
     // #define ENABLE_FILESYSTEM
 
-    typedef struct st_q_stored_ticket_t {
-        unsigned char ticket[2048];
-        unsigned int stored;
-    } q_stored_ticket_t;
-    
-    extern q_stored_ticket_t SESSION_TICKET;
-
 #endif /* USER_SETTINGS_H */

@@ -27,10 +27,11 @@
 #include <picoquic_logger.h>
 
 #include <userq_settings.h>
-
+#include <picotls_settings.h>
 #include <quicClient.h>
+#include <histogram.h>
 
-q_stored_ticket_t SESSION_TICKET = {{0}, 0};
+ptls_session_ticket_t SESSION_TICKET = {{0}, 0, 0};
 
 /*
  *  サービスコールのエラーのログ出力
@@ -61,9 +62,9 @@ svc_perror(const char *file, int_t line, const char *expr, ER ercd)
 #define HTTPS_PORT 8443
 
 static const picoquic_demo_stream_desc_t test_scenario[] = 
-    {{ 0, PICOQUIC_DEMO_STREAM_ID_INITIAL, "index.html", "index.html", 0 }};
+    {{ 0, PICOQUIC_DEMO_STREAM_ID_INITIAL, "itest.html", "itest.html", 0 }};
 static const size_t test_scenario_nb = sizeof(test_scenario) / sizeof(picoquic_demo_stream_desc_t);
-static const char* ticket_store_filename = "demo_ticket_store.bin";
+static const char* ticket_file_name = "demo_ticket_store.bin";
 static const char* token_store_filename = "demo_token_store.bin";
 static const char* default_trust_cert_file = "../certs/ca-ecc-cert.pem";
 #define PICOQUIC_DEMO_CLIENT_MAX_RECEIVE_BATCH 4
@@ -76,6 +77,7 @@ static const char* default_trust_cert_file = "../certs/ca-ecc-cert.pem";
  * but in many cases the client will be behind a NAT, so it will not know its
  * actual IP address.
  */
+#if 0
 int quic_client_migrate(picoquic_cnx_t * cnx, SOCKET_TYPE * fd, struct sockaddr * server_address, 
     int force_migration) 
 {
@@ -96,44 +98,44 @@ int quic_client_migrate(picoquic_cnx_t * cnx, SOCKET_TYPE * fd, struct sockaddr 
     }
 
     if (force_migration == 1) {
-        syslog(LOG_DEBUG, "Switch to new port. Will test NAT rebinding support.\n");
+        syslog(LOG_INFO, "Switch to new port. Will test NAT rebinding support.\n");
     }
     else if (force_migration == 2) {
         ret = picoquic_renew_connection_id(cnx);
         if (ret != 0) {
             if (ret == PICOQUIC_ERROR_MIGRATION_DISABLED) {
-                syslog(LOG_DEBUG, "Migration disabled, cannot test CNXID renewal.\n");
+                syslog(LOG_INFO, "Migration disabled, cannot test CNXID renewal.\n");
             }
             else {
-                syslog(LOG_DEBUG, "Renew CNXID failed, error: %x.\n", ret);
+                syslog(LOG_INFO, "Renew CNXID failed, error: %x.\n", ret);
             }
         }
         else {
-            syslog(LOG_DEBUG, "Switching to new CNXID.\n");
+            syslog(LOG_INFO, "Switching to new CNXID.\n");
         }
     }
     else {
         ret = picoquic_create_probe(cnx, server_address, NULL);
         if (ret != 0) {
             if (ret == PICOQUIC_ERROR_MIGRATION_DISABLED) {
-                syslog(LOG_DEBUG, "Migration disabled, will test NAT rebinding support.\n");
+                syslog(LOG_INFO, "Migration disabled, will test NAT rebinding support.\n");
                 ret = 0;
             }
             else {
-                syslog(LOG_DEBUG, "Create Probe failed, error: %x.\n", ret);
+                syslog(LOG_INFO, "Create Probe failed, error: %x.\n", ret);
             }
         }
         else {
-            syslog(LOG_DEBUG, "Switch to new port, sending probe.\n");
+            syslog(LOG_INFO, "Switch to new port, sending probe.\n");
         }
     }
 
     return ret;
 }
+#endif
 
 int q_client(const char* ip_address_text, int server_port, const char * sni, const char * root_crt,
-    uint32_t proposed_version, int force_zero_share, int force_migration, int nb_packets_before_key_update, 
-    int mtu_max, int client_cnx_id_length, char * client_scenario_text)
+    uint32_t proposed_version, int force_zero_share, int force_migration, int mtu_max, int client_cnx_id_length)
 {
     /* Start: start the QUIC process with cert and key files */
     int ret = 0;
@@ -150,9 +152,8 @@ int q_client(const char* ip_address_text, int server_port, const char * sni, con
     socklen_t to_length;
     int server_addr_length = 0;
     uint8_t buffer[1536];
-    uint8_t send_buffer[1536];
+    uint8_t send_buffer[1252];
     size_t send_length = 0;
-    uint64_t key_update_done = 0;
     int bytes_recv;
     int bytes_sent;
     uint64_t current_time = 0;
@@ -166,8 +167,6 @@ int q_client(const char* ip_address_text, int server_port, const char * sni, con
     int64_t delta_t = 0;
     int notified_ready = 0;
     int zero_rtt_available = 0;
-    size_t client_sc_nb = 0;
-    picoquic_demo_stream_desc_t * client_sc = NULL;
     const char * alpn = "hq-17";
     
     wolfSSL_RAND_seed(NULL, 0);
@@ -199,12 +198,12 @@ int q_client(const char* ip_address_text, int server_port, const char * sni, con
     current_time = picoquic_current_time();
     callback_ctx.last_interaction_time = current_time;
 
-    qclient = picoquic_create(8, NULL, NULL, root_crt, alpn, NULL, NULL, NULL, NULL, NULL, current_time, NULL, ticket_store_filename, NULL, 0);
+    qclient = picoquic_create(8, NULL, NULL, root_crt, alpn, NULL, NULL, NULL, NULL, NULL, current_time, NULL, ticket_file_name, NULL, 0);
 
     picoquic_set_default_congestion_algorithm(qclient, picoquic_cubic_algorithm);
 
     if (picoquic_load_tokens(&qclient->p_first_token, current_time, token_store_filename) != 0) {
-        syslog(LOG_DEBUG, "Could not load tokens from <%s>.\n", token_store_filename);
+        syslog(LOG_INFO, "Could not load tokens from <%s>.\n", token_store_filename);
     }
 
     if (qclient == NULL) {
@@ -226,7 +225,7 @@ int q_client(const char* ip_address_text, int server_port, const char * sni, con
 #ifndef NO_FILESYSTEM
         else if (root_crt == NULL) {
             /* Standard verifier would crash */
-            syslog(LOG_DEBUG, "No root crt list specified, but certificate will be verified.\n");
+            syslog(LOG_INFO, "No root crt list specified, but certificate will be verified.\n");
             picoquic_set_null_verifier(qclient);
         }
 #endif
@@ -315,7 +314,7 @@ int q_client(const char* ip_address_text, int server_port, const char * sni, con
                     ((struct sockaddr_in *)&client_address)->sin_port =
                         ((struct sockaddr_in *)&local_address)->sin_port;
                 }
-                syslog(LOG_DEBUG, "Local address updated\n");
+                syslog(LOG_INFO, "Local address updated\n");
             }
 
 
@@ -338,13 +337,13 @@ int q_client(const char* ip_address_text, int server_port, const char * sni, con
                 
                 if (picoquic_get_cnx_state(cnx_client) == picoquic_state_client_almost_ready && notified_ready == 0) {
                     if (picoquic_tls_is_psk_handshake(cnx_client)) {
-                        syslog(LOG_DEBUG, "The session was properly resumed!");
+                        syslog(LOG_INFO, "The session was properly resumed!");
                     }
 
                     if (cnx_client->zero_rtt_data_accepted) {
-                        syslog(LOG_DEBUG, "Zero RTT data is accepted!\n");
+                        syslog(LOG_INFO, "Zero RTT data is accepted!\n");
                     }
-                    syslog(LOG_DEBUG, "Almost ready!\n\n");
+                    syslog(LOG_INFO, "Almost ready!\n\n");
                     notified_ready = 1;
                 }
 
@@ -369,10 +368,7 @@ int q_client(const char* ip_address_text, int server_port, const char * sni, con
                     picoquic_get_cnx_state(cnx_client) == picoquic_state_client_ready_start)) {
                     if (established == 0) {
                         picoquic_log_transport_extension(cnx_client, 0);
-                        syslog(LOG_NOTICE, "Connection established. Version = %x, I-CID: %lx%lx\n",
-                            picoquic_supported_versions[cnx_client->version_index].version,
-                            (uint32_t)(picoquic_val64_connection_id(picoquic_get_logging_cnxid(cnx_client)) >> 32),
-                            (uint32_t)(picoquic_val64_connection_id(picoquic_get_logging_cnxid(cnx_client))));
+                        syslog(LOG_INFO, "Connection established.\n");
                         established = 1;
 
                         if (zero_rtt_available == 0) {
@@ -384,6 +380,7 @@ int q_client(const char* ip_address_text, int server_port, const char * sni, con
 
                     client_ready_loop++;
 
+#if 0
                     if (force_migration && migration_started == 0 && 
                         (cnx_client->cnxid_stash_first != NULL || force_migration == 1)
                         && picoquic_get_cnx_state(cnx_client) == picoquic_state_ready) {
@@ -394,42 +391,19 @@ int q_client(const char* ip_address_text, int server_port, const char * sni, con
                         address_updated = 0;
 
                         if (mig_ret != 0) {
-                            syslog(LOG_NOTICE, "Will not test migration.\n");
+                            syslog(LOG_INFO, "Will not test migration.\n");
                             migration_started = -1;
                         }
                     }
-
-                    if (nb_packets_before_key_update > 0 && !key_update_done &&
-                        cnx_client->pkt_ctx[picoquic_packet_context_application].first_sack_item.end_of_sack_range > (uint64_t)nb_packets_before_key_update) {
-                        int key_rot_ret = picoquic_start_key_rotation(cnx_client);
-                        if (key_rot_ret != 0) {
-                            syslog(LOG_NOTICE, "Will not test key rotation.\n");
-                            key_update_done = -1;
-                        }
-                        else {
-                            syslog(LOG_NOTICE, "Key rotation started.\n");
-                            key_update_done = 1;
-                        }
-                    }
+#endif
 
                     if ((bytes_recv == 0 || client_ready_loop > 4) && picoquic_is_cnx_backlog_empty(cnx_client)) {
                         if (callback_ctx.nb_open_streams == 0) {
                             if (cnx_client->nb_zero_rtt_sent != 0) {
-                                syslog(LOG_NOTICE, "Out of %d zero RTT packets, %d were acked by the server.\n",
+                                syslog(LOG_INFO, "Out of %d zero RTT packets, %d were acked by the server.\n",
                                     cnx_client->nb_zero_rtt_sent, cnx_client->nb_zero_rtt_acked);
                             }
-                            syslog(LOG_NOTICE, "All done, Closing the connection.\n");
-                            if (picoquic_get_data_received(cnx_client) > 0) {
-                                uint64_t duration_usec = current_time - picoquic_get_cnx_start_time(cnx_client);
-
-                                if (duration_usec > 0) {
-                                    double receive_rate_mbps = 8.0*((double)picoquic_get_data_received(cnx_client)) / duration_usec;
-                                    syslog(LOG_NOTICE, "Received %lu%lu bytes in %d micro seconds, %d Mbps.\n",
-                                        (uint32_t)(picoquic_get_data_received(cnx_client) >> 32),
-                                        (uint32_t)picoquic_get_data_received(cnx_client),
-                                        (uint32_t)duration_usec, (uint32_t)receive_rate_mbps);
-                                }
-                            }
+                            syslog(LOG_INFO, "All done, Closing the connection.\n");
 
                             ret = picoquic_close(cnx_client, 0);
                         } else if (
@@ -483,9 +457,6 @@ int q_client(const char* ip_address_text, int server_port, const char * sni, con
         }
     }
 
-    /* Clean up */
-    picoquic_demo_client_delete_context(&callback_ctx);
-
     if (qclient != NULL) {
         uint8_t* ticket;
         uint16_t ticket_length;
@@ -495,27 +466,24 @@ int q_client(const char* ip_address_text, int server_port, const char * sni, con
         }
 
         if (picoquic_save_tickets_buffer(qclient->p_first_ticket, current_time, &SESSION_TICKET) != 0) {
-            syslog(LOG_DEBUG, "Could not store the saved session tickets.");
+            syslog(LOG_INFO, "Could not store the saved session tickets.");
         }
 
-
         // if (picoquic_save_tokens(qclient->p_first_token, current_time, token_store_filename) != 0) {
-        //     syslog(LOG_DEBUG, "Could not save tokens to <%s>.", token_store_filename);
+        //     syslog(LOG_INFO, "Could not save tokens to <%s>.", token_store_filename);
         // }
 
         picoquic_free(qclient);
     }
+
+    /* Clean up */
+    picoquic_demo_client_delete_context(&callback_ctx);
 
     wolfSSL_RAND_Cleanup();
     if (fd != INVALID_SOCKET) {
         SOCKET_CLOSE(fd);
     }
 
-
-    if (client_scenario_text != NULL && client_sc != NULL) {
-        demo_client_delete_scenario_desc(client_sc_nb, client_sc);
-        client_sc = NULL;
-    }
     return ret;
 }
 
@@ -529,10 +497,8 @@ quicClient_main(intptr_t exinf) {
     uint32_t proposed_version = 0;
     int force_zero_share = 0;
     int force_migration = 0;
-    int nb_packets_before_update = 0;
     int client_cnx_id_length = 8;
     int mtu_max = 0;
-    char * client_scenario = NULL;
     int ret = 0;
 
 	/* syslogの設定 */
