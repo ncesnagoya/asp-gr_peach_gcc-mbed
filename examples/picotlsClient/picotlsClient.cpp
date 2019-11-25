@@ -25,12 +25,6 @@
 #include <picotlsClient.h>
 #include <histogram.h>
 
-//q_stored_ticket_t SESSION_TICKET = {{0}, 0};
-
-/* 処理時間計測用 */
-uint_t histarea[10001]; // 50 / 10 seconds
-/* 処理時間計測用 */
-
 /*
  *  サービスコールのエラーのログ出力
  */
@@ -55,7 +49,7 @@ svc_perror(const char *file, int_t line, const char *expr, ER ercd)
 #endif
 
 #define SERVER "10.0.0.1"
-#define HTTP_REQ "GET /iisstart.htm HTTP/1.0\r\nhost: 192.168.0.3\r\n\r\n"
+#define HTTP_REQ "GET /itest.html\r\n"
 #define DEFAULT_SNI "www.test.com"
 
 #define HTTPS_PORT "8443"
@@ -71,27 +65,30 @@ int ptls_save_ticket_call_back(ptls_save_ticket_t* save_ticket_ctx, ptls_t* tls,
     memset(SESSION_TICKET.ticket, 0, 2048);
     SESSION_TICKET.ticket_length = 0;
 
-    if (sni != NULL && alpn != NULL) {
+    if (sni != NULL) {
         memcpy(SESSION_TICKET.ticket, input.base, input.len);
         SESSION_TICKET.ticket_length = input.len;
     } else {
-        syslog(LOG_ERROR, "Received incorrect session resume ticket, sni = %s, alpn = %s, length = %d\n",
+        syslog(LOG_INFO, "Received incorrect session resume ticket, sni = %s, alpn = %s, length = %d\n",
             (sni == NULL) ? "NULL" : sni, (alpn == NULL) ? "NULL" : alpn, (int)input.len);
     }
 
     return ret;
 }
 
-int ptls_load_ticket(ptls_context_t *ctx, ptls_handshake_properties_t *hsprop, ptls_session_ticket_t ticket)
+int ptls_load_ticket(ptls_context_t *ctx, ptls_handshake_properties_t *hsprop)
 {
     static ptls_save_ticket_t st;
     st.cb = ptls_save_ticket_call_back;
     ctx->save_ticket = &st;
 
-    if (ticket.ticket_length == 0){
+    if (SESSION_TICKET.ticket_length == 0){
+        hsprop->client.session_ticket = ptls_iovec_init(NULL, 0);
         return -1;
     } else{
-        hsprop->client.session_ticket = ptls_iovec_init(ticket.ticket, ticket.ticket_length);
+        hsprop->client.session_ticket = ptls_iovec_init(SESSION_TICKET.ticket, SESSION_TICKET.ticket_length);
+        static size_t max_early_data_size;
+        hsprop->client.max_early_data_size = &max_early_data_size;
         return 0;
     }
 }
@@ -156,41 +153,60 @@ static inline int get_server_address(struct sockaddr *sa, socklen_t *salen, cons
     return 0;
 }
 
-static void shift_buffer(ptls_buffer_t *buf, size_t delta)
-{
-    if (delta != 0) {
-        assert(delta <= buf->off);
-        if (delta != buf->off)
-            memmove(buf->base, buf->base + delta, buf->off - delta);
-        buf->off -= delta;
-    }
-}
+#define MAX_DATA_SIZE (1024*4)
 
-static int handle_connection(int sockfd, ptls_context_t *ctx, const char *server_name,
-                             ptls_handshake_properties_t *hsprop)
+static int ptls_client(struct sockaddr *sa, socklen_t salen, ptls_context_t *ctx, const char *server_name,
+                      ptls_handshake_properties_t *hsprop, int use_ticket)
 {
-    #define MAX_DATA_SIZE (1024*4)
-    ptls_t *tls = ptls_new(ctx, 0);
+
+    int sockfd;
     ptls_buffer_t recvbuf, encbuf, appbuf;
     char bytebuf[MAX_DATA_SIZE];
     enum { IN_HANDSHAKE, IN_1RTT, IN_SHUTDOWN } state = IN_HANDSHAKE;
-    int inputfd = 0, ret = 0;
-    size_t early_bytes_sent = 0;
+    int ret = 0;
     ssize_t ioret, roff;
     char* nullbuf = "";
+    int i = 0;
 
+    if (use_ticket){
+        ret = ptls_load_ticket(ctx, hsprop);
+        if (ret != 0){
+            syslog(LOG_INFO, "No session ticket is loaded\n");
+        }
+    }
+
+    wolfSSL_RAND_seed(NULL, 0);
+    ptls_t *tls = ptls_new(ctx, 0);
     ptls_buffer_init(&recvbuf, (void *)nullbuf, 0);
     ptls_buffer_init(&encbuf, (void *)nullbuf, 0);
     ptls_buffer_init(&appbuf, (void *)nullbuf, 0);
 
-    //lwip_fcntl(sockfd, F_SETFL, O_NONBLOCK);
-
     ptls_set_server_name(tls, server_name, 0);
+
+    if ((sockfd = lwip_socket(sa->sa_family, SOCK_STREAM, 0)) == 1) {
+        syslog(LOG_ERROR, "socket(2) failed");
+        return 1;
+    }
+
+    if (lwip_connect(sockfd, sa, salen) != 0) {
+        syslog(LOG_ERROR, "connect(2) failed");
+        return 1;
+    }
+
     if ((ret = ptls_handshake(tls, &encbuf, NULL, NULL, hsprop)) != PTLS_ERROR_IN_PROGRESS) {
         syslog(LOG_ERROR, "ptls_handshake:%d\n", ret);
         ret = 1;
         goto Exit;
     }
+
+    if (hsprop->client.max_early_data_size != NULL){
+        ret = ptls_send(tls, &encbuf, HTTP_REQ, strlen(HTTP_REQ));
+        if (ret != 0){
+            syslog(LOG_ERROR, "Cannot Send Early data:%d\n", ret);
+            goto Exit;
+        }
+    }
+
     if (!lwip_send(sockfd, encbuf.base, encbuf.off, 0)) {
         ptls_buffer_dispose(&encbuf);
         goto Exit;
@@ -217,15 +233,14 @@ static int handle_connection(int sockfd, ptls_context_t *ctx, const char *server
             roff += consumed;
             if (ret == 0){
                 if (recvbuf.off != 0){
-                    int i;
-                   for (i = 0; i < recvbuf.off; i++){
-                        syslog(LOG_NOTICE, "%c", recvbuf.base[i]);        
+                    for (i = 0; i < recvbuf.off; i++){
+                        syslog(LOG_INFO, "%c", recvbuf.base[i]);        
                     }
                 } 
             } else if (ret != PTLS_ERROR_IN_PROGRESS){
-                    syslog(LOG_ERROR, "ptls_receive\n");
-                    goto Exit;
-                }
+                syslog(LOG_ERROR, "ptls_receive\n");
+                goto Exit;
+            }
         }
 
         if ((ret == 0 || ret == PTLS_ERROR_IN_PROGRESS) && encbuf.off != 0) {
@@ -240,35 +255,39 @@ static int handle_connection(int sockfd, ptls_context_t *ctx, const char *server
 
     if (ret == 0) {
         state = IN_1RTT;
-        ret = ptls_send(tls, &appbuf, HTTP_REQ, strlen(HTTP_REQ));
-        lwip_send(sockfd, appbuf.base, appbuf.off, 0);
     } else {
         // handshake failed
         syslog(LOG_ERROR, "handshake failed\n");
     }
-    while (recvbuf.off == 0){
-        if (ret == 0) {
-            while ((ioret = lwip_recv(sockfd, bytebuf, sizeof(bytebuf), 0)) == -1 && errno == EINTR);
-            if (ioret < 0){
-                syslog(LOG_ERROR, "Cannot read data\n");
-                goto Exit;
+
+    if (hsprop->client.max_early_data_size == NULL){
+        ret = ptls_send(tls, &appbuf, HTTP_REQ, strlen(HTTP_REQ));
+        lwip_send(sockfd, appbuf.base, appbuf.off, 0);        
+
+        while (recvbuf.off == 0){
+            if (ret == 0) {
+                while ((ioret = lwip_recv(sockfd, bytebuf, sizeof(bytebuf), 0)) == -1 && errno == EINTR);
+                if (ioret < 0){
+                    syslog(LOG_ERROR, "Cannot read data\n");
+                    goto Exit;
+                }
+
+                size_t offset = 0;
+
+                while (ret == 0 && offset < ioret) {
+                    size_t consumed = ioret - offset;
+                    ret = ptls_receive(tls, &recvbuf, bytebuf + offset, &consumed);
+                    offset += consumed;
+                } 
             }
-
-            size_t offset = 0;
-
-            while (ret == 0 && offset < ioret) {
-                size_t consumed = ioret - offset;
-                ret = ptls_receive(tls, &recvbuf, bytebuf + offset, &consumed);
-                offset += consumed;
-            } 
         }
     }
 
-    int i;
     for (i = 0; i < recvbuf.off; i++){
-        syslog(LOG_NOTICE, "%c", recvbuf.base[i]);        
+        syslog(LOG_INFO, "%c", recvbuf.base[i]);        
     }
-    syslog(LOG_NOTICE, "\n");
+    syslog(LOG_INFO, "\n");
+    syslog_flush();
 
     /* close the sender side when necessary */
     if (state == IN_1RTT) {
@@ -276,7 +295,7 @@ static int handle_connection(int sockfd, ptls_context_t *ctx, const char *server
         uint8_t wbuf_small[32];
         ptls_buffer_init(&wbuf, wbuf_small, sizeof(wbuf_small));
         if ((ret = ptls_send_alert(tls, &wbuf, PTLS_ALERT_LEVEL_WARNING, PTLS_ALERT_CLOSE_NOTIFY)) != 0) {
-            syslog(LOG_NOTICE, "ptls_send_alert:%d\n", ret);
+            syslog(LOG_ERROR, "ptls_send_alert:%d\n", ret);
         }
         if (wbuf.off != 0){
             lwip_send(sockfd, wbuf.base, wbuf.off, 0);
@@ -293,49 +312,21 @@ Exit:
     ptls_buffer_dispose(&encbuf);
     ptls_buffer_dispose(&appbuf);
     ptls_free(tls);
+    ptls_openssl_dispose_verify_certificate((ptls_openssl_verify_certificate_t*)ctx->verify_certificate);
+    wolfSSL_RAND_Cleanup();
     return ret != 0;
-}
-
-static int run_client(struct sockaddr *sa, socklen_t salen, ptls_context_t *ctx, const char *server_name,
-                      ptls_handshake_properties_t *hsprop, int use_ticket)
-{
-    int fd;
-
-    wolfSSL_RAND_seed(NULL, 0);
-    int ret = 0;
-
-    if (use_ticket){
-        ret = ptls_load_ticket(ctx, hsprop, SESSION_TICKET);
-        if (ret != 0){
-            syslog(LOG_INFO, "No session ticket is loaded\n");
-        }
-    }
-
-    if ((fd = lwip_socket(sa->sa_family, SOCK_STREAM, 0)) == 1) {
-        syslog(LOG_EMERG, "socket(2) failed");
-        return 1;
-    }
-    if (lwip_connect(fd, sa, salen) != 0) {
-        syslog(LOG_EMERG, "connect(2) failed");
-        return 1;
-    }
-
-    handle_connection(fd, ctx, server_name, hsprop);
-    return ret;
 }
 
 void
 ptlsClient_main(intptr_t exinf) {
     EthernetInterface network;
 
-    const char * sni = NULL;//DEFAULT_SNI;
     int ret = 0;
 
-    init_hist(1, 10000, histarea);
     int i = 0;
 
 	/* syslogの設定 */
-    SVC_PERROR(syslog_msk_log(LOG_UPTO(LOG_INFO), LOG_UPTO(LOG_EMERG)));
+    SVC_PERROR(syslog_msk_log(LOG_UPTO(LOG_NOTICE), LOG_UPTO(LOG_EMERG)));
 
     syslog(LOG_NOTICE, "picotlsClient:");
     syslog(LOG_NOTICE, "Sample program starts (exinf = %d).", (int_t) exinf);
@@ -343,12 +334,12 @@ ptlsClient_main(intptr_t exinf) {
 
 #if (USE_DHCP == 1)
     if (network.init() != 0) {                             //for DHCP Server
-        syslog(LOG_NOTICE, "Network Initialize Error\n");
+        syslog(LOG_ERROR, "Network Initialize Error\n");
         return;
     }
 #else
     if (network.init(IP_ADDRESS, SUBNET_MASK, DEFAULT_GATEWAY) != 0) { //for Static IP Address (IPAddress, NetMasks, Gateway)
-		syslog(LOG_NOTICE, "Network Initialize Error\n");
+		syslog(LOG_ERROR, "Network Initialize Error\n");
         return;
     }
 #endif
@@ -357,14 +348,14 @@ ptlsClient_main(intptr_t exinf) {
     while (network.connect(5000) != 0) {
         syslog(LOG_NOTICE, "LOG_NOTICE: Network Connect Error\n");
     }
-    wait(2.6);
+    wait(3.0);
 
     syslog(LOG_NOTICE, "MAC Address is %s\n", network.getMACAddress());
     syslog(LOG_NOTICE, "IP Address is %s\n", network.getIPAddress());
     syslog(LOG_NOTICE, "NetMask is %s\n", network.getNetworkMask());
     syslog(LOG_NOTICE, "Gateway Address is %s\n", network.getGateway());
     syslog(LOG_NOTICE, "Network Setup OK...\n");
-    syslog(LOG_NOTICE, "Starting PicoQUIC connection to (%s) on port (%d)\n\n", SERVER, HTTPS_PORT);
+    syslog(LOG_NOTICE, "Starting PicoTLS connection to (%s) on port (%d)\n\n", SERVER, HTTPS_PORT);
     syslog_flush();
 
     ptls_context_t ctx;
@@ -374,37 +365,21 @@ ptlsClient_main(intptr_t exinf) {
     ctx.key_exchanges = ptls_wolfcrypt_key_exchanges;
     ctx.cipher_suites = ptls_wolfcrypt_cipher_suites;
     ptls_handshake_properties_t hsprop = {{{{NULL}}}};
-    int ch;
+    ctx.require_dhe_on_psk = 1;
     struct sockaddr_storage sa;
     socklen_t salen;
     int family = 0;
-    int use_early_data = 0, use_ticket = 1; 
+    int use_ticket = 1;
 
     ret = ptls_init_verify_cert(&ctx, SSL_CA_ECC_PEM, sizeof(SSL_CA_ECC_PEM));
 
-    if (use_early_data) {
-        static size_t max_early_data_size;
-        hsprop.client.max_early_data_size = &max_early_data_size;
-    }
-
     if (get_server_address((struct sockaddr *)&sa, &salen, SERVER, HTTPS_PORT, family, SOCK_STREAM, IPPROTO_TCP) != 0){
-        syslog(LOG_NOTICE, "Address Error\n");
+        syslog(LOG_ERROR, "Address Error\n");
         return;
     }
 
-    for (i = 0; i <1; i++){
-        syslog(LOG_NOTICE, "test%d", i);
-        begin_measure(1);
-        run_client((struct sockaddr *)&sa, salen, &ctx, SERVER, &hsprop, use_ticket);
-        end_measure(1);
-        if (ret != 0)
-            break;
-    }
+    ptls_client((struct sockaddr *)&sa, salen, &ctx, SERVER, &hsprop, use_ticket);
 
-    wait(2.0);
-    syslog(LOG_NOTICE, "---------------------------------\n");
-    print_hist(1);
-    syslog(LOG_NOTICE, "---------------------------------\n");
 }
 
 // set mac address
