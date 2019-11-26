@@ -222,13 +222,11 @@ int q_client(const char* ip_address_text, int server_port, const char * sni, con
             syslog(LOG_INFO, "No server name specified, certificate will not be verified.\n");
             picoquic_set_null_verifier(qclient);
         }
-#ifndef NO_FILESYSTEM
         else if (root_crt == NULL) {
             /* Standard verifier would crash */
-            syslog(LOG_INFO, "No root crt list specified, but certificate will be verified.\n");
+            syslog(LOG_INFO, "No server name specified, certificate will not be verified.\n");
             picoquic_set_null_verifier(qclient);
         }
-#endif
     }
     
 
@@ -264,8 +262,6 @@ int q_client(const char* ip_address_text, int server_port, const char * sni, con
                 return EXIT_FAILURE;
             }
         }
-
-        /* TODO: once migration is supported, manage addresses */
         ret = picoquic_prepare_packet(cnx_client, current_time,
             send_buffer, sizeof(send_buffer), &send_length, NULL, NULL, NULL, NULL);
         if (ret != 0){
@@ -274,16 +270,15 @@ int q_client(const char* ip_address_text, int server_port, const char * sni, con
         }
 
         if (send_length > 0) {
-            bytes_sent = lwip_sendto(fd, send_buffer, (int)send_length, 0,
-                (struct sockaddr*)&server_address, server_addr_length);
+            bytes_sent = lwip_sendto(fd, send_buffer, (int)send_length, 0, (struct sockaddr*)&server_address, server_addr_length);
 
             if (bytes_sent <= 0)
             {
                 syslog(LOG_ERROR, "Cannot send first packet to server, returns %d\n", bytes_sent);
                 ret = -1;
-            } //else {
-                //syslog(LOG_DEBUG, "Send %d bytes, T=%d\n", bytes_sent, (uint32_t)current_time);
-            //}
+            } else {
+                syslog(LOG_INFO, "Send %d bytes, T=%d\n", bytes_sent, (uint32_t)current_time);
+            }
         }
     }
 
@@ -296,7 +291,7 @@ int q_client(const char* ip_address_text, int server_port, const char * sni, con
             &if_index_to, &received_ecn, buffer, sizeof(buffer), delta_t, &current_time);
 
         if (bytes_recv != 0) {
-            syslog(LOG_NOTICE, "\nSelect returns %d, T=%d\n", bytes_recv, (uint32_t)current_time);
+            syslog(LOG_INFO, "\nSelect returns %d, T=%d\n", bytes_recv, (uint32_t)current_time);
         }
 
         if (bytes_recv != 0 && to_length != 0) {
@@ -435,14 +430,13 @@ int q_client(const char* ip_address_text, int server_port, const char * sni, con
                     }
 
                     if (ret == 0 && send_length > 0) {
-                        bytes_sent = lwip_sendto(fd, send_buffer, (int)send_length, 0,
-                            (struct sockaddr*)&x_to, x_to_length);
+                        bytes_sent = lwip_sendto(fd, send_buffer, (int)send_length, 0, (struct sockaddr*)&x_to, x_to_length);
 
                         if (bytes_sent <= 0)
                         {
-                            syslog(LOG_NOTICE, "Cannot send packet to server, returns %d\n", bytes_sent);
+                            syslog(LOG_INFO, "Cannot send packet to server, returns %d\n", bytes_sent);
                         } else {
-                            syslog(LOG_NOTICE, "Send %d bytes, T=%d\n", bytes_sent, (uint32_t)current_time);
+                            syslog(LOG_INFO, "Send %d bytes, T=%d\n", bytes_sent, (uint32_t)current_time);
                         }
                     }
                 }
@@ -502,7 +496,7 @@ quicClient_main(intptr_t exinf) {
     int ret = 0;
 
 	/* syslogの設定 */
-    SVC_PERROR(syslog_msk_log(LOG_UPTO(LOG_INFO), LOG_UPTO(LOG_EMERG)));
+    SVC_PERROR(syslog_msk_log(LOG_UPTO(LOG_NOTICE), LOG_UPTO(LOG_EMERG)));
 
     syslog(LOG_NOTICE, "quicClient:");
     syslog(LOG_NOTICE, "Sample program starts (exinf = %d).", (int_t) exinf);
@@ -534,10 +528,9 @@ quicClient_main(intptr_t exinf) {
     syslog(LOG_NOTICE, "Starting PicoQUIC connection to (%s) on port (%d)\n\n", SERVER, HTTPS_PORT);
     syslog_flush();
 
-    ret = q_client(SERVER, HTTPS_PORT, sni, root_trust_file, proposed_version, force_zero_share, 
-            force_migration, nb_packets_before_update, mtu_max, client_cnx_id_length, client_scenario);
-
+    ret = q_client(SERVER, HTTPS_PORT, sni, root_trust_file, proposed_version, force_zero_share, force_migration, mtu_max, client_cnx_id_length);
     syslog(LOG_NOTICE, "Client exit with code = %d\n", ret);
+
 }
 
 // set mac address
