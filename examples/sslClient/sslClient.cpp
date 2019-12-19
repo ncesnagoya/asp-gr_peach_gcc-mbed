@@ -34,7 +34,7 @@ svc_perror(const char *file, int_t line, const char *expr, ER ercd)
 
 /**** User Selection *********/
 /** Network setting **/
-#define USE_DHCP               (0)                 /* Select  0(static configuration) or 1(use DHCP) */
+#define USE_DHCP               (1)                 /* Select  0(static configuration) or 1(use DHCP) */
 #if (USE_DHCP == 0)
   #define IP_ADDRESS           ("192.168.0.2")     /* IP address      */
   #define SUBNET_MASK          ("255.255.255.0")   /* Subnet mask     */

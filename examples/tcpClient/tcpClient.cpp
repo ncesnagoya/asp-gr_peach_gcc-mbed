@@ -28,7 +28,7 @@ svc_perror(const char *file, int_t line, const char *expr, ER ercd)
 
 /**** User Selection *********/
 /** Network setting **/
-#define USE_DHCP               (0)                 /* Select  0(static configuration) or 1(use DHCP) */
+#define USE_DHCP               (1)                 /* Select  0(static configuration) or 1(use DHCP) */
 #if (USE_DHCP == 0)
   #define IP_ADDRESS           ("192.168.3.2")     /* IP address      */
   #define SUBNET_MASK          ("255.255.255.0")   /* Subnet mask     */
@@ -60,8 +60,8 @@ svc_perror(const char *file, int_t line, const char *expr, ER ercd)
 //#define SERVER "os.mbed.com"
 //#define HTTP_REQ "GET /media/uploads/mbed_official/hello.txt HTTP/1.0\r\nhost: os.mbed.com\r\n\r\n"
 
-#define SERVER "192.168.3.1"
-#define HTTP_REQ "GET /iisstart.htm HTTP/1.0\r\nhost: 192.168.0.3\r\n\r\n"
+#define SERVER "192.168.137.1"
+#define HTTP_REQ "GET /iisstart.htm HTTP/1.0\r\nhost: 192.168.137.1r\n\r\n"
 #define HTTP_PORT 80
 
 /*
