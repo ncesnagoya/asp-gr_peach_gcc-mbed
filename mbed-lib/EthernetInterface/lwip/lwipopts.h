@@ -66,6 +66,17 @@
 #define LWIP_DHCP                   1
 #define LWIP_DNS                    1
 
+// for DNS
+/** DNS server IP address */
+#ifndef DNS_SERVER_ADDRESS
+#define DNS_SERVER_ADDRESS(ipaddr)        (ip4_addr_set_u32(ipaddr, ipaddr_addr("208.67.222.222"))) /* resolver1.opendns.com */
+#endif
+
+/** DNS server port address */
+#ifndef DNS_SERVER_PORT
+#define DNS_SERVER_PORT           53
+#endif
+
 // Support Multicast
 #include "stdlib.h"
 #define LWIP_IGMP                   1
