@@ -87,14 +87,14 @@ int ClientGreet(WOLFSSL *ssl)
    	#define MAXDATASIZE (1024*4)
     char       rcvBuff[MAXDATASIZE] = {0};
     int        ret ;
-#if 1
+
     if (wolfSSL_write(ssl, HTTP_REQ, strlen(HTTP_REQ)) < 0) {
         /* the message is not able to send, or error trying */
         ret = wolfSSL_get_error(ssl, 0);
         syslog(LOG_EMERG, "Write error[%d]:%s", ret, wc_GetErrorString(ret));
         return EXIT_FAILURE;
     }
-#endif
+
     syslog(LOG_NOTICE, "Received:");
     while ((ret = wolfSSL_read(ssl, rcvBuff, sizeof(rcvBuff)-1)) > 0) {
         rcvBuff[ret] = '\0';
@@ -196,6 +196,8 @@ sslClient_main(intptr_t exinf) {
         syslog(LOG_NOTICE, "LOG_NOTICE: Network Connect Error");
     }
 
+	dly_tsk(3000);
+	
     syslog(LOG_NOTICE, "MAC Address is %s", network.getMACAddress());
     syslog(LOG_NOTICE, "IP Address is %s", network.getIPAddress());
     syslog(LOG_NOTICE, "NetMask is %s", network.getNetworkMask());

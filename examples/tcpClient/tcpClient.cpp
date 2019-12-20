@@ -112,7 +112,7 @@ tcpClient_main(intptr_t exinf) {
         syslog(LOG_NOTICE, "LOG_NOTICE: Network Connect Error");
     }
 
-	dly_tsk(1000);
+	dly_tsk(3000);
 	
     syslog(LOG_NOTICE, "MAC Address is %s", network.getMACAddress());
     syslog(LOG_NOTICE, "IP Address is %s", network.getIPAddress());
