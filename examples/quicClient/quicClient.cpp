@@ -276,9 +276,7 @@ int q_client(const char* ip_address_text, int server_port, const char * sni, con
             {
                 syslog(LOG_ERROR, "Cannot send first packet to server, returns %d\n", bytes_sent);
                 ret = -1;
-            } else {
-                syslog(LOG_INFO, "Send %d bytes, T=%d\n", bytes_sent, (uint32_t)current_time);
-            }
+            } 
         }
     }
 
@@ -289,10 +287,6 @@ int q_client(const char* ip_address_text, int server_port, const char * sni, con
 
         bytes_recv = picoquic_select(&fd, 1, &packet_from, &from_length, &packet_to, &to_length,
             &if_index_to, &received_ecn, buffer, sizeof(buffer), delta_t, &current_time);
-
-        if (bytes_recv != 0) {
-            syslog(LOG_INFO, "\nSelect returns %d, T=%d\n", bytes_recv, (uint32_t)current_time);
-        }
 
         if (bytes_recv != 0 && to_length != 0) {
             /* Keeping track of the addresses and ports, as we 
@@ -435,9 +429,7 @@ int q_client(const char* ip_address_text, int server_port, const char * sni, con
                         if (bytes_sent <= 0)
                         {
                             syslog(LOG_INFO, "Cannot send packet to server, returns %d\n", bytes_sent);
-                        } else {
-                            syslog(LOG_INFO, "Send %d bytes, T=%d\n", bytes_sent, (uint32_t)current_time);
-                        }
+                        } 
                     }
                 }
 
@@ -462,7 +454,6 @@ int q_client(const char* ip_address_text, int server_port, const char * sni, con
         if (picoquic_save_tickets_buffer(qclient->p_first_ticket, current_time, &SESSION_TICKET) != 0) {
             syslog(LOG_INFO, "Could not store the saved session tickets.");
         }
-
         // if (picoquic_save_tokens(qclient->p_first_token, current_time, token_store_filename) != 0) {
         //     syslog(LOG_INFO, "Could not save tokens to <%s>.", token_store_filename);
         // }
