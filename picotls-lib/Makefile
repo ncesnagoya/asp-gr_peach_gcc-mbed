@@ -2,8 +2,7 @@
 #
 #
 
-PICOTLS_OBJ += $(PICOTLS_LIB_DIR)/lib/openssl.o \
-$(PICOTLS_LIB_DIR)/lib/picotls.o \
+PICOTLS_OBJ += $(PICOTLS_LIB_DIR)/lib/picotls.o \
 $(PICOTLS_LIB_DIR)/lib/ffx.o \
 $(PICOTLS_LIB_DIR)/lib/wolfcrypt.o 
 

@@ -20,7 +20,6 @@
 
 #include "picotls.h"
 #include "picotls/wolfcrypt.h"
-#include "picotls/openssl.h"
 #include <picotls_settings.h>
 #include <picotlsClient.h>
 #include <histogram.h>
