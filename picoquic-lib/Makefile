@@ -2,7 +2,7 @@
 #
 #
 
-PICOQUIC_OBJ += $(PICOQUIC_LIB_DIR)/lib/cubic.o \
+PQUIC_OBJ += $(PICOQUIC_LIB_DIR)/lib/cubic.o \
 	$(PICOQUIC_LIB_DIR)/lib/democlient.o \
     $(PICOQUIC_LIB_DIR)/lib/demoserver.o \
     $(PICOQUIC_LIB_DIR)/lib/fnv1a.o \
@@ -31,5 +31,5 @@ INCLUDE_PATHS += -I$(PICOQUIC_ROOT_DIR)/ -I$(PICOQUIC_LIB_DIR)/include/ -I$(PICO
 
 #CC_SYMBOLS += -DPICOQUIC_USER_SETTINGS
 
-C_OBJ += $(PICOQUIC_OBJ)
+#C_OBJ += $(PQUIC_OBJ)
 

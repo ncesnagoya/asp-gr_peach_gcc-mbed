@@ -3,6 +3,9 @@
 
 GCC_BIN =
 LIB = libmbed
+WOLF_LIB = libwolfssl
+PTLS_LIB = libpicotls
+PQUIC_LIB = libpicoquic
 PROJECT = GR-PEACH_mbed
 
 LINKER_SCRIPT = $(MBED_LIB_DIR)/mbed-src/targets/cmsis/TARGET_RENESAS/TARGET_RZ_A1H/TOOLCHAIN_GCC_ARM/RZA1H.ld
@@ -54,6 +57,15 @@ $(ASM_OBJ): %.o: %.S
 $(C_OBJ): %.o: %.c
 	$(CC)  $(CC_FLAGS) $(CC_SYMBOLS) -std=gnu99   $(INCLUDE_PATHS) -o $@ $<
 
+$(WOLFSSL_OBJ): %.o: %.c
+	$(CC)  $(CC_FLAGS) $(CC_SYMBOLS) -std=gnu99   $(INCLUDE_PATHS) -o $@ $<
+
+$(PTLS_OBJ): %.o: %.c
+	$(CC)  $(CC_FLAGS) $(CC_SYMBOLS) -std=gnu99   $(INCLUDE_PATHS) -o $@ $<
+
+$(PQUIC_OBJ): %.o: %.c
+	$(CC)  $(CC_FLAGS) $(CC_SYMBOLS) -std=gnu99   $(INCLUDE_PATHS) -o $@ $<
+
 $(CXX_OBJ): %.o: %.cpp
 	$(CPP) $(CC_FLAGS) $(CC_SYMBOLS) -std=gnu++98 -fno-rtti $(INCLUDE_PATHS) -o $@ $<
 
@@ -62,15 +74,30 @@ $(LIB).a: $(ALL_OBJ)
 	$(AR) -rcs $(LIB).a $(ALL_OBJ)
 	$(RANLIB) $(LIB).a
 
+$(WOLF_LIB).a: $(WOLFSSL_OBJ)
+	rm -f $(WOLF_LIB).a
+	$(AR) -rcs $(WOLF_LIB).a $(WOLFSSL_OBJ)
+	$(RANLIB) $(WOLF_LIB).a
+
+$(PTLS_LIB).a: $(PTLS_OBJ)
+	rm -f $(PTLS_LIB).a
+	$(AR) -rcs $(PTLS_LIB).a $(PTLS_OBJ)
+	$(RANLIB) $(PTLS_LIB).a
+
+$(PQUIC_LIB).a: $(PQUIC_OBJ)
+	rm -f $(PQUIC_LIB).a
+	$(AR) -rcs $(PQUIC_LIB).a $(PQUIC_OBJ)
+	$(RANLIB) $(PQUIC_LIB).a
+
 #
 #  ASPカーネルのビルドに関するその他のオプション
 #
 CLEAN_FILES += $(PROJECT).map $(APPLNAME).d
-DEPS = $(ALL_OBJ:.o=.d)
+DEPS = $(ALL_OBJ:.o=.d) $(WOLFSSL_OBJ:.o=.d) $(PTLS_OBJ:.o=.d) $(PQUIC_OBJ:.o=.d)
 -include $(DEPS)
 
 APPL_CFLAGS =
-APPL_LIBS = libmbed.a
+APPL_LIBS = $(PQUIC_LIB).a $(PTLS_LIB).a $(WOLF_LIB).a libmbed.a
 APPL_DIR = .
 
 INCLUDES += $(INCLUDE_PATHS) # MBEDライブラリのヘッダファイルをアプリで使う

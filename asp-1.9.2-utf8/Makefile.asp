@@ -361,7 +361,7 @@ up:
 #
 .PHONY: clean
 clean:
-	rm -f $(LIB).a $(ALL_OBJ) $(DEPS)
+	rm -f $(LIB).a $(WOLF_LIB).a $(PTLS_LIB).a $(PQUIC_LIB).a $(ALL_OBJ) $(DEPS) $(WOLFSSL_OBJ) $(PTLS_OBJ) $(PQUIC_OBJ)
 	rm -f \#* *~ *.o $(CLEAN_FILES)
 	rm -f $(OBJFILE) $(OBJNAME).syms $(OBJNAME).srec $(OBJNAME).bin
 	rm -f kernel_cfg.timestamp $(CFG2_OUT_SRCS)

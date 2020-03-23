@@ -2,7 +2,7 @@
 #
 #
 
-PICOTLS_OBJ += $(PICOTLS_LIB_DIR)/lib/picotls.o \
+PTLS_OBJ += $(PICOTLS_LIB_DIR)/lib/picotls.o \
 $(PICOTLS_LIB_DIR)/lib/ffx.o \
 $(PICOTLS_LIB_DIR)/lib/wolfcrypt.o 
 
@@ -10,4 +10,4 @@ INCLUDE_PATHS += -I$(PICOQUIC_ROOT_DIR)/ -I$(PICOTLS_ROOT_DIR)/ -I$(PICOTLS_LIB_
 
 #CC_SYMBOLS += -DPICOTLS_USER_SETTINGS
 
-C_OBJ += $(PICOTLS_OBJ)
+#C_OBJ += $(PTLS_OBJ)
