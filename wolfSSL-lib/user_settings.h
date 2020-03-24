@@ -20,15 +20,6 @@
     #define WOLFSSL_STATIC_MEMORY /* use wolf memory pool management */
     #define USE_FAST_MATH
     /* Options for Sample program */
-    //#define WOLFSSL_NO_VERIFYSERVER
-    //#define NO_FILESYSTEM
-    #ifndef WOLFSSL_NO_VERIFYSERVER
-        #define TIME_OVERRIDES
-        #define XTIME time
-        #define XGMTIME localtime
-        //#define HAVE_TM_TYPE /*TODO*/
-        #define NO_ASN_TIME
-    #endif
 
     #define NO_FILESYSTEM
     #define USE_CERT_BUFFERS_1024
@@ -41,6 +32,8 @@
     //#define WOLFSSL_MALLOC_CHECK
 
     /*for picoquic*/
+    #define USE_WOLF_VALIDDATE
+    #define WOLFSSL_QT
     #define OPENSSL_EXTRA
     #define OPENSSL_ALL
     #define WOLFSSL_SHA512
@@ -48,5 +41,7 @@
     #define WOLFSSL_SHA224
     #define WOLFSSL_AES_DIRECT
     #define WOLFSSL_AES_COUNTER
+    #define NO_WOLFSSL_SERVER
+    #define NO_WOLFSSL_CLIENT
     /*for picoquic*/
 
